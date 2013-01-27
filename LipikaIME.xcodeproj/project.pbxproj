@@ -11,6 +11,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5C6BB2016B5A5F100B02E1B /* Schemes */; };
+		A5C6BB2416B5AEFE00B02E1B /* DJInputMethodScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6BB2316B5AEFE00B02E1B /* DJInputMethodScheme.m */; };
 		A5F1C6D216B49DCE00993C52 /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F1C6D116B49DCE00993C52 /* LipikaIcon.png */; };
 		E93074B70A5C264700470842 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		E93074E20A5C2F1200470842 /* DJLipikaInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93074E10A5C2F1200470842 /* DJLipikaInputController.m */; };
@@ -26,6 +28,9 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5C6BB2016B5A5F100B02E1B /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
+		A5C6BB2216B5AEFE00B02E1B /* DJInputMethodScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputMethodScheme.h; sourceTree = "<group>"; };
+		A5C6BB2316B5AEFE00B02E1B /* DJInputMethodScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputMethodScheme.m; sourceTree = "<group>"; };
 		A5F1C6D116B49DCE00993C52 /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LipikaIcon.png; sourceTree = "<group>"; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 		E93074E00A5C2F1200470842 /* DJLipikaInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaInputController.h; sourceTree = "<group>"; };
@@ -51,6 +56,8 @@
 			children = (
 				E93074E00A5C2F1200470842 /* DJLipikaInputController.h */,
 				E93074E10A5C2F1200470842 /* DJLipikaInputController.m */,
+				A5C6BB2216B5AEFE00B02E1B /* DJInputMethodScheme.h */,
+				A5C6BB2316B5AEFE00B02E1B /* DJInputMethodScheme.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -105,7 +112,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E93396E20A9A0AAD0073E6C4 /* images */,
+				A5C6BB2016B5A5F100B02E1B /* Schemes */,
+				E93396E20A9A0AAD0073E6C4 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
@@ -122,12 +130,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E93396E20A9A0AAD0073E6C4 /* images */ = {
+		E93396E20A9A0AAD0073E6C4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				A5F1C6D116B49DCE00993C52 /* LipikaIcon.png */,
 			);
-			name = images;
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +193,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				E999E1590BE8D77E00CAE01B /* ReadMe in Resources */,
 				A5F1C6D216B49DCE00993C52 /* LipikaIcon.png in Resources */,
+				A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +206,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				E93074E20A5C2F1200470842 /* DJLipikaInputController.m in Sources */,
+				A5C6BB2416B5AEFE00B02E1B /* DJInputMethodScheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
