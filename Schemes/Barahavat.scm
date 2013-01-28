@@ -1,7 +1,7 @@
 ﻿version: 1.0
 name: Barahavat
 stop-char: \
-using classes 
+using classes
 class-delimiters: { }
 wildcard: *
 
