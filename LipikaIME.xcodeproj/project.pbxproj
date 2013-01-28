@@ -13,6 +13,9 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5C6BB2016B5A5F100B02E1B /* Schemes */; };
 		A5C6BB2416B5AEFE00B02E1B /* DJInputMethodScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6BB2316B5AEFE00B02E1B /* DJInputMethodScheme.m */; };
+		A5EC47A716B5FDD700031C1C /* DJParseTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EC47A616B5FDD700031C1C /* DJParseTreeNode.m */; };
+		A5EC47AB16B6040500031C1C /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EC47AA16B6040500031C1C /* DJInputMethodEngine.m */; };
+		A5EC47AE16B60BB000031C1C /* DJParseOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EC47AD16B60BB000031C1C /* DJParseOutput.m */; };
 		A5F1C6D216B49DCE00993C52 /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F1C6D116B49DCE00993C52 /* LipikaIcon.png */; };
 		E93074B70A5C264700470842 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		E93074E20A5C2F1200470842 /* DJLipikaInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93074E10A5C2F1200470842 /* DJLipikaInputController.m */; };
@@ -31,6 +34,12 @@
 		A5C6BB2016B5A5F100B02E1B /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5C6BB2216B5AEFE00B02E1B /* DJInputMethodScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputMethodScheme.h; sourceTree = "<group>"; };
 		A5C6BB2316B5AEFE00B02E1B /* DJInputMethodScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputMethodScheme.m; sourceTree = "<group>"; };
+		A5EC47A516B5FDD700031C1C /* DJParseTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJParseTreeNode.h; sourceTree = "<group>"; };
+		A5EC47A616B5FDD700031C1C /* DJParseTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJParseTreeNode.m; sourceTree = "<group>"; };
+		A5EC47A916B6040500031C1C /* DJInputMethodEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputMethodEngine.h; sourceTree = "<group>"; };
+		A5EC47AA16B6040500031C1C /* DJInputMethodEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputMethodEngine.m; sourceTree = "<group>"; };
+		A5EC47AC16B60BB000031C1C /* DJParseOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJParseOutput.h; sourceTree = "<group>"; };
+		A5EC47AD16B60BB000031C1C /* DJParseOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJParseOutput.m; sourceTree = "<group>"; };
 		A5F1C6D116B49DCE00993C52 /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LipikaIcon.png; sourceTree = "<group>"; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 		E93074E00A5C2F1200470842 /* DJLipikaInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaInputController.h; sourceTree = "<group>"; };
@@ -58,6 +67,12 @@
 				E93074E10A5C2F1200470842 /* DJLipikaInputController.m */,
 				A5C6BB2216B5AEFE00B02E1B /* DJInputMethodScheme.h */,
 				A5C6BB2316B5AEFE00B02E1B /* DJInputMethodScheme.m */,
+				A5EC47A516B5FDD700031C1C /* DJParseTreeNode.h */,
+				A5EC47A616B5FDD700031C1C /* DJParseTreeNode.m */,
+				A5EC47A916B6040500031C1C /* DJInputMethodEngine.h */,
+				A5EC47AA16B6040500031C1C /* DJInputMethodEngine.m */,
+				A5EC47AC16B60BB000031C1C /* DJParseOutput.h */,
+				A5EC47AD16B60BB000031C1C /* DJParseOutput.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -207,6 +222,9 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				E93074E20A5C2F1200470842 /* DJLipikaInputController.m in Sources */,
 				A5C6BB2416B5AEFE00B02E1B /* DJInputMethodScheme.m in Sources */,
+				A5EC47A716B5FDD700031C1C /* DJParseTreeNode.m in Sources */,
+				A5EC47AB16B6040500031C1C /* DJInputMethodEngine.m in Sources */,
+				A5EC47AE16B60BB000031C1C /* DJParseOutput.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,28 +253,27 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Input Methods/\"";
 				PRODUCT_NAME = LipikaIME;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = LipikaIME;
