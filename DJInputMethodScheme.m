@@ -76,11 +76,19 @@ NSString *const WILDCARD = @"wildcard";
     if (error != nil) {
         [NSException raise:@"Invalid using classes regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
+    NSString *const classesDelimiterPattern = @"^\\s*(\\S)\\s*(\\S)\\s*$";
+    NSRegularExpression* classesDelimiterExpression = [NSRegularExpression regularExpressionWithPattern:classesDelimiterPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid classes delimiter expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
 
     // Parse out the headers
     for (id object in linesOfScheme) {
         NSString* line = (NSString*) object;
-        if ([headerExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+        // For empty lines move on
+        if ([line length] <=0 ) continue;
+        NSLog(@"Parsing line: %@", line);
+        if ([headerExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] > 0) {
             NSString* key = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             NSString* value = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             NSLog(@"Parsed header. Key: %@; Value: %@", key, value);
@@ -97,30 +105,27 @@ NSString *const WILDCARD = @"wildcard";
                 wildcard = value;
             }
             else if ([key isEqualToString:CLASS_DELIMITERS]) {
-                NSString *const classesDelimiterPattern = @"^(\\S)\\s*(\\S)$";
-                NSRegularExpression* classesDelimiterExpression = [NSRegularExpression regularExpressionWithPattern:classesDelimiterPattern options:0 error:&error];
-                if (error != nil) {
-                    [NSException raise:@"Invalid classes delimiter expression" format:@"Regular expression error: %@", [error localizedDescription]];
-                }
-                if ([classesDelimiterExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
-                    [NSException raise:@"Invalid class delimiter value" format:@"Invalid value: %@", value];
+                if ([classesDelimiterExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])] <= 0) {
+                    [NSException raise:@"Invalid class delimiter value" format:@"Invalid value: %@ at line %d", value, endOfHeaderIndex+1];
                 }
                 classOpenDelimiter = [classesDelimiterExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
                 classCloseDelimiter = [classesDelimiterExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
             }
             else {
-                [NSException raise:@"Invalid key" format:@"Invalid key: %@", key];
+                [NSException raise:@"Invalid key" format:@"Invalid key: %@ at line %d", key, endOfHeaderIndex+1];
             }
         }
         else if ([usingClassesExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+            NSLog(@"Parsed using classes");
             usingClasses = YES;
         }
         else {
-            // Done parsing headers
+            NSLog(@"Done parsing headers");
             break;
         }
         endOfHeaderIndex++;
     }
+    NSLog(@"Headers end at: %d", endOfHeaderIndex);
 }
 
 -(void)parseMappingsOfSchemeFile:(NSFileHandle*)handle {
@@ -131,7 +136,7 @@ NSString *const WILDCARD = @"wildcard";
     if (error != nil) {
         [NSException raise:@"Invalid simple mapping expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
-    NSString *const classDefinitionPattern = [NSString stringWithFormat:@"^\\s*class\\s+(\\S+)\\s+%@\\s*$", classOpenDelimiter];
+    NSString *const classDefinitionPattern = [NSString stringWithFormat:@"^\\s*class\\s+(\\S+)\\s+\\%@\\s*$", classOpenDelimiter];
     NSRegularExpression* classDefinitionExpression = [NSRegularExpression regularExpressionWithPattern:classDefinitionPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class definition expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -153,7 +158,25 @@ NSString *const WILDCARD = @"wildcard";
 
     parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
     classes = [NSMutableArray arrayWithCapacity:0];
-    
+
+    for (int i=endOfHeaderIndex; i<[linesOfScheme count]; i++) {
+        NSString* line = linesOfScheme[i];
+        // For empty lines move on
+        if ([line length] <=0 ) continue;
+        NSLog(@"Parsing line: %@", line);
+        if ([simpleMappingExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] > 0) {
+            NSLog(@"Found simple mapping expression");
+        }
+        else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] > 0) {
+            NSLog(@"Found beginning of class definition");
+        }
+        else if ([line isEqualToString:classCloseDelimiter]) {
+            NSLog(@"Found end of class definition");
+        }
+        else {
+            [NSException raise:@"Invalid line" format:@"Invalid line %d", i+1];
+        }
+    }
 }
 
 -(NSString *)getClassNameForInput:(NSString*)input {
