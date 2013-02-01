@@ -15,11 +15,10 @@
 }
 
 -(DJParseOutput *)executeWithInput:(NSString*)input {
-    NSMutableDictionary* parseTree = [scheme parseTree];
     DJParseOutput* result = [DJParseOutput alloc];
     if (currentNode == nil) {
         // Look for mapping at root of tree
-        currentNode = [self getOutputForInput:input :parseTree];
+        currentNode = [self getOutputForInput:input :[scheme parseTree]];
         // We don't have a mapping for the input
         if (currentNode == nil) {
             return nil;
@@ -32,7 +31,7 @@
             // Everything until now is good; we are resetting to root of tree
             result.isPreviousFinal = YES;
             // Search at root of tree
-            currentNode = [self getOutputForInput:input :parseTree];
+            currentNode = [self getOutputForInput:input :[scheme parseTree]];
             // We don't have a mapping for the input
             if (currentNode == nil) {
                 return nil;
