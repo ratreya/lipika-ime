@@ -5,7 +5,7 @@
     NSString* schemeFilePath;
     // Input as NSString to DJParseTreeNode
     NSMutableDictionary* parseTree;
-    // Class name as NSString to NSMutableDictionary
+    // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode
     NSMutableDictionary* classes;
     NSString* name;
     NSString* version;
