@@ -26,6 +26,9 @@ NSString *const WILDCARD = @"wildcard";
         return self;
     }
     
+    parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
+    classes = [NSMutableArray arrayWithCapacity:0];
+
     // Set default values
     wildcard = @"*";
     stopChar = @"\\";
@@ -88,7 +91,7 @@ NSString *const WILDCARD = @"wildcard";
         // For empty lines move on
         if ([line length] <=0 ) continue;
         NSLog(@"Parsing line: %@", line);
-        if ([headerExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] > 0) {
+        if ([headerExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             NSString* key = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             NSString* value = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             NSLog(@"Parsed header. Key: %@; Value: %@", key, value);
@@ -105,7 +108,7 @@ NSString *const WILDCARD = @"wildcard";
                 wildcard = value;
             }
             else if ([key isEqualToString:CLASS_DELIMITERS]) {
-                if ([classesDelimiterExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])] <= 0) {
+                if (![classesDelimiterExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
                     [NSException raise:@"Invalid class delimiter value" format:@"Invalid value: %@ at line %d", value, endOfHeaderIndex+1];
                 }
                 classOpenDelimiter = [classesDelimiterExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
@@ -142,40 +145,82 @@ NSString *const WILDCARD = @"wildcard";
         [NSException raise:@"Invalid class definition expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
     
-    /*
-     * We only support one class per mapping
-     */
-    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
-    NSRegularExpression* classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
-    NSRegularExpression* wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-
-    parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
-    classes = [NSMutableArray arrayWithCapacity:0];
-
+    BOOL isProcessingClassDefinition = NO;
+    NSString* currentClassName;
+    NSMutableDictionary* currentClass;
+    
     for (int i=endOfHeaderIndex; i<[linesOfScheme count]; i++) {
         NSString* line = linesOfScheme[i];
         // For empty lines move on
         if ([line length] <=0 ) continue;
         NSLog(@"Parsing line: %@", line);
-        if ([simpleMappingExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] > 0) {
-            NSLog(@"Found simple mapping expression");
+        if ([simpleMappingExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+            NSLog(@"Found mapping expression");
+            NSString* key = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
+            NSString* value = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
+            if (isProcessingClassDefinition) {
+                NSLog(@"Adding to class: %@; key: %@; value: %@", currentClassName, key, value);
+                [currentClass setValue:value forKey:key];
+            }
+            else {
+                [self parseMappingForKey:key value:value];
+            }
         }
-        else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])] > 0) {
+        else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             NSLog(@"Found beginning of class definition");
+            isProcessingClassDefinition = YES;
+            currentClassName = [classDefinitionExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
+            currentClass = [[NSMutableDictionary alloc] initWithCapacity:0];
+            NSLog(@"Class name: %@", currentClassName);
         }
         else if ([line isEqualToString:classCloseDelimiter]) {
             NSLog(@"Found end of class definition");
+            isProcessingClassDefinition = NO;
+            [classes setValue:currentClass forKey:currentClassName];
         }
         else {
             [NSException raise:@"Invalid line" format:@"Invalid line %d", i+1];
         }
+    }
+}
+
+NSRegularExpression* classKeyExpression;
+NSRegularExpression* wildcardValueExpression;
+
+-(void)parseMappingForKey:(NSString*)key value:(NSString*)value {
+    NSError* error;
+    if (classKeyExpression == nil) {
+        /*
+         * We only support one class per mapping
+         */
+        NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
+        classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
+        if (error != nil) {
+            [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+        }
+    }
+    if (wildcardValueExpression == nil) {
+        /*
+         * And hence only one wildcard value
+         */
+        NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
+        wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
+        if (error != nil) {
+            [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+        }
+    }
+    if ([classKeyExpression numberOfMatchesInString:key options:0 range:NSMakeRange(0, [key length])]) {
+        NSLog(@"Found class mapping");
+        NSString* preClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$1"];
+        NSString* className = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$2"];
+        NSString* postClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$3"];
+        NSLog(@"Parsed key with pre-class: %@; class: %@; post-class: %@", preClass, className, postClass);
+        NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
+        NSString* postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
+        NSLog(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
+    }
+    else {
+        NSLog(@"Found key: %@; value: %@", key, value);
     }
 }
 

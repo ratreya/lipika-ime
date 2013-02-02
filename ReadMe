@@ -1,3 +1,7 @@
 Lipika IME is a many-to-many, user configurable, input method engine. Originally, designed for typing Sanskrit using Devanagari on a Mac. It can be configured to work with other Indo-European languages of similar structure.
 
+Contriants of the current version include:
+1. Support for only one class and wildcard per mapping
+2. Mappings within a class definition cannot use class mapping
+
 http://daivajnanam.blogspot.com/
