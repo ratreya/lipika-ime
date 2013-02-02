@@ -159,11 +159,12 @@ NSString *const WILDCARD = @"wildcard";
             NSString* key = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             NSString* value = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             if (isProcessingClassDefinition) {
-                NSLog(@"Adding to class: %@; key: %@; value: %@", currentClassName, key, value);
-                [currentClass setValue:value forKey:key];
+                NSLog(@"Adding to class: %@", currentClassName);
+                [self parseMappingForTree:currentClass key:key value:value lineNumber:i];
             }
             else {
-                [self parseMappingForKey:key value:value];
+                NSLog(@"Adding to main parse tree");
+                [self parseMappingForTree:parseTree key:key value:value lineNumber:i];
             }
         }
         else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
@@ -187,7 +188,7 @@ NSString *const WILDCARD = @"wildcard";
 NSRegularExpression* classKeyExpression;
 NSRegularExpression* wildcardValueExpression;
 
--(void)parseMappingForKey:(NSString*)key value:(NSString*)value {
+-(void)parseMappingForTree:(NSMutableDictionary*)tree key:(NSString*)key value:(NSString*)value lineNumber:(int)lineNumber {
     NSError* error;
     if (classKeyExpression == nil) {
         /*
@@ -215,6 +216,12 @@ NSRegularExpression* wildcardValueExpression;
         NSString* className = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$2"];
         NSString* postClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$3"];
         NSLog(@"Parsed key with pre-class: %@; class: %@; post-class: %@", preClass, className, postClass);
+        if ([postClass length]) {
+            [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, lineNumber];
+        }
+        if ([classes valueForKey:className] == nil) {
+            [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, lineNumber];
+        }
         NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
         NSString* postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
         NSLog(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
