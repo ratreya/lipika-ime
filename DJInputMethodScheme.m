@@ -1,4 +1,5 @@
 #import "DJInputMethodScheme.h"
+#import "DJParseTreeNode.h"
 
 @implementation DJInputMethodScheme
 
@@ -10,9 +11,6 @@
 @synthesize usingClasses;
 @synthesize classOpenDelimiter;
 @synthesize classCloseDelimiter;
-
-NSArray* linesOfScheme;
-int endOfHeaderIndex=0;
 
 NSString *const VERSION = @"version";
 NSString *const NAME = @"name";
@@ -27,7 +25,8 @@ NSString *const WILDCARD = @"wildcard";
     }
     
     parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
-    classes = [NSMutableArray arrayWithCapacity:0];
+    classes = [NSMutableDictionary dictionaryWithCapacity:0];
+    endOfHeaderIndex = 0;
 
     // Set default values
     wildcard = @"*";
@@ -49,14 +48,14 @@ NSString *const WILDCARD = @"wildcard";
     linesOfScheme = [data componentsSeparatedByString:@"\n"];
 
     @try {
-        [self parseHeadersOfSchemeFile:handle];
+        [self parseHeaders];
     }
     @catch (NSException* exception) {
         NSLog(@"Error parsing scheme file: %@", [exception reason]);
         return nil;
     }
     @try {
-        [self parseMappingsOfSchemeFile:handle];
+        [self parseMappings];
     }
     @catch (NSException* exception) {
         NSLog(@"Error parsing scheme file: %@", [exception reason]);
@@ -66,7 +65,7 @@ NSString *const WILDCARD = @"wildcard";
     return self;
 }
 
--(void)parseHeadersOfSchemeFile:(NSFileHandle*)handle {
+-(void)parseHeaders {
     // Regular expressions for matching header items
     NSError* error;
     NSString *const headerPattern = @"^\\s*(.*\\S)\\s*:\\s*(.*\\S)\\s*$";
@@ -86,8 +85,7 @@ NSString *const WILDCARD = @"wildcard";
     }
 
     // Parse out the headers
-    for (id object in linesOfScheme) {
-        NSString* line = (NSString*) object;
+    for (NSString* line in linesOfScheme) {
         // For empty lines move on
         if ([line length] <=0 ) continue;
         NSLog(@"Parsing line: %@", line);
@@ -131,7 +129,7 @@ NSString *const WILDCARD = @"wildcard";
     NSLog(@"Headers end at: %d", endOfHeaderIndex);
 }
 
--(void)parseMappingsOfSchemeFile:(NSFileHandle*)handle {
+-(void)parseMappings {
     // Regular expressions for matching mapping items
     NSError* error;
     NSString *const simpleMappingPattern = @"^\\s*(\\S+)\\s+(\\S+)\\s*$";
@@ -210,29 +208,79 @@ NSRegularExpression* wildcardValueExpression;
             [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
         }
     }
+    // Holds the list of inputs
+    NSMutableArray* path;
+    // Output with format elemets
+    NSString* output;
     if ([classKeyExpression numberOfMatchesInString:key options:0 range:NSMakeRange(0, [key length])]) {
         NSLog(@"Found class mapping");
+        // Parse the key
         NSString* preClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$1"];
         NSString* className = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$2"];
         NSString* postClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$3"];
-        NSLog(@"Parsed key with pre-class: %@; class: %@; post-class: %@", preClass, className, postClass);
+        NSLog(@"Parsed key with pre-class: %@; class: %@", preClass, className);
         if ([postClass length]) {
             [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, lineNumber];
         }
         if ([classes valueForKey:className] == nil) {
             [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, lineNumber];
         }
-        NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
-        NSString* postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
-        NSLog(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
+        // Create path from key
+        path = [self getPathForKey:preClass];
+        [path addObject:className];
+        // Parse the value; may not have wildcards in it
+        if ([wildcardValueExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
+            NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
+            NSString* postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
+            NSLog(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
+            output = [NSString stringWithFormat:@"%@%%@%@", preWildcard, postWildcard];
+        }
+        else {
+            output = value;
+        }
     }
     else {
         NSLog(@"Found key: %@; value: %@", key, value);
+        path = [self getPathForKey:key];
+        output = value;
+    }
+    // Merge path into the parseTree and set the output
+    NSMutableDictionary* currentNode = tree;
+    for (int i = 0; i < [path count]; i++) {
+        NSString* input = path[i];
+        BOOL isLast = (i == [path count] - 1);
+        DJParseTreeNode* node = [currentNode valueForKey:input];
+        if (node == nil) {
+            node = [DJParseTreeNode alloc];
+            if (!isLast) {
+                node.next = [[NSMutableDictionary alloc] initWithCapacity:1];
+            }
+            [currentNode setValue:node forKey:input];
+        }
+        if (isLast) {
+            if (node.output != nil) {
+                NSLog(@"Warning! Value: %@ for key: %@ being replaced by value: %@", node.output, key, output);
+            }
+            node.output = output;
+        }
+        else {
+            currentNode = node.next;
+        }
     }
 }
 
+-(NSMutableArray*)getPathForKey:(NSString*)key {
+    NSRange theRange = {0, 1};
+    NSMutableArray* array = [NSMutableArray array];
+    for ( NSInteger i = 0; i < [key length]; i++) {
+        theRange.location = i;
+        [array addObject:[key substringWithRange:theRange]];
+    }
+    return array;
+}
+
 -(NSString *)getClassNameForInput:(NSString*)input {
-    for (id className in [classes keyEnumerator]) {
+    for (NSString* className in [classes keyEnumerator]) {
         NSMutableDictionary* classMap = [classes valueForKey:className];
         if ([classMap objectForKey:input] != nil) {
             return className;
