@@ -16,8 +16,8 @@ oo ऊ
 U ऊ
 Ru ऋ
 RU ॠ
-LRu ऌ
-LRU ॡ
+~lu ऌ
+~lU ॡ
 E ऎ
 e ए
 ai ऐ
@@ -81,8 +81,8 @@ class VowelSigns {
   U ू
   Ru ृ
   RU ॄ
-  LRu ॢ
-  LRU ॣ
+  ~lu ॢ
+  ~lU ॣ
   E ॆ
   e े
   ai ै
@@ -210,4 +210,3 @@ _ ॒
 z ़
 ` ॔
 q ्
-

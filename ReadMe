@@ -3,11 +3,17 @@ Lipika IME is a many-to-many, user configurable, input method engine. Originally
 Lipika IME understands Google IME cannonical scheme format: http://www.google.com/inputtools/windows/canonical.html
 Schemes are in Contents/Resources/Schemes. Barahavat.scm comes built-in.
 
-The configuration file is ultimately parsed into a main parse tree. Classes are named parse trees that you can append to leaf nodes of the main parse tree by creating class mappings. User inputs move the algorithm through the parse tree. Some nodes may produce output. Subsequent outputs in the same path through the tree will replace previous output until you reach a leaf at which point the output is finalized. Stop character and white space also finalize previous outputs.
+The configuration file consists of the following:
+1. Headers
+2. Simple mappings (without using classes)
+3. Class definitions
+4. Class mappings (using class and wildcard)
+
+The configuration file is ultimately parsed into a main parse tree. Classes are treated as named parse trees that can be appended to any node of the main parse tree by creating class mappings. User inputs move the algorithm through the parse tree. Some nodes may produce output. Subsequent outputs in the same path through the tree will replace previous output until you reach a leaf at which point the output is finalized. Stop character and white spaces also finalize previous outputs.
 
 Contriants of the current version include:
-1. Support for only one class and wildcard per mapping. That is, you cannot chain named parse trees. You can however do this by nested class mappings. In other words, using class mappings within class definitions.
-2. Class mapping has to always be a suffix of the mapping key. This is a logical extension of using classes as named parse trees. You can only append named parse trees at the leaf nodes.
-3. You cannot using the @ symbol as it trips up NSMutableDictionary.
+1. Support for only one class and wildcard per mapping. That is, you cannot chain multiple classes within the same mapping. You can however achieve the same result by nested class mappings. In other words, using class mappings within class definitions.
+2. Class mapping has to always be a suffix of the mapping key. This is a logical extension of using classes as named parse trees that get appended to the main parse tree. You can only append named parse trees as leaf trees.
+3. (Bug) You cannot using the @ symbol as it trips up NSMutableDictionary.
 
 http://daivajnanam.blogspot.com/

@@ -13,4 +13,6 @@
  */
 @property NSMutableDictionary* next;
 
+-(NSString*)description;
+
 @end
