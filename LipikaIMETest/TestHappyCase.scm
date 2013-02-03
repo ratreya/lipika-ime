@@ -1,4 +1,4 @@
-﻿version: 1.0
+version: 1.0
 name: Barahavat
 stop-char: \
 using classes
@@ -210,4 +210,3 @@ _ ॒
 z ़
 ` ॔
 q ्
-

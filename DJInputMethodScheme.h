@@ -14,6 +14,9 @@
     NSString* classCloseDelimiter;
     NSString* wildcard;
     NSString* stopChar;
+
+    NSArray* linesOfScheme;
+    int endOfHeaderIndex;
 }
 
 @property NSMutableDictionary* parseTree;
