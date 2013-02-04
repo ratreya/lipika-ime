@@ -15,6 +15,9 @@
 }
 
 -(DJParseOutput *)executeWithInput:(NSString*)input {
+    if ([input length] != 1) {
+        [NSException raise:@"Number of characters in input not one" format:@"Expected one but input had %ld characters", [input length]];
+    }
     DJParseOutput* result = [DJParseOutput alloc];
     if (currentNode == nil) {
         // Look for mapping at root of tree
@@ -62,8 +65,9 @@
             NSMutableDictionary* classTree = [scheme getClassForName:className];
             DJParseTreeNode* replacement = [self getOutputForInput:input tree:classTree];
             DJParseTreeNode* output = [DJParseTreeNode alloc];
-            output.output = [NSString stringWithFormat:[classNode output], replacement];
+            output.output = [NSString stringWithFormat:[classNode output], [replacement output]];
             output.next = classNode.next;
+            return output;
         }
     }
     return nil;
