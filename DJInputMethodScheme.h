@@ -16,7 +16,10 @@
     NSString* stopChar;
 
     NSArray* linesOfScheme;
-    int endOfHeaderIndex;
+    int currentLineNumber;
+    BOOL isProcessingClassDefinition;
+    NSString* currentClassName;
+    NSMutableDictionary* currentClass;
 }
 
 @property NSMutableDictionary* parseTree;
