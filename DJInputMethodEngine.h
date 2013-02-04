@@ -7,6 +7,7 @@
 @private
     DJInputMethodScheme* scheme;
     DJParseTreeNode* currentNode;
+    NSString* currentOutput;
 }
 
 @property DJInputMethodScheme* scheme;

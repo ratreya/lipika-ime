@@ -26,7 +26,8 @@ NSString *const WILDCARD = @"wildcard";
     
     parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
     classes = [NSMutableDictionary dictionaryWithCapacity:0];
-    endOfHeaderIndex = 0;
+    currentLineNumber = 0;
+    isProcessingClassDefinition = NO;
 
     // Set default values
     wildcard = @"*";
@@ -51,15 +52,19 @@ NSString *const WILDCARD = @"wildcard";
         [self parseHeaders];
     }
     @catch (NSException* exception) {
-        NSLog(@"Error parsing scheme file: %@", [exception reason]);
+        NSLog(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
     @try {
         [self parseMappings];
     }
     @catch (NSException* exception) {
-        NSLog(@"Error parsing scheme file: %@", [exception reason]);
+        NSLog(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
+    }
+    
+    if (isProcessingClassDefinition) {
+        NSLog(@"Error parsing scheme file: %@; One or more class(es) not closed", filePath);
     }
 
     return self;
@@ -87,7 +92,10 @@ NSString *const WILDCARD = @"wildcard";
     // Parse out the headers
     for (NSString* line in linesOfScheme) {
         // For empty lines move on
-        if ([line length] <=0 ) continue;
+        if ([line length] <=0 ) {
+            currentLineNumber++;
+            continue;
+        }
         NSLog(@"Parsing line: %@", line);
         if ([headerExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             NSString* key = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
@@ -107,13 +115,13 @@ NSString *const WILDCARD = @"wildcard";
             }
             else if ([key isEqualToString:CLASS_DELIMITERS]) {
                 if (![classesDelimiterExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
-                    [NSException raise:@"Invalid class delimiter value" format:@"Invalid value: %@ at line %d", value, endOfHeaderIndex+1];
+                    [NSException raise:@"Invalid class delimiter value" format:@"Invalid value: %@ at line %d", value, currentLineNumber + 1];
                 }
                 classOpenDelimiter = [classesDelimiterExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
                 classCloseDelimiter = [classesDelimiterExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
             }
             else {
-                [NSException raise:@"Invalid key" format:@"Invalid key: %@ at line %d", key, endOfHeaderIndex+1];
+                [NSException raise:@"Invalid key" format:@"Invalid key: %@ at line %d", key, currentLineNumber + 1];
             }
         }
         else if ([usingClassesExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
@@ -124,9 +132,9 @@ NSString *const WILDCARD = @"wildcard";
             NSLog(@"Done parsing headers");
             break;
         }
-        endOfHeaderIndex++;
+        currentLineNumber++;
     }
-    NSLog(@"Headers end at: %d", endOfHeaderIndex);
+    NSLog(@"Headers end at: %d", currentLineNumber + 1);
 }
 
 -(void)parseMappings {
@@ -142,13 +150,9 @@ NSString *const WILDCARD = @"wildcard";
     if (error != nil) {
         [NSException raise:@"Invalid class definition expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
-    
-    BOOL isProcessingClassDefinition = NO;
-    NSString* currentClassName;
-    NSMutableDictionary* currentClass;
-    
-    for (int i=endOfHeaderIndex; i<[linesOfScheme count]; i++) {
-        NSString* line = linesOfScheme[i];
+
+    for (; currentLineNumber<[linesOfScheme count]; currentLineNumber++) {
+        NSString* line = linesOfScheme[currentLineNumber];
         // For empty lines move on
         if ([line length] <=0 ) continue;
         NSLog(@"Parsing line: %@", line);
@@ -158,11 +162,11 @@ NSString *const WILDCARD = @"wildcard";
             NSString* value = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             if (isProcessingClassDefinition) {
                 NSLog(@"Adding to class: %@", currentClassName);
-                [self parseMappingForTree:currentClass key:key value:value lineNumber:i];
+                [self parseMappingForTree:currentClass key:key value:value];
             }
             else {
                 NSLog(@"Adding to main parse tree");
-                [self parseMappingForTree:parseTree key:key value:value lineNumber:i];
+                [self parseMappingForTree:parseTree key:key value:value];
             }
         }
         else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
@@ -178,7 +182,7 @@ NSString *const WILDCARD = @"wildcard";
             [classes setValue:currentClass forKey:currentClassName];
         }
         else {
-            [NSException raise:@"Invalid line" format:@"Invalid line %d", i+1];
+            [NSException raise:@"Invalid line" format:@"Invalid line %d", currentLineNumber+1];
         }
     }
 }
@@ -186,7 +190,7 @@ NSString *const WILDCARD = @"wildcard";
 NSRegularExpression* classKeyExpression;
 NSRegularExpression* wildcardValueExpression;
 
--(void)parseMappingForTree:(NSMutableDictionary*)tree key:(NSString*)key value:(NSString*)value lineNumber:(int)lineNumber {
+-(void)parseMappingForTree:(NSMutableDictionary*)tree key:(NSString*)key value:(NSString*)value {
     NSError* error;
     if (classKeyExpression == nil) {
         /*
@@ -220,10 +224,10 @@ NSRegularExpression* wildcardValueExpression;
         NSString* postClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$3"];
         NSLog(@"Parsed key with pre-class: %@; class: %@", preClass, className);
         if ([postClass length]) {
-            [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, lineNumber];
+            [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, currentLineNumber];
         }
         if ([classes valueForKey:className] == nil) {
-            [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, lineNumber];
+            [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, currentLineNumber];
         }
         // Create path from key
         path = [self getPathForKey:preClass];
