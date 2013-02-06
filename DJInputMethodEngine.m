@@ -32,6 +32,17 @@
         [NSException raise:@"Number of characters in input not one" format:@"Expected one but input had %ld characters", [input length]];
     }
     DJParseOutput* result = [DJParseOutput alloc];
+    NSError* error;
+    NSRegularExpression* whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid whitespace regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    if ([input isEqualToString:[scheme stopChar]] || [whiteSpace numberOfMatchesInString:input options:0 range:NSMakeRange(0, [input length])]) {
+        currentNode = nil;
+        currentOutput = nil;
+        result.isFinal = YES;
+        return result;
+    }
     if (currentNode == nil) {
         // Look for mapping at root of tree
         currentNode = [self getOutputForInput:input tree:[scheme parseTree]];

@@ -14,6 +14,7 @@
 		A506B92E16BDE91700EA49C0 /* TestSpecialChars.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B92D16BDE91700EA49C0 /* TestSpecialChars.scm */; };
 		A506B93016BDECEC00EA49C0 /* TestClassHappy.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B92F16BDECEC00EA49C0 /* TestClassHappy.scm */; };
 		A506B93416BDEDA300EA49C0 /* TestHappyCase.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */; };
+		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
 		A566843B16BE2A2C0078BA08 /* TestNestedClass.scm in Resources */ = {isa = PBXBuildFile; fileRef = A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
@@ -58,6 +59,8 @@
 		A506B92D16BDE91700EA49C0 /* TestSpecialChars.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestSpecialChars.scm; sourceTree = "<group>"; };
 		A506B92F16BDECEC00EA49C0 /* TestClassHappy.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestClassHappy.scm; sourceTree = "<group>"; };
 		A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestHappyCase.scm; sourceTree = "<group>"; };
+		A54045C116C09ECB00A6BBD3 /* LipikaIMENestedClassTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMENestedClassTest.h; sourceTree = "<group>"; };
+		A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMENestedClassTest.m; sourceTree = "<group>"; };
 		A55B44BC16BF24D000CC8E94 /* LipikaIMEEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEEngineTest.h; sourceTree = "<group>"; };
 		A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMEEngineTest.m; sourceTree = "<group>"; };
 		A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestNestedClass.scm; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				A5C54E1016BA20C1007F631D /* LipikaIMESchemeTest.m */,
 				A55B44BC16BF24D000CC8E94 /* LipikaIMEEngineTest.h */,
 				A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */,
+				A54045C116C09ECB00A6BBD3 /* LipikaIMENestedClassTest.h */,
+				A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */,
 				A5C54E0A16BA20C1007F631D /* Supporting Files */,
 			);
 			path = LipikaIMETest;
@@ -369,6 +374,7 @@
 				A5C54E1F16BA27AF007F631D /* main.m in Sources */,
 				A5C54E1116BA20C1007F631D /* LipikaIMESchemeTest.m in Sources */,
 				A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */,
+				A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

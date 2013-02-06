@@ -4,14 +4,6 @@
 
 @implementation LipikaIMESchemeTest
 
-- (void)setUp {
-    [super setUp];
-}
-
-- (void)tearDown {
-    [super tearDown];
-}
-
 - (void)testHeaderParsing {
     NSLog(@"%@", [[NSBundle mainBundle] bundlePath]);
     DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
@@ -48,7 +40,6 @@
     output = [[[[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"VowelSigns"] output];
     STAssertTrue([output isEqualToString: @"ञ%@"], @"Unexpected output");
 }
-
 
 // Ignoring for now; @ symbol does not seem to work
 - (void)XXXtestSpecialCharacterParsing {
