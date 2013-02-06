@@ -1,20 +1,25 @@
 #import "LipikaIMEEngineTest.h"
-#import "DJInputMethodScheme.h"
-#import "DJInputMethodEngine.h"
 
 @implementation LipikaIMEEngineTest
 
+- (void)setUp {
+    [super setUp];
+    scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
+    engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
+}
+
+- (void)tearDown {
+    [engine executeWithInput:@" "];
+    [super tearDown];
+}
+
 - (void)testHappyCase_SingleChar_Mapping {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     DJParseOutput* result = [engine executeWithInput:@"a"];
     STAssertTrue([@"अ" isEqualToString:[result output]], @"Unexpected output");
     STAssertTrue([result isFinal], @"Unexpected output");
 }
 
 - (void)testHappyCase_Simple_MultiChar_Mapping {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
@@ -28,8 +33,6 @@
 }
 
 - (void)testHappyCase_Intermediate_MultiChar_Mapping {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
@@ -45,8 +48,6 @@
 }
 
 - (void)testHappyCase_IntermediateFinals_MultiChar_Mapping {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
@@ -66,8 +67,6 @@
 }
 
 - (void)testHappyCase_SingleChar_Class_Mapping {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
@@ -83,8 +82,6 @@
 }
 
 - (void)testHappyCase_MultiChar_Class_Mapping {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
@@ -107,38 +104,138 @@
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
 }
 
--(void)testHappyCase_Simple_NestedClass {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestNestedClass.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
-    DJParseOutput* result = [engine executeWithInput:@"z"];
+-(void)testStopCharacter {
+    DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"f"];
-    STAssertTrue([result output] == nil, @"Unexpected output");
+    result = [engine executeWithInput:@"J"];
+    STAssertTrue([@"ञ्" isEqualToString:[result output]], @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"c"];
-    STAssertTrue([@"zfc" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    result = [engine executeWithInput:@"\\"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"~"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"l"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"u"];
+    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
 }
 
+-(void)testWhitespace_Space {
+    DJParseOutput* result = [engine executeWithInput:@"~"];
+    STAssertTrue([result output] == nil, @"Unexpected output");
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"J"];
+    STAssertTrue([@"ञ्" isEqualToString:[result output]], @"Unexpected output");
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@" "];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"~"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"l"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"u"];
+    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+}
 
--(void)testInvalidCase_Simple_NestedClass {
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestNestedClass.scm"];
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
-    DJParseOutput* result = [engine executeWithInput:@"z"];
+-(void)testWhitespace_Tab {
+    DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"f"];
+    result = [engine executeWithInput:@"J"];
+    STAssertTrue([@"ञ्" isEqualToString:[result output]], @"Unexpected output");
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"\t"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"~"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"l"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"u"];
+    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+}
+
+-(void)testWhitespace_Newline {
+    DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"f"];
+    result = [engine executeWithInput:@"J"];
+    STAssertTrue([@"ञ्" isEqualToString:[result output]], @"Unexpected output");
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"\n"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"~"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"l"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"u"];
+    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+}
+
+-(void)testWhitespace_Return {
+    DJParseOutput* result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, @"Unexpected output");
     STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"J"];
+    STAssertTrue([@"ञ्" isEqualToString:[result output]], @"Unexpected output");
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"\r"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"~"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"l"];
+    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"u"];
+    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
 }
 

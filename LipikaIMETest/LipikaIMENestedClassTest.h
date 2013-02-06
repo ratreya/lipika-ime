@@ -2,7 +2,7 @@
 #import "DJInputMethodScheme.h"
 #import "DJInputMethodEngine.h"
 
-@interface LipikaIMEEngineTest : SenTestCase {
+@interface LipikaIMENestedClassTest : SenTestCase {
     DJInputMethodScheme* scheme;
     DJInputMethodEngine* engine;
 }
