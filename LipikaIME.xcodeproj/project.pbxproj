@@ -14,6 +14,7 @@
 		A506B92E16BDE91700EA49C0 /* TestSpecialChars.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B92D16BDE91700EA49C0 /* TestSpecialChars.scm */; };
 		A506B93016BDECEC00EA49C0 /* TestClassHappy.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B92F16BDECEC00EA49C0 /* TestClassHappy.scm */; };
 		A506B93416BDEDA300EA49C0 /* TestHappyCase.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */; };
+		A51DE1C616C2C79F0051A9E9 /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */; };
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
 		A566843B16BE2A2C0078BA08 /* TestNestedClass.scm in Resources */ = {isa = PBXBuildFile; fileRef = A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */; };
@@ -59,6 +60,8 @@
 		A506B92D16BDE91700EA49C0 /* TestSpecialChars.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestSpecialChars.scm; sourceTree = "<group>"; };
 		A506B92F16BDECEC00EA49C0 /* TestClassHappy.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestClassHappy.scm; sourceTree = "<group>"; };
 		A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestHappyCase.scm; sourceTree = "<group>"; };
+		A51DE1C416C2C79F0051A9E9 /* DJInputEngineFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputEngineFactory.h; sourceTree = "<group>"; };
+		A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputEngineFactory.m; sourceTree = "<group>"; };
 		A54045C116C09ECB00A6BBD3 /* LipikaIMENestedClassTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMENestedClassTest.h; sourceTree = "<group>"; };
 		A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMENestedClassTest.m; sourceTree = "<group>"; };
 		A55B44BC16BF24D000CC8E94 /* LipikaIMEEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEEngineTest.h; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 			children = (
 				E93074E00A5C2F1200470842 /* DJLipikaInputController.h */,
 				E93074E10A5C2F1200470842 /* DJLipikaInputController.m */,
+				A51DE1C416C2C79F0051A9E9 /* DJInputEngineFactory.h */,
+				A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */,
 				A5C54DF816BA1EB9007F631D /* Parser Classes */,
 			);
 			name = Classes;
@@ -359,6 +364,7 @@
 				A5EC47A716B5FDD700031C1C /* DJParseTreeNode.m in Sources */,
 				A5EC47AB16B6040500031C1C /* DJInputMethodEngine.m in Sources */,
 				A5EC47AE16B60BB000031C1C /* DJParseOutput.m in Sources */,
+				A51DE1C616C2C79F0051A9E9 /* DJInputEngineFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
