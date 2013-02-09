@@ -114,7 +114,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\\"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result output] == @"\\", [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"~"];
@@ -141,7 +141,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@" "];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result output] == @" ", [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"~"];
@@ -168,7 +168,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\t"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result output] == @"\t", [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"~"];
@@ -195,7 +195,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\n"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result output] == @"\n", [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"~"];
@@ -222,7 +222,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\r"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertTrue([result output] == @"\r", [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"~"];

@@ -20,10 +20,6 @@
     if (output == nil || [output isFinal] || [output isPreviousFinal]) {
         currentOutput = nil;
     }
-    if (output == nil) {
-        // Invalid input sequence beep
-        NSBeep();
-    }
     return output;
 }
 
@@ -40,6 +36,7 @@
     if ([input isEqualToString:[scheme stopChar]] || [whiteSpace numberOfMatchesInString:input options:0 range:NSMakeRange(0, [input length])]) {
         currentNode = nil;
         currentOutput = nil;
+        result.output = input;
         result.isFinal = YES;
         return result;
     }
