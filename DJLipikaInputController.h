@@ -8,7 +8,7 @@
     // Holds NSString outputs that need to be handed off to the client
     NSMutableArray* uncommittedOutput;
     // New output from the engine will replace all output after this index
-    int finilizedIndex;
+    unsigned long finalizedIndex;
 }
 
 -(id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient;
