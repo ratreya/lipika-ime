@@ -1,16 +1,12 @@
 #import <Cocoa/Cocoa.h>
 #import <InputMethodKit/InputMethodKit.h>
-#import "DJInputMethodEngine.h"
+#import "DJLipikaBufferManager.h"
 
 @interface DJLipikaInputController : IMKInputController {
-    // One instance of the engine per connection
-    DJInputMethodEngine* engine;
-    // Holds NSString outputs that need to be handed off to the client
-    NSMutableArray* uncommittedOutput;
-    // New output from the engine will replace all output after this index
-    unsigned long finalizedIndex;
+    DJLipikaBufferManager* manager;
 }
 
 -(id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient;
+-(BOOL)inputText:(NSString*)string client:(id)sender;
 
 @end
