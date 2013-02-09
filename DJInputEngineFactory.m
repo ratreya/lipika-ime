@@ -18,6 +18,7 @@ static NSMutableDictionary* schemesCache;
 }
 
 +(DJInputMethodEngine*)inputEngineWithSchemeFile:(NSString*)schemeFileName {
+    currentSchemeName = schemeFileName;
     // Initialize the cache once
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{

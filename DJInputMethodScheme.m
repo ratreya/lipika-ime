@@ -268,6 +268,10 @@ NSRegularExpression* wildcardValueExpression;
             node.output = output;
         }
         else {
+            // Make a next node if it is nil
+            if (node.next == nil) {
+                node.next = [[NSMutableDictionary alloc] initWithCapacity:0];
+            }
             currentNode = node.next;
         }
     }
