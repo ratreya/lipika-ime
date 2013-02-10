@@ -55,14 +55,13 @@
         finalizedIndex = uncommittedOutput.count;
     }
     else {
+        if ([result isPreviousFinal]) {
+            finalizedIndex = uncommittedOutput.count;
+        }
+        else {
+            [self removeUnfinalized];
+        }
         if ([result output] != nil) {
-            // This only makes sense if output is not nil
-            if ([result isPreviousFinal]) {
-                finalizedIndex = uncommittedOutput.count;
-            }
-            else {
-                [self removeUnfinalized];
-            }
             [uncommittedOutput addObject:[result output]];
         }
         if ([result isFinal]) {
