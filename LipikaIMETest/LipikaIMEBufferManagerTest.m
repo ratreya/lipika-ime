@@ -51,4 +51,21 @@
     STAssertTrue([@"रे " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
+- (void)testHappyCase_Special_Chain_Mapping {
+    NSString* result = [manager outputForInput:@"r"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"a"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"~"];
+    STAssertTrue([result isEqualToString:@"र"], @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"g"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"g"];
+    STAssertTrue([result isEqualToString:@"ङ्"], @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"a"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@" "];
+    STAssertTrue([result isEqualToString:@"ग "], @"Unexpected output: %@", result);
+}
+
 @end

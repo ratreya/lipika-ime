@@ -19,6 +19,5 @@ Contriants of the current version include:
 TODO:
 1. Need a logging manager that can be configured to dial up logging and default to loggin only errors.
 2. Bug with enter/return key; not being recongnized as a stop
-3. ra~gganaatha does not work as expected
 
 http://daivajnanam.blogspot.com/
