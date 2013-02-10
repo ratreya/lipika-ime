@@ -65,6 +65,10 @@
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"a"];
     STAssertTrue([@"ञ" isEqualToString:[result output]], @"Unexpected output");
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"i"];
+    STAssertTrue([@"ञै" isEqualToString:[result output]], @"Unexpected output");
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
 }
@@ -84,6 +88,10 @@
     STAssertTrue([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"a"];
     STAssertTrue([@"च" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
+    STAssertFalse([result isFinal], @"Unexpected output");
+    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    result = [engine executeWithInput:@"u"];
+    STAssertTrue([@"चौ" isEqualToString:[result output]], @"Unexpected output");
     STAssertTrue([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
 }

@@ -30,6 +30,23 @@
 }
 
 -(NSString*)outputForInput:(NSString*)string {
+    NSMutableString* output;
+    NSRange theRange = {0, 1};
+    for ( NSInteger i = 0; i < [string length]; i++) {
+        theRange.location = i;
+        NSString* singleInput = [string substringWithRange:theRange];
+        NSString* singleOutput = [self outputForSingleInput:singleInput];
+        if (singleOutput != nil) {
+            if (output == nil) {
+                output = [[NSMutableString alloc] initWithCapacity:0];
+            }
+            [output appendString:singleOutput];
+        }
+    }
+    return output;
+}
+
+-(NSString*)outputForSingleInput:(NSString*)string {
     DJParseOutput* result = [engine executeWithInput:string];
     if (result == nil) {
         // Add the input as-is if there is no mapping for it

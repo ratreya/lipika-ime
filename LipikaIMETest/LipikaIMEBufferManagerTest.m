@@ -31,6 +31,15 @@
     STAssertTrue([@"री" isEqualToString:result], @"Unexpected output: %@", result);
 }
 
+- (void)testHappyCase_Chain_Class_Mapping {
+    NSString* result = [manager outputForInput:@"t"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"a"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"a"];
+    STAssertTrue([@"ता" isEqualToString:result], @"Unexpected output: %@", result);
+}
+
 - (void)testHappyCase_Chain_Space_Mapping {
     NSString* result = [manager outputForInput:@"t"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
