@@ -16,4 +16,9 @@ Contriants of the current version include:
 2. Class mapping has to always be a suffix of the mapping key. This is a logical extension of using classes as named parse trees that get appended to the main parse tree. You can only append named parse trees as leaf trees.
 3. (Bug) You cannot using the @ symbol as it trips up NSMutableDictionary.
 
+TODO:
+1. Need a logging manager that can be configured to dial up logging and default to loggin only errors.
+2. Bug with enter/return key; not being recongnized as a stop
+3. ra~gganaatha does not work as expected
+
 http://daivajnanam.blogspot.com/

@@ -37,8 +37,8 @@
     DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
     NSString* output = [[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
-    output = [[[[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"VowelSigns"] output];
-    STAssertTrue([output isEqualToString: @"ञ%@"], @"Unexpected output");
+    output = [[[[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"I"] output];
+    STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
 }
 
 // Ignoring for now; @ symbol does not seem to work

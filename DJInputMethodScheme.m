@@ -12,11 +12,14 @@
 @synthesize classOpenDelimiter;
 @synthesize classCloseDelimiter;
 
-NSString *const VERSION = @"version";
-NSString *const NAME = @"name";
-NSString *const STOP_CHAR = @"stop-char";
-NSString *const CLASS_DELIMITERS = @"class-delimiters";
-NSString *const WILDCARD = @"wildcard";
+static NSString *const VERSION = @"version";
+static NSString *const NAME = @"name";
+static NSString *const STOP_CHAR = @"stop-char";
+static NSString *const CLASS_DELIMITERS = @"class-delimiters";
+static NSString *const WILDCARD = @"wildcard";
+
+static NSRegularExpression* classKeyExpression;
+static NSRegularExpression* wildcardValueExpression;
 
 -(id)initWithSchemeFile:(NSString*)filePath {
     self = [super init];
@@ -35,6 +38,24 @@ NSString *const WILDCARD = @"wildcard";
     usingClasses = YES;
     classOpenDelimiter = @"{";
     classCloseDelimiter = @"}";
+
+    /*
+     * We only support one class per mapping
+     */
+    NSError* error;
+    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
+    classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    /*
+     * And hence only one wildcard value
+     */
+    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
+    wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
 
     // Read contents of the Scheme file
     NSLog(@"Parsing scheme file: %@", filePath);
@@ -187,35 +208,11 @@ NSString *const WILDCARD = @"wildcard";
     }
 }
 
-NSRegularExpression* classKeyExpression;
-NSRegularExpression* wildcardValueExpression;
-
 -(void)parseMappingForTree:(NSMutableDictionary*)tree key:(NSString*)key value:(NSString*)value {
-    NSError* error;
-    if (classKeyExpression == nil) {
-        /*
-         * We only support one class per mapping
-         */
-        NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
-        classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
-        if (error != nil) {
-            [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-        }
-    }
-    if (wildcardValueExpression == nil) {
-        /*
-         * And hence only one wildcard value
-         */
-        NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
-        wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
-        if (error != nil) {
-            [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-        }
-    }
     // Holds the list of inputs
     NSMutableArray* path;
     // Output with format elemets
-    NSString* output;
+    DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
     if ([classKeyExpression numberOfMatchesInString:key options:0 range:NSMakeRange(0, [key length])]) {
         NSLog(@"Found class mapping");
         // Parse the key
@@ -226,53 +223,99 @@ NSRegularExpression* wildcardValueExpression;
         if ([postClass length]) {
             [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, currentLineNumber];
         }
-        if ([classes valueForKey:className] == nil) {
+        NSMutableDictionary* classTree = [classes valueForKey:className];
+        if (classTree == nil) {
             [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, currentLineNumber];
         }
         // Create path from key
         path = [self getPathForKey:preClass];
-        [path addObject:className];
         // Parse the value; may not have wildcards in it
         if ([wildcardValueExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
             NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
             NSString* postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
             NSLog(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
-            output = [NSString stringWithFormat:@"%@%%@%@", preWildcard, postWildcard];
+            // Output is nil and format is applied to all outputs of its subtree
+            NSString* format = [NSString stringWithFormat:@"%@%%@%@", preWildcard, postWildcard];
+            // Set the formated output tree as this node's subtree
+            newNode.next = [self applyFormat:format toTree:classTree];
         }
         else {
-            output = value;
+            newNode.output = value;
+            // Append the named parse tree as-is since there is no wildcard formatting
+            newNode.next = classTree;
         }
     }
     else {
         NSLog(@"Found key: %@; value: %@", key, value);
         path = [self getPathForKey:key];
-        output = value;
+        newNode.output = value;
     }
     // Merge path into the parseTree and set the output
     NSMutableDictionary* currentNode = tree;
     for (int i = 0; i < [path count]; i++) {
         NSString* input = path[i];
         BOOL isLast = (i == [path count] - 1);
-        DJParseTreeNode* node = [currentNode valueForKey:input];
-        if (node == nil) {
-            node = [DJParseTreeNode alloc];
-            if (!isLast) {
-                node.next = [[NSMutableDictionary alloc] initWithCapacity:1];
-            }
-            [currentNode setValue:node forKey:input];
+        DJParseTreeNode* existing = [currentNode valueForKey:input];
+        if (existing == nil) {
+            existing = [[DJParseTreeNode alloc] init];
+            [currentNode setValue:existing forKey:input];
         }
         if (isLast) {
-            if (node.output != nil) {
-                NSLog(@"Warning! Value: %@ for key: %@ being replaced by value: %@", node.output, key, output);
-            }
-            node.output = output;
+            [self mergeNode:newNode existing:existing key:key];
         }
         else {
             // Make a next node if it is nil
-            if (node.next == nil) {
-                node.next = [[NSMutableDictionary alloc] initWithCapacity:0];
+            if (existing.next == nil) {
+                existing.next = [[NSMutableDictionary alloc] initWithCapacity:0];
             }
-            currentNode = node.next;
+            currentNode = existing.next;
+        }
+    }
+}
+
+-(NSMutableDictionary*)applyFormat:(NSString*)format toTree:(NSMutableDictionary*)classTree {
+    NSMutableDictionary* newTree = [[NSMutableDictionary alloc] initWithCapacity:0];
+    for (NSString* key in [classTree keyEnumerator]) {
+        DJParseTreeNode* node = [classTree valueForKey:key];
+        if (node != nil) {
+            DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
+            if (node.output != nil) {
+                newNode.output = [NSString stringWithFormat:format, node.output];
+            }
+            if (node.next != nil) {
+                newNode.next = [self applyFormat:format toTree:node.next];
+            }
+            [newTree setValue:newNode forKey:key];
+        }
+    }
+    return newTree;
+}
+
+- (void)mergeNode:(DJParseTreeNode *)newNode existing:(DJParseTreeNode *)existingNode key:(NSString*)key {
+    if (newNode.output != nil) {
+        if (existingNode.output != nil) {
+            NSLog(@"Warning! Value: %@ for key: %@ being replaced by value: %@", existingNode.output, key, newNode.output);
+        }
+        existingNode.output = newNode.output;
+    }
+    // Merge the newNode's next into exising node
+    if (newNode.next != nil) {
+        if (existingNode.next == nil) {
+            existingNode.next = newNode.next;
+        }
+        else {
+            NSMutableDictionary* newTree = newNode.next;
+            NSMutableDictionary* existingTree = existingNode.next;
+            for (NSString* nextKey in [newTree keyEnumerator]) {
+                DJParseTreeNode* nextExistingNode = [existingTree valueForKey:nextKey];
+                DJParseTreeNode* nextNewNode = [newTree valueForKey:nextKey];
+                if (nextExistingNode == nil) {
+                    [existingTree setValue:nextNewNode forKey:nextKey];
+                }
+                else {
+                    [self mergeNode:nextNewNode existing:nextExistingNode key:[NSString stringWithFormat:@"%@%@", key, nextKey]];
+                }
+            }
         }
     }
 }
