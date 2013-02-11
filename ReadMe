@@ -18,6 +18,6 @@ Contriants of the current version include:
 
 TODO:
 1. Need a logging manager that can be configured to dial up logging and default to loggin only errors.
-2. Bug with enter/return key; not being recongnized as a stop
+2. Use candidate window to show inflight output and annotations for inflight input
 
 http://daivajnanam.blogspot.com/

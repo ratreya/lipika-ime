@@ -5,17 +5,10 @@
 
 @synthesize scheme;
 
-static NSRegularExpression* whiteSpace;
-
 -(id)initWithScheme:(DJInputMethodScheme*)inputScheme {
     self = [super init];
     if (self == nil) {
         return self;
-    }
-    NSError* error;
-    whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid whitespace regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
     scheme = inputScheme;
     currentNode = nil;
@@ -27,13 +20,6 @@ static NSRegularExpression* whiteSpace;
         [NSException raise:@"Number of characters in input not one" format:@"Expected one but input had %ld characters", [input length]];
     }
     DJParseOutput* result = [DJParseOutput alloc];
-    if ([input isEqualToString:[scheme stopChar]] || [whiteSpace numberOfMatchesInString:input options:0 range:NSMakeRange(0, [input length])]) {
-        currentNode = nil;
-        result.output = input;
-        result.isPreviousFinal = YES;
-        result.isFinal = YES;
-        return result;
-    }
     if (currentNode == nil) {
         // Look for mapping at root of tree
         currentNode = [[scheme parseTree] valueForKey:input];
@@ -69,6 +55,10 @@ static NSRegularExpression* whiteSpace;
         currentNode = nil;
     }
     return result;
+}
+
+-(void)reset {
+    currentNode = nil;
 }
 
 @end

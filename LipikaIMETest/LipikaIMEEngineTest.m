@@ -144,21 +144,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\\"];
-    STAssertTrue([[result output] isEqualToString: @"\\"], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertTrue([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"~"];
     STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"l"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"u"];
-    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
 }
 
 -(void)testWhitespace_Space {
@@ -171,21 +157,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@" "];
-    STAssertTrue([[result output] isEqualToString: @" "], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertTrue([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"~"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"l"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"u"];
-    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
 }
 
 -(void)testWhitespace_Tab {
@@ -198,21 +170,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\t"];
-    STAssertTrue([[result output] isEqualToString: @"\t"], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertTrue([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"~"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"l"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"u"];
-    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
 }
 
 -(void)testWhitespace_Newline {
@@ -225,21 +183,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\n"];
-    STAssertTrue([[result output] isEqualToString: @"\n"], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertTrue([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"~"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"l"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"u"];
-    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
 }
 
 -(void)testWhitespace_Return {
@@ -252,21 +196,7 @@
     STAssertFalse([result isFinal], @"Unexpected output");
     STAssertFalse([result isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\r"];
-    STAssertTrue([[result output] isEqualToString: @"\r"], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertTrue([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"~"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"l"];
-    STAssertTrue([result output] == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertFalse([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"u"];
-    STAssertTrue([@"ऌ" isEqualToString:[result output]], [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
-    STAssertTrue([result isFinal], @"Unexpected output");
-    STAssertFalse([result isPreviousFinal], @"Unexpected output");
+    STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", [result output]]);
 }
 
 @end

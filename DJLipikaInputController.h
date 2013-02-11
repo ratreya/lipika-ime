@@ -6,7 +6,4 @@
     DJLipikaBufferManager* manager;
 }
 
--(id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient;
--(BOOL)inputText:(NSString*)string client:(id)sender;
-
 @end

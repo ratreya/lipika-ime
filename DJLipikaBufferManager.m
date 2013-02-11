@@ -3,6 +3,8 @@
 
 @implementation DJLipikaBufferManager
 
+static NSRegularExpression* whiteSpace;
+
 -(id)init {
     self = [super init];
     if (self == nil) {
@@ -12,8 +14,7 @@
     if (engine == nil) {
         return nil;
     }
-    uncommittedOutput = [[NSMutableArray alloc] initWithCapacity:0];
-    finalizedIndex = 0;
+    [self initialize];
     return self;
 }
 
@@ -24,9 +25,18 @@
         return self;
     }
     engine = myEngine;
+    [self initialize];
+    return self;
+}
+
+-(void)initialize {
+    NSError* error;
+    whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid whitespace regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
     uncommittedOutput = [[NSMutableArray alloc] initWithCapacity:0];
     finalizedIndex = 0;
-    return self;
 }
 
 -(NSString*)outputForInput:(NSString*)string {
@@ -47,16 +57,29 @@
 }
 
 -(NSString*)outputForSingleInput:(NSString*)string {
+    // Fush if stop character or whitespace
+    BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
+    BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
+    if (isStopChar || isWhiteSpace) {
+        // Only include the stop character in ouput if there is nothing to flush
+        if (!isStopChar || [uncommittedOutput count] <= 0) {
+            [uncommittedOutput addObject:string];
+        }
+        return [self flush];
+    }
+
     DJParseOutput* result = [engine executeWithInput:string];
     if (result == nil) {
         // Add the input as-is if there is no mapping for it
         [uncommittedOutput addObject:string];
+        // Reset the engine as you don't want previous inputs carrying over
+        [engine reset];
         // And finalize all outputs
-        finalizedIndex = uncommittedOutput.count;
+        finalizedIndex = [uncommittedOutput count];
     }
     else {
         if ([result isPreviousFinal]) {
-            finalizedIndex = uncommittedOutput.count;
+            finalizedIndex = [uncommittedOutput count];
         }
         else {
             [self removeUnfinalized];
@@ -66,14 +89,14 @@
         }
         if ([result isFinal]) {
             // This includes any additions
-            finalizedIndex = uncommittedOutput.count;
+            finalizedIndex = [uncommittedOutput count];
         }
     }
     return [self finalizedOutput];
 }
 
 -(void)removeUnfinalized {
-    while (uncommittedOutput.count > finalizedIndex) {
+    while ([uncommittedOutput count] > finalizedIndex) {
         [uncommittedOutput removeObjectAtIndex:finalizedIndex];
     }
 }
@@ -89,6 +112,12 @@
         --finalizedIndex;
     }
     return output;
+}
+
+-(NSString*)flush {
+    [engine reset];
+    finalizedIndex = [uncommittedOutput count];
+    return [self finalizedOutput];
 }
 
 @end
