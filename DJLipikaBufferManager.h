@@ -12,5 +12,6 @@
 
 -(id)init;
 -(NSString*)outputForInput:(NSString*)string;
+-(NSString*)flush;
 
 @end

@@ -13,5 +13,6 @@
 
 -(id)initWithScheme:(DJInputMethodScheme*)inputScheme;
 -(DJParseOutput*)executeWithInput:(NSString*) input;
+-(void)reset;
 
 @end

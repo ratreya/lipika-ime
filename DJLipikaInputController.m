@@ -11,15 +11,28 @@
     return self;
 }
 
-/*!
-	@method     
-    @abstract   Receive incoming text.
-	@discussion This method receives key board input from the client application. The method receives the key input as an NSString. The string will have been created from the keydown event by the InputMethodKit.
-*/
 -(BOOL)inputText:(NSString*)string client:(id)sender {
     NSString* commitString = [manager outputForInput:string];
     [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     return YES;
+}
+
+-(void)commitComposition:(id)sender {
+    NSString* commitString = [manager flush];
+    [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+}
+
+-(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
+    if (aSelector == @selector(insertNewline:)) {
+        [self commitComposition:sender];
+    }
+    else if (aSelector == @selector(deleteBackward:)) {
+        // If we deleted some uncommitted output then swallow the delete
+        if([manager flush] != nil) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end
