@@ -20,7 +20,8 @@
 #import <InputMethodKit/InputMethodKit.h>
 
 // Global server so controllers can access it
-IMKServer *server;
+IMKServer *server = nil;
+IMKCandidates* candidates = nil;
 
 int main(int argc, char *argv[]) {
     @autoreleasepool {
@@ -30,6 +31,10 @@ int main(int argc, char *argv[]) {
         
         // Load the bundle explicitly because the input method is a background only application
         [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
+
+        // Create the candidate window
+        candidates = [[IMKCandidates alloc] initWithServer:server panelType:kIMKSingleColumnScrollingCandidatePanel];
+
         // Run everything
         [[NSApplication sharedApplication] run];
     }

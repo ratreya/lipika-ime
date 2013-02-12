@@ -30,6 +30,8 @@
 
 -(id)init;
 -(NSString*)outputForInput:(NSString*)string;
+-(BOOL)hasUnfinalizedOutput;
+-(NSString*)unFinalizedOutput;
 -(NSString*)flush;
 
 @end

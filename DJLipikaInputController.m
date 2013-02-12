@@ -32,6 +32,13 @@
 -(BOOL)inputText:(NSString*)string client:(id)sender {
     NSString* commitString = [manager outputForInput:string];
     [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    if ([manager hasUnfinalizedOutput]) {
+        extern IMKCandidates* candidates;
+        if (candidates) {
+            [candidates updateCandidates];
+            [candidates show:kIMKLocateCandidatesBelowHint];
+        }
+    }
     return YES;
 }
 
@@ -51,6 +58,16 @@
         }
     }
     return NO;
+}
+
+-(NSArray*)candidates:(id)sender {
+    NSArray* candidate = [[NSArray alloc] initWithObjects:[manager unFinalizedOutput], nil];
+    return candidate;
+}
+
+-(void)candidateSelected:(NSAttributedString*)candidateString {
+    [[self client] insertText:candidateString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [manager flush];
 }
 
 @end
