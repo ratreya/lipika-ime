@@ -14,7 +14,7 @@
 		A506B92E16BDE91700EA49C0 /* TestSpecialChars.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B92D16BDE91700EA49C0 /* TestSpecialChars.scm */; };
 		A506B93016BDECEC00EA49C0 /* TestClassHappy.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B92F16BDECEC00EA49C0 /* TestClassHappy.scm */; };
 		A506B93416BDEDA300EA49C0 /* TestHappyCase.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */; };
-		A50F303A16C89E3D005147EB /* LICENSE.TXT in Resources */ = {isa = PBXBuildFile; fileRef = A50F303916C89E3D005147EB /* LICENSE.TXT */; };
+		A50F303A16C89E3D005147EB /* License in Resources */ = {isa = PBXBuildFile; fileRef = A50F303916C89E3D005147EB /* License */; };
 		A51DE1C616C2C79F0051A9E9 /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */; };
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
@@ -65,7 +65,7 @@
 		A506B92D16BDE91700EA49C0 /* TestSpecialChars.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestSpecialChars.scm; sourceTree = "<group>"; };
 		A506B92F16BDECEC00EA49C0 /* TestClassHappy.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestClassHappy.scm; sourceTree = "<group>"; };
 		A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestHappyCase.scm; sourceTree = "<group>"; };
-		A50F303916C89E3D005147EB /* LICENSE.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.TXT; sourceTree = "<group>"; };
+		A50F303916C89E3D005147EB /* License */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License; sourceTree = "<group>"; };
 		A51DE1C416C2C79F0051A9E9 /* DJInputEngineFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputEngineFactory.h; sourceTree = "<group>"; };
 		A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputEngineFactory.m; sourceTree = "<group>"; };
 		A54045C116C09ECB00A6BBD3 /* LipikaIMENestedClassTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMENestedClassTest.h; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
-				A50F303916C89E3D005147EB /* LICENSE.TXT */,
+				A50F303916C89E3D005147EB /* License */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -335,7 +335,7 @@
 				E999E1590BE8D77E00CAE01B /* ReadMe in Resources */,
 				A5F1C6D216B49DCE00993C52 /* LipikaIcon.png in Resources */,
 				A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */,
-				A50F303A16C89E3D005147EB /* LICENSE.TXT in Resources */,
+				A50F303A16C89E3D005147EB /* License in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

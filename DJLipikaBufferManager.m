@@ -132,6 +132,23 @@ static NSRegularExpression* whiteSpace;
     return output;
 }
 
+-(BOOL)hasUnfinalizedOutput {
+    return [uncommittedOutput count] > 0;
+}
+
+-(NSString*)unFinalizedOutput {
+    if (finalizedIndex == [uncommittedOutput count]) {
+        return nil;
+    }
+    unsigned long index = finalizedIndex;
+    NSMutableString* output = [[NSMutableString alloc] init];
+    while (index < [uncommittedOutput count]) {
+        [output appendString:[uncommittedOutput objectAtIndex:index]];
+        ++index;
+    }
+    return output;
+}
+
 -(NSString*)flush {
     [engine reset];
     finalizedIndex = [uncommittedOutput count];
