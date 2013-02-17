@@ -38,7 +38,7 @@
     [super tearDown];
 }
 
-- (void)testHappyCase_Chain_Mapping {
+-(void)testHappyCase_Chain_Mapping {
     NSString* result = [manager outputForInput:@"t"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"r"];
@@ -49,7 +49,7 @@
     STAssertTrue([@"री" isEqualToString:result], @"Unexpected output: %@", result);
 }
 
-- (void)testHappyCase_Chain_Class_Mapping {
+-(void)testHappyCase_Chain_Class_Mapping {
     NSString* result = [manager outputForInput:@"t"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"a"];
@@ -58,7 +58,7 @@
     STAssertTrue([@"ता" isEqualToString:result], @"Unexpected output: %@", result);
 }
 
-- (void)testHappyCase_Chain_Space_Mapping {
+-(void)testHappyCase_Chain_Space_Mapping {
     NSString* result = [manager outputForInput:@"t"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"r"];
@@ -69,7 +69,7 @@
     STAssertTrue([@"रे " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
-- (void)testHappyCase_Special_Chain_Mapping {
+-(void)testHappyCase_Special_Chain_Mapping {
     NSString* result = [manager outputForInput:@"r"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"a"];
@@ -86,7 +86,7 @@
     STAssertTrue([result isEqualToString:@"ग "], @"Unexpected output: %@", result);
 }
 
-- (void)testHappyCase_Intermediate_Blank_Chain_Mapping {
+-(void)testHappyCase_Intermediate_Blank_Chain_Mapping {
     NSString* result = [manager outputForInput:@"j"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"~"];
