@@ -16,6 +16,8 @@
 		A506B93416BDEDA300EA49C0 /* TestHappyCase.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */; };
 		A50F303A16C89E3D005147EB /* License in Resources */ = {isa = PBXBuildFile; fileRef = A50F303916C89E3D005147EB /* License */; };
 		A51DE1C616C2C79F0051A9E9 /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */; };
+		A5345AAB16D182F900AD6486 /* TestMultipleReplay.scm in Resources */ = {isa = PBXBuildFile; fileRef = A5345AAA16D182F900AD6486 /* TestMultipleReplay.scm */; };
+		A5345AAE16D185D800AD6486 /* LipikaIMEBufferReplayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */; };
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
 		A566843B16BE2A2C0078BA08 /* TestNestedClass.scm in Resources */ = {isa = PBXBuildFile; fileRef = A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */; };
@@ -68,6 +70,9 @@
 		A50F303916C89E3D005147EB /* License */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License; sourceTree = "<group>"; };
 		A51DE1C416C2C79F0051A9E9 /* DJInputEngineFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJInputEngineFactory.h; sourceTree = "<group>"; };
 		A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJInputEngineFactory.m; sourceTree = "<group>"; };
+		A5345AAA16D182F900AD6486 /* TestMultipleReplay.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestMultipleReplay.scm; sourceTree = "<group>"; };
+		A5345AAC16D185D800AD6486 /* LipikaIMEBufferReplayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEBufferReplayTest.h; sourceTree = "<group>"; };
+		A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMEBufferReplayTest.m; sourceTree = "<group>"; };
 		A54045C116C09ECB00A6BBD3 /* LipikaIMENestedClassTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMENestedClassTest.h; sourceTree = "<group>"; };
 		A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMENestedClassTest.m; sourceTree = "<group>"; };
 		A55B44BC16BF24D000CC8E94 /* LipikaIMEEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEEngineTest.h; sourceTree = "<group>"; };
@@ -205,6 +210,7 @@
 				A506B92F16BDECEC00EA49C0 /* TestClassHappy.scm */,
 				A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */,
 				A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */,
+				A5345AAA16D182F900AD6486 /* TestMultipleReplay.scm */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -236,6 +242,8 @@
 				A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */,
 				A5C579F516C6F872000A54FA /* LipikaIMEBufferManagerTest.h */,
 				A5C579F616C6F872000A54FA /* LipikaIMEBufferManagerTest.m */,
+				A5345AAC16D185D800AD6486 /* LipikaIMEBufferReplayTest.h */,
+				A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */,
 				A5C54E0A16BA20C1007F631D /* Supporting Files */,
 			);
 			path = LipikaIMETest;
@@ -348,6 +356,7 @@
 				A506B93016BDECEC00EA49C0 /* TestClassHappy.scm in Resources */,
 				A506B93416BDEDA300EA49C0 /* TestHappyCase.scm in Resources */,
 				A566843B16BE2A2C0078BA08 /* TestNestedClass.scm in Resources */,
+				A5345AAB16D182F900AD6486 /* TestMultipleReplay.scm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +410,7 @@
 				A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */,
 				A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */,
 				A5C579F716C6F872000A54FA /* LipikaIMEBufferManagerTest.m in Sources */,
+				A5345AAE16D185D800AD6486 /* LipikaIMEBufferReplayTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
