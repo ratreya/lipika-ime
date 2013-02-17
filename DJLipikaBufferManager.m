@@ -58,20 +58,23 @@ static NSRegularExpression* whiteSpace;
 }
 
 -(NSString*)outputForInput:(NSString*)string {
-    NSMutableString* output;
-    NSRange theRange = {0, 1};
-    for ( NSInteger i = 0; i < [string length]; i++) {
-        theRange.location = i;
-        NSString* singleInput = [string substringWithRange:theRange];
-        NSString* singleOutput = [self outputForSingleInput:singleInput];
-        if (singleOutput != nil) {
-            if (output == nil) {
-                output = [[NSMutableString alloc] initWithCapacity:0];
+    // The states beyond this entry point are not thread-safe
+    @synchronized (self) {
+        NSMutableString* output;
+        NSRange theRange = {0, 1};
+        for ( NSInteger i = 0; i < [string length]; i++) {
+            theRange.location = i;
+            NSString* singleInput = [string substringWithRange:theRange];
+            NSString* singleOutput = [self outputForSingleInput:singleInput];
+            if (singleOutput != nil) {
+                if (output == nil) {
+                    output = [[NSMutableString alloc] initWithCapacity:0];
+                }
+                [output appendString:singleOutput];
             }
-            [output appendString:singleOutput];
         }
+        return output;
     }
-    return output;
 }
 
 -(NSString*)outputForSingleInput:(NSString*)string {
@@ -79,35 +82,38 @@ static NSRegularExpression* whiteSpace;
     BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
     BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
     if (isStopChar || isWhiteSpace) {
-        // Only include the stop character in ouput if there is nothing to flush
-        if (!isStopChar || [uncommittedOutput count] <= 0) {
+        // Only include the stop character if it does nothing to the engine
+        if (!isStopChar || [engine isAtRoot]) {
             [uncommittedOutput addObject:string];
         }
         return [self flush];
     }
 
-    DJParseOutput* result = [engine executeWithInput:string];
-    if (result == nil) {
-        // Add the input as-is if there is no mapping for it
-        [uncommittedOutput addObject:string];
-        // Reset the engine as you don't want previous inputs carrying over
-        [engine reset];
-        // And finalize all outputs
-        finalizedIndex = [uncommittedOutput count];
-    }
-    else {
-        if ([result isPreviousFinal]) {
+    NSArray* results = [engine executeWithInput:string];
+    for (DJParseOutput* result in results) {
+        if (result == nil) {
+            // Add the input as-is if there is no mapping for it
+            [uncommittedOutput addObject:string];
+            // And finalize all outputs
             finalizedIndex = [uncommittedOutput count];
         }
         else {
-            [self removeUnfinalized];
-        }
-        if ([result output] != nil) {
-            [uncommittedOutput addObject:[result output]];
-        }
-        if ([result isFinal]) {
-            // This includes any additions
-            finalizedIndex = [uncommittedOutput count];
+            if ([result isPreviousFinal]) {
+                finalizedIndex = [uncommittedOutput count];
+            }
+            else {
+                // If there is a replacement then remove unfinalized
+                if ([result output] != nil) {
+                    [self removeUnfinalized];
+                }
+            }
+            if ([result output] != nil) {
+                [uncommittedOutput addObject:[result output]];
+            }
+            if ([result isFinal]) {
+                // This includes any additions
+                finalizedIndex = [uncommittedOutput count];
+            }
         }
     }
     return [self finalizedOutput];

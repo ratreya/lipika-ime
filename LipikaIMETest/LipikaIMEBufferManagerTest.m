@@ -86,6 +86,18 @@
     STAssertTrue([result isEqualToString:@"ग "], @"Unexpected output: %@", result);
 }
 
+- (void)testHappyCase_Intermediate_Blank_Chain_Mapping {
+    NSString* result = [manager outputForInput:@"j"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"~"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"j"];
+    STAssertTrue([result isEqualToString:@"ज्"], @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"a"];
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@" "];
+    STAssertTrue([@"ञ " isEqualToString:result], @"Unexpected output: %@", result);
+}
 
 -(void)testStopCharacter {
     NSString* result = [manager outputForInput:@"~"];

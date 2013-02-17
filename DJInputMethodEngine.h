@@ -25,12 +25,17 @@
 @private
     DJInputMethodScheme* scheme;
     DJParseTreeNode* currentNode;
+    
+    // Internal state variables
+    BOOL isOutputSinceRoot;
+    NSMutableArray* inputsSinceLastOutput;
 }
 
 @property DJInputMethodScheme* scheme;
 
 -(id)initWithScheme:(DJInputMethodScheme*)inputScheme;
--(DJParseOutput*)executeWithInput:(NSString*) input;
+-(NSArray*)executeWithInput:(NSString*) input;
+-(BOOL)isAtRoot;
 -(void)reset;
 
 @end

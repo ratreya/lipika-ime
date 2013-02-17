@@ -162,7 +162,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				E999E1580BE8D77E00CAE01B /* ReadMe */,
 				A5C54E0916BA20C1007F631D /* LipikaIMETest */,
 			);
 			name = NumberInput;
@@ -185,6 +184,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				A50F303916C89E3D005147EB /* License */,
+				E999E1580BE8D77E00CAE01B /* ReadMe */,
 			);
 			name = Resources;
 			sourceTree = "<group>";

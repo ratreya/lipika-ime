@@ -1,4 +1,4 @@
-﻿version: 1.0
+version: 1.0
 name: Barahavat
 stop-char: \
 using classes
@@ -16,8 +16,8 @@ oo ऊ
 U ऊ
 Ru ऋ
 RU ॠ
-~lu ऌ
-~lU ॡ
+Lu ऌ
+LU ॡ
 E ऎ
 e ए
 ai ऐ
@@ -81,8 +81,8 @@ class VowelSigns {
   U ू
   Ru ृ
   RU ॄ
-  ~lu ॢ
-  ~lU ॣ
+  Lu ॢ
+  LU ॣ
   E ॆ
   e े
   ai ै
