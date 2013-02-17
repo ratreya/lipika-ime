@@ -30,53 +30,95 @@
     }
     scheme = inputScheme;
     currentNode = nil;
+    isOutputSinceRoot = NO;
+    inputsSinceLastOutput = [[NSMutableArray alloc] initWithCapacity:0];
     return self;
 }
 
--(DJParseOutput *)executeWithInput:(NSString*)input {
+-(NSArray*)executeWithInput:(NSString*)input {
     if ([input length] != 1) {
         [NSException raise:@"Number of characters in input not one" format:@"Expected one but input had %ld characters", [input length]];
     }
     DJParseOutput* result = [DJParseOutput alloc];
     if (currentNode == nil) {
         // Look for mapping at root of tree
-        currentNode = [[scheme parseTree] valueForKey:input];
-        // We don't have a mapping for the input
-        if (currentNode == nil) {
-            return nil;
-        }
+        currentNode = [self getNodeForInput:input fromTree:[scheme parseTree]];
     }
     else {
         // Look for mapping at current level of the tree
-        DJParseTreeNode* nextNode = [[currentNode next] valueForKey:input];
+        DJParseTreeNode* nextNode = [self getNodeForInput:input fromTree:[currentNode next]];
         if (nextNode == nil) {
-            // Everything until now is good; we are resetting to root of tree
-            result.isPreviousFinal = YES;
-            // Search at root of tree
-            nextNode = [[scheme parseTree] valueForKey:input];
-            // We don't have a mapping for the input
-            if (nextNode == nil) {
-                return nil;
+            // If we had any output since root, then replay all inputs since last output at root
+            if (isOutputSinceRoot) {
+                // Copy remaining inputs
+                [inputsSinceLastOutput addObject:input];
+                NSArray* remaining = [[NSArray alloc] initWithArray:inputsSinceLastOutput];
+                // Search at root of tree
+                return [self replayAtRootWithInput:remaining];
             }
             else {
-                currentNode = nextNode;
+                // We did not find any output mapping
+                [self reset];
             }
         }
         else {
             currentNode = nextNode;
         }
     }
-    result.output = currentNode.output;
-    // If there cannot be another modification
-    if (currentNode.next == nil) {
-        result.isFinal = YES;
-        currentNode = nil;
+    if (currentNode == nil) {
+        // If we don't have mapping echo input
+        result.output = input;
+        result.isFinal = true;
+    }
+    else {
+        result.output = currentNode.output;
+        // If there cannot be another modification
+        if (currentNode.next == nil) {
+            result.isFinal = YES;
+        }
+    }
+    return [[NSArray alloc] initWithObjects:result, nil];
+}
+
+-(NSArray*)replayAtRootWithInput:(NSArray*)remaining {
+    [self reset];
+    NSMutableArray* results;
+    for (NSString* input in remaining) {
+        NSArray* result = [self executeWithInput:input];
+        if (result != nil) {
+            if (results == nil) {
+                results = [[NSMutableArray alloc] initWithCapacity:1];
+                // The first result should indicate that all previous inputs are final
+                [result[0] setIsPreviousFinal:YES];
+            }
+            [results addObjectsFromArray:result];
+        }
+    }
+    return results;
+}
+
+-(DJParseTreeNode*)getNodeForInput:(NSString*)input fromTree:(NSMutableDictionary*)tree{
+    DJParseTreeNode* result = [tree valueForKey:input];
+    if (result != nil) {
+        if ([result output] != nil) {
+            isOutputSinceRoot = YES;
+            [inputsSinceLastOutput removeAllObjects];
+        }
+        else {
+            [inputsSinceLastOutput addObject:input];
+        }
     }
     return result;
 }
 
+-(BOOL)isAtRoot {
+    return currentNode == nil;
+}
+
 -(void)reset {
     currentNode = nil;
+    isOutputSinceRoot = NO;
+    [inputsSinceLastOutput removeAllObjects];
 }
 
 @end
