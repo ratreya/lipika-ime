@@ -121,7 +121,11 @@ static NSRegularExpression* whiteSpace;
 
 -(void)delete {
     if ([uncommittedOutput count] > 0) {
+        [engine reset];
         [uncommittedOutput removeLastObject];
+        if (finalizedIndex > [uncommittedOutput count]) {
+            finalizedIndex = [uncommittedOutput count];
+        }
     }
 }
 
