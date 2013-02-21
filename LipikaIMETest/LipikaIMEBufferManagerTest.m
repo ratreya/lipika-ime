@@ -42,11 +42,11 @@
     NSString* result = [manager outputForInput:@"t"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"r"];
-    STAssertTrue([@"त्" isEqualToString:result], @"Unexpected output: %@", result);
-    result = [manager outputForInput:@"e"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"e"];
-    STAssertTrue([@"री" isEqualToString:result], @"Unexpected output: %@", result);
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"e "];
+    STAssertTrue([@"त्री " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
 -(void)testHappyCase_Chain_Class_Mapping {
@@ -54,19 +54,19 @@
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"a"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
-    result = [manager outputForInput:@"a"];
-    STAssertTrue([@"ता" isEqualToString:result], @"Unexpected output: %@", result);
+    result = [manager outputForInput:@"a "];
+    STAssertTrue([@"ता " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
 -(void)testHappyCase_Chain_Space_Mapping {
     NSString* result = [manager outputForInput:@"t"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"r"];
-    STAssertTrue([@"त्" isEqualToString:result], @"Unexpected output: %@", result);
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"e"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@" "];
-    STAssertTrue([@"रे " isEqualToString:result], @"Unexpected output: %@", result);
+    STAssertTrue([@"त्रे " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
 -(void)testHappyCase_Special_Chain_Mapping {
@@ -75,15 +75,15 @@
     result = [manager outputForInput:@"a"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"~"];
-    STAssertTrue([result isEqualToString:@"र"], @"Unexpected output: %@", result);
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"g"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"g"];
-    STAssertTrue([result isEqualToString:@"ङ्"], @"Unexpected output: %@", result);
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"a"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@" "];
-    STAssertTrue([result isEqualToString:@"ग "], @"Unexpected output: %@", result);
+    STAssertTrue([result isEqualToString:@"रङ्ग "], @"Unexpected output: %@", result);
 }
 
 -(void)testHappyCase_Intermediate_Blank_Chain_Mapping {
@@ -92,11 +92,11 @@
     result = [manager outputForInput:@"~"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"j"];
-    STAssertTrue([result isEqualToString:@"ज्"], @"Unexpected output: %@", result);
+    STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"a"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@" "];
-    STAssertTrue([@"ञ " isEqualToString:result], @"Unexpected output: %@", result);
+    STAssertTrue([@"ज्ञ " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
 -(void)testStopCharacter {
@@ -112,8 +112,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u"];
-    STAssertTrue([result isEqualToString:@"ऌ"], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    result = [manager outputForInput:@"u "];
+    STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
 -(void)testWhitespace_Space {
@@ -127,8 +127,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u"];
-    STAssertTrue([result isEqualToString:@"ऌ"], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    result = [manager outputForInput:@"u "];
+    STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
 -(void)testWhitespace_Tab {
@@ -142,8 +142,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u"];
-    STAssertTrue([result isEqualToString:@"ऌ"], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    result = [manager outputForInput:@"u "];
+    STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
 -(void)testWhitespace_Newline {
@@ -157,8 +157,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u"];
-    STAssertTrue([result isEqualToString:@"ऌ"], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    result = [manager outputForInput:@"u "];
+    STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
 -(void)testWhitespace_Return {
@@ -172,8 +172,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u"];
-    STAssertTrue([result isEqualToString:@"ऌ"], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    result = [manager outputForInput:@"u "];
+    STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
 @end

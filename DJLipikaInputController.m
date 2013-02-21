@@ -32,13 +32,7 @@
 -(BOOL)inputText:(NSString*)string client:(id)sender {
     NSString* commitString = [manager outputForInput:string];
     [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
-    if ([manager hasUnfinalizedOutput]) {
-        extern IMKCandidates* candidates;
-        if (candidates) {
-            [candidates updateCandidates];
-            [candidates show:kIMKLocateCandidatesBelowHint];
-        }
-    }
+    [self updateCandidates];
     return YES;
 }
 
@@ -52,16 +46,27 @@
         [self commitComposition:sender];
     }
     else if (aSelector == @selector(deleteBackward:)) {
-        // If we deleted some uncommitted output then swallow the delete
-        if([manager flush] != nil) {
-            return YES;
-        }
+        // If we deleted something then swallow the delete
+        BOOL isDeleted =[manager hasCurrentWord];
+        [manager delete];
+        [self updateCandidates];
+        return isDeleted;
     }
     return NO;
 }
 
+-(void)updateCandidates {
+    if ([manager hasCurrentWord]) {
+        extern IMKCandidates* candidates;
+        if (candidates) {
+            [candidates updateCandidates];
+            [candidates show:kIMKLocateCandidatesBelowHint];
+        }
+    }
+}
+
 -(NSArray*)candidates:(id)sender {
-    NSArray* candidate = [[NSArray alloc] initWithObjects:[manager unFinalizedOutput], nil];
+    NSArray* candidate = [[NSArray alloc] initWithObjects:[manager currentWord], nil];
     return candidate;
 }
 

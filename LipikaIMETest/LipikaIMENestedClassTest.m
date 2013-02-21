@@ -58,8 +58,8 @@
     STAssertTrue([result[0] output] == nil, @"Unexpected output");
     STAssertFalse([result[0] isFinal], @"Unexpected output");
     STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
-    result = [engine executeWithInput:@"f"];
-    STAssertTrue([@"f" isEqualToString:[result[0] output]], @"Unexpected output");
+    result = [engine executeWithInput:@"c"];
+    STAssertTrue([@"zfc" isEqualToString:[result[0] output]], @"Unexpected output: %@", [result[0] output]);
     STAssertTrue([result[0] isFinal], @"Unexpected output");
     STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
 }

@@ -132,10 +132,6 @@
 			children = (
 				E93074E00A5C2F1200470842 /* DJLipikaInputController.h */,
 				E93074E10A5C2F1200470842 /* DJLipikaInputController.m */,
-				A5C579F916C6FFC2000A54FA /* DJLipikaBufferManager.h */,
-				A5C579FA16C6FFC2000A54FA /* DJLipikaBufferManager.m */,
-				A51DE1C416C2C79F0051A9E9 /* DJInputEngineFactory.h */,
-				A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */,
 				A5C54DF816BA1EB9007F631D /* Parser Classes */,
 			);
 			name = Classes;
@@ -218,12 +214,16 @@
 		A5C54DF816BA1EB9007F631D /* Parser Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A5C579F916C6FFC2000A54FA /* DJLipikaBufferManager.h */,
+				A5C579FA16C6FFC2000A54FA /* DJLipikaBufferManager.m */,
+				A51DE1C416C2C79F0051A9E9 /* DJInputEngineFactory.h */,
+				A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */,
 				A5C6BB2216B5AEFE00B02E1B /* DJInputMethodScheme.h */,
 				A5C6BB2316B5AEFE00B02E1B /* DJInputMethodScheme.m */,
-				A5EC47A516B5FDD700031C1C /* DJParseTreeNode.h */,
-				A5EC47A616B5FDD700031C1C /* DJParseTreeNode.m */,
 				A5EC47A916B6040500031C1C /* DJInputMethodEngine.h */,
 				A5EC47AA16B6040500031C1C /* DJInputMethodEngine.m */,
+				A5EC47A516B5FDD700031C1C /* DJParseTreeNode.h */,
+				A5EC47A616B5FDD700031C1C /* DJParseTreeNode.m */,
 				A5EC47AC16B60BB000031C1C /* DJParseOutput.h */,
 				A5EC47AD16B60BB000031C1C /* DJParseOutput.m */,
 			);

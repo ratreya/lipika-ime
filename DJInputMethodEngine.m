@@ -50,15 +50,9 @@
         if (nextNode == nil) {
             // If we had any output since root, then replay all inputs since last output at root
             if (isOutputSinceRoot) {
-                // Copy remaining inputs
-                [inputsSinceLastOutput addObject:input];
-                NSArray* remaining = [[NSArray alloc] initWithArray:inputsSinceLastOutput];
                 // Search at root of tree
+                NSArray* remaining = [[NSArray alloc] initWithArray:inputsSinceLastOutput];
                 return [self replayAtRootWithInput:remaining];
-            }
-            else {
-                // We did not find any output mapping
-                [self reset];
             }
         }
         else {
@@ -66,8 +60,9 @@
         }
     }
     if (currentNode == nil) {
-        // If we don't have mapping echo input
-        result.output = input;
+        // We did not find any output mapping; echo all inputs
+        result.output = [inputsSinceLastOutput componentsJoinedByString:@""];
+        [self reset];
         result.isFinal = true;
     }
     else {
@@ -107,6 +102,9 @@
         else {
             [inputsSinceLastOutput addObject:input];
         }
+    }
+    else {
+        [inputsSinceLastOutput addObject:input];
     }
     return result;
 }
