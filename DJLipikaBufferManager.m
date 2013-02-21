@@ -116,12 +116,12 @@ static NSRegularExpression* whiteSpace;
             }
         }
     }
-    return [self finalizedOutput];
+    return nil;
 }
 
--(void)removeUnfinalized {
-    while ([uncommittedOutput count] > finalizedIndex) {
-        [uncommittedOutput removeObjectAtIndex:finalizedIndex];
+-(void)delete {
+    if ([uncommittedOutput count] > 0) {
+        [uncommittedOutput removeLastObject];
     }
 }
 
@@ -129,11 +129,11 @@ static NSRegularExpression* whiteSpace;
     if (finalizedIndex == 0) {
         return nil;
     }
+    unsigned long index = 0;
     NSMutableString* output = [[NSMutableString alloc] init];
-    while (finalizedIndex > 0) {
-        [output appendString:[uncommittedOutput objectAtIndex:0]];
-        [uncommittedOutput removeObjectAtIndex:0];
-        --finalizedIndex;
+    while (index < finalizedIndex) {
+        [output appendString:[uncommittedOutput objectAtIndex:index]];
+        ++index;
     }
     return output;
 }
@@ -155,10 +155,34 @@ static NSRegularExpression* whiteSpace;
     return output;
 }
 
+-(void)removeUnfinalized {
+    while ([uncommittedOutput count] > finalizedIndex) {
+        [uncommittedOutput removeObjectAtIndex:finalizedIndex];
+    }
+}
+
+-(BOOL)hasCurrentWord {
+    return [uncommittedOutput count] > 0;
+}
+
+-(NSString*)currentWord {
+    if ([uncommittedOutput count] <= 0) {
+        return nil;
+    }
+    return [uncommittedOutput componentsJoinedByString:@""];
+}
+
 -(NSString*)flush {
     [engine reset];
     finalizedIndex = [uncommittedOutput count];
-    return [self finalizedOutput];
+    NSString* result = [self finalizedOutput];
+    [self reset];
+    return result;
+}
+
+-(void)reset {
+    [uncommittedOutput removeAllObjects];
+    finalizedIndex = 0;
 }
 
 @end

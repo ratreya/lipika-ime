@@ -30,8 +30,11 @@
 
 -(id)init;
 -(NSString*)outputForInput:(NSString*)string;
+-(void)delete;
 -(BOOL)hasUnfinalizedOutput;
 -(NSString*)unFinalizedOutput;
+-(BOOL)hasCurrentWord;
+-(NSString*)currentWord;
 -(NSString*)flush;
 
 @end
