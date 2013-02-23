@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
 
         // Create the candidate window
         candidates = [[IMKCandidates alloc] initWithServer:server panelType:kIMKSingleColumnScrollingCandidatePanel];
+        [candidates setAttributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"IMKCandidatesSendServerKeyEventFirst"]];
 
         // Run everything
         [[NSApplication sharedApplication] run];

@@ -20,6 +20,11 @@
 
 @implementation DJLipikaInputController
 
+extern IMKCandidates* candidates;
+
+/*
+ * Overridden methods of IMKInputController
+ */
 -(id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient {
     self = [super initWithServer:server delegate:delegate client:inputClient];
     if (self == nil) {
@@ -29,6 +34,15 @@
     return self;
 }
 
+-(void)candidateSelected:(NSAttributedString*)candidateString {
+    [[self client] insertText:candidateString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [manager flush];
+    [candidates hide];
+}
+
+/*
+ * IMKServerInput protocol methods
+ */
 -(BOOL)inputText:(NSString*)string client:(id)sender {
     NSString* commitString = [manager outputForInput:string];
     [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
@@ -39,30 +53,24 @@
 -(void)commitComposition:(id)sender {
     NSString* commitString = [manager flush];
     [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [candidates hide];
 }
 
 -(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
-    if (aSelector == @selector(insertNewline:)) {
-        [self commitComposition:sender];
-    }
-    else if (aSelector == @selector(deleteBackward:)) {
+    if (aSelector == @selector(deleteBackward:)) {
         // If we deleted something then swallow the delete
         BOOL isDeleted =[manager hasCurrentWord];
         [manager delete];
         [self updateCandidates];
         return isDeleted;
     }
-    return NO;
-}
-
--(void)updateCandidates {
-    if ([manager hasCurrentWord]) {
-        extern IMKCandidates* candidates;
-        if (candidates) {
-            [candidates updateCandidates];
-            [candidates show:kIMKLocateCandidatesBelowHint];
-        }
+    else if (aSelector == @selector(cancelOperation:)) {
+        [manager flush];
     }
+    else {
+        [self commitComposition:sender];
+    }
+    return NO;
 }
 
 -(NSArray*)candidates:(id)sender {
@@ -70,9 +78,19 @@
     return candidate;
 }
 
--(void)candidateSelected:(NSAttributedString*)candidateString {
-    [[self client] insertText:candidateString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
-    [manager flush];
+/*
+ * DJLipikaInputController's instance methods
+ */
+-(void)updateCandidates {
+    if ([manager hasCurrentWord]) {
+        if (candidates) {
+            [candidates updateCandidates];
+            [candidates show:kIMKLocateCandidatesBelowHint];
+        }
+    }
+    else {
+        [candidates hide];
+    }
 }
 
 @end
