@@ -17,6 +17,7 @@
  */
 
 #import "DJLipikaInputController.h"
+#import "Constants.h"
 
 @implementation DJLipikaInputController
 
@@ -40,8 +41,12 @@ extern IMKCandidates* candidates;
     [candidates hide];
 }
 
+-(NSMenu*)menu {
+	return [[NSApp delegate] mainMenu];
+}
+
 /*
- * IMKServerInput protocol methods
+ * IMKServerInput and IMKStateSetting protocol methods
  */
 -(BOOL)inputText:(NSString*)string client:(id)sender {
     NSString* commitString = [manager outputForInput:string];
@@ -78,6 +83,27 @@ extern IMKCandidates* candidates;
     return candidate;
 }
 
+-(IBAction)showPreferences:(id)sender {
+/*
+ sender is a NSDictionary object with the following keys:
+ {
+    IMKCommandClient = "<IMKInputSession>";
+    IMKCommandMenuItem = "<NSMenuItem>";
+    IMKMenuTitle = "<NSString>";
+ }
+ */
+    NSMenuItem* menuItem = [sender valueForKey:@"IMKCommandMenuItem"];
+    if ([menuItem tag] == 1) {     // Preferrence
+        [self showPreferenceImplimentation:menuItem];
+    }
+    else if ([menuItem tag] > 1) { // Input Schemes
+        [self changeInputScheme:menuItem];
+    }
+    else {
+        [NSException raise:@"Unknown tag" format:@"Unknown menu tag: %ld", [menuItem tag]];
+    }
+}
+
 /*
  * DJLipikaInputController's instance methods
  */
@@ -91,6 +117,23 @@ extern IMKCandidates* candidates;
     else {
         [candidates hide];
     }
+}
+
+-(void)changeInputScheme:(id)sender {
+    // Turn off state for all menu items
+    NSArray* peerItems = [[[sender parentItem] submenu] itemArray];
+    [peerItems enumerateObjectsUsingBlock:^(NSMenuItem* obj, NSUInteger idx, BOOL *stop) {
+        [obj setState:NSOffState];
+    }];
+    // Turn on state for the sender and set selected scheme
+    [sender setState:NSOnState];
+    [[NSUserDefaults standardUserDefaults] setValue:[sender title] forKey:DEFAULT_SCHEME_NAME_KEY];
+    [self commitComposition:[self client]];
+    [manager changeToSchemeWithName:[sender title]];
+}
+
+-(void)showPreferenceImplimentation:(id)sender {
+    NSLog(@"showPreferences");
 }
 
 @end

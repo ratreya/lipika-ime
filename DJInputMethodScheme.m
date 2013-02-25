@@ -38,6 +38,7 @@ static NSString *const WILDCARD = @"wildcard";
 
 static NSRegularExpression* classKeyExpression;
 static NSRegularExpression* wildcardValueExpression;
+static NSRegularExpression* whitespaceExpression;
 
 -(id)initWithSchemeFile:(NSString*)filePath {
     self = [super init];
@@ -71,6 +72,11 @@ static NSRegularExpression* wildcardValueExpression;
      */
     NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
     wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    NSString *const whitespacePattern = [NSString stringWithFormat:@"^\\s+$"];
+    whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
@@ -131,7 +137,7 @@ static NSRegularExpression* wildcardValueExpression;
     // Parse out the headers
     for (NSString* line in linesOfScheme) {
         // For empty lines move on
-        if ([line length] <=0 ) {
+        if ([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             currentLineNumber++;
             continue;
         }
@@ -193,7 +199,7 @@ static NSRegularExpression* wildcardValueExpression;
     for (; currentLineNumber<[linesOfScheme count]; currentLineNumber++) {
         NSString* line = linesOfScheme[currentLineNumber];
         // For empty lines move on
-        if ([line length] <=0 ) continue;
+        if ([line length] <=0  || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) continue;
         NSLog(@"Parsing line: %@", line);
         if ([simpleMappingExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             NSLog(@"Found mapping expression");

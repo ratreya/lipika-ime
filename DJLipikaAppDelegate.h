@@ -16,26 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import <Foundation/Foundation.h>
-#import "DJInputMethodEngine.h"
+#import <Cocoa/Cocoa.h>
 
-@interface DJLipikaBufferManager : NSObject {
-    // One instance of the engine per connection
-    DJInputMethodEngine* engine;
-    // Holds NSString outputs that need to be handed off to the client
-    NSMutableArray* uncommittedOutput;
-    // New output from the engine will replace all output after this index
-    unsigned long finalizedIndex;
+@interface DJLipikaAppDelegate : NSObject<NSApplicationDelegate> {
+    IBOutlet NSMenu* mainMenu;
 }
 
--(id)init;
--(void)changeToSchemeWithName:(NSString*)schemeName;
--(NSString*)outputForInput:(NSString*)string;
--(void)delete;
--(BOOL)hasUnfinalizedOutput;
--(NSString*)unFinalizedOutput;
--(BOOL)hasCurrentWord;
--(NSString*)currentWord;
--(NSString*)flush;
+@property IBOutlet NSMenu* mainMenu;
 
 @end
