@@ -33,6 +33,13 @@
     [super tearDown];
 }
 
+- (void)testNestedClassParsing {
+    STAssertTrue([@"test1" isEqualToString:[scheme getClassNameForInput:@"c"]], @"Unexpected class name");
+    STAssertTrue([@"test2" isEqualToString:[scheme getClassNameForInput:@"f"]], @"Unexpected class name");
+    STAssertTrue([[scheme getClassForName:@"test1"] count] == 3, @"Unexpected count of mappings");
+    STAssertTrue([[scheme getClassForName:@"test2"] count] == 2, @"Unexpected count of mappings");
+}
+
 -(void)testHappyCase_Simple_NestedClass {
     NSArray* result = [engine executeWithInput:@"z"];
     STAssertTrue([result[0] output] == nil, @"Unexpected output");

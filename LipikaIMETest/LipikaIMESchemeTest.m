@@ -17,14 +17,16 @@
  */
 
 #import "LipikaIMESchemeTest.h"
-#import "DJInputMethodScheme.h"
 #import "DJParseTreeNode.h"
 
 @implementation LipikaIMESchemeTest
 
+- (void)setUp {
+    [super setUp];
+    scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
+}
+
 - (void)testHeaderParsing {
-    NSLog(@"%@", [[NSBundle mainBundle] bundlePath]);
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
     STAssertTrue([@"1.0" isEqualTo:[scheme version]], @"Version numbers don't match");
     STAssertTrue([@"Barahavat" isEqualTo:[scheme name]], @"Names don't match");
     STAssertTrue([@"\\" isEqualTo:[scheme stopChar]], @"Stop Characters dos't match");
@@ -35,36 +37,15 @@
 }
 
 - (void)testClassParsing {
-    NSLog(@"%@", [[NSBundle mainBundle] bundlePath]);
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestClassHappy.scm"];
-    STAssertTrue([@"test" isEqualToString:[scheme getClassNameForInput:@"c"]], @"Unexpected class name");
-    STAssertTrue([[scheme getClassForName:@"test"] count] == 3, @"Unexpected count of mappings");
-}
-
-- (void)testNestedClassParsing {
-    NSLog(@"%@", [[NSBundle mainBundle] bundlePath]);
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestNestedClass.scm"];
-    STAssertTrue([@"test1" isEqualToString:[scheme getClassNameForInput:@"c"]], @"Unexpected class name");
-    STAssertTrue([@"test2" isEqualToString:[scheme getClassNameForInput:@"f"]], @"Unexpected class name");
-    STAssertTrue([[scheme getClassForName:@"test1"] count] == 3, @"Unexpected count of mappings");
-    STAssertTrue([[scheme getClassForName:@"test2"] count] == 2, @"Unexpected count of mappings");
+    STAssertTrue([@"VowelSigns" isEqualToString:[scheme getClassNameForInput:@"A"]], @"Unexpected class name");
+    STAssertTrue([[scheme getClassForName:@"VowelSigns"] count] == 12, @"Unexpected count of mappings: %d", [[scheme getClassForName:@"VowelSigns"] count]);
 }
 
 - (void)testMappingParsing {
-    NSLog(@"%@", [[NSBundle mainBundle] bundlePath]);
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
     NSString* output = [[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
     output = [[[[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"I"] output];
     STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
 }
-
-// Ignoring for now; @ symbol does not seem to work
-- (void)XXXtestSpecialCharacterParsing {
-    NSLog(@"%@", [[NSBundle mainBundle] bundlePath]);
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestSpecialChars.scm"];
-    STAssertTrue(scheme != nil, @"Unable to parse special characters");
-}
-
 
 @end

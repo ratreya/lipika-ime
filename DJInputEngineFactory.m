@@ -17,48 +17,95 @@
  */
 
 #import "DJInputEngineFactory.h"
+#import "Constants.h"
+
+@interface DJInputEngineFactory ()
+
+@property NSString* inputSchemeName;
+
+@end
 
 @implementation DJInputEngineFactory
 
-static NSString* currentSchemeName = @"Barahavat.scm";
-static NSMutableDictionary* schemesCache;
+static DJInputEngineFactory* singletonFactory = nil;
+static NSString* schemesDirectory;
 
-+(NSString*)schemeFileName {
-    return currentSchemeName;
-}
-
-+(void)setSchemeFileName:(NSString*)fileName {
-    currentSchemeName = fileName;
++(void)initialize {
+    static BOOL initialized = NO;
+    if(!initialized) {
+        initialized = YES;
+        singletonFactory = [[DJInputEngineFactory alloc] init];
+        schemesDirectory = [NSString stringWithFormat:@"%@/Contents/Resources/Schemes", [[NSBundle mainBundle] bundlePath]];
+    }
 }
 
 +(DJInputMethodEngine*)inputEngine {
-    return [DJInputEngineFactory inputEngineWithSchemeFile:currentSchemeName];
+    return [singletonFactory inputEngine];
 }
 
-+(DJInputMethodEngine*)inputEngineWithSchemeFile:(NSString*)schemeFileName {
-    currentSchemeName = schemeFileName;
-    // Initialize the cache once
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-        schemesCache = [[NSMutableDictionary alloc] initWithCapacity:0];
-    });
++(void)setCurrentSchemeWithName:(NSString *)schemeName {
+    singletonFactory.inputSchemeName = schemeName;
+}
+
++(NSString*)currentSchemeName {
+    return singletonFactory.inputSchemeName;
+}
+
++(NSArray*)availableSchemes {
+    // Find scheme files in schemes directory
+    NSError* error;
+    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:schemesDirectory error:&error];
+    if (error != nil) {
+        [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
+    }
+    NSArray *scmFiles = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.scm'"]];
+    NSMutableArray* schemeNames = [[NSMutableArray alloc] initWithCapacity:0];
+    [scmFiles enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+        [schemeNames addObject:[obj stringByDeletingPathExtension]];
+    }];
+    return schemeNames;
+}
+
+-(id)init {
+    self = [super init];
+    if (self == nil) {
+        return self;
+    }
+    schemesCache = [[NSMutableDictionary alloc] initWithCapacity:0];
+    inputSchemeName = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULT_SCHEME_NAME_KEY];
+    return self;
+}
+
+-(NSString*)inputSchemeName {
+    return inputSchemeName;
+}
+
+-(void)setInputSchemeName:(NSString*)schemeName {
+    inputSchemeName = schemeName;
+}
+
+-(DJInputMethodEngine*)inputEngine {
+    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:[self inputSchemeForName:inputSchemeName]];
+    return engine;
+}
+
+-(DJInputMethodScheme*)inputSchemeForName:(NSString*)schemeName {
     // Initialize with the given scheme file
     DJInputMethodScheme* scheme;
     @synchronized(schemesCache) {
-        scheme = [schemesCache valueForKey:schemeFileName];
+        scheme = [schemesCache valueForKey:schemeName];
         if (scheme == nil) {
-            NSString* filePath = [NSString stringWithFormat:@"%@/Contents/Resources/Schemes/%@", [[NSBundle mainBundle] bundlePath], schemeFileName];
+            NSString* filePath = [NSString stringWithFormat:@"%@/%@.scm", schemesDirectory, schemeName];
             scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:filePath];
+            if (scheme == nil) {
+                return nil;
+            }
+            else {
+                [schemesCache setValue:scheme forKey:schemeName];
+            }
         }
-        if (scheme == nil) {
-            return nil;
-        }
-        else {
-            [schemesCache setValue:scheme forKey:schemeFileName];
-        }
+        return scheme;
     }
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
-    return engine;
 }
 
 @end

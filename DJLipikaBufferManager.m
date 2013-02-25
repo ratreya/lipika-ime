@@ -57,6 +57,13 @@ static NSRegularExpression* whiteSpace;
     finalizedIndex = 0;
 }
 
+-(void)changeToSchemeWithName:(NSString*)schemeName {
+    @synchronized (self) {
+        [DJInputEngineFactory setCurrentSchemeWithName:schemeName];
+        engine = [DJInputEngineFactory inputEngine];
+    }
+}
+
 -(NSString*)outputForInput:(NSString*)string {
     // The states beyond this entry point are not thread-safe
     @synchronized (self) {
