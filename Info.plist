@@ -28,8 +28,8 @@
 	<string>DJLipikaInputController</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
-	<key>LSBackgroundOnly</key>
-	<string>1</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

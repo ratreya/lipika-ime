@@ -16,12 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-FOUNDATION_EXPORT NSString *const DEFAULT_SCHEME_NAME_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_FONT_NAME_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_FONT_SIZE_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_FONT_COLOR_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_BACKGROUND_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_OPACITY_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_CANDIDATE_FONT_KEY;
+@interface DJPreferenceController : NSWindowController <NSTextFieldDelegate> {
+    IBOutlet NSTextField* opacity;
+    IBOutlet NSComboBox* fontName;
+    IBOutlet NSTextField* fontSize;
+    IBOutlet NSColorWell* fontColor;
+    IBOutlet NSColorWell* background;
+    IBOutlet NSButton* save;
+}
+
+@property IBOutlet NSTextField* opacity;
+@property IBOutlet NSComboBox* fontName;
+@property IBOutlet NSTextField* fontSize;
+@property IBOutlet NSColorWell* fontColor;
+@property IBOutlet NSColorWell* background;
+@property IBOutlet NSButton* save;
+
+-(IBAction)saveValues:(id)sender;
+-(IBAction)resetValues:(id)sender;
+
+@end

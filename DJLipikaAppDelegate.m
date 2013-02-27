@@ -18,16 +18,11 @@
 
 #import "DJLipikaAppDelegate.h"
 #import "DJInputEngineFactory.h"
-#import "Constants.h"
+#import "DJLipikaUserSettings.h"
 
 @implementation DJLipikaAppDelegate
 
 @synthesize mainMenu;
-
-+(void)initialize {
-    NSDictionary* defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UserSettings" ofType:@"plist"]];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
-}
 
 -(void)awakeFromNib {
     // Set selector for preferrence
@@ -43,7 +38,7 @@
     [mainMenu addItem:schemeItem];
 
     // Create a schemes sub menu
-    NSString* defaultSchemeName = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULT_SCHEME_NAME_KEY];
+    NSString* defaultSchemeName = [DJLipikaUserSettings schemeName];
     NSMenu* schemeSubMenu = [[NSMenu alloc] initWithTitle:@"SchemesSubMenu"];
     NSArray* schemeNames = [DJInputEngineFactory availableSchemes];
     for (NSString* schemeName in schemeNames) {
