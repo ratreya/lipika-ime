@@ -32,8 +32,6 @@ int main(int argc, char *argv[]) {
         NSString* kConnectionName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"InputMethodConnectionName"];
         NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
         server = [[IMKServer alloc] initWithName:kConnectionName bundleIdentifier:identifier];
-        
-        // Create the candidate window
         candidates = [[IMKCandidates alloc] initWithServer:server panelType:kIMKSingleColumnScrollingCandidatePanel];
 
         // Run everything
