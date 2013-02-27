@@ -20,6 +20,8 @@
 		A51DE1C616C2C79F0051A9E9 /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */; };
 		A5345AAB16D182F900AD6486 /* TestMultipleReplay.scm in Resources */ = {isa = PBXBuildFile; fileRef = A5345AAA16D182F900AD6486 /* TestMultipleReplay.scm */; };
 		A5345AAE16D185D800AD6486 /* LipikaIMEBufferReplayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */; };
+		A53636AE16DE8F4700DE2E36 /* DJLipikaUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CCBE5216DD2BA900A6F57F /* DJLipikaUserSettings.m */; };
+		A53636AF16DE8F7200DE2E36 /* DJPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A596563016DC1F6B000F5BD2 /* DJPreferenceController.m */; };
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
 		A566843B16BE2A2C0078BA08 /* TestNestedClass.scm in Resources */ = {isa = PBXBuildFile; fileRef = A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */; };
@@ -432,15 +434,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5C54E1F16BA27AF007F631D /* main.m in Sources */,
 				A50E952A16DBE5F9000D2C7F /* Constants.m in Sources */,
+				A53636AE16DE8F4700DE2E36 /* DJLipikaUserSettings.m in Sources */,
 				A5C579FC16C701D0000A54FA /* DJLipikaBufferManager.m in Sources */,
 				A5A4247316C4AC01004439E8 /* DJInputEngineFactory.m in Sources */,
+				A53636AF16DE8F7200DE2E36 /* DJPreferenceController.m in Sources */,
 				A5C54E1A16BA27AF007F631D /* DJLipikaInputController.m in Sources */,
 				A5C54E1B16BA27AF007F631D /* DJInputMethodScheme.m in Sources */,
 				A5C54E1C16BA27AF007F631D /* DJParseTreeNode.m in Sources */,
 				A5C54E1D16BA27AF007F631D /* DJInputMethodEngine.m in Sources */,
 				A5C54E1E16BA27AF007F631D /* DJParseOutput.m in Sources */,
-				A5C54E1F16BA27AF007F631D /* main.m in Sources */,
 				A5C54E1116BA20C1007F631D /* LipikaIMESchemeTest.m in Sources */,
 				A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */,
 				A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */,
