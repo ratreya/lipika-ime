@@ -41,8 +41,8 @@
 
 -(void)loadValues {
     [fontName selectItemWithObjectValue:[DJLipikaUserSettings candidateFontName]];
-    [fontSize setFloatValue:[DJLipikaUserSettings candidateFontSize]];
-    [opacity setFloatValue:[DJLipikaUserSettings opacity]];
+    [fontSize setStringValue:[NSString stringWithFormat:@"%.02f",[DJLipikaUserSettings candidateFontSize]]];
+    [opacity setStringValue:[NSString stringWithFormat:@"%.02f",[DJLipikaUserSettings opacity]]];
     [fontColor setColor:[DJLipikaUserSettings fontColor]];
     [background setColor:[DJLipikaUserSettings backgroundColor]];
 }
@@ -53,13 +53,13 @@
 }
 
 -(IBAction)saveValues:(id)sender {
-    NSNumber* floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[opacity objectValue]];
+    NSNumber* floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[opacity stringValue]];
     if (floatValue == nil || floatValue.floatValue < 0.0 || floatValue.floatValue > 1.0) {
         NSBeep();
         [opacity setFloatValue:[DJLipikaUserSettings opacity]];
         return;
     }
-    floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[fontSize objectValue]];
+    floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[fontSize stringValue]];
     if (floatValue == nil || floatValue.floatValue < 9 || floatValue.floatValue > 288) {
         NSBeep();
         NSFont* font = [DJLipikaUserSettings candidateFont];
