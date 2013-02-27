@@ -9,10 +9,10 @@
 	<key>NSBackgroundColorDocumentAttribute</key>
 	<data></data>
 	<key>IMKCandidatesOpacityAttributeName</key>
-	<real>1</real>
+	<real>0.9</real>
 	<key>CandidateFontName</key>
-	<string>DevanagariMT</string>
+	<string>DevanagariSangamMN</string>
 	<key>CandidateFontSize</key>
-	<integer>18</integer>
+	<integer>16</integer>
 </dict>
 </plist>

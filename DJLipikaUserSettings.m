@@ -34,15 +34,26 @@
     [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:DEFAULT_SCHEME_NAME_KEY];
 }
 
++(NSString*)candidateFontName {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_FONT_NAME_KEY];
+}
+
++(void)setCandidateFontName:(NSString*)fontName {
+    [[NSUserDefaults standardUserDefaults] setObject:fontName forKey:DEFAULT_FONT_NAME_KEY];
+}
+
++(float)candidateFontSize {
+    return [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_FONT_SIZE_KEY];
+}
+
++(void)setCandidateFontSize:(float)fontSize {
+    [[NSUserDefaults standardUserDefaults] setFloat:fontSize forKey:DEFAULT_FONT_SIZE_KEY];
+}
+
 +(NSFont*)candidateFont {
     NSString* fontName = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_FONT_NAME_KEY];
     float fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_FONT_SIZE_KEY];
     return [NSFont fontWithName:fontName size:fontSize];
-}
-
-+(void)setCandidateFont:(NSString*)fontName fontSize:(float)fontSize {
-    [[NSUserDefaults standardUserDefaults] setObject:fontName forKey:DEFAULT_FONT_NAME_KEY];
-    [[NSUserDefaults standardUserDefaults] setFloat:fontSize forKey:DEFAULT_FONT_SIZE_KEY];
 }
 
 +(NSColor*)fontColor {
@@ -85,8 +96,9 @@
 
 +(void)reset {
     [self resetStandardUserDefaults];
-    NSString* domainName = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
+    [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

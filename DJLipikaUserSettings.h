@@ -22,8 +22,11 @@
 
 +(NSString*)schemeName;
 +(void)setSchemeName:(NSString*)schemeName;
++(NSString*)candidateFontName;
++(void)setCandidateFontName:(NSString*)fontName;
++(float)candidateFontSize;
++(void)setCandidateFontSize:(float)fontSize;
 +(NSFont*) candidateFont;
-+(void)setCandidateFont:(NSString*)fontName fontSize:(float)fontSize;
 +(NSColor*) fontColor;
 +(void)setFontColor:(NSColor*) fontColor;
 +(NSColor*) backgroundColor;

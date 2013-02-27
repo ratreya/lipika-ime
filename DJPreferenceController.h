@@ -37,4 +37,6 @@
 -(IBAction)saveValues:(id)sender;
 -(IBAction)resetValues:(id)sender;
 
++(void)configureCandidates;
+
 @end

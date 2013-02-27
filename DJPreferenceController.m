@@ -18,6 +18,7 @@
 
 #import "DJPreferenceController.h"
 #import "DJLipikaUserSettings.h"
+#import <InputMethodKit/InputMethodKit.h>
 #import "Constants.h"
 
 @implementation DJPreferenceController
@@ -39,10 +40,8 @@
 }
 
 -(void)loadValues {
-    NSFont* font = [DJLipikaUserSettings candidateFont];
-    [fontName selectItemWithObjectValue:[font fontName]];
-    float size = [[[font fontDescriptor] objectForKey:NSFontSizeAttribute] floatValue];
-    [fontSize setFloatValue:size];
+    [fontName selectItemWithObjectValue:[DJLipikaUserSettings candidateFontName]];
+    [fontSize setFloatValue:[DJLipikaUserSettings candidateFontSize]];
     [opacity setFloatValue:[DJLipikaUserSettings opacity]];
     [fontColor setColor:[DJLipikaUserSettings fontColor]];
     [background setColor:[DJLipikaUserSettings backgroundColor]];
@@ -54,12 +53,14 @@
 }
 
 -(IBAction)saveValues:(id)sender {
-    if ([opacity floatValue] < 0 || [opacity floatValue] > 1.0) {
+    NSNumber* floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[opacity objectValue]];
+    if (floatValue == nil || floatValue.floatValue < 0.0 || floatValue.floatValue > 1.0) {
         NSBeep();
         [opacity setFloatValue:[DJLipikaUserSettings opacity]];
         return;
     }
-    if ([fontSize floatValue] < 9 || [fontSize floatValue] > 288) {
+    floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[fontSize objectValue]];
+    if (floatValue == nil || floatValue.floatValue < 9 || floatValue.floatValue > 288) {
         NSBeep();
         NSFont* font = [DJLipikaUserSettings candidateFont];
         float size = [[[font fontDescriptor] objectForKey:NSFontSizeAttribute] floatValue];
@@ -69,8 +70,24 @@
     [DJLipikaUserSettings setFontColor:[fontColor color]];
     [DJLipikaUserSettings setBackgroundColor:[background color]];
     [DJLipikaUserSettings setOpacity:[opacity floatValue]];
-    [DJLipikaUserSettings setCandidateFont:[fontName objectValueOfSelectedItem] fontSize:[fontSize floatValue]];
+    [DJLipikaUserSettings setCandidateFontName:[fontName objectValueOfSelectedItem]];
+    [DJLipikaUserSettings setCandidateFontSize:[fontSize floatValue]];
+    [DJPreferenceController configureCandidates];
     [self close];
 }
+
++(void)configureCandidates {
+    extern IMKCandidates* candidates;
+    // Configure Candidate window
+    [candidates setDismissesAutomatically:NO];
+    NSMutableDictionary* attributes = [[NSMutableDictionary alloc] initWithCapacity:5];
+    [attributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString*)IMKCandidatesSendServerKeyEventFirst];
+    [attributes setValue:[DJLipikaUserSettings candidateFont] forKey:NSFontAttributeName];
+    [attributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:(NSString*)IMKCandidatesOpacityAttributeName];
+    [attributes setValue:[DJLipikaUserSettings fontColor] forKey:NSForegroundColorAttributeName];
+    [attributes setValue:[DJLipikaUserSettings backgroundColor] forKey:NSBackgroundColorDocumentAttribute];
+    [candidates setAttributes:attributes];
+}
+
 
 @end

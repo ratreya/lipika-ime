@@ -34,7 +34,7 @@ extern IMKCandidates* candidates;
         return self;
     }
     manager = [[DJLipikaBufferManager alloc] init];
-    [self configureCandidates];
+    [DJPreferenceController configureCandidates];
     return self;
 }
 
@@ -120,18 +120,6 @@ extern IMKCandidates* candidates;
     else {
         [candidates hide];
     }
-}
-
--(void)configureCandidates {
-    // Configure Candidate window
-    [candidates setDismissesAutomatically:NO];
-    NSMutableDictionary* attributes = [[NSMutableDictionary alloc] initWithCapacity:5];
-    [attributes setValue:[NSNumber numberWithBool:YES] forKey:@"IMKCandidatesSendServerKeyEventFirst"];
-    [attributes setValue:[DJLipikaUserSettings candidateFont] forKey:DEFAULT_CANDIDATE_FONT_KEY];
-    [attributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:DEFAULT_OPACITY_KEY];
-    [attributes setValue:[DJLipikaUserSettings fontColor] forKey:DEFAULT_FONT_COLOR_KEY];
-    [attributes setValue:[DJLipikaUserSettings backgroundColor] forKey:DEFAULT_BACKGROUND_KEY];
-    [candidates setAttributes:attributes];
 }
 
 -(void)changeInputScheme:(id)sender {
