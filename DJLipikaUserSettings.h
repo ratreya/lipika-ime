@@ -16,12 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-FOUNDATION_EXPORT NSString *const DEFAULT_SCHEME_NAME_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_FONT_NAME_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_FONT_SIZE_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_FONT_COLOR_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_BACKGROUND_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_OPACITY_KEY;
-FOUNDATION_EXPORT NSString *const DEFAULT_CANDIDATE_FONT_KEY;
+@interface DJLipikaUserSettings : NSUserDefaults
+
++(NSString*)schemeName;
++(void)setSchemeName:(NSString*)schemeName;
++(NSFont*) candidateFont;
++(void)setCandidateFont:(NSString*)fontName fontSize:(float)fontSize;
++(NSColor*) fontColor;
++(void)setFontColor:(NSColor*) fontColor;
++(NSColor*) backgroundColor;
++(void)setBackgroundColor:(NSColor*) backgroundColor;
++(float) opacity;
++(void)setOpacity:(float) opacity;
++(void)reset;
+
+@end

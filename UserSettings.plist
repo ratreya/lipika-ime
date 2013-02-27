@@ -2,7 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>DefaultSchemeName</key>
+	<key>SchemeName</key>
 	<string>Barahavat</string>
+	<key>NSForegroundColorAttributeName</key>
+	<data></data>
+	<key>NSBackgroundColorDocumentAttribute</key>
+	<data></data>
+	<key>IMKCandidatesOpacityAttributeName</key>
+	<real>1</real>
+	<key>CandidateFontName</key>
+	<string>DevanagariMT</string>
+	<key>CandidateFontSize</key>
+	<integer>18</integer>
 </dict>
 </plist>

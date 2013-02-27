@@ -17,7 +17,7 @@
  */
 
 #import "DJInputEngineFactory.h"
-#import "Constants.h"
+#import "DJLipikaUserSettings.h"
 
 @interface DJInputEngineFactory ()
 
@@ -72,7 +72,7 @@ static NSString* schemesDirectory;
         return self;
     }
     schemesCache = [[NSMutableDictionary alloc] initWithCapacity:0];
-    inputSchemeName = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULT_SCHEME_NAME_KEY];
+    inputSchemeName = [DJLipikaUserSettings schemeName];
     return self;
 }
 

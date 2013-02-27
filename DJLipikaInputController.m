@@ -17,6 +17,8 @@
  */
 
 #import "DJLipikaInputController.h"
+#import "DJLipikaUserSettings.h"
+#import "DJPreferenceController.h"
 #import "Constants.h"
 
 @implementation DJLipikaInputController
@@ -32,6 +34,7 @@ extern IMKCandidates* candidates;
         return self;
     }
     manager = [[DJLipikaBufferManager alloc] init];
+    [self configureCandidates];
     return self;
 }
 
@@ -119,6 +122,18 @@ extern IMKCandidates* candidates;
     }
 }
 
+-(void)configureCandidates {
+    // Configure Candidate window
+    [candidates setDismissesAutomatically:NO];
+    NSMutableDictionary* attributes = [[NSMutableDictionary alloc] initWithCapacity:5];
+    [attributes setValue:[NSNumber numberWithBool:YES] forKey:@"IMKCandidatesSendServerKeyEventFirst"];
+    [attributes setValue:[DJLipikaUserSettings candidateFont] forKey:DEFAULT_CANDIDATE_FONT_KEY];
+    [attributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:DEFAULT_OPACITY_KEY];
+    [attributes setValue:[DJLipikaUserSettings fontColor] forKey:DEFAULT_FONT_COLOR_KEY];
+    [attributes setValue:[DJLipikaUserSettings backgroundColor] forKey:DEFAULT_BACKGROUND_KEY];
+    [candidates setAttributes:attributes];
+}
+
 -(void)changeInputScheme:(id)sender {
     // Turn off state for all menu items
     NSArray* peerItems = [[[sender parentItem] submenu] itemArray];
@@ -127,13 +142,19 @@ extern IMKCandidates* candidates;
     }];
     // Turn on state for the sender and set selected scheme
     [sender setState:NSOnState];
-    [[NSUserDefaults standardUserDefaults] setValue:[sender title] forKey:DEFAULT_SCHEME_NAME_KEY];
+    [DJLipikaUserSettings setSchemeName:[sender title]];
     [self commitComposition:[self client]];
     [manager changeToSchemeWithName:[sender title]];
 }
 
 -(void)showPreferenceImplimentation:(id)sender {
-    NSLog(@"showPreferences");
+    static DJPreferenceController* preference;
+    if (!preference) {
+        preference = [[DJPreferenceController alloc] initWithWindowNibName:@"Preferences"];
+    }
+    [NSApp activateIgnoringOtherApps:YES];
+    [[preference window] makeKeyAndOrderFront:self];
+    [preference showWindow:self];
 }
 
 @end

@@ -18,4 +18,10 @@
 
 #import "Constants.h"
 
-NSString *const DEFAULT_SCHEME_NAME_KEY = @"DefaultSchemeName";
+NSString *const DEFAULT_SCHEME_NAME_KEY = @"SchemeName";
+NSString *const DEFAULT_FONT_NAME_KEY = @"CandidateFontName";
+NSString *const DEFAULT_FONT_SIZE_KEY = @"CandidateFontSize";
+NSString *const DEFAULT_FONT_COLOR_KEY = @"NSForegroundColorAttributeName";
+NSString *const DEFAULT_BACKGROUND_KEY = @"NSBackgroundColorDocumentAttribute";
+NSString *const DEFAULT_OPACITY_KEY = @"IMKCandidatesOpacityAttributeName";
+NSString *const DEFAULT_CANDIDATE_FONT_KEY = @"NSFontAttributeName";
