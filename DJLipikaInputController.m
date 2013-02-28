@@ -67,7 +67,7 @@ extern IMKCandidates* candidates;
 -(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
     if (aSelector == @selector(deleteBackward:)) {
         // If we deleted something then swallow the delete
-        BOOL isDeleted =[manager hasCurrentWord];
+        BOOL isDeleted =[manager hasDeletable];
         [manager delete];
         [self updateCandidates];
         return isDeleted;

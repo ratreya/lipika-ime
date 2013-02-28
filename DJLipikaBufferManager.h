@@ -31,9 +31,8 @@
 -(id)init;
 -(void)changeToSchemeWithName:(NSString*)schemeName;
 -(NSString*)outputForInput:(NSString*)string;
+-(BOOL)hasDeletable;
 -(void)delete;
--(BOOL)hasUnfinalizedOutput;
--(NSString*)unFinalizedOutput;
 -(BOOL)hasCurrentWord;
 -(NSString*)currentWord;
 -(NSString*)flush;

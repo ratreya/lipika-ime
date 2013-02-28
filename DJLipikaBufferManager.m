@@ -85,90 +85,76 @@ static NSRegularExpression* whiteSpace;
 }
 
 -(NSString*)outputForSingleInput:(NSString*)string {
-    // Fush if stop character or whitespace
-    BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
-    BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
-    if (isStopChar || isWhiteSpace) {
-        // Only include the stop character if it does nothing to the engine
-        if (!isStopChar || [engine isAtRoot]) {
-            [uncommittedOutput addObject:string];
+    @synchronized(self) {
+        // Fush if stop character or whitespace
+        BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
+        BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
+        if (isStopChar || isWhiteSpace) {
+            // Only include the stop character if it does nothing to the engine
+            if (!isStopChar || [engine isAtRoot]) {
+                [uncommittedOutput addObject:string];
+            }
+            return [self flush];
         }
-        return [self flush];
-    }
 
-    NSArray* results = [engine executeWithInput:string];
-    for (DJParseOutput* result in results) {
-        if (result == nil) {
-            // Add the input as-is if there is no mapping for it
-            [uncommittedOutput addObject:string];
-            // And finalize all outputs
-            finalizedIndex = [uncommittedOutput count];
-        }
-        else {
-            if ([result isPreviousFinal]) {
+        NSArray* results = [engine executeWithInput:string];
+        for (DJParseOutput* result in results) {
+            if (result == nil) {
+                // Add the input as-is if there is no mapping for it
+                [uncommittedOutput addObject:string];
+                // And finalize all outputs
                 finalizedIndex = [uncommittedOutput count];
             }
             else {
-                // If there is a replacement then remove unfinalized
+                if ([result isPreviousFinal]) {
+                    finalizedIndex = [uncommittedOutput count];
+                }
+                else {
+                    // If there is a replacement then remove unfinalized
+                    if ([result output] != nil) {
+                        [self removeUnfinalized];
+                    }
+                }
                 if ([result output] != nil) {
-                    [self removeUnfinalized];
+                    [uncommittedOutput addObject:[result output]];
+                }
+                if ([result isFinal]) {
+                    // This includes any additions
+                    finalizedIndex = [uncommittedOutput count];
                 }
             }
-            if ([result output] != nil) {
-                [uncommittedOutput addObject:[result output]];
-            }
-            if ([result isFinal]) {
-                // This includes any additions
-                finalizedIndex = [uncommittedOutput count];
-            }
         }
-    }
-    return nil;
-}
-
--(void)delete {
-    if ([uncommittedOutput count] > 0) {
-        [engine reset];
-        [uncommittedOutput removeLastObject];
-        if (finalizedIndex > [uncommittedOutput count]) {
-            finalizedIndex = [uncommittedOutput count];
-        }
-    }
-}
-
--(NSString*)finalizedOutput {
-    if (finalizedIndex == 0) {
         return nil;
     }
-    unsigned long index = 0;
-    NSMutableString* output = [[NSMutableString alloc] init];
-    while (index < finalizedIndex) {
-        [output appendString:[uncommittedOutput objectAtIndex:index]];
-        ++index;
-    }
-    return output;
-}
-
--(BOOL)hasUnfinalizedOutput {
-    return [uncommittedOutput count] > 0;
-}
-
--(NSString*)unFinalizedOutput {
-    if (finalizedIndex == [uncommittedOutput count]) {
-        return nil;
-    }
-    unsigned long index = finalizedIndex;
-    NSMutableString* output = [[NSMutableString alloc] init];
-    while (index < [uncommittedOutput count]) {
-        [output appendString:[uncommittedOutput objectAtIndex:index]];
-        ++index;
-    }
-    return output;
 }
 
 -(void)removeUnfinalized {
-    while ([uncommittedOutput count] > finalizedIndex) {
-        [uncommittedOutput removeObjectAtIndex:finalizedIndex];
+    @synchronized(self) {
+        while ([uncommittedOutput count] > finalizedIndex) {
+            [uncommittedOutput removeObjectAtIndex:finalizedIndex];
+        }
+    }
+}
+
+-(BOOL)hasDeletable {
+    return [uncommittedOutput count] > 0 || [engine hasDeletable];
+}
+
+-(void)delete {
+    @synchronized(self) {
+        if ([engine hasDeletable]) {
+            [engine reset];
+        }
+        else if ([uncommittedOutput count] > 0) {
+            NSString* lastOutput = [uncommittedOutput lastObject];
+            [uncommittedOutput removeLastObject];
+            if (lastOutput.length > 1) {
+                [uncommittedOutput addObject:[lastOutput substringToIndex:lastOutput.length - 1]];
+            }
+            if (finalizedIndex > [uncommittedOutput count]) {
+                finalizedIndex = [uncommittedOutput count];
+            }
+        }
     }
 }
 
@@ -184,16 +170,19 @@ static NSRegularExpression* whiteSpace;
 }
 
 -(NSString*)flush {
-    [engine reset];
-    finalizedIndex = [uncommittedOutput count];
-    NSString* result = [self finalizedOutput];
-    [self reset];
-    return result;
+    @synchronized(self) {
+        [engine reset];
+        NSString* result = [self currentWord];
+        [self reset];
+        return result;
+    }
 }
 
 -(void)reset {
-    [uncommittedOutput removeAllObjects];
-    finalizedIndex = 0;
+    @synchronized(self) {
+        [uncommittedOutput removeAllObjects];
+        finalizedIndex = 0;
+    }
 }
 
 @end

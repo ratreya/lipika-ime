@@ -109,6 +109,10 @@
     return result;
 }
 
+-(BOOL)hasDeletable {
+    return [inputsSinceLastOutput count] > 0;
+}
+
 -(BOOL)isAtRoot {
     return currentNode == nil;
 }
