@@ -30,24 +30,12 @@
     return [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_SCHEME_NAME_KEY];
 }
 
-+(void)setSchemeName:(NSString*)schemeName {
-    [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:DEFAULT_SCHEME_NAME_KEY];
-}
-
 +(NSString*)candidateFontName {
     return [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_FONT_NAME_KEY];
 }
 
-+(void)setCandidateFontName:(NSString*)fontName {
-    [[NSUserDefaults standardUserDefaults] setObject:fontName forKey:DEFAULT_FONT_NAME_KEY];
-}
-
 +(float)candidateFontSize {
     return [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_FONT_SIZE_KEY];
-}
-
-+(void)setCandidateFontSize:(float)fontSize {
-    [[NSUserDefaults standardUserDefaults] setFloat:fontSize forKey:DEFAULT_FONT_SIZE_KEY];
 }
 
 +(NSFont*)candidateFont {
@@ -66,11 +54,6 @@
     }
 }
 
-+(void)setFontColor:(NSColor*)fontColor {
-    NSData* data = [NSArchiver archivedDataWithRootObject:fontColor];
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:DEFAULT_FONT_COLOR_KEY];
-}
-
 +(NSColor*)backgroundColor {
     NSColor* color = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_BACKGROUND_KEY]];
     if (color) {
@@ -81,25 +64,8 @@
     }
 }
 
-+(void)setBackgroundColor:(NSColor*)backgroundColor {
-    NSData* data = [NSArchiver archivedDataWithRootObject:backgroundColor];
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:DEFAULT_BACKGROUND_KEY];
-}
-
 +(float)opacity {
     return [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_OPACITY_KEY];
-}
-
-+(void)setOpacity:(float)opacity {
-    [[NSUserDefaults standardUserDefaults] setFloat:opacity forKey:DEFAULT_OPACITY_KEY];
-}
-
-+(void)reset {
-    [self resetStandardUserDefaults];
-    [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-    }];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

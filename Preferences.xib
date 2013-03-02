@@ -73,7 +73,7 @@
 							<bool key="NSIsBordered">YES</bool>
 							<object class="NSColor" key="NSColor">
 								<int key="NSColorSpace">1</int>
-								<bytes key="NSRGB">MC41Mjk0MTE3NjQ3IDAuODA3ODQzMTM3MyAwLjk4MDM5MjE1NjkAA</bytes>
+								<bytes key="NSRGB">MSAxIDEAA</bytes>
 							</object>
 						</object>
 						<object class="NSTextField" id="880158024">
@@ -614,14 +614,6 @@
 			<array class="NSMutableArray" key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">fontName</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="469954043"/>
-					</object>
-					<int key="connectionID">983</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">window</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="1005"/>
@@ -629,28 +621,12 @@
 					<int key="connectionID">987</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">resetValues:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1024687974"/>
-					</object>
-					<int key="connectionID">1362</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">saveValues:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="286929675"/>
-					</object>
-					<int key="connectionID">1363</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">save</string>
+						<string key="label">fontName</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="286929675"/>
+						<reference key="destination" ref="469954043"/>
 					</object>
-					<int key="connectionID">1364</int>
+					<int key="connectionID">1493</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -658,7 +634,7 @@
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="1044116918"/>
 					</object>
-					<int key="connectionID">1463</int>
+					<int key="connectionID">1494</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -666,119 +642,151 @@
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="789278742"/>
 					</object>
-					<int key="connectionID">1464</int>
+					<int key="connectionID">1495</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">saveButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="286929675"/>
+					</object>
+					<int key="connectionID">1496</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: background</string>
+						<string key="label">value: values.NSBackgroundColorDocumentAttribute</string>
 						<reference key="source" ref="575320186"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="776890623"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="575320186"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: background</string>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">value: values.NSBackgroundColorDocumentAttribute</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">background</string>
+							<string key="NSKeyPath">values.NSBackgroundColorDocumentAttribute</string>
 							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValidatesImmediately</string>
-								<boolean value="YES" key="NS.object.0"/>
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSUnarchiveFromData</string>
 							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1486</int>
+					<int key="connectionID">1502</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: fontSize</string>
+						<string key="label">value: values.CandidateFontSize</string>
 						<reference key="source" ref="1041112303"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="776890623"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1041112303"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: fontSize</string>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">value: values.CandidateFontSize</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">fontSize</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
+							<string key="NSKeyPath">values.CandidateFontSize</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1488</int>
+					<int key="connectionID">1512</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: opacity</string>
+						<string key="label">value: values.IMKCandidatesOpacityAttributeName</string>
 						<reference key="source" ref="240911643"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="776890623"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="240911643"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: opacity</string>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">value: values.IMKCandidatesOpacityAttributeName</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">opacity</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
+							<string key="NSKeyPath">values.IMKCandidatesOpacityAttributeName</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1485</int>
+					<int key="connectionID">1508</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: fontColor</string>
+						<string key="label">value: values.NSForegroundColorAttributeName</string>
 						<reference key="source" ref="794845180"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="776890623"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="794845180"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: fontColor</string>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">value: values.NSForegroundColorAttributeName</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">fontColor</string>
+							<string key="NSKeyPath">values.NSForegroundColorAttributeName</string>
 							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValidatesImmediately</string>
-								<boolean value="YES" key="NS.object.0"/>
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSUnarchiveFromData</string>
 							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1487</int>
+					<int key="connectionID">1505</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: opacity</string>
+						<string key="label">value: values.CandidateFontName</string>
+						<reference key="source" ref="469954043"/>
+						<reference key="destination" ref="776890623"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="469954043"/>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">value: values.CandidateFontName</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.CandidateFontName</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1516</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.IMKCandidatesOpacityAttributeName</string>
 						<reference key="source" ref="789278742"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="776890623"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="789278742"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: opacity</string>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">value: values.IMKCandidatesOpacityAttributeName</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">opacity</string>
+							<string key="NSKeyPath">values.IMKCandidatesOpacityAttributeName</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1475</int>
+					<int key="connectionID">1510</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: fontSize</string>
+						<string key="label">value: values.CandidateFontSize</string>
 						<reference key="source" ref="1044116918"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="776890623"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1044116918"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: fontSize</string>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">value: values.CandidateFontSize</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">fontSize</string>
+							<string key="NSKeyPath">values.CandidateFontSize</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1484</int>
+					<int key="connectionID">1514</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">save:</string>
+						<reference key="source" ref="776890623"/>
+						<reference key="destination" ref="286929675"/>
+					</object>
+					<int key="connectionID">1497</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">revertToInitialValues:</string>
+						<reference key="source" ref="776890623"/>
+						<reference key="destination" ref="1024687974"/>
+					</object>
+					<int key="connectionID">1498</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2111,7 +2119,7 @@
 						<reference key="parent" ref="1006"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">1465</int>
+						<int key="objectID">1491</int>
 						<reference key="object" ref="776890623"/>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -2176,7 +2184,7 @@
 				<string key="1458.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1461.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1462.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1465.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1491.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array class="NSMutableArray" key="2.IBNSViewMetadataConstraints">
 					<reference ref="167462791"/>
 					<reference ref="709245962"/>
@@ -2302,32 +2310,18 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1488</int>
+			<int key="maxID">1516</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">DJPreferenceController</string>
 					<string key="superclassName">NSWindowController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="resetValues:">id</string>
-						<string key="saveValues:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="resetValues:">
-							<string key="name">resetValues:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveValues:">
-							<string key="name">saveValues:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="fontName">NSComboBox</string>
 						<string key="fontSizeStepper">NSStepper</string>
 						<string key="opacityStepper">NSStepper</string>
-						<string key="save">NSButton</string>
+						<string key="saveButton">NSButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="fontName">
@@ -2342,8 +2336,8 @@
 							<string key="name">opacityStepper</string>
 							<string key="candidateClassName">NSStepper</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="save">
-							<string key="name">save</string>
+						<object class="IBToOneOutletInfo" key="saveButton">
+							<string key="name">saveButton</string>
 							<string key="candidateClassName">NSButton</string>
 						</object>
 					</dictionary>

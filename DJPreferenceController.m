@@ -24,11 +24,7 @@
 @implementation DJPreferenceController
 
 @synthesize fontName;
-@synthesize fontSize;
-@synthesize opacity;
-@synthesize fontColor;
-@synthesize background;
-@synthesize save;
+@synthesize saveButton;
 @synthesize fontSizeStepper;
 @synthesize opacityStepper;
 
@@ -40,32 +36,8 @@
     [fontSizeStepper setMinValue:9.0];
     [fontSizeStepper setIncrement:1.0];
     [fontName addItemsWithObjectValues:[[NSFontManager sharedFontManager] availableFonts]];
-    [save setBezelStyle:NSRoundedBezelStyle];
-    [[self window] setDefaultButtonCell:[save cell]];
-    [self loadValues];
-}
-
--(void)loadValues {
-    [fontName selectItemWithObjectValue:[DJLipikaUserSettings candidateFontName]];
-    fontSize = [DJLipikaUserSettings candidateFontSize];
-    opacity = [DJLipikaUserSettings opacity];
-    fontColor = [DJLipikaUserSettings fontColor];
-    background = [DJLipikaUserSettings backgroundColor];
-}
-
--(IBAction)resetValues:(id)sender {
-    [DJLipikaUserSettings reset];
-    [self loadValues];
-}
-
--(IBAction)saveValues:(id)sender {
-    [DJLipikaUserSettings setFontColor:fontColor];
-    [DJLipikaUserSettings setBackgroundColor:background];
-    [DJLipikaUserSettings setOpacity:opacity];
-    [DJLipikaUserSettings setCandidateFontName:[fontName objectValueOfSelectedItem]];
-    [DJLipikaUserSettings setCandidateFontSize:fontSize];
-    [DJPreferenceController configureCandidates];
-    [self close];
+    [saveButton setBezelStyle:NSRoundedBezelStyle];
+    [[self window] setDefaultButtonCell:[saveButton cell]];
 }
 
 +(void)configureCandidates {

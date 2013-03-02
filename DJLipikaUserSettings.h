@@ -21,18 +21,11 @@
 @interface DJLipikaUserSettings : NSUserDefaults
 
 +(NSString*)schemeName;
-+(void)setSchemeName:(NSString*)schemeName;
 +(NSString*)candidateFontName;
-+(void)setCandidateFontName:(NSString*)fontName;
 +(float)candidateFontSize;
-+(void)setCandidateFontSize:(float)fontSize;
-+(NSFont*) candidateFont;
-+(NSColor*) fontColor;
-+(void)setFontColor:(NSColor*) fontColor;
-+(NSColor*) backgroundColor;
-+(void)setBackgroundColor:(NSColor*) backgroundColor;
-+(float) opacity;
-+(void)setOpacity:(float) opacity;
-+(void)reset;
++(NSFont*)candidateFont;
++(NSColor*)fontColor;
++(NSColor*)backgroundColor;
++(float)opacity;
 
 @end
