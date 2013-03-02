@@ -34,10 +34,10 @@
 }
 
 - (void)testNestedClassParsing {
-    STAssertTrue([@"test1" isEqualToString:[scheme getClassNameForInput:@"c"]], @"Unexpected class name");
-    STAssertTrue([@"test2" isEqualToString:[scheme getClassNameForInput:@"f"]], @"Unexpected class name");
-    STAssertTrue([[scheme getClassForName:@"test1"] count] == 3, @"Unexpected count of mappings");
-    STAssertTrue([[scheme getClassForName:@"test2"] count] == 2, @"Unexpected count of mappings");
+    STAssertTrue([@"test1" isEqualToString:[scheme classNameForInput:@"c"]], @"Unexpected class name");
+    STAssertTrue([@"test2" isEqualToString:[scheme classNameForInput:@"f"]], @"Unexpected class name");
+    STAssertTrue([[scheme classForName:@"test1"] count] == 3, @"Unexpected count of mappings");
+    STAssertTrue([[scheme classForName:@"test2"] count] == 2, @"Unexpected count of mappings");
 }
 
 -(void)testHappyCase_Simple_NestedClass {

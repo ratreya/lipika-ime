@@ -19,7 +19,11 @@
 #import <Foundation/Foundation.h>
 
 @interface DJInputMethodScheme : NSObject {
-@private
+    // These regular expressions have dynamic elements per scheme
+    NSRegularExpression* classDefinitionExpression;
+    NSRegularExpression* classKeyExpression;
+    NSRegularExpression* wildcardValueExpression;
+    
     NSString* schemeFilePath;
     // Input as NSString to DJParseTreeNode
     NSMutableDictionary* parseTree;
@@ -50,7 +54,7 @@
 @property NSString* stopChar;
 
 -(id)initWithSchemeFile:(NSString*)filePath;
--(NSString*)getClassNameForInput:(NSString*)input;
--(NSMutableDictionary*)getClassForName:(NSString*)className;
+-(NSString*)classNameForInput:(NSString*)input;
+-(NSMutableDictionary*)classForName:(NSString*)className;
 
 @end

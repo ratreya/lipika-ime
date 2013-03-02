@@ -37,14 +37,23 @@
 }
 
 - (void)testClassParsing {
-    STAssertTrue([@"VowelSigns" isEqualToString:[scheme getClassNameForInput:@"A"]], @"Unexpected class name");
-    STAssertTrue([[scheme getClassForName:@"VowelSigns"] count] == 12, @"Unexpected count of mappings: %d", [[scheme getClassForName:@"VowelSigns"] count]);
+    STAssertTrue([@"VowelSigns" isEqualToString:[scheme classNameForInput:@"A"]], @"Unexpected class name");
+    STAssertTrue([[scheme classForName:@"VowelSigns"] count] == 12, @"Unexpected count of mappings: %d", [[scheme classForName:@"VowelSigns"] count]);
 }
 
 - (void)testMappingParsing {
     NSString* output = [[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
     output = [[[[[[[scheme parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"I"] output];
+    STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
+}
+
+-(void)testNonDefaultHeaders {
+    DJInputMethodScheme* myScheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestITRANS.scm"];
+    STAssertTrue([@"VowelSigns" isEqualToString:[myScheme classNameForInput:@"u"]], @"Unexpected output");
+    NSString* output = [[[[[myScheme parseTree] valueForKey:@"~"] next] valueForKey:@"n"] output];
+    STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
+    output = [[[[[[[myScheme parseTree] valueForKey:@"~"] next] valueForKey:@"n"] next] valueForKey:@"I"] output];
     STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
 }
 

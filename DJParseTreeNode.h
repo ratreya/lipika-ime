@@ -19,7 +19,6 @@
 #import <Foundation/Foundation.h>
 
 @interface DJParseTreeNode : NSObject {
-@private
     NSString* output;
     NSMutableDictionary* next;
 }
