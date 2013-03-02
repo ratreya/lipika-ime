@@ -30,6 +30,10 @@
     return [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_SCHEME_NAME_KEY];
 }
 
++(void)setSchemeName:(NSString*)schemeName {
+    [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:DEFAULT_SCHEME_NAME_KEY];
+}
+
 +(NSString*)candidateFontName {
     return [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_FONT_NAME_KEY];
 }

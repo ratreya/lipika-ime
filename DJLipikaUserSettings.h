@@ -21,6 +21,7 @@
 @interface DJLipikaUserSettings : NSUserDefaults
 
 +(NSString*)schemeName;
++(void)setSchemeName:(NSString*)schemeName;
 +(NSString*)candidateFontName;
 +(float)candidateFontSize;
 +(NSFont*)candidateFont;
