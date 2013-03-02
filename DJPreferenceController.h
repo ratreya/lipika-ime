@@ -19,29 +19,16 @@
 #import <Cocoa/Cocoa.h>
 
 @interface DJPreferenceController : NSWindowController {
-    float opacity;
-    float fontSize;
-    NSColor* fontColor;
-    NSColor* background;
-
     IBOutlet NSComboBox* fontName;
     IBOutlet NSStepper* opacityStepper;
     IBOutlet NSStepper* fontSizeStepper;
-    IBOutlet NSButton* save;
+    IBOutlet NSButton* saveButton;
 }
-
-@property float opacity;
-@property float fontSize;
-@property NSColor* fontColor;
-@property NSColor* background;
 
 @property IBOutlet NSComboBox* fontName;
 @property IBOutlet NSStepper* opacityStepper;
 @property IBOutlet NSStepper* fontSizeStepper;
-@property IBOutlet NSButton* save;
-
--(IBAction)saveValues:(id)sender;
--(IBAction)resetValues:(id)sender;
+@property IBOutlet NSButton* saveButton;
 
 +(void)configureCandidates;
 
