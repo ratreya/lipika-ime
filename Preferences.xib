@@ -653,6 +653,22 @@
 					<int key="connectionID">1496</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">resetSetting:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1024687974"/>
+					</object>
+					<int key="connectionID">1518</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">saveSettings:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="286929675"/>
+					</object>
+					<int key="connectionID">1525</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.NSBackgroundColorDocumentAttribute</string>
 						<reference key="source" ref="575320186"/>
@@ -683,10 +699,14 @@
 							<string key="NSLabel">value: values.CandidateFontSize</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">values.CandidateFontSize</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1512</int>
+					<int key="connectionID">1521</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -699,10 +719,14 @@
 							<string key="NSLabel">value: values.IMKCandidatesOpacityAttributeName</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">values.IMKCandidatesOpacityAttributeName</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1508</int>
+					<int key="connectionID">1520</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -735,10 +759,14 @@
 							<string key="NSLabel">value: values.CandidateFontName</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">values.CandidateFontName</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">1516</int>
+					<int key="connectionID">1522</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -771,22 +799,6 @@
 						</object>
 					</object>
 					<int key="connectionID">1514</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">save:</string>
-						<reference key="source" ref="776890623"/>
-						<reference key="destination" ref="286929675"/>
-					</object>
-					<int key="connectionID">1497</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">revertToInitialValues:</string>
-						<reference key="source" ref="776890623"/>
-						<reference key="destination" ref="1024687974"/>
-					</object>
-					<int key="connectionID">1498</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2310,13 +2322,27 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1516</int>
+			<int key="maxID">1525</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">DJPreferenceController</string>
 					<string key="superclassName">NSWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="resetSetting:">id</string>
+						<string key="saveSettings:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="resetSetting:">
+							<string key="name">resetSetting:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveSettings:">
+							<string key="name">saveSettings:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="fontName">NSComboBox</string>
 						<string key="fontSizeStepper">NSStepper</string>

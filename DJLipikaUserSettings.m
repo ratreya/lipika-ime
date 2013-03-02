@@ -72,4 +72,12 @@
     return [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_OPACITY_KEY];
 }
 
++(void)reset {
+    [self resetStandardUserDefaults];
+    [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 @end

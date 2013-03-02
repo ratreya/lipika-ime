@@ -29,6 +29,10 @@
 @synthesize opacityStepper;
 
 -(void)awakeFromNib {
+    // Configure the model controller
+    NSUserDefaultsController* controller = [NSUserDefaultsController sharedUserDefaultsController];
+    [controller setAppliesImmediately:NO];
+    // Configure the UI elements
     [opacityStepper setMaxValue:1.0];
     [opacityStepper setMinValue:0.0];
     [opacityStepper setIncrement:0.1];
@@ -40,10 +44,24 @@
     [[self window] setDefaultButtonCell:[saveButton cell]];
 }
 
+-(IBAction)saveSettings:(id)sender {
+    NSUserDefaultsController* controller = [NSUserDefaultsController sharedUserDefaultsController];
+    // controller-save: does not save immediately unless this is set
+    [controller setAppliesImmediately:YES];
+    [controller save:sender];
+    [self close];
+    [DJPreferenceController configureCandidates];
+}
+
+-(IBAction)resetSetting:(id)sender {
+    [DJLipikaUserSettings reset];
+    NSUserDefaultsController* controller = [NSUserDefaultsController sharedUserDefaultsController];
+    [controller revert:sender];
+}
+
 +(void)configureCandidates {
     extern IMKCandidates* candidates;
     // Configure Candidate window
-    [candidates setDismissesAutomatically:NO];
     NSMutableDictionary* attributes = [[NSMutableDictionary alloc] initWithCapacity:5];
     [attributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString*)IMKCandidatesSendServerKeyEventFirst];
     [attributes setValue:[DJLipikaUserSettings candidateFont] forKey:NSFontAttributeName];
