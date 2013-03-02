@@ -12,15 +12,15 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 
 Lipika IME is a many-to-many, user configurable, phonetic, input method engine. Originally, designed to type Sanskrit using Devanagari on a Mac. It can be configured to work with any other Indo-European language of similar structure.
 
-Installation
-------------
-To install LipikaIME, simply copy `LipikaIME.app` to `/Library/Input Methods/` folder.
 
-Lipika IME understands Google IME cannonical scheme format: http://www.google.com/inputtools/windows/canonical.html
-Schemes are in `/Library/Input Methods/LipikaIME/Contents/Resources/Schemes` directory. Barahavat.scm for Devanagari comes built-in.
+3/02/2013: RELEASE NOTES FOR VERSION 0.96
+-----------------------------------------
+* ITRANS version 5.30 using classes for maintainability
+* Backspace now deletes single output character at a time
+* Various bug fixes including fix for #11
 
 
-2/25/2013: RELEASE NOTES FOR VERSION 1.0
+2/25/2013: RELEASE NOTES FOR VERSION 0.95
 -----------------------------------------
 * Ability to choose from list of available schemes
 * User preferences with ability to configure candidate window
@@ -31,7 +31,7 @@ Schemes are in `/Library/Input Methods/LipikaIME/Contents/Resources/Schemes` dir
 
 2/17/2013: RELEASE NOTES FOR VERSION 0.9
 -----------------------------------------
-The first release is a minimal credible product with the following features:
+This first release is a minimal credible product with the following features:
 
 * User configurable IME mapping in Google IME cannonical scheme format.
 * Single candidate in cadidate window showing the current word being worked on.
