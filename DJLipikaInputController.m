@@ -60,20 +60,24 @@ extern IMKCandidates* candidates;
 
 -(void)commitComposition:(id)sender {
     NSString* commitString = [manager flush];
-    [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    if (commitString) {
+        [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    }
     [candidates hide];
 }
 
 -(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
     if (aSelector == @selector(deleteBackward:)) {
         // If we deleted something then swallow the delete
-        BOOL isDeleted =[manager hasDeletable];
+        BOOL isDeleted = [manager hasDeletable];
         [manager delete];
         [self updateCandidates];
         return isDeleted;
     }
     else if (aSelector == @selector(cancelOperation:)) {
         [manager flush];
+        [candidates hide];
+        return YES;
     }
     else {
         [self commitComposition:sender];
@@ -84,6 +88,11 @@ extern IMKCandidates* candidates;
 -(NSArray*)candidates:(id)sender {
     NSArray* candidate = [[NSArray alloc] initWithObjects:[manager currentWord], nil];
     return candidate;
+}
+
+// This message is usually sent when the client looses focus
+-(void)deactivateServer:(id)sender {
+    [self commitComposition:sender];
 }
 
 -(IBAction)showPreferences:(id)sender {

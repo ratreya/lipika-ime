@@ -29,11 +29,17 @@
 @synthesize fontColor;
 @synthesize background;
 @synthesize save;
+@synthesize fontSizeStepper;
+@synthesize opacityStepper;
 
--(void)windowDidLoad {
+-(void)awakeFromNib {
+    [opacityStepper setMaxValue:1.0];
+    [opacityStepper setMinValue:0.0];
+    [opacityStepper setIncrement:0.1];
+    [fontSizeStepper setMaxValue:288.0];
+    [fontSizeStepper setMinValue:9.0];
+    [fontSizeStepper setIncrement:1.0];
     [fontName addItemsWithObjectValues:[[NSFontManager sharedFontManager] availableFonts]];
-    [fontSize setDelegate:self];
-    [opacity setDelegate:self];
     [save setBezelStyle:NSRoundedBezelStyle];
     [[self window] setDefaultButtonCell:[save cell]];
     [self loadValues];
@@ -41,10 +47,10 @@
 
 -(void)loadValues {
     [fontName selectItemWithObjectValue:[DJLipikaUserSettings candidateFontName]];
-    [fontSize setStringValue:[NSString stringWithFormat:@"%.02f",[DJLipikaUserSettings candidateFontSize]]];
-    [opacity setStringValue:[NSString stringWithFormat:@"%.02f",[DJLipikaUserSettings opacity]]];
-    [fontColor setColor:[DJLipikaUserSettings fontColor]];
-    [background setColor:[DJLipikaUserSettings backgroundColor]];
+    fontSize = [DJLipikaUserSettings candidateFontSize];
+    opacity = [DJLipikaUserSettings opacity];
+    fontColor = [DJLipikaUserSettings fontColor];
+    background = [DJLipikaUserSettings backgroundColor];
 }
 
 -(IBAction)resetValues:(id)sender {
@@ -53,25 +59,11 @@
 }
 
 -(IBAction)saveValues:(id)sender {
-    NSNumber* floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[opacity stringValue]];
-    if (floatValue == nil || floatValue.floatValue < 0.0 || floatValue.floatValue > 1.0) {
-        NSBeep();
-        [opacity setFloatValue:[DJLipikaUserSettings opacity]];
-        return;
-    }
-    floatValue = [[[NSNumberFormatter alloc] init] numberFromString:[fontSize stringValue]];
-    if (floatValue == nil || floatValue.floatValue < 9 || floatValue.floatValue > 288) {
-        NSBeep();
-        NSFont* font = [DJLipikaUserSettings candidateFont];
-        float size = [[[font fontDescriptor] objectForKey:NSFontSizeAttribute] floatValue];
-        [fontSize setFloatValue:size];
-        return;
-    }
-    [DJLipikaUserSettings setFontColor:[fontColor color]];
-    [DJLipikaUserSettings setBackgroundColor:[background color]];
-    [DJLipikaUserSettings setOpacity:[opacity floatValue]];
+    [DJLipikaUserSettings setFontColor:fontColor];
+    [DJLipikaUserSettings setBackgroundColor:background];
+    [DJLipikaUserSettings setOpacity:opacity];
     [DJLipikaUserSettings setCandidateFontName:[fontName objectValueOfSelectedItem]];
-    [DJLipikaUserSettings setCandidateFontSize:[fontSize floatValue]];
+    [DJLipikaUserSettings setCandidateFontSize:fontSize];
     [DJPreferenceController configureCandidates];
     [self close];
 }

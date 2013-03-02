@@ -116,6 +116,11 @@
     STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
+-(void)testEchoNonOuputtingInput {
+    NSString* result = [manager outputForInput:@"~~ "];
+    STAssertTrue([@"~~ " isEqualToString:result], @"Unexpected output: %@", result);
+}
+
 -(void)testWhitespace_Space {
     NSString* result = [manager outputForInput:@"~"];
     STAssertTrue(result == nil, @"Unexpected output");

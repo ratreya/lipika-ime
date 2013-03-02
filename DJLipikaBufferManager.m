@@ -143,9 +143,11 @@ static NSRegularExpression* whiteSpace;
 -(void)delete {
     @synchronized(self) {
         if ([engine hasDeletable]) {
+            // First clear out any inputs that have not produced output yet
             [engine reset];
         }
         else if ([uncommittedOutput count] > 0) {
+            [engine reset];
             NSString* lastOutput = [uncommittedOutput lastObject];
             [uncommittedOutput removeLastObject];
             if (lastOutput.length > 1) {
