@@ -28,5 +28,6 @@
 +(NSColor*)fontColor;
 +(NSColor*)backgroundColor;
 +(float)opacity;
++(void)reset;
 
 @end

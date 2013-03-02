@@ -34,6 +34,7 @@ extern IMKCandidates* candidates;
         return self;
     }
     manager = [[DJLipikaBufferManager alloc] init];
+    [candidates setDismissesAutomatically:NO];
     [DJPreferenceController configureCandidates];
     return self;
 }

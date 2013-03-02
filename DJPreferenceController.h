@@ -30,6 +30,9 @@
 @property IBOutlet NSStepper* fontSizeStepper;
 @property IBOutlet NSButton* saveButton;
 
+-(IBAction)saveSettings:(id)sender;
+-(IBAction)resetSetting:(id)sender;
+
 +(void)configureCandidates;
 
 @end
