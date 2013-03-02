@@ -25,6 +25,7 @@
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
 		A566843B16BE2A2C0078BA08 /* TestNestedClass.scm in Resources */ = {isa = PBXBuildFile; fileRef = A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */; };
+		A5836DE716E259A60003DA0C /* TestITRANS.scm in Resources */ = {isa = PBXBuildFile; fileRef = A5836DE616E259A60003DA0C /* TestITRANS.scm */; };
 		A596563116DC1F6B000F5BD2 /* DJPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A596563016DC1F6B000F5BD2 /* DJPreferenceController.m */; };
 		A59CEFEC16DA81C700A4A212 /* DJLipikaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A59CEFEB16DA81C700A4A212 /* DJLipikaAppDelegate.m */; };
 		A5A4247316C4AC01004439E8 /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A51DE1C516C2C79F0051A9E9 /* DJInputEngineFactory.m */; };
@@ -90,6 +91,7 @@
 		A55B44BC16BF24D000CC8E94 /* LipikaIMEEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEEngineTest.h; sourceTree = "<group>"; };
 		A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMEEngineTest.m; sourceTree = "<group>"; };
 		A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestNestedClass.scm; sourceTree = "<group>"; };
+		A5836DE616E259A60003DA0C /* TestITRANS.scm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestITRANS.scm; sourceTree = "<group>"; };
 		A596562F16DC1F6B000F5BD2 /* DJPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJPreferenceController.h; sourceTree = "<group>"; };
 		A596563016DC1F6B000F5BD2 /* DJPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJPreferenceController.m; sourceTree = "<group>"; };
 		A59CEFEA16DA81C700A4A212 /* DJLipikaAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaAppDelegate.h; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */,
 				A566843A16BE2A2C0078BA08 /* TestNestedClass.scm */,
 				A5345AAA16D182F900AD6486 /* TestMultipleReplay.scm */,
+				A5836DE616E259A60003DA0C /* TestITRANS.scm */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				A566843B16BE2A2C0078BA08 /* TestNestedClass.scm in Resources */,
 				A5345AAB16D182F900AD6486 /* TestMultipleReplay.scm in Resources */,
 				A50E952916DBE3FB000D2C7F /* TestSpecialChars.scm in Resources */,
+				A5836DE716E259A60003DA0C /* TestITRANS.scm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

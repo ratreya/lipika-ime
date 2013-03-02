@@ -14,68 +14,29 @@ I ई
 u उ
 uu ऊ
 U ऊ
-R ऋ
-Ri ऋ
+RRi ऋ
 R^i ऋ
-Rii ॠ
-R^ii ॠ
+RRI ॠ
 R^I ॠ
-L ऌ
-Li ऌ
+LLi ऌ
 L^i ऌ
-Lii ॡ
-L^ii ॡ
+LLI ॡ
 L^I ॡ
 e ए
 ai ऐ
 o ओ
 au औ
 
-,aa ा
-,A ा
-,i ि
-,ii ी
-,I ी
-,u ु
-,uu ू
-,U ू
-,R ृ
-,Ri ृ
-,R^i ृ
-,Rii ॄ
-,R^ii ॄ
-,R^I ॄ
-,L ॢ
-,Li ॢ
-,L^i ॣ
-,Lii ॣ
-,L^ii ॣ
-,L^I ॣ
-,e े
-,ai ै
-,o ो
-,au ौ
-,h ्
-,H ्
-
 k क्
 kh ख्
-K ख्
 g ग्
 gh घ्
-G घ्
 ~N ङ्
 N^ ङ्
 ch च्
-c च्
 Ch छ्
-chh छ्
 j ज्
-GY ज्ञ्
-j~n ज्ञ्
-dny ज्ञ्
 jh झ्
-J झ्
 ~n ञ्
 JN ञ्
 T ट्
@@ -90,71 +51,59 @@ dh ध्
 n न्
 p प्
 ph फ्
-P फ्
 b ब्
 bh भ्
-B भ्
 m म्
 y य्
-Y य्
 r र्
 l ल्
-L ळ्
 v व्
 w व्
 sh श्
-S श्
 Sh ष्
-shh ष्
 s स्
 h ह्
+L ळ्
 x क्ष्
+kSh क्ष्
+GY ज्ञ्
+j~n ज्ञ्
+dny ज्ञ्
+shr श्र्
 
 class VowelSigns {
-    aa का
-    A का
-    i कि
-    ii की
-    I की
-    u कु
-    uu कू
-    U कू
-    R कृ
-    Ri कृ
-    R^i कृ
-    Rii कॄ
-    R^ii कॄ
-    R^I कॄ
-    L कॢ
-    Li कॢ
-    L^i कॢ
-    Lii कॣ
-    L^ii कॣ
-    L^I कॣ
-    e के
-    ai कै
-    o को
-    au कौ
+  aa ा
+  A ा
+  i ि
+  ii ी
+  I ी
+  u ु
+  uu ू
+  U ू
+  RRi ृ
+  R^i ृ
+  RRI ॄ
+  R^I ॄ
+  LLi ॢ
+  L^i ॢ
+  LLI ॣ
+  L^I ॣ
+  e े
+  ai ै
+  o ो
+  au ौ
 }
 
 ka क
 kha ख
-Ka ख
 ga ग
 gha घ
-Ga घ
 ~Na ङ
 N^a ङ
 cha च
-ca च
 Cha छ
-chha छ
-ja ज्
-GYa ज्ञ
-j~na ज्ञ
-dnya ज्ञ
+ja ज
 jha झ
-Ja झ
 ~na ञ
 JNa ञ
 Ta ट
@@ -169,44 +118,36 @@ dha ध
 na न
 pa प
 pha फ
-Pa फ
 ba ब
 bha भ
-Ba भ
 ma म
 ya य
-Ya य
 ra र
 la ल
-La ळ
 va व
 wa व
 sha श
-Sa श
 Sha ष
-shha ष
 sa स
 ha ह
+La ळ
 xa क्ष
+kSha क्ष
+GYa ज्ञ
+j~na ज्ञ
+dnya ज्ञ
+shra श्र
 
 k{VowelSigns} क#
 kh{VowelSigns} ख#
-K{VowelSigns} ख#
 g{VowelSigns} ग#
 gh{VowelSigns} घ#
-G{VowelSigns} घ#
 ~N{VowelSigns} ङ#
 N^{VowelSigns} ङ#
 ch{VowelSigns} च#
-c{VowelSigns} च#
 Ch{VowelSigns} छ#
-chh{VowelSigns} छ#
-j{VowelSigns} ज्#
-GY{VowelSigns} ज्ञ#
-j~n{VowelSigns} ज्ञ#
-dny{VowelSigns} ज्ञ#
+j{VowelSigns} ज#
 jh{VowelSigns} झ#
-J{VowelSigns} झ#
 ~n{VowelSigns} ञ#
 JN{VowelSigns} ञ#
 T{VowelSigns} ट#
@@ -221,32 +162,35 @@ dh{VowelSigns} ध#
 n{VowelSigns} न#
 p{VowelSigns} प#
 ph{VowelSigns} फ#
-P{VowelSigns} फ#
 b{VowelSigns} ब#
 bh{VowelSigns} भ#
-B{VowelSigns} भ#
 m{VowelSigns} म#
 y{VowelSigns} य#
-Y{VowelSigns} य#
 r{VowelSigns} र#
 l{VowelSigns} ल#
-L{VowelSigns} ळ#
 v{VowelSigns} व#
 w{VowelSigns} व#
 sh{VowelSigns} श#
-S{VowelSigns} श#
 Sh{VowelSigns} ष#
-shh{VowelSigns} ष#
 s{VowelSigns} स#
 h{VowelSigns} ह#
+L{VowelSigns} ळ#
 x{VowelSigns} क्ष#
+kSh{VowelSigns} क्ष#
+GY{VowelSigns} ज्ञ#
+j~n{VowelSigns} ज्ञ#
+dny{VowelSigns} ज्ञ#
+shr{VowelSigns} श्र#
 
 M ं
+.n ं
+.m ं
 .N ँ
 H ः
 .a ऽ
 .aa 
 AUM ॐ
+OM ॐ
 | ।
 || ॥
 0 ०
@@ -282,18 +226,6 @@ HH 
 \1 
 \3 
 
-, ,
-. .
-- -
-..  
-= =
-( (
-) )
-! !
-< <
-> >
-+ +
-? ?
+.. 
 \p 
 \s 
-zz ‍

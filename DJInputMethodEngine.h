@@ -22,7 +22,6 @@
 #import "DJParseOutput.h"
 
 @interface DJInputMethodEngine : NSObject {
-@private
     DJInputMethodScheme* scheme;
     DJParseTreeNode* currentNode;
     

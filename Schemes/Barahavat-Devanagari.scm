@@ -9,10 +9,10 @@ a अ
 aa आ
 A आ
 i इ
-ee ई
+ii ई
 I ई
 u उ
-oo ऊ
+uu ऊ
 U ऊ
 Ru ऋ
 RU ॠ
@@ -74,10 +74,10 @@ class VowelSigns {
   aa ा
   A ा
   i ि
-  ee ी
+  ii ी
   I ी
   u ु
-  oo ू
+  uu ू
   U ू
   Ru ृ
   RU ॄ

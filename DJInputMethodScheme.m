@@ -36,9 +36,42 @@ static NSString *const STOP_CHAR = @"stop-char";
 static NSString *const CLASS_DELIMITERS = @"class-delimiters";
 static NSString *const WILDCARD = @"wildcard";
 
-static NSRegularExpression* classKeyExpression;
-static NSRegularExpression* wildcardValueExpression;
+// These regular expressions don't have dynamic elements
 static NSRegularExpression* whitespaceExpression;
+static NSRegularExpression* headerExpression;
+static NSRegularExpression* usingClassesExpression;
+static NSRegularExpression* classesDelimiterExpression;
+static NSRegularExpression* simpleMappingExpression;
+
++(void)initialize {
+    NSString *const whitespacePattern = @"^\\s+$";
+    NSString *const headerPattern = @"^\\s*(.*\\S)\\s*:\\s*(.*\\S)\\s*$";
+    NSString *const usingClassesPattern = @"^\\s*using\\s+classes\\s*$";
+    NSString *const classesDelimiterPattern = @"^\\s*(\\S)\\s*(\\S)\\s*$";
+    NSString *const simpleMappingPattern = @"^\\s*(\\S+)\\s+(\\S+)\\s*$";
+
+    NSError* error;
+    whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    headerExpression = [NSRegularExpression regularExpressionWithPattern:headerPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    usingClassesExpression = [NSRegularExpression regularExpressionWithPattern:usingClassesPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid using classes regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    classesDelimiterExpression = [NSRegularExpression regularExpressionWithPattern:classesDelimiterPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid classes delimiter expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    simpleMappingExpression = [NSRegularExpression regularExpressionWithPattern:simpleMappingPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid simple mapping expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+}
 
 -(id)initWithSchemeFile:(NSString*)filePath {
     self = [super init];
@@ -57,29 +90,6 @@ static NSRegularExpression* whitespaceExpression;
     usingClasses = YES;
     classOpenDelimiter = @"{";
     classCloseDelimiter = @"}";
-
-    /*
-     * We only support one class per mapping
-     */
-    NSError* error;
-    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
-    classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-    /*
-     * And hence only one wildcard value
-     */
-    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
-    wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-    NSString *const whitespacePattern = [NSString stringWithFormat:@"^\\s+$"];
-    whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
 
     // Read contents of the Scheme file
     NSLog(@"Parsing scheme file: %@", filePath);
@@ -107,7 +117,6 @@ static NSRegularExpression* whitespaceExpression;
         NSLog(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
-    
     if (isProcessingClassDefinition) {
         NSLog(@"Error parsing scheme file: %@; One or more class(es) not closed", filePath);
     }
@@ -116,24 +125,6 @@ static NSRegularExpression* whitespaceExpression;
 }
 
 -(void)parseHeaders {
-    // Regular expressions for matching header items
-    NSError* error;
-    NSString *const headerPattern = @"^\\s*(.*\\S)\\s*:\\s*(.*\\S)\\s*$";
-    NSRegularExpression* headerExpression = [NSRegularExpression regularExpressionWithPattern:headerPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-    NSString *const usingClassesPattern = @"^\\s*using\\s+classes\\s*$";
-    NSRegularExpression* usingClassesExpression = [NSRegularExpression regularExpressionWithPattern:usingClassesPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid using classes regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-    NSString *const classesDelimiterPattern = @"^\\s*(\\S)\\s*(\\S)\\s*$";
-    NSRegularExpression* classesDelimiterExpression = [NSRegularExpression regularExpressionWithPattern:classesDelimiterPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid classes delimiter expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-
     // Parse out the headers
     for (NSString* line in linesOfScheme) {
         // For empty lines move on
@@ -185,15 +176,26 @@ static NSRegularExpression* whitespaceExpression;
 -(void)parseMappings {
     // Regular expressions for matching mapping items
     NSError* error;
-    NSString *const simpleMappingPattern = @"^\\s*(\\S+)\\s+(\\S+)\\s*$";
-    NSRegularExpression* simpleMappingExpression = [NSRegularExpression regularExpressionWithPattern:simpleMappingPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid simple mapping expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
     NSString *const classDefinitionPattern = [NSString stringWithFormat:@"^\\s*class\\s+(\\S+)\\s+\\%@\\s*$", classOpenDelimiter];
-    NSRegularExpression* classDefinitionExpression = [NSRegularExpression regularExpressionWithPattern:classDefinitionPattern options:0 error:&error];
+    classDefinitionExpression = [NSRegularExpression regularExpressionWithPattern:classDefinitionPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class definition expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    /*
+     * We only support one class per mapping
+     */
+    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
+    classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+    /*
+     * And hence only one wildcard value
+     */
+    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
+    wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
 
     for (; currentLineNumber<[linesOfScheme count]; currentLineNumber++) {
@@ -354,7 +356,7 @@ static NSRegularExpression* whitespaceExpression;
     return array;
 }
 
--(NSString *)getClassNameForInput:(NSString*)input {
+-(NSString *)classNameForInput:(NSString*)input {
     for (NSString* className in [classes keyEnumerator]) {
         NSMutableDictionary* classMap = [classes valueForKey:className];
         if ([classMap objectForKey:input] != nil) {
@@ -364,7 +366,7 @@ static NSRegularExpression* whitespaceExpression;
     return nil;
 }
 
--(NSMutableDictionary *)getClassForName:(NSString *)className {
+-(NSMutableDictionary *)classForName:(NSString *)className {
     return [classes valueForKey:className];
 }
 
