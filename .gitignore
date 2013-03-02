@@ -1,3 +1,6 @@
 .DS_Store
-LipikaIME.xcodeproj/project.xcworkspace/xcuserdata/
-LipikaIME.xcodeproj/xcuserdata/
+xcuserdata
+*.swp
+*.lock
+profile
+*~.nib

@@ -54,6 +54,9 @@
                 NSArray* remaining = [[NSArray alloc] initWithArray:inputsSinceLastOutput];
                 return [self replayAtRootWithInput:remaining];
             }
+            else {
+                currentNode = nil;
+            }
         }
         else {
             currentNode = nextNode;

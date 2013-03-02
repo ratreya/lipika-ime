@@ -11,8 +11,8 @@
 	<key>IMKCandidatesOpacityAttributeName</key>
 	<real>0.9</real>
 	<key>CandidateFontName</key>
-	<string>DevanagariSangamMN</string>
+	<string>DevanagariMT</string>
 	<key>CandidateFontSize</key>
-	<integer>18</integer>
+	<integer>15</integer>
 </dict>
 </plist>

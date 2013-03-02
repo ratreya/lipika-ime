@@ -77,7 +77,7 @@
         return color;
     }
     else {
-        return [NSColor colorWithCalibratedRed:(135/255.0f) green:(206/255.0f) blue:(250/255.0f) alpha:1.0f];
+        return [NSColor whiteColor];
     }
 }
 
