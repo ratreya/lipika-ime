@@ -23,6 +23,14 @@
 
 static NSRegularExpression* whiteSpace;
 
++(void)initialize {
+    NSError* error;
+    whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid whitespace regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
+}
+
 -(id)init {
     self = [super init];
     if (self == nil) {
@@ -32,7 +40,7 @@ static NSRegularExpression* whiteSpace;
     if (engine == nil) {
         return nil;
     }
-    [self initialize];
+    [self commonInit];
     return self;
 }
 
@@ -43,16 +51,11 @@ static NSRegularExpression* whiteSpace;
         return self;
     }
     engine = myEngine;
-    [self initialize];
+    [self commonInit];
     return self;
 }
 
--(void)initialize {
-    NSError* error;
-    whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid whitespace regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
+-(void)commonInit {
     uncommittedOutput = [[NSMutableArray alloc] initWithCapacity:0];
     finalizedIndex = 0;
 }

@@ -13,6 +13,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A506B93416BDEDA300EA49C0 /* TestHappyCase.scm in Resources */ = {isa = PBXBuildFile; fileRef = A506B93316BDEDA300EA49C0 /* TestHappyCase.scm */; };
 		A50DA10E16DABB63003C99C6 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A50DA10D16DABB63003C99C6 /* UserSettings.plist */; };
+		A50E2FB816E3FDE400815A9C /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C53DD516E3D44000D912F3 /* DJLogger.m */; };
 		A50E952716DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A50E952616DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m */; };
 		A50E952916DBE3FB000D2C7F /* TestSpecialChars.scm in Resources */ = {isa = PBXBuildFile; fileRef = A50E952816DBE3FB000D2C7F /* TestSpecialChars.scm */; };
 		A50E952A16DBE5F9000D2C7F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = A5AF0CFE16DAFB3B003A9BF8 /* Constants.m */; };
@@ -32,6 +33,7 @@
 		A5AF0CFF16DAFB3B003A9BF8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = A5AF0CFE16DAFB3B003A9BF8 /* Constants.m */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A5C53DD616E3D44000D912F3 /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C53DD516E3D44000D912F3 /* DJLogger.m */; };
 		A5C54E0516BA20C1007F631D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C54E0416BA20C1007F631D /* SenTestingKit.framework */; };
 		A5C54E0E16BA20C1007F631D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5C54E0C16BA20C1007F631D /* InfoPlist.strings */; };
 		A5C54E1116BA20C1007F631D /* LipikaIMESchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C54E1016BA20C1007F631D /* LipikaIMESchemeTest.m */; };
@@ -97,6 +99,8 @@
 		A59CEFEA16DA81C700A4A212 /* DJLipikaAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaAppDelegate.h; sourceTree = "<group>"; };
 		A59CEFEB16DA81C700A4A212 /* DJLipikaAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLipikaAppDelegate.m; sourceTree = "<group>"; };
 		A5AF0CFE16DAFB3B003A9BF8 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		A5C53DD416E3D44000D912F3 /* DJLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLogger.h; sourceTree = "<group>"; };
+		A5C53DD516E3D44000D912F3 /* DJLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLogger.m; sourceTree = "<group>"; };
 		A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaIMETest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C54E0416BA20C1007F631D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A5C54E0B16BA20C1007F631D /* LipikaIMETest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LipikaIMETest-Info.plist"; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				A596563016DC1F6B000F5BD2 /* DJPreferenceController.m */,
 				A5CCBE5116DD2BA900A6F57F /* DJLipikaUserSettings.h */,
 				A5CCBE5216DD2BA900A6F57F /* DJLipikaUserSettings.m */,
+				A5C53DD416E3D44000D912F3 /* DJLogger.h */,
+				A5C53DD516E3D44000D912F3 /* DJLogger.m */,
 				A5C54DF816BA1EB9007F631D /* Parser Classes */,
 			);
 			name = Classes;
@@ -431,6 +437,7 @@
 				A5AF0CFF16DAFB3B003A9BF8 /* Constants.m in Sources */,
 				A596563116DC1F6B000F5BD2 /* DJPreferenceController.m in Sources */,
 				A5CCBE5316DD2BA900A6F57F /* DJLipikaUserSettings.m in Sources */,
+				A5C53DD616E3D44000D912F3 /* DJLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +462,7 @@
 				A5C579F716C6F872000A54FA /* LipikaIMEBufferManagerTest.m in Sources */,
 				A5345AAE16D185D800AD6486 /* LipikaIMEBufferReplayTest.m in Sources */,
 				A50E952716DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m in Sources */,
+				A50E2FB816E3FDE400815A9C /* DJLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,7 +589,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
+				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Input Methods/\"";
 				PRODUCT_NAME = LipikaIME;
 				WRAPPER_EXTENSION = app;
 			};

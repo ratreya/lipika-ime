@@ -18,6 +18,7 @@
 
 #import "DJInputMethodScheme.h"
 #import "DJParseTreeNode.h"
+#import "DJLogger.h"
 
 @implementation DJInputMethodScheme
 
@@ -92,11 +93,11 @@ static NSRegularExpression* simpleMappingExpression;
     classCloseDelimiter = @"}";
 
     // Read contents of the Scheme file
-    NSLog(@"Parsing scheme file: %@", filePath);
+    logDebug(@"Parsing scheme file: %@", filePath);
     schemeFilePath = filePath;
     NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath:schemeFilePath];
     if (handle == nil) {
-        NSLog(@"Failed to open file %@ for reading", schemeFilePath);
+        logError(@"Failed to open file %@ for reading", schemeFilePath);
         return nil;
     }
     NSData* dataBuffer = [handle readDataToEndOfFile];
@@ -107,18 +108,18 @@ static NSRegularExpression* simpleMappingExpression;
         [self parseHeaders];
     }
     @catch (NSException* exception) {
-        NSLog(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
+        logError(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
     @try {
         [self parseMappings];
     }
     @catch (NSException* exception) {
-        NSLog(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
+        logError(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
     if (isProcessingClassDefinition) {
-        NSLog(@"Error parsing scheme file: %@; One or more class(es) not closed", filePath);
+        logWarning(@"Error parsing scheme file: %@; One or more class(es) not closed", filePath);
     }
 
     return self;
@@ -132,11 +133,11 @@ static NSRegularExpression* simpleMappingExpression;
             currentLineNumber++;
             continue;
         }
-        NSLog(@"Parsing line: %@", line);
+        logDebug(@"Parsing line: %@", line);
         if ([headerExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             NSString* key = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             NSString* value = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
-            NSLog(@"Parsed header. Key: %@; Value: %@", key, value);
+            logDebug(@"Parsed header. Key: %@; Value: %@", key, value);
             if ([key isEqualToString:VERSION]) {
                 version = value;
             }
@@ -161,16 +162,16 @@ static NSRegularExpression* simpleMappingExpression;
             }
         }
         else if ([usingClassesExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
-            NSLog(@"Parsed using classes");
+            logDebug(@"Parsed using classes");
             usingClasses = YES;
         }
         else {
-            NSLog(@"Done parsing headers");
+            logDebug(@"Done parsing headers");
             break;
         }
         currentLineNumber++;
     }
-    NSLog(@"Headers end at: %d", currentLineNumber + 1);
+    logDebug(@"Headers end at: %d", currentLineNumber + 1);
 }
 
 -(void)parseMappings {
@@ -202,29 +203,29 @@ static NSRegularExpression* simpleMappingExpression;
         NSString* line = linesOfScheme[currentLineNumber];
         // For empty lines move on
         if ([line length] <=0  || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) continue;
-        NSLog(@"Parsing line: %@", line);
+        logDebug(@"Parsing line: %@", line);
         if ([simpleMappingExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
-            NSLog(@"Found mapping expression");
+            logDebug(@"Found mapping expression");
             NSString* key = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             NSString* value = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             if (isProcessingClassDefinition) {
-                NSLog(@"Adding to class: %@", currentClassName);
+                logDebug(@"Adding to class: %@", currentClassName);
                 [self parseMappingForTree:currentClass key:key value:value];
             }
             else {
-                NSLog(@"Adding to main parse tree");
+                logDebug(@"Adding to main parse tree");
                 [self parseMappingForTree:parseTree key:key value:value];
             }
         }
         else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
-            NSLog(@"Found beginning of class definition");
+            logDebug(@"Found beginning of class definition");
             isProcessingClassDefinition = YES;
             currentClassName = [classDefinitionExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             currentClass = [[NSMutableDictionary alloc] initWithCapacity:0];
-            NSLog(@"Class name: %@", currentClassName);
+            logDebug(@"Class name: %@", currentClassName);
         }
         else if ([line isEqualToString:classCloseDelimiter]) {
-            NSLog(@"Found end of class definition");
+            logDebug(@"Found end of class definition");
             isProcessingClassDefinition = NO;
             [classes setValue:currentClass forKey:currentClassName];
         }
@@ -240,12 +241,12 @@ static NSRegularExpression* simpleMappingExpression;
     // Output with format elemets
     DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
     if ([classKeyExpression numberOfMatchesInString:key options:0 range:NSMakeRange(0, [key length])]) {
-        NSLog(@"Found class mapping");
+        logDebug(@"Found class mapping");
         // Parse the key
         NSString* preClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$1"];
         NSString* className = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$2"];
         NSString* postClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$3"];
-        NSLog(@"Parsed key with pre-class: %@; class: %@", preClass, className);
+        logDebug(@"Parsed key with pre-class: %@; class: %@", preClass, className);
         if ([postClass length]) {
             [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, currentLineNumber];
         }
@@ -259,7 +260,7 @@ static NSRegularExpression* simpleMappingExpression;
         if ([wildcardValueExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
             NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
             NSString* postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
-            NSLog(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
+            logDebug(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
             // Output is nil and format is applied to all outputs of its subtree
             NSString* format = [NSString stringWithFormat:@"%@%%@%@", preWildcard, postWildcard];
             // Set the formated output tree as this node's subtree
@@ -272,7 +273,7 @@ static NSRegularExpression* simpleMappingExpression;
         }
     }
     else {
-        NSLog(@"Found key: %@; value: %@", key, value);
+        logDebug(@"Found key: %@; value: %@", key, value);
         path = [self getPathForKey:key];
         newNode.output = value;
     }
@@ -320,7 +321,7 @@ static NSRegularExpression* simpleMappingExpression;
 - (void)mergeNode:(DJParseTreeNode *)newNode existing:(DJParseTreeNode *)existingNode key:(NSString*)key {
     if (newNode.output != nil) {
         if (existingNode.output != nil) {
-            NSLog(@"Warning! Value: %@ for key: %@ being replaced by value: %@", existingNode.output, key, newNode.output);
+            logWarning(@"Value: %@ for key: %@ being replaced by value: %@", existingNode.output, key, newNode.output);
         }
         existingNode.output = newNode.output;
     }
