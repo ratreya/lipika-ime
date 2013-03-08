@@ -22,6 +22,7 @@
 
 @interface DJLipikaInputController : IMKInputController {
     DJLipikaBufferManager* manager;
+    long numMyCompositionCommits;
 }
 
 @end

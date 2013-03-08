@@ -17,6 +17,7 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import "Constants.h"
 
 @interface DJLipikaUserSettings : NSUserDefaults
 
@@ -29,5 +30,11 @@
 +(NSColor*)backgroundColor;
 +(float)opacity;
 +(void)reset;
+
++(enum DJLogLevel)loggingLevel;
++(NSString*)logLevelStringForEnum:(enum DJLogLevel)level;
++(enum DJLogLevel)logLevelForString:(NSString*)level;
++(enum DJBackspaceBehavior)backspaceBehavior;
++(enum DJOnUnfocusBehavior)unfocusBehavior;
 
 @end

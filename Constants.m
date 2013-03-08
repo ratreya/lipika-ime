@@ -25,3 +25,6 @@ NSString *const DEFAULT_FONT_COLOR_KEY = @"NSForegroundColorAttributeName";
 NSString *const DEFAULT_BACKGROUND_KEY = @"NSBackgroundColorDocumentAttribute";
 NSString *const DEFAULT_OPACITY_KEY = @"IMKCandidatesOpacityAttributeName";
 NSString *const DEFAULT_CANDIDATE_FONT_KEY = @"NSFontAttributeName";
+NSString *const DEFAULT_LOGGING_LEVEL_KEY = @"LoggingLevel";
+NSString *const DEFAULT_BACKSPACE_BEHAVIOR_KEY = @"BackspaceDeletes";
+NSString *const DEFAULT_UNFOCUS_BEHAVIOR_KEY = @"OnUnfocusUncommitted";

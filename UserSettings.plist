@@ -14,5 +14,11 @@
 	<string>DevanagariMT</string>
 	<key>CandidateFontSize</key>
 	<integer>15</integer>
+	<key>LoggingLevel</key>
+	<string>Warning</string>
+	<key>BackspaceDeletes</key>
+	<string>Output character</string>
+	<key>OnUnfocusUncommitted</key>
+	<string>Automatically commits</string>
 </dict>
 </plist>

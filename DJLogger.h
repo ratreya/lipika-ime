@@ -17,18 +17,11 @@
  */
 
 #import <Foundation/Foundation.h>
-
-enum DJLogLevel {
-    DJ_DEBUG = 1,
-    DJ_WARNING = 2,
-    DJ_ERROR = 3
-};
+#import "Constants.h"
 
 extern void logDebug(NSString* format, ...);
 extern void logWarning(NSString* format, ...);
 extern void logError(NSString* format, ...);
-
-extern void setLogLevel(enum DJLogLevel level);
 
 extern void startBatch(NSString* batchId);
 extern NSArray* endBatch(NSString* batchId);

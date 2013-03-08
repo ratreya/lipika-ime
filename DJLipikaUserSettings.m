@@ -17,7 +17,6 @@
  */
 
 #import "DJLipikaUserSettings.h"
-#import "Constants.h"
 
 @implementation DJLipikaUserSettings
 
@@ -78,6 +77,73 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     }];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(enum DJBackspaceBehavior)backspaceBehavior {
+    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_BACKSPACE_BEHAVIOR_KEY];
+    if ([string isEqualToString:@"Output character"]) {
+        return DJ_DELETE_OUTPUT;
+    }
+    else if ([string isEqualToString:@"Mapping output"]) {
+        return DJ_DELETE_MAPPING;
+    }
+    else {
+        return nil;
+    }
+}
+
++(enum DJOnUnfocusBehavior)unfocusBehavior {
+    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_UNFOCUS_BEHAVIOR_KEY];
+    if ([string isEqualToString:@"Gets discarded"]) {
+        return DJ_DISCARD_UNCOMMITTED;
+    }
+    else if ([string isEqualToString:@"Restores on focus"]) {
+        return DJ_RESTORE_UNCOMMITTED;
+    }
+    else if ([string isEqualToString:@"Automatically commits"]) {
+        return DJ_COMMIT_UNCOMMITTED;
+    }
+    else {
+        return nil;
+    }
+}
+
++(enum DJLogLevel)loggingLevel {
+    return [DJLipikaUserSettings logLevelForString:[[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_LOGGING_LEVEL_KEY]];
+}
+
++(NSString*)logLevelStringForEnum:(enum DJLogLevel)level {
+    NSString* severity;
+    switch (level) {
+        case DJ_DEBUG:
+            severity = @"Debug";
+            break;
+        case DJ_WARNING:
+            severity = @"Warning";
+            break;
+        case DJ_ERROR:
+            severity = @"Error";
+            break;
+        default:
+            severity = @"Unknown";
+            break;
+    }
+    return severity;
+}
+
++(enum DJLogLevel)logLevelForString:(NSString*)level {
+    if ([level isEqualToString:@"Debug"]) {
+        return DJ_DEBUG;
+    }
+    else if ([level isEqualToString:@"Warning"]) {
+        return DJ_WARNING;
+    }
+    else if ([level isEqualToString:@"Error"]) {
+        return DJ_ERROR;
+    }
+    else {
+        return nil;
+    }
 }
 
 @end
