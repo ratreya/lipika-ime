@@ -21,13 +21,18 @@
 #import "DJPreferenceController.h"
 #import "Constants.h"
 
+/*
+ * Using this technique because for some unknown reason notifications don't work.
+ * They either crash the app or are never delivered.
+ */
+static long numCompositionCommits = 0;
+
 @implementation DJLipikaInputController
 
 extern IMKCandidates* candidates;
 
-/*
- * Overridden methods of IMKInputController
- */
+#pragma mark - Overridden methods of IMKInputController
+
 -(id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient {
     self = [super initWithServer:server delegate:delegate client:inputClient];
     if (self == nil) {
@@ -36,6 +41,7 @@ extern IMKCandidates* candidates;
     manager = [[DJLipikaBufferManager alloc] init];
     [candidates setDismissesAutomatically:NO];
     [DJPreferenceController configureCandidates];
+    numMyCompositionCommits = 0;
     return self;
 }
 
@@ -49,9 +55,9 @@ extern IMKCandidates* candidates;
 	return [[NSApp delegate] mainMenu];
 }
 
-/*
- * IMKServerInput and IMKStateSetting protocol methods
- */
+
+#pragma mark - IMKServerInput and IMKStateSetting protocol methods
+
 -(BOOL)inputText:(NSString*)string client:(id)sender {
     NSString* commitString = [manager outputForInput:string];
     [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
@@ -60,11 +66,17 @@ extern IMKCandidates* candidates;
 }
 
 -(void)commitComposition:(id)sender {
-    NSString* commitString = [manager flush];
-    if (commitString) {
-        [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED) {
+        ++numCompositionCommits;
+        /*
+         * We are discarding uncommitted changes for DJ_RESTORE_UNCOMMITTED so as to
+         * achieve consistent behavior on all controllers including background ones
+         */
+        [manager flush];
     }
-    [candidates hide];
+    else {
+        [self flush];
+    }
 }
 
 -(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
@@ -81,7 +93,7 @@ extern IMKCandidates* candidates;
         return YES;
     }
     else {
-        [self commitComposition:sender];
+        [self flush];
     }
     return NO;
 }
@@ -91,9 +103,28 @@ extern IMKCandidates* candidates;
     return candidate;
 }
 
-// This message is usually sent when the client looses focus
+// This message is sent when our client gains focus
+-(void)activateServer:(id)sender {
+    if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED) {
+        // Activate sometimes gets called before deactivate
+        [candidates hide];
+        // updateCandidates on the next run-loop
+        // IMK needs to do its thing on the current run-loop
+        [self performSelector:@selector(updateCandidates) withObject:self afterDelay:0];
+    }
+}
+
+// This message is sent when our client looses focus
 -(void)deactivateServer:(id)sender {
-    [self commitComposition:sender];
+    if ([DJLipikaUserSettings unfocusBehavior] == DJ_COMMIT_UNCOMMITTED) {
+        [self flush];
+    }
+    else if ([DJLipikaUserSettings unfocusBehavior] == DJ_DISCARD_UNCOMMITTED) {
+        [manager flush];
+    }
+    else if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED) {
+        [candidates hide];
+    }
 }
 
 -(IBAction)showPreferences:(id)sender {
@@ -117,10 +148,15 @@ extern IMKCandidates* candidates;
     }
 }
 
-/*
- * DJLipikaInputController's instance methods
- */
+
+#pragma mark - DJLipikaInputController's instance methods
+
 -(void)updateCandidates {
+    if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED
+            && numMyCompositionCommits < numCompositionCommits) {
+        numMyCompositionCommits = numCompositionCommits;
+        [manager flush];
+    }
     if ([manager hasCurrentWord]) {
         if (candidates) {
             [candidates updateCandidates];
@@ -132,20 +168,20 @@ extern IMKCandidates* candidates;
     }
 }
 
--(void)changeInputScheme:(id)sender {
+-(void)changeInputScheme:(NSMenuItem*)menuItem {
     // Turn off state for all menu items
-    NSArray* peerItems = [[[sender parentItem] submenu] itemArray];
+    NSArray* peerItems = [[[menuItem parentItem] submenu] itemArray];
     [peerItems enumerateObjectsUsingBlock:^(NSMenuItem* obj, NSUInteger idx, BOOL *stop) {
         [obj setState:NSOffState];
     }];
     // Turn on state for the sender and set selected scheme
-    [sender setState:NSOnState];
-    [DJLipikaUserSettings setSchemeName:[sender title]];
-    [self commitComposition:[self client]];
-    [manager changeToSchemeWithName:[sender title]];
+    [menuItem setState:NSOnState];
+    [DJLipikaUserSettings setSchemeName:[menuItem title]];
+    [self flush];
+    [manager changeToSchemeWithName:[menuItem title]];
 }
 
--(void)showPreferenceImplimentation:(id)sender {
+-(void)showPreferenceImplimentation:(NSMenuItem*)menuItem {
     static DJPreferenceController* preference;
     if (!preference) {
         preference = [[DJPreferenceController alloc] initWithWindowNibName:@"Preferences"];
@@ -153,6 +189,14 @@ extern IMKCandidates* candidates;
     [NSApp activateIgnoringOtherApps:YES];
     [[preference window] makeKeyAndOrderFront:self];
     [preference showWindow:self];
+}
+
+-(void)flush {
+    NSString* commitString = [manager flush];
+    if (commitString) {
+        [[self client] insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    }
+    [candidates hide];
 }
 
 @end

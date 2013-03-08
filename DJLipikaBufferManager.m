@@ -18,6 +18,8 @@
 
 #import "DJLipikaBufferManager.h"
 #import "DJInputEngineFactory.h"
+#import "DJLipikaUserSettings.h"
+#import "DJLogger.h"
 
 @implementation DJLipikaBufferManager
 
@@ -151,10 +153,19 @@ static NSRegularExpression* whiteSpace;
         }
         else if ([uncommittedOutput count] > 0) {
             [engine reset];
-            NSString* lastOutput = [uncommittedOutput lastObject];
-            [uncommittedOutput removeLastObject];
-            if (lastOutput.length > 1) {
-                [uncommittedOutput addObject:[lastOutput substringToIndex:lastOutput.length - 1]];
+            enum DJBackspaceBehavior behavior = [DJLipikaUserSettings backspaceBehavior];
+            if (behavior == DJ_DELETE_MAPPING) {
+                [uncommittedOutput removeLastObject];
+            }
+            else if (behavior == DJ_DELETE_OUTPUT) {
+                NSString* lastOutput = [uncommittedOutput lastObject];
+                [uncommittedOutput removeLastObject];
+                if (lastOutput.length > 1) {
+                    [uncommittedOutput addObject:[lastOutput substringToIndex:lastOutput.length - 1]];
+                }
+            }
+            else {
+                logError(@"Unrecognized backspace behavior");
             }
             if (finalizedIndex > [uncommittedOutput count]) {
                 finalizedIndex = [uncommittedOutput count];

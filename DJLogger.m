@@ -17,34 +17,20 @@
  */
 
 #import "DJLogger.h"
+#import "DJLipikaUserSettings.h"
 
 // Dictionary of batchId to NSArray of messages
 static NSMutableDictionary* messageMap = nil;
 static NSString* currentBatchId = nil;
-static enum DJLogLevel currentLevel = DJ_WARNING;
 
 void logGenericBatch(enum DJLogLevel level, NSString* format, va_list variables) {
     // Don't log anything if the current level does not allow it
+    enum DJLogLevel currentLevel = [DJLipikaUserSettings loggingLevel];
     if (currentLevel > level) {
         return;
     }
-    
     // Create the formatted log statement
-    NSString* severity;
-    switch (level) {
-        case DJ_DEBUG:
-            severity = @"Debug";
-            break;
-        case DJ_WARNING:
-            severity = @"Warning";
-            break;
-        case DJ_ERROR:
-            severity = @"Error";
-            break;
-        default:
-            severity = @"Unknown";
-            break;
-    }
+    NSString* severity = [DJLipikaUserSettings logLevelStringForEnum:currentLevel];
     NSString* log = [NSString stringWithFormat:@"%@: %@", severity, [[NSString alloc] initWithFormat:format arguments:variables]];
 
     // Local variabel to avoid concurrent modification
@@ -92,10 +78,6 @@ void logError(NSString* format, ...) {
     va_start(args, format);
     logGenericBatch(DJ_ERROR, format, args);
     va_end(args);
-}
-
-void setLogLevel(enum DJLogLevel level) {
-    currentLevel = level;
 }
 
 void startBatch(NSString* batchId) {
