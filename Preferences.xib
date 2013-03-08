@@ -65,7 +65,6 @@
 							<string key="NSFrame">{{188, 18}, {70, 25}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="731700150">
@@ -119,7 +118,6 @@
 							<string key="NSFrame">{{13, 40}, {282, 336}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="666061863"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="252111133">
@@ -1108,6 +1106,30 @@
 						<reference key="destination" ref="286929675"/>
 					</object>
 					<int key="connectionID">1525</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">fontName</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1038015734"/>
+					</object>
+					<int key="connectionID">2130</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">fontSizeStepper</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="698765426"/>
+					</object>
+					<int key="connectionID">2131</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">opacityStepper</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="368065719"/>
+					</object>
+					<int key="connectionID">2132</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3741,7 +3763,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2129</int>
+			<int key="maxID">2132</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
