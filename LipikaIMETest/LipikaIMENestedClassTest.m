@@ -24,7 +24,7 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestNestedClass.scm"];
+    scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestNestedClass.scm"];
     engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }
 
