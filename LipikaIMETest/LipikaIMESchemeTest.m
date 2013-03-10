@@ -23,7 +23,7 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestHappyCase.scm"];
+    scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestHappyCase.scm"];
 }
 
 - (void)testHeaderParsing {
@@ -49,7 +49,7 @@
 }
 
 -(void)testNonDefaultHeaders {
-    DJInputMethodScheme* myScheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/TestITRANS.scm"];
+    DJInputMethodScheme* myScheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestITRANS.scm"];
     STAssertTrue([@"VowelSigns" isEqualToString:[myScheme classNameForInput:@"u"]], @"Unexpected output");
     NSString* output = [[[[[myScheme parseTree] valueForKey:@"~"] next] valueForKey:@"n"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
