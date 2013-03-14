@@ -70,26 +70,6 @@ static NSRegularExpression* whiteSpace;
 }
 
 -(NSString*)outputForInput:(NSString*)string {
-    // The states beyond this entry point are not thread-safe
-    @synchronized (self) {
-        NSMutableString* output;
-        NSRange theRange = {0, 1};
-        for ( NSInteger i = 0; i < [string length]; i++) {
-            theRange.location = i;
-            NSString* singleInput = [string substringWithRange:theRange];
-            NSString* singleOutput = [self outputForSingleInput:singleInput];
-            if (singleOutput != nil) {
-                if (output == nil) {
-                    output = [[NSMutableString alloc] initWithCapacity:0];
-                }
-                [output appendString:singleOutput];
-            }
-        }
-        return output;
-    }
-}
-
--(NSString*)outputForSingleInput:(NSString*)string {
     @synchronized(self) {
         // Fush if stop character or whitespace
         BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
@@ -97,39 +77,44 @@ static NSRegularExpression* whiteSpace;
         if (isStopChar || isWhiteSpace) {
             // Only include the stop character if it does nothing to the engine
             if (!isStopChar || [engine isAtRoot]) {
-                [uncommittedOutput addObject:string];
+                [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];
             }
             return [self flush];
         }
 
         NSArray* results = [engine executeWithInput:string];
-        for (DJParseOutput* result in results) {
-            if (result == nil) {
-                // Add the input as-is if there is no mapping for it
-                [uncommittedOutput addObject:string];
-                // And finalize all outputs
+        [self handleResults:results];
+        return nil;
+    }
+}
+
+-(void)handleResults:(NSArray*)results {
+    for (DJParseOutput* result in results) {
+        if (result == nil) {
+            // Add the input as-is if there is no mapping for it
+            result.output = result.input;
+            [uncommittedOutput addObject:result];
+            // And finalize all outputs
+            finalizedIndex = [uncommittedOutput count];
+        }
+        else {
+            if ([result isPreviousFinal]) {
                 finalizedIndex = [uncommittedOutput count];
             }
             else {
-                if ([result isPreviousFinal]) {
-                    finalizedIndex = [uncommittedOutput count];
-                }
-                else {
-                    // If there is a replacement then remove unfinalized
-                    if ([result output] != nil) {
-                        [self removeUnfinalized];
-                    }
-                }
+                // If there is a replacement then remove unfinalized
                 if ([result output] != nil) {
-                    [uncommittedOutput addObject:[result output]];
-                }
-                if ([result isFinal]) {
-                    // This includes any additions
-                    finalizedIndex = [uncommittedOutput count];
+                    [self removeUnfinalized];
                 }
             }
+            if ([result output] != nil) {
+                [uncommittedOutput addObject:result];
+            }
+            if ([result isFinal]) {
+                // This includes any additions
+                finalizedIndex = [uncommittedOutput count];
+            }
         }
-        return nil;
     }
 }
 
@@ -138,6 +123,13 @@ static NSRegularExpression* whiteSpace;
         while ([uncommittedOutput count] > finalizedIndex) {
             [uncommittedOutput removeObjectAtIndex:finalizedIndex];
         }
+    }
+}
+
+-(void)removeLastMapping {
+    [uncommittedOutput removeLastObject];
+    if (finalizedIndex > [uncommittedOutput count]) {
+        finalizedIndex = [uncommittedOutput count];
     }
 }
 
@@ -155,40 +147,56 @@ static NSRegularExpression* whiteSpace;
             [engine reset];
             enum DJBackspaceBehavior behavior = [DJLipikaUserSettings backspaceBehavior];
             if (behavior == DJ_DELETE_MAPPING) {
-                [uncommittedOutput removeLastObject];
+                [self removeLastMapping];
             }
-            else if (behavior == DJ_DELETE_OUTPUT) {
-                NSString* lastOutput = [uncommittedOutput lastObject];
-                [uncommittedOutput removeLastObject];
-                if (lastOutput.length > 1) {
-                    [uncommittedOutput addObject:[lastOutput substringToIndex:lastOutput.length - 1]];
+            else if (behavior == DJ_DELETE_INPUT) {
+                DJParseOutput* lastBundle = [uncommittedOutput lastObject];
+                [self removeLastMapping];
+                if (lastBundle.input.length > 1) {
+                    NSString* input = [lastBundle.input substringToIndex:lastBundle.input.length - 1];
+                    if (input.length > 0) {
+                        NSArray* results = [engine executeWithInput:input];
+                        [self handleResults:results];
+                    }
                 }
             }
             else {
                 logError(@"Unrecognized backspace behavior");
             }
-            if (finalizedIndex > [uncommittedOutput count]) {
-                finalizedIndex = [uncommittedOutput count];
-            }
         }
     }
 }
 
--(BOOL)hasCurrentWord {
+-(BOOL)hasOutput {
     return [uncommittedOutput count] > 0;
 }
 
--(NSString*)currentWord {
+-(NSString*)output {
     if ([uncommittedOutput count] <= 0) {
         return nil;
     }
-    return [uncommittedOutput componentsJoinedByString:@""];
+    NSMutableString* word = [[NSMutableString alloc] init];
+    for (DJParseOutput* bundle in uncommittedOutput) {
+        [word appendString:[bundle output]];
+    }
+    return word;
+}
+
+-(NSString *)input {
+    if ([uncommittedOutput count] <= 0) {
+        return nil;
+    }
+    NSMutableString* word = [[NSMutableString alloc] init];
+    for (DJParseOutput* bundle in uncommittedOutput) {
+        [word appendString:[bundle input]];
+    }
+    return word;
 }
 
 -(NSString*)flush {
     @synchronized(self) {
         [engine reset];
-        NSString* result = [self currentWord];
+        NSString* result = [self output];
         [self reset];
         return result;
     }

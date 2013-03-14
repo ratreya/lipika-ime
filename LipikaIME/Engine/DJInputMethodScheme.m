@@ -255,7 +255,7 @@ static NSRegularExpression* simpleMappingExpression;
             [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, currentLineNumber];
         }
         // Create path from key
-        path = [self getPathForKey:preClass];
+        path = [DJInputMethodScheme charactersForString:preClass];
         // Parse the value; may not have wildcards in it
         if ([wildcardValueExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
             NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
@@ -274,7 +274,7 @@ static NSRegularExpression* simpleMappingExpression;
     }
     else {
         logDebug(@"Found key: %@; value: %@", key, value);
-        path = [self getPathForKey:key];
+        path = [DJInputMethodScheme charactersForString:key];
         newNode.output = value;
     }
     // Merge path into the parseTree and set the output
@@ -347,12 +347,12 @@ static NSRegularExpression* simpleMappingExpression;
     }
 }
 
--(NSMutableArray*)getPathForKey:(NSString*)key {
++(NSMutableArray*)charactersForString:(NSString*)string {
     NSRange theRange = {0, 1};
     NSMutableArray* array = [NSMutableArray array];
-    for ( NSInteger i = 0; i < [key length]; i++) {
+    for ( NSInteger i = 0; i < [string length]; i++) {
         theRange.location = i;
-        [array addObject:[key substringWithRange:theRange]];
+        [array addObject:[string substringWithRange:theRange]];
     }
     return array;
 }

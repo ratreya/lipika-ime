@@ -19,6 +19,7 @@
 #import <Foundation/Foundation.h>
 
 @interface DJParseOutput : NSObject {
+    NSString* input;
     NSString* output;
     /*
      * If this is true then the output is final and will not be changed anymore.
@@ -34,8 +35,11 @@
     BOOL isPreviousFinal;
 }
 
+@property NSString* input;
 @property NSString* output;
 @property BOOL isFinal;
 @property BOOL isPreviousFinal;
+
++(DJParseOutput*)sameInputOutput:(NSString*)input;
 
 @end

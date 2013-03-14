@@ -24,10 +24,8 @@
 @interface DJInputMethodEngine : NSObject {
     DJInputMethodScheme* scheme;
     DJParseTreeNode* currentNode;
-    
-    // Internal state variables
-    BOOL isOutputSinceRoot;
-    NSMutableArray* inputsSinceLastOutput;
+    NSMutableArray* inputsSinceRoot;
+    unsigned long lastOutputIndex;
 }
 
 @property DJInputMethodScheme* scheme;

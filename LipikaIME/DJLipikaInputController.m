@@ -81,6 +81,11 @@ extern IMKCandidates* candidates;
 
 -(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
     if (aSelector == @selector(deleteBackward:)) {
+        // If delete output then commit the string and let the client delete
+        if ([DJLipikaUserSettings backspaceBehavior] == DJ_DELETE_OUTPUT) {
+            [self flush];
+            return NO;
+        }
         // If we deleted something then swallow the delete
         BOOL isDeleted = [manager hasDeletable];
         [manager delete];
@@ -99,7 +104,7 @@ extern IMKCandidates* candidates;
 }
 
 -(NSArray*)candidates:(id)sender {
-    NSArray* candidate = [[NSArray alloc] initWithObjects:[manager currentWord], nil];
+    NSArray* candidate = [[NSArray alloc] initWithObjects:[manager output], nil];
     return candidate;
 }
 
@@ -157,7 +162,7 @@ extern IMKCandidates* candidates;
         numMyCompositionCommits = numCompositionCommits;
         [manager flush];
     }
-    if ([manager hasCurrentWord]) {
+    if ([manager hasOutput]) {
         if (candidates) {
             [candidates updateCandidates];
             [candidates show:kIMKLocateCandidatesBelowHint];

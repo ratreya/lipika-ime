@@ -30,14 +30,18 @@
     }
     scheme = inputScheme;
     currentNode = nil;
-    isOutputSinceRoot = NO;
-    inputsSinceLastOutput = [[NSMutableArray alloc] initWithCapacity:0];
+    inputsSinceRoot = [[NSMutableArray alloc] initWithCapacity:0];
+    lastOutputIndex = 0;
     return self;
 }
 
 -(NSArray*)executeWithInput:(NSString*)input {
-    if ([input length] != 1) {
-        [NSException raise:@"Number of characters in input not one" format:@"Expected one but input had %ld characters", [input length]];
+    if (input.length > 1) {
+        NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
+        for (NSString* singleInput in [DJInputMethodScheme charactersForString:input]) {
+            [aggregate addObjectsFromArray:[self executeWithInput:singleInput]];
+        }
+        return aggregate;
     }
     DJParseOutput* result = [DJParseOutput alloc];
     if (currentNode == nil) {
@@ -49,10 +53,9 @@
         DJParseTreeNode* nextNode = [self getNodeForInput:input fromTree:[currentNode next]];
         if (nextNode == nil) {
             // If we had any output since root, then replay all inputs since last output at root
-            if (isOutputSinceRoot) {
+            if ([self isOutputSinceRoot]) {
                 // Search at root of tree
-                NSArray* remaining = [[NSArray alloc] initWithArray:inputsSinceLastOutput];
-                return [self replayAtRootWithInput:remaining];
+                return [self replayAtRootWithInput:[self inputsSinceLastOutput]];
             }
             else {
                 currentNode = nil;
@@ -62,9 +65,10 @@
             currentNode = nextNode;
         }
     }
+    result.input = [inputsSinceRoot componentsJoinedByString:@""];
     if (currentNode == nil) {
         // We did not find any output mapping; echo all inputs
-        result.output = [inputsSinceLastOutput componentsJoinedByString:@""];
+        result.output = result.input;
         [self reset];
         result.isFinal = true;
     }
@@ -97,33 +101,33 @@
 
 -(DJParseTreeNode*)getNodeForInput:(NSString*)input fromTree:(NSMutableDictionary*)tree{
     DJParseTreeNode* result = [tree valueForKey:input];
-    if (result != nil) {
-        if ([result output] != nil) {
-            isOutputSinceRoot = YES;
-            [inputsSinceLastOutput removeAllObjects];
-        }
-        else {
-            [inputsSinceLastOutput addObject:input];
-        }
-    }
-    else {
-        [inputsSinceLastOutput addObject:input];
+    [inputsSinceRoot addObject:input];
+    if (result != nil && [result output] != nil) {
+        lastOutputIndex = inputsSinceRoot.count;
     }
     return result;
 }
 
 -(BOOL)hasDeletable {
-    return [inputsSinceLastOutput count] > 0;
+    return lastOutputIndex != inputsSinceRoot.count;
 }
 
 -(BOOL)isAtRoot {
     return currentNode == nil;
 }
 
+-(BOOL)isOutputSinceRoot {
+    return lastOutputIndex > 0;
+}
+
+-(NSArray*)inputsSinceLastOutput {
+    return [inputsSinceRoot subarrayWithRange:NSMakeRange(lastOutputIndex, inputsSinceRoot.count - lastOutputIndex)];
+}
+
 -(void)reset {
     currentNode = nil;
-    isOutputSinceRoot = NO;
-    [inputsSinceLastOutput removeAllObjects];
+    lastOutputIndex = 0;
+    [inputsSinceRoot removeAllObjects];
 }
 
 @end

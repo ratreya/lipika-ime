@@ -33,8 +33,9 @@
 -(NSString*)outputForInput:(NSString*)string;
 -(BOOL)hasDeletable;
 -(void)delete;
--(BOOL)hasCurrentWord;
--(NSString*)currentWord;
+-(BOOL)hasOutput;
+-(NSString*)output;
+-(NSString*)input;
 -(NSString*)flush;
 
 @end

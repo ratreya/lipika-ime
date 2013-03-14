@@ -87,6 +87,9 @@
     else if ([string isEqualToString:@"Mapping output"]) {
         return DJ_DELETE_MAPPING;
     }
+    else if ([string isEqualToString:@"Input character"]) {
+        return DJ_DELETE_INPUT;
+    }
     else {
         return nil;
     }
