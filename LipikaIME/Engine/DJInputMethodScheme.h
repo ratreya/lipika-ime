@@ -57,4 +57,6 @@
 -(NSString*)classNameForInput:(NSString*)input;
 -(NSMutableDictionary*)classForName:(NSString*)className;
 
++(NSMutableArray*)charactersForString:(NSString*)string;
+
 @end

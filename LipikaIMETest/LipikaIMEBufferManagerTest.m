@@ -17,6 +17,7 @@
  */
 
 #import "LipikaIMEBufferManagerTest.h"
+#import "DJLipikaUserSettings.h"
 
 @interface DJLipikaBufferManager (Test)
 
@@ -45,7 +46,8 @@
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"e"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
-    result = [manager outputForInput:@"e "];
+    result = [manager outputForInput:@"e"];
+    result = [manager outputForInput:@" "];
     STAssertTrue([@"त्री " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
@@ -54,7 +56,8 @@
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
     result = [manager outputForInput:@"a"];
     STAssertTrue(result == nil, @"Unexpected output: %@", result);
-    result = [manager outputForInput:@"a "];
+    result = [manager outputForInput:@"a"];
+    result = [manager outputForInput:@" "];
     STAssertTrue([@"ता " isEqualToString:result], @"Unexpected output: %@", result);
 }
 
@@ -112,7 +115,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u "];
+    result = [manager outputForInput:@"u"];
+    result = [manager outputForInput:@" "];
     STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
@@ -132,7 +136,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u "];
+    result = [manager outputForInput:@"u"];
+    result = [manager outputForInput:@" "];
     STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
@@ -147,7 +152,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u "];
+    result = [manager outputForInput:@"u"];
+    result = [manager outputForInput:@" "];
     STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
@@ -162,7 +168,8 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u "];
+    result = [manager outputForInput:@"u"];
+    result = [manager outputForInput:@" "];
     STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
 }
 
@@ -177,8 +184,22 @@
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
-    result = [manager outputForInput:@"u "];
+    result = [manager outputForInput:@"u"];
+    result = [manager outputForInput:@" "];
     STAssertTrue([result isEqualToString:@"ऌ "], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+}
+
+-(void)testDeleteInput {
+    [[NSUserDefaults standardUserDefaults] setObject:@"Input character" forKey:DEFAULT_BACKSPACE_BEHAVIOR_KEY];
+    NSString* result = [manager outputForInput:@"rai"];
+    STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    STAssertTrue([[manager output] isEqualToString:@"रै"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager delete];
+    STAssertTrue([[manager input] isEqualToString:@"ra"], [NSString stringWithFormat: @"Unexpected output: %@", [manager input]]);
+    STAssertTrue([[manager output] isEqualToString:@"र"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager delete];
+    STAssertTrue([[manager input] isEqualToString:@"r"], [NSString stringWithFormat: @"Unexpected output: %@", [manager input]]);
+    STAssertTrue([[manager output] isEqualToString:@"र्"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
 }
 
 @end

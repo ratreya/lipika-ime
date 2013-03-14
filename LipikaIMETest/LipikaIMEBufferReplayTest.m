@@ -40,13 +40,25 @@
 
 -(void)testHappyCase_Replay {
     // abcdf should output pqs
-    NSString* output = [manager outputForInput:@"abcdfg "];
+    NSString* output = [manager outputForInput:@"a"];
+    output = [manager outputForInput:@"b"];
+    output = [manager outputForInput:@"c"];
+    output = [manager outputForInput:@"d"];
+    output = [manager outputForInput:@"f"];
+    output = [manager outputForInput:@"g"];
+    output = [manager outputForInput:@" "];
     STAssertTrue([output isEqualToString:@"qs "], [NSString stringWithFormat:@"Unexpected output: %@", output]);
 }
 
 -(void)testHappyCase_Multiple_Replay {
     // abcdfh should output pqt
-    NSString* output = [manager outputForInput:@"abcdfh "];
+    NSString* output = [manager outputForInput:@"a"];
+    output = [manager outputForInput:@"b"];
+    output = [manager outputForInput:@"c"];
+    output = [manager outputForInput:@"d"];
+    output = [manager outputForInput:@"f"];
+    output = [manager outputForInput:@"h"];
+    output = [manager outputForInput:@" "];
     STAssertTrue([output isEqualToString:@"qt "], [NSString stringWithFormat:@"Unexpected output: %@", output]);
 }
 

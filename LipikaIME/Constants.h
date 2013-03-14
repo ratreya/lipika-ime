@@ -26,7 +26,8 @@ enum DJLogLevel {
 
 enum DJBackspaceBehavior {
     DJ_DELETE_OUTPUT = 1,
-    DJ_DELETE_MAPPING = 2
+    DJ_DELETE_MAPPING = 2,
+    DJ_DELETE_INPUT = 3
 };
 
 enum DJOnUnfocusBehavior {
