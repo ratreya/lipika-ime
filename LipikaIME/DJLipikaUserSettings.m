@@ -17,6 +17,7 @@
  */
 
 #import "DJLipikaUserSettings.h"
+#import <InputMethodKit/InputMethodKit.h>
 
 @implementation DJLipikaUserSettings
 
@@ -26,49 +27,62 @@
 }
 
 +(NSString*)schemeName {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_SCHEME_NAME_KEY];
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"SchemeName"];
 }
 
 +(void)setSchemeName:(NSString*)schemeName {
-    [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:DEFAULT_SCHEME_NAME_KEY];
+    [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:@"SchemeName"];
 }
 
-+(NSString*)candidateFontName {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_FONT_NAME_KEY];
++(BOOL)isShowCandidateWindow {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowCandidateWindow"];
 }
 
-+(float)candidateFontSize {
-    return [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_FONT_SIZE_KEY];
++(enum DJCandidateWindowText) candidateTextType {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"CandidateTextType"];
 }
 
-+(NSFont*)candidateFont {
-    NSString* fontName = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_FONT_NAME_KEY];
-    float fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_FONT_SIZE_KEY];
-    return [NSFont fontWithName:fontName size:fontSize];
++(NSDictionary*)candidateWindowAttributes {
+    NSMutableDictionary* windowAttributes = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [windowAttributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:@"IMKCandidatesOpacityAttributeName"];
+    [windowAttributes setValue:[NSNumber numberWithBool:YES] forKey:@"IMKCandidatesSendServerKeyEventFirst"];
+    return windowAttributes;
 }
 
-+(NSColor*)fontColor {
-    NSColor* color = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_FONT_COLOR_KEY]];
-    if (color) {
-        return color;
-    }
-    else {
-        return [NSColor blackColor];
-    }
++(NSDictionary*)candidateStringAttributes {
+    NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:@"CandidatesStringAttributes"];
+    NSMutableDictionary* attributes;
+    if (data) attributes = [NSUnarchiver unarchiveObjectWithData:data];
+    return attributes;
 }
 
-+(NSColor*)backgroundColor {
-    NSColor* color = [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:DEFAULT_BACKGROUND_KEY]];
-    if (color) {
-        return color;
-    }
-    else {
-        return [NSColor whiteColor];
-    }
++(void)setCandidateStringAttributes:(NSDictionary*)attributes {
+    NSData* outputData = [NSArchiver archivedDataWithRootObject:attributes];
+    [[NSUserDefaults standardUserDefaults] setObject:outputData forKey:@"CandidatesStringAttributes"];
+}
+
++(BOOL)isShowInput {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowInputString"];
+}
+
++(BOOL)isInputLikeClient {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"InputLikeClient"];
+}
+
++(NSDictionary*)inputAttributes {
+    NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:@"InputStringAttributes"];
+    NSMutableDictionary* attributes;
+    if (data) attributes = [NSUnarchiver unarchiveObjectWithData:data];
+    return attributes;
+}
+
++(void)setInputAttributes:(NSDictionary*)attributes {
+    NSData* inputData = [NSArchiver archivedDataWithRootObject:attributes];
+    [[NSUserDefaults standardUserDefaults] setObject:inputData forKey:@"InputStringAttributes"];
 }
 
 +(float)opacity {
-    return [[NSUserDefaults standardUserDefaults] floatForKey:DEFAULT_OPACITY_KEY];
+    return [[NSUserDefaults standardUserDefaults] floatForKey:@"IMKCandidatesOpacityAttributeName"];
 }
 
 +(void)reset {
@@ -80,7 +94,7 @@
 }
 
 +(enum DJBackspaceBehavior)backspaceBehavior {
-    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_BACKSPACE_BEHAVIOR_KEY];
+    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:@"BackspaceDeletes"];
     if ([string isEqualToString:@"Output character"]) {
         return DJ_DELETE_OUTPUT;
     }
@@ -96,7 +110,7 @@
 }
 
 +(enum DJOnUnfocusBehavior)unfocusBehavior {
-    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_UNFOCUS_BEHAVIOR_KEY];
+    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:@"OnUnfocusUncommitted"];
     if ([string isEqualToString:@"Gets discarded"]) {
         return DJ_DISCARD_UNCOMMITTED;
     }
@@ -112,7 +126,7 @@
 }
 
 +(enum DJLogLevel)loggingLevel {
-    return [DJLipikaUserSettings logLevelForString:[[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_LOGGING_LEVEL_KEY]];
+    return [DJLipikaUserSettings logLevelForString:[[NSUserDefaults standardUserDefaults] stringForKey:@"LoggingLevel"]];
 }
 
 +(NSString*)logLevelStringForEnum:(enum DJLogLevel)level {

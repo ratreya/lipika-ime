@@ -29,8 +29,6 @@ static long numCompositionCommits = 0;
 
 @implementation DJLipikaInputController
 
-extern IMKCandidates* candidates;
-
 #pragma mark - Overridden methods of IMKInputController
 
 -(id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient {
@@ -39,8 +37,7 @@ extern IMKCandidates* candidates;
         return self;
     }
     manager = [[DJLipikaBufferManager alloc] init];
-    [candidates setDismissesAutomatically:NO];
-    [DJPreferenceController configureCandidates];
+    candidates = [[DJLipikaCandidates alloc] initWithController:self];
     numMyCompositionCommits = 0;
     return self;
 }
@@ -103,11 +100,6 @@ extern IMKCandidates* candidates;
     return NO;
 }
 
--(NSArray*)candidates:(id)sender {
-    NSArray* candidate = [[NSArray alloc] initWithObjects:[manager output], nil];
-    return candidate;
-}
-
 // This message is sent when our client gains focus
 -(void)activateServer:(id)sender {
     if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED) {
@@ -163,10 +155,7 @@ extern IMKCandidates* candidates;
         [manager flush];
     }
     if ([manager hasOutput]) {
-        if (candidates) {
-            [candidates updateCandidates];
-            [candidates show:kIMKLocateCandidatesBelowHint];
-        }
+        [candidates showCandidateWithInput:[manager input] output:[manager output]];
     }
     else {
         [candidates hide];
