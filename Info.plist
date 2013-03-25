@@ -38,7 +38,8 @@
 	<string>NSApplication</string>
 	<key>tsInputMethodCharacterRepertoireKey</key>
 	<array>
-		<string>Latn</string>
+		<string>Deva</string>
+		<string>Knda</string>
 	</array>
 	<key>tsInputMethodIconFileKey</key>
 	<string>LipikaIcon.png</string>

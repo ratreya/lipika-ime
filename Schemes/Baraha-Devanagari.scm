@@ -1,5 +1,5 @@
 version: 1.0
-name: Barahavat
+name: Baraha
 stop-char: \
 using classes
 class-delimiters: { }
@@ -9,15 +9,15 @@ a अ
 aa आ
 A आ
 i इ
-ii ई
+ee ई
 I ई
 u उ
-uu ऊ
+oo ऊ
 U ऊ
 Ru ऋ
 RU ॠ
-Lu ऌ
-LU ॡ
+~lu ऌ
+~lU ॡ
 E ऎ
 e ए
 ai ऐ
@@ -32,16 +32,14 @@ Ka ख
 ga ग
 gha घ
 Ga घ
-`Ga ङ
-`ga ङ
+~ga ङ
 ca च
 cha छ
 Ca छ
 ja ज
 jha झ
 Ja झ
-`Ja ञ
-`ja ञ
+~ja ञ
 Ta ट
 Tha ठ
 Da ड
@@ -68,21 +66,21 @@ Sa श
 Sha ष
 sa स
 ha ह
-`la ळ
+La ळ
 
 class VowelSigns {
   aa ा
   A ा
   i ि
-  ii ी
+  ee ी
   I ी
   u ु
-  uu ू
+  oo ू
   U ू
   Ru ृ
   RU ॄ
-  Lu ॢ
-  LU ॣ
+  ~lu ॢ
+  ~lU ॣ
   E ॆ
   e े
   ai ै
@@ -98,16 +96,14 @@ K ख्
 g ग्
 gh घ्
 G घ्
-`g ङ्
-`G ङ्
+~g ङ्
 c च्
 ch छ्
 C छ्
 j ज्
 jh झ्
 J झ्
-`j ञ्
-`J ञ्
+~j ञ्
 T ट्
 Th ठ्
 D ड्
@@ -134,7 +130,7 @@ S श्
 Sh ष्
 s स्
 h ह्
-`l ळ्
+L ळ्
 
 k{VowelSigns} क*
 kh{VowelSigns} ख*
@@ -142,16 +138,14 @@ K{VowelSigns} ख*
 g{VowelSigns} ग*
 gh{VowelSigns} घ*
 G{VowelSigns} घ*
-`G{VowelSigns} ङ*
-`g{VowelSigns} ङ*
+~g{VowelSigns} ङ*
 c{VowelSigns} च*
 ch{VowelSigns} छ*
 C{VowelSigns} छ*
 j{VowelSigns} ज*
 jh{VowelSigns} झ*
 J{VowelSigns} झ*
-`J{VowelSigns} ञ*
-`j{VowelSigns} ञ*
+~j{VowelSigns} ञ*
 T{VowelSigns} ट*
 Th{VowelSigns} ठ*
 D{VowelSigns} ड*
@@ -178,7 +172,7 @@ S{VowelSigns} श*
 Sh{VowelSigns} ष*
 s{VowelSigns} स*
 h{VowelSigns} ह*
-`l{VowelSigns} ळ*
+L{VowelSigns} ळ*
 
 0 ०
 1 १
@@ -192,7 +186,7 @@ h{VowelSigns} ह*
 9 ९
 
 M ं
-`M ँ
+~M ँ
 H ः
 x ᳳ
 f ᳲ
@@ -201,23 +195,23 @@ f ᳲ
 | ।
 ! ॥
 aum ॐ
-`. ॰
+~. ॰
 
 ' ॑
 ''  ᳚
 ''' 
 _ ॒
 
-`Mq ꣳ
-`M_ 
-`M' 
-`M'' 
-`MMq ꣴ
-`MM_ 
-`MM' 
-`MM'' 
-`1 
-`3 
+~Mq ꣳ
+~M_ 
+~M' 
+~M'' 
+~MMq ꣴ
+~MM_ 
+~MM' 
+~MM'' 
+~1 
+~3 
 
 ^ ‍
 ^^ ‌

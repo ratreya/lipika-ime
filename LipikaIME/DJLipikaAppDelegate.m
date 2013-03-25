@@ -19,6 +19,7 @@
 #import "DJLipikaAppDelegate.h"
 #import "DJInputEngineFactory.h"
 #import "DJLipikaUserSettings.h"
+#import <InputMethodKit/InputMethodKit.h>
 
 @implementation DJLipikaAppDelegate
 
@@ -52,6 +53,28 @@
         [schemeSubMenu addItem:scheme];
     }
     [schemeItem setSubmenu:schemeSubMenu];
+    [self configureCandiates];
+    [self configureInput];
+}
+
+-(void)configureCandiates {
+    extern IMKCandidates* candidates;
+    [candidates setDismissesAutomatically:NO];
+    [candidates setAttributes:[DJLipikaUserSettings candidateWindowAttributes]];
+    candidateAttributes = [DJLipikaUserSettings candidateStringAttributes];
+}
+
+-(void)configureInput {
+    inputAttributes = [NSMutableDictionary dictionaryWithDictionary:[DJLipikaUserSettings inputAttributes]];
+    [inputAttributes setValue:[NSNumber numberWithInt:NSUnderlineStyleNone] forKey:NSUnderlineStyleAttributeName];
+}
+
+-(NSDictionary*)inputAttributes {
+    return inputAttributes;
+}
+
+-(NSDictionary *)candidateStringAttributes {
+    return candidateAttributes;
 }
 
 @end

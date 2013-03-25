@@ -23,12 +23,17 @@
 
 +(NSString*)schemeName;
 +(void)setSchemeName:(NSString*)schemeName;
-+(NSString*)candidateFontName;
-+(float)candidateFontSize;
-+(NSFont*)candidateFont;
-+(NSColor*)fontColor;
-+(NSColor*)backgroundColor;
-+(float)opacity;
++(enum DJCandidateWindowText) candidateTextType;
++(NSDictionary*)candidateStringAttributes;
++(void)setCandidateStringAttributes:(NSDictionary*)attributes;
++(NSDictionary*)candidateWindowAttributes;
++(NSDictionary*)inputAttributes;
++(void)setInputAttributes:(NSDictionary*)attributes;
+
++(BOOL)isShowInput;
++(BOOL)isShowCandidateWindow;
++(BOOL)isInputLikeClient;
+
 +(void)reset;
 
 +(enum DJLogLevel)loggingLevel;

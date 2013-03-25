@@ -19,20 +19,21 @@
 #import <Cocoa/Cocoa.h>
 
 @interface DJPreferenceController : NSWindowController {
-    IBOutlet NSComboBox* fontName;
     IBOutlet NSStepper* opacityStepper;
-    IBOutlet NSStepper* fontSizeStepper;
+    IBOutlet NSTextView* sampleInputText;
+    IBOutlet NSTextView* sampleOutputText;
     IBOutlet NSButton* saveButton;
 }
 
-@property IBOutlet NSComboBox* fontName;
 @property IBOutlet NSStepper* opacityStepper;
-@property IBOutlet NSStepper* fontSizeStepper;
+@property IBOutlet NSTextView* sampleInputText;
+@property IBOutlet NSTextView* sampleOutputText;
 @property IBOutlet NSButton* saveButton;
+
+-(IBAction)changeInputFont:(id)sender;
+-(IBAction)changeOutputFont:(id)sender;
 
 -(IBAction)saveSettings:(id)sender;
 -(IBAction)resetSetting:(id)sender;
-
-+(void)configureCandidates;
 
 @end
