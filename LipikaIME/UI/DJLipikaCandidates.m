@@ -73,11 +73,16 @@ extern IMKCandidates* candidates;
         [[controller client] setMarkedText:forInput selectionRange:NSMakeRange([forInput length], 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     }
     if (forCandidate) {
-        [candidates setCandidateData:[NSArray arrayWithObjects:forCandidate, nil]];
+        currentCandidates = [NSArray arrayWithObjects:forCandidate, nil];
+        if ([DJLipikaUserSettings isShowCandidateWindow]) {
+            [candidates updateCandidates];
+            [candidates show:kIMKLocateCandidatesBelowHint];
+        }
     }
-    if ([DJLipikaUserSettings isShowCandidateWindow]) {
-        [candidates show:kIMKLocateCandidatesBelowHint];
-    }
+}
+
+-(NSArray *)candidates:(id)sender {
+    return currentCandidates;
 }
 
 -(void)hide {

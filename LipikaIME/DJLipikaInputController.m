@@ -100,6 +100,10 @@ static long numCompositionCommits = 0;
     return NO;
 }
 
+-(NSArray *)candidates:(id)sender {
+    return [candidates candidates:sender];
+}
+
 // This message is sent when our client gains focus
 -(void)activateServer:(id)sender {
     if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED) {
