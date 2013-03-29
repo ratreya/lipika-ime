@@ -17,9 +17,9 @@
 	<key>CandidateTextType</key>
 	<integer>0</integer>
 	<key>CandidatesStringAttributes</key>
-	<data>BAtzdHJlYW10eXBlZIHoA4QBQISEhBNOU011dGFibGVEaWN0aW9uYXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpApKEhIQITlNTdHJpbmcBlYQBKwdOU0NvbG9yhpKEhIQHTlNDb2xvcgCVhAFjAYQEZmZmZgAAAAGGkoSXmAZOU0ZvbnSGkoSEhAZOU0ZvbnQelZYkhAVbMzZjXQYAAAAaAAAA//5EAGUAdgBhAG4AYQBnAGEAcgBpAE0AVAAAAIQBZg+aAJoBmgCaAIaG</data>
+	<data></data>
 	<key>InputStringAttributes</key>
-	<data>BAtzdHJlYW10eXBlZIHoA4QBQISEhBNOU011dGFibGVEaWN0aW9uYXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpApKEhIQITlNTdHJpbmcBlYQBKwdOU0NvbG9yhpKEhIQHTlNDb2xvcgCVhAFjA4QCZmYAAYaShJeYBk5TRm9udIaShISEBk5TRm9udB6VlhyEBVsyOGNdBgAAABQAAAD//kgAZQBsAHYAZQB0AGkAYwBhAIQBZgyaAJoBmgCaAIaG</data>
+	<data></data>
 	<key>InputLikeClient</key>
 	<false/>
 	<key>ShowInputString</key>
