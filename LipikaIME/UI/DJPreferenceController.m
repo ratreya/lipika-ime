@@ -30,15 +30,13 @@
 
 -(void)updateSampleInputText {
     static NSString* displayText = @"Nor Aught nor Nought existed; yon bright sky\nWas not, nor heaven's broad roof outstretched above.";
-    [sampleInputText setString:@""];
-    [sampleInputText insertText:[[NSAttributedString alloc] initWithString:displayText attributes:[DJLipikaUserSettings inputAttributes]]];
+    [[sampleInputText textStorage] setAttributedString:[[NSAttributedString alloc] initWithString:displayText attributes:[DJLipikaUserSettings inputAttributes]]];
     [sampleInputText selectAll:self];
 }
 
 -(void)updateSampleOutputText {
     static NSString* displayText = @"वृद्धिरादैच्";
-    [sampleOutputText setString:@""];
-    [sampleOutputText insertText:[[NSAttributedString alloc] initWithString:displayText attributes:[DJLipikaUserSettings candidateStringAttributes]]];
+    [[sampleOutputText textStorage] setAttributedString:[[NSAttributedString alloc] initWithString:displayText attributes:[DJLipikaUserSettings candidateStringAttributes]]];
     [sampleOutputText selectAll:self];
 }
 
