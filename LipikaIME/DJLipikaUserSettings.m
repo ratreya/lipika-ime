@@ -54,14 +54,13 @@
     NSMutableDictionary* attributes;
     if (data) {
         attributes = [NSUnarchiver unarchiveObjectWithData:data];
+        if(attributes) return attributes;
     }
-    else {
-        // Default attributes
-        attributes = [[NSMutableDictionary alloc] initWithCapacity:3];
-        [attributes setValue:[NSFont fontWithName:@"Devanagari MT" size:14.0] forKey:NSFontAttributeName];
-        [attributes setValue:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
-        [attributes setValue:[NSColor whiteColor] forKey:NSBackgroundColorDocumentAttribute];
-    }
+    // Default attributes
+    attributes = [[NSMutableDictionary alloc] initWithCapacity:3];
+    [attributes setValue:[NSFont fontWithName:@"DevanagariMT" size:14.0] forKey:NSFontAttributeName];
+    [attributes setValue:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
+    [attributes setValue:[NSColor whiteColor] forKey:NSBackgroundColorDocumentAttribute];
     return attributes;
 }
 
@@ -83,11 +82,10 @@
     NSMutableDictionary* attributes;
     if (data) {
         attributes = [NSUnarchiver unarchiveObjectWithData:data];
+        if(attributes) return attributes;
     }
-    else {
-        attributes = [[NSMutableDictionary alloc] initWithCapacity:5];
-        [attributes setValue:[NSFont fontWithName:@"Helvetica" size:13.0] forKey:NSFontAttributeName];
-    }
+    attributes = [[NSMutableDictionary alloc] initWithCapacity:5];
+    [attributes setValue:[NSFont fontWithName:@"Helvetica" size:13.0] forKey:NSFontAttributeName];
     return attributes;
 }
 

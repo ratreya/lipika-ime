@@ -14,6 +14,7 @@
 		A50E952716DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A50E952616DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m */; };
 		A50F303A16C89E3D005147EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A50F303916C89E3D005147EB /* LICENSE */; };
 		A5345AAE16D185D800AD6486 /* LipikaIMEBufferReplayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */; };
+		A53672FD1708C96D00B5C1E6 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A53672FC1708C96D00B5C1E6 /* icon.icns */; };
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
 		A58BA2DC16FFE5F3001DE998 /* DJPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58BA2DA16FFE5F3001DE998 /* DJPreferenceController.m */; };
@@ -77,6 +78,7 @@
 		A50F303916C89E3D005147EB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A5345AAC16D185D800AD6486 /* LipikaIMEBufferReplayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEBufferReplayTest.h; sourceTree = "<group>"; };
 		A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMEBufferReplayTest.m; sourceTree = "<group>"; };
+		A53672FC1708C96D00B5C1E6 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = Resources/icon.icns; sourceTree = "<group>"; };
 		A54045C116C09ECB00A6BBD3 /* LipikaIMENestedClassTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMENestedClassTest.h; sourceTree = "<group>"; };
 		A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMENestedClassTest.m; sourceTree = "<group>"; };
 		A55B44BC16BF24D000CC8E94 /* LipikaIMEEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEEngineTest.h; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 		E93396E20A9A0AAD0073E6C4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A53672FC1708C96D00B5C1E6 /* icon.icns */,
 				A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */,
 			);
 			name = Images;
@@ -393,6 +396,7 @@
 				A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */,
 				A5CD9EDF16EBFEAD0024A20A /* Preferences.xib in Resources */,
 				A5CD9F0716EBFF4E0024A20A /* LipikaIcon.png in Resources */,
+				A53672FD1708C96D00B5C1E6 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
