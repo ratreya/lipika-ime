@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>LipikaIME</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.daivajnanam.inputmethod.LipikaIME</string>
 	<key>CFBundleInfoDictionaryVersion</key>
