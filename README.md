@@ -13,6 +13,13 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 Lipika IME is a many-to-many, user configurable, phonetic, input method engine. Originally, designed to type Sanskrit using Devanagari on a Mac. It can be configured to work with any other Indo-European language of similar structure.
 
 
+### 3/31/2013: RELEASE NOTES FOR VERSION 1.1 ###
+* Added ability to turn off candidate window
+* Echo input text in the client window
+* More configuration options for input and candidate text
+* Added standard Baraha scheme
+
+
 ### 3/09/2013: RELEASE NOTES FOR VERSION 1.0 ###
 * Ability to configure log level; default is warning
 * Configurable backspace behavior: delete mapping, delete ouput
