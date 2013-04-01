@@ -13,6 +13,7 @@
 		A50DA10E16DABB63003C99C6 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A50DA10D16DABB63003C99C6 /* UserSettings.plist */; };
 		A50E952716DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A50E952616DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m */; };
 		A50F303A16C89E3D005147EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A50F303916C89E3D005147EB /* LICENSE */; };
+		A527F273170A36E40087C56C /* LipikaIMEInputStringText.m in Sources */ = {isa = PBXBuildFile; fileRef = A527F272170A36E40087C56C /* LipikaIMEInputStringText.m */; };
 		A5345AAE16D185D800AD6486 /* LipikaIMEBufferReplayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */; };
 		A53672FD1708C96D00B5C1E6 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A53672FC1708C96D00B5C1E6 /* icon.icns */; };
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
@@ -76,6 +77,8 @@
 		A50E952516DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMESpecialCharsTest.h; sourceTree = "<group>"; };
 		A50E952616DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMESpecialCharsTest.m; sourceTree = "<group>"; };
 		A50F303916C89E3D005147EB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		A527F271170A36E40087C56C /* LipikaIMEInputStringText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEInputStringText.h; sourceTree = "<group>"; };
+		A527F272170A36E40087C56C /* LipikaIMEInputStringText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMEInputStringText.m; sourceTree = "<group>"; };
 		A5345AAC16D185D800AD6486 /* LipikaIMEBufferReplayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEBufferReplayTest.h; sourceTree = "<group>"; };
 		A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMEBufferReplayTest.m; sourceTree = "<group>"; };
 		A53672FC1708C96D00B5C1E6 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = Resources/icon.icns; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				A5345AAD16D185D800AD6486 /* LipikaIMEBufferReplayTest.m */,
 				A50E952516DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.h */,
 				A50E952616DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m */,
+				A527F271170A36E40087C56C /* LipikaIMEInputStringText.h */,
+				A527F272170A36E40087C56C /* LipikaIMEInputStringText.m */,
 				A5C54E0A16BA20C1007F631D /* Supporting Files */,
 			);
 			path = LipikaIMETest;
@@ -470,6 +475,7 @@
 				A5C579F716C6F872000A54FA /* LipikaIMEBufferManagerTest.m in Sources */,
 				A5345AAE16D185D800AD6486 /* LipikaIMEBufferReplayTest.m in Sources */,
 				A50E952716DBE3BA000D2C7F /* LipikaIMESpecialCharsTest.m in Sources */,
+				A527F273170A36E40087C56C /* LipikaIMEInputStringText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,7 +596,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Input Methods/\"";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				PRODUCT_NAME = LipikaIME;
 				WRAPPER_EXTENSION = app;
 			};
@@ -604,7 +610,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "\"$(LOCAL_LIBRARY_DIR)/Input Methods/\"";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				PRODUCT_NAME = LipikaIME;
 				WRAPPER_EXTENSION = app;
 			};

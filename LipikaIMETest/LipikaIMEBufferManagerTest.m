@@ -190,7 +190,7 @@
 }
 
 -(void)testDeleteInput {
-    [[NSUserDefaults standardUserDefaults] setObject:@"Input character" forKey:DEFAULT_BACKSPACE_BEHAVIOR_KEY];
+    [[NSUserDefaults standardUserDefaults] setObject:@"Input character" forKey:@"BackspaceDeletes"];
     NSString* result = [manager outputForInput:@"rai"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     STAssertTrue([[manager output] isEqualToString:@"रै"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
