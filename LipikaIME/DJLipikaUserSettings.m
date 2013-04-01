@@ -39,7 +39,7 @@
 }
 
 +(enum DJCandidateWindowText) candidateTextType {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"CandidateTextType"];
+    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"CandidateTextType"];
 }
 
 +(NSDictionary*)candidateWindowAttributes {
