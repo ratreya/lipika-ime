@@ -13,8 +13,8 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 ### Installation ###
 
 
-1. __[Download LipikaIME binary here](ttps://s3.amazonaws.com/sanskrit/LipikaIME.dmg)__.
-2. If you have LipikaIME currently installed and running kill it - ```killall LipikaIME```.
+1. __[Download LipikaIME binary here](https://s3.amazonaws.com/sanskrit/LipikaIME.dmg)__.
+2. If you have LipikaIME currently installed and running, kill it - ```killall LipikaIME```.
 3. Mount the DMG and drag-drop LipikaIME into Input Methods folder link.
 4. Enable LipikaIME in ```Language & Text Preference```.
 
