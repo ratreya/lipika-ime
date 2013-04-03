@@ -1,0 +1,185 @@
+version: 1.0
+name: Baraha
+stop-char: \
+using classes
+class-delimiters: { }
+wildcard: *
+
+a अ
+A आ
+i इ
+I ई
+u उ
+U ऊ
+R ऋ
+RR ॠ
+lR ऌ
+lRR ॡ
+e ए
+ai ऐ
+o ओ
+au औ
+
+ka क
+kha ख
+ga ग
+gha घ
+G ङ
+ca च
+cha छ
+ja ज
+jha झ
+J ञ
+Ta ट
+Tha ठ
+Da ड
+Dha ढ
+Na ण
+ta त
+tha थ
+da द
+dha ध
+na न
+pa प
+pha फ
+ba ब
+bha भ
+ma म
+ya य
+ra र
+la ल
+va व
+za श
+Sa ष
+sa स
+ha ह
+La ळ
+
+class VowelSigns {
+  A ा
+  i ि
+  I ी
+  u ु
+  U ू
+  R ृ
+  RR ॄ
+  lR ॢ
+  LRR ॣ
+  e े
+  ai ै
+  o ो
+  au ौ
+}
+
+k क्
+kh ख्
+g ग्
+gh घ्
+G ङ्
+c च्
+ch छ्
+j ज्
+jh झ्
+J ञ्
+T ट्
+Th ठ्
+D ड्
+Dh ढ्
+N ण्
+t त्
+th थ्
+d द्
+dh ध्
+n न्
+p प्
+ph फ्
+b ब्
+bh भ्
+m म्
+y य्
+r र्
+l ल्
+v व्
+z श्
+S ष्
+s स्
+h ह्
+L ळ्
+
+k{VowelSigns} क*
+kh{VowelSigns} ख*
+g{VowelSigns} ग*
+gh{VowelSigns} घ*
+G{VowelSigns} ङ*
+c{VowelSigns} च*
+ch{VowelSigns} छ*
+j{VowelSigns} ज*
+jh{VowelSigns} झ*
+J{VowelSigns} ञ*
+T{VowelSigns} ट*
+Th{VowelSigns} ठ*
+D{VowelSigns} ड*
+Dh{VowelSigns} ढ*
+N{VowelSigns} ण*
+t{VowelSigns} त*
+th{VowelSigns} थ*
+d{VowelSigns} द*
+dh{VowelSigns} ध*
+n{VowelSigns} न*
+p{VowelSigns} प*
+ph{VowelSigns} फ*
+b{VowelSigns} ब*
+bh{VowelSigns} भ*
+m{VowelSigns} म*
+y{VowelSigns} य*
+r{VowelSigns} र*
+l{VowelSigns} ल*
+v{VowelSigns} व*
+z{VowelSigns} श*
+S{VowelSigns} ष*
+s{VowelSigns} स*
+h{VowelSigns} ह*
+L{VowelSigns} ळ*
+
+0 ०
+1 १
+2 २
+3 ३
+4 ४
+5 ५
+6 ६
+7 ७
+8 ८
+9 ९
+
+M ं
+`M ँ
+H ः
+x ᳳ
+f ᳲ
+
+& ऽ
+| ।
+! ॥
+aum ॐ
+`. ॰
+
+' ॑
+''  ᳚
+''' 
+_ ॒
+
+`Mq ꣳ
+`M_ 
+`M' 
+`M'' 
+`MMq ꣴ
+`MM_ 
+`MM' 
+`MM'' 
+`1 
+`3 
+
+^ ‍
+^^ ‌
+q ्
