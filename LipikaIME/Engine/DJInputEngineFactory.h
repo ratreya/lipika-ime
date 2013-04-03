@@ -28,5 +28,6 @@
 +(void)setCurrentSchemeWithName:(NSString*)schemeName;
 +(NSString*)currentSchemeName;
 +(NSArray*)availableSchemes;
++(NSString*)schemesDirectory;
 
 @end

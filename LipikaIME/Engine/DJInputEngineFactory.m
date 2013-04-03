@@ -51,6 +51,10 @@ static NSString* schemesDirectory;
     return singletonFactory.inputSchemeName;
 }
 
++(NSString*)schemesDirectory {
+    return schemesDirectory;
+}
+
 +(NSArray*)availableSchemes {
     // Find scheme files in schemes directory
     NSError* error;
