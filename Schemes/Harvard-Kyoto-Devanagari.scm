@@ -13,8 +13,6 @@ u उ
 U ऊ
 R ऋ
 RR ॠ
-lR ऌ
-lRR ॡ
 e ए
 ai ऐ
 o ओ
@@ -24,12 +22,12 @@ ka क
 kha ख
 ga ग
 gha घ
-G ङ
+Ga ङ
 ca च
 cha छ
 ja ज
 jha झ
-J ञ
+Ja ञ
 Ta ट
 Tha ठ
 Da ड
@@ -140,6 +138,9 @@ S{VowelSigns} ष*
 s{VowelSigns} स*
 h{VowelSigns} ह*
 L{VowelSigns} ळ*
+
+lR ऌ
+lRR ॡ
 
 0 ०
 1 १
