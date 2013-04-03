@@ -32,6 +32,7 @@
 
 -(id)initWithScheme:(DJInputMethodScheme*)inputScheme;
 -(NSArray*)executeWithInput:(NSString*) input;
+-(NSArray*)inputsSinceLastOutput;
 -(BOOL)isAtRoot;
 -(BOOL)hasDeletable;
 -(void)reset;

@@ -190,6 +190,8 @@ static NSRegularExpression* whiteSpace;
     for (DJParseOutput* bundle in uncommittedOutput) {
         [word appendString:[bundle input]];
     }
+    // Add in the inputs that have yet to generate an output
+    [word appendString:[[engine inputsSinceLastOutput] componentsJoinedByString:@""]];
     return word;
 }
 
