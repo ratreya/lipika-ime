@@ -19,6 +19,7 @@
 #import "DJLipikaInputController.h"
 #import "DJLipikaUserSettings.h"
 #import "DJPreferenceController.h"
+#import "DJInputEngineFactory.h"
 #import "Constants.h"
 
 /*
@@ -141,8 +142,11 @@ static long numCompositionCommits = 0;
     if ([menuItem tag] == 1) {     // Preferrence
         [self showPreferenceImplimentation:menuItem];
     }
-    else if ([menuItem tag] > 1) { // Input Schemes
+    else if ([menuItem tag] > 1 && [menuItem tag] < 1000) { // Input Schemes
         [self changeInputScheme:menuItem];
+    }
+    else if ([menuItem tag] == 1001) { // Schemes directory...
+        [self openSchemesDirectory];
     }
     else {
         [NSException raise:@"Unknown tag" format:@"Unknown menu tag: %ld", [menuItem tag]];
@@ -177,6 +181,10 @@ static long numCompositionCommits = 0;
     [DJLipikaUserSettings setSchemeName:[menuItem title]];
     [self flush];
     [manager changeToSchemeWithName:[menuItem title]];
+}
+
+-(void)openSchemesDirectory {
+    [[NSWorkspace sharedWorkspace] openFile:[DJInputEngineFactory schemesDirectory]];
 }
 
 -(void)showPreferenceImplimentation:(NSMenuItem*)menuItem {

@@ -53,6 +53,11 @@
         [schemeSubMenu addItem:scheme];
     }
     [schemeItem setSubmenu:schemeSubMenu];
+    // Add Schemes directory item
+    NSMenuItem* openSchemes = [[NSMenuItem alloc] initWithTitle:@"Open schemes directory..." action:@selector(showPreferences:) keyEquivalent:@""];
+    [openSchemes setTag:1001];
+    [mainMenu addItem:openSchemes];
+    
     [self configureCandiates];
     [self configureInput];
 }
