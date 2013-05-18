@@ -1,5 +1,5 @@
 version: 1.0
-name: Baraha
+name: Harvard-Kyoto
 stop-char: \
 using classes
 class-delimiters: { }
