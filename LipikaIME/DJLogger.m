@@ -80,8 +80,9 @@ void logError(NSString* format, ...) {
     va_end(args);
 }
 
-void startBatch(NSString* batchId) {
-    currentBatchId = batchId;
+NSString* startBatch() {
+    currentBatchId = getUUIDString();
+    return currentBatchId;
 }
 
 NSArray* endBatch(NSString* batchId) {
@@ -91,4 +92,11 @@ NSArray* endBatch(NSString* batchId) {
     [messageMap removeObjectForKey:batchId];
     NSLog(@"%@", [messages componentsJoinedByString:@"\n"]);
     return messages;
+}
+
+NSString* getUUIDString() {
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    return (__bridge NSString *)(string);
 }

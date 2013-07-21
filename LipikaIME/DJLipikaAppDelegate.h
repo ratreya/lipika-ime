@@ -20,16 +20,10 @@
 
 @interface DJLipikaAppDelegate : NSObject<NSApplicationDelegate> {
     IBOutlet NSMenu* mainMenu;
-    // Cache this here so that you don't have to unarchive everytime
-    NSDictionary* inputAttributes;
-    NSDictionary* candidateAttributes;
 }
 
 @property IBOutlet NSMenu* mainMenu;
 
 -(void)configureCandiates;
--(void)configureInput;
--(NSDictionary*)inputAttributes;
--(NSDictionary*)candidateStringAttributes;
 
 @end

@@ -33,8 +33,3 @@ enum DJOnUnfocusBehavior {
     DJ_COMMIT_UNCOMMITTED = 2,
     DJ_RESTORE_UNCOMMITTED = 3
 };
-
-enum DJCandidateWindowText {
-    DJ_OUTPUT_IN_CANDIDATE = 0,
-    DJ_INPUT_IN_CANDIDATE = 1
-};

@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Version</key>
+	<integer>1</integer>
+	<key>ScriptName</key>
+	<string>Devanagari</string>
 	<key>SchemeName</key>
-	<string>Barahavat-Devanagari</string>
+	<string>Barahavat</string>
 	<key>IMKCandidatesOpacityAttributeName</key>
 	<real>0.9</real>
 	<key>LoggingLevel</key>
@@ -12,17 +16,17 @@
 	<string>Input character</string>
 	<key>OnUnfocusUncommitted</key>
 	<string>Automatically commits</string>
-	<key>ShowCandidateWindow</key>
-	<true/>
-	<key>CandidateTextType</key>
-	<integer>0</integer>
-	<key>CandidatesStringAttributes</key>
-	<data></data>
-	<key>InputStringAttributes</key>
-	<data></data>
-	<key>InputLikeClient</key>
-	<false/>
 	<key>ShowInputString</key>
 	<true/>
+	<key>ShowOutputString</key>
+	<true/>
+	<key>OutputInCandidate</key>
+	<true/>
+	<key>OverrideCandidateFont</key>
+	<false/>
+	<key>CandidatesStringAttributes</key>
+	<data></data>
+	<key>CandidatePanelType</key>
+	<string>kIMKScrollingGridCandidatePanel</string>
 </dict>
 </plist>

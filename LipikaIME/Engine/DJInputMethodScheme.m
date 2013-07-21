@@ -105,14 +105,20 @@ static NSRegularExpression* simpleMappingExpression;
     linesOfScheme = [data componentsSeparatedByString:@"\n"];
 
     @try {
+        NSString *batchId = startBatch();
+        logDebug(@"Parsing Headers");
         [self parseHeaders];
+        endBatch(batchId);
     }
     @catch (NSException* exception) {
         logError(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
     @try {
+        NSString *batchId = startBatch();
+        logDebug(@"Parsing Mappings");
         [self parseMappings];
+        endBatch(batchId);
     }
     @catch (NSException* exception) {
         logError(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
