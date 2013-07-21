@@ -26,60 +26,56 @@
 @synthesize mainMenu;
 
 -(void)awakeFromNib {
+    int runningTagId = 0;
     // Set selector for preferrence
-    NSMenuItem* preferrence = [mainMenu itemWithTag:1];
+    NSMenuItem* preferrence = [mainMenu itemWithTag:++runningTagId];
     if (preferrence) {
         [preferrence setAction:@selector(showPreferences:)];
     }
-    // Add Scheme item to the mainMenu
-    int runningTagId = 2;   // 1 is taken by Preferrences... in MainMenu.nib
-    NSMenuItem* schemeItem = [[NSMenuItem alloc] initWithTitle:@"Input Schemes" action:NULL keyEquivalent:@""];
-    [schemeItem setTag:runningTagId];
-    ++runningTagId;
-    [mainMenu addItem:schemeItem];
-
-    // Create a schemes sub menu
-    NSString* defaultSchemeName = [DJLipikaUserSettings schemeName];
-    NSMenu* schemeSubMenu = [[NSMenu alloc] initWithTitle:@"SchemesSubMenu"];
-    NSArray* schemeNames = [DJInputEngineFactory availableSchemes];
-    for (NSString* schemeName in schemeNames) {
-        // Add add the schemes to the sub menu
-        NSMenuItem* scheme = [[NSMenuItem alloc] initWithTitle:schemeName action:@selector(showPreferences:) keyEquivalent:@""];
-        [scheme setTag:runningTagId];
-        ++runningTagId;
-        if ([defaultSchemeName isEqualToString:schemeName]) {
-            [scheme setState:NSOnState];
-        }
-        [schemeSubMenu addItem:scheme];
-    }
-    [schemeItem setSubmenu:schemeSubMenu];
     // Add Schemes directory item
     NSMenuItem* openSchemes = [[NSMenuItem alloc] initWithTitle:@"Open schemes directory..." action:@selector(showPreferences:) keyEquivalent:@""];
-    [openSchemes setTag:1001];
+    [openSchemes setTag:++runningTagId];
     [mainMenu addItem:openSchemes];
-    
+    // Add Scheme item to the mainMenu
+    NSMenuItem* schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input Schemes" action:NULL keyEquivalent:@""];
+    [schemeSelectionItem setTag:++runningTagId];
+    [mainMenu addItem:schemeSelectionItem];
+
+    // Create a schemes sub menus
+    NSString* defaultScriptName = [DJLipikaUserSettings scriptName];
+    NSString* defaultSchemeName = [DJLipikaUserSettings schemeName];
+    NSMenu *scriptSubMenu = [[NSMenu alloc] initWithTitle:@"ScriptSubMenu"];
+    NSArray *scriptNames = [DJInputEngineFactory availableScripts];
+    for (NSString *scriptName in scriptNames) {
+        NSMenuItem *scriptItem = [[NSMenuItem alloc] initWithTitle:scriptName action:NULL keyEquivalent:@""];
+        [scriptItem setTag:++runningTagId];
+        if ([defaultScriptName isEqualToString:scriptName]) {
+            [scriptItem setState:NSOnState];
+        }
+        // Create schemes under this script
+        NSMenu* schemeSubMenu = [[NSMenu alloc] initWithTitle:scriptName];
+        NSArray* schemeNames = [DJInputEngineFactory availableSchemesForScript:scriptName];
+        for (NSString* schemeName in schemeNames) {
+            // Add add the schemes to the sub menu
+            NSMenuItem* schemeItem = [[NSMenuItem alloc] initWithTitle:schemeName action:@selector(showPreferences:) keyEquivalent:@""];
+            [schemeItem setTag:++runningTagId];
+            if ([defaultScriptName isEqualToString:scriptName] && [defaultSchemeName isEqualToString:schemeName]) {
+                [schemeItem setState:NSOnState];
+            }
+            [schemeSubMenu addItem:schemeItem];
+        }
+        [scriptItem setSubmenu:schemeSubMenu];
+        [scriptSubMenu addItem:scriptItem];
+    }
+    [schemeSelectionItem setSubmenu:scriptSubMenu];
     [self configureCandiates];
-    [self configureInput];
 }
 
 -(void)configureCandiates {
     extern IMKCandidates* candidates;
+    [candidates setPanelType:[DJLipikaUserSettings candidatePanelType]];
     [candidates setDismissesAutomatically:NO];
     [candidates setAttributes:[DJLipikaUserSettings candidateWindowAttributes]];
-    candidateAttributes = [DJLipikaUserSettings candidateStringAttributes];
-}
-
--(void)configureInput {
-    inputAttributes = [NSMutableDictionary dictionaryWithDictionary:[DJLipikaUserSettings inputAttributes]];
-    [inputAttributes setValue:[NSNumber numberWithInt:NSUnderlineStyleNone] forKey:NSUnderlineStyleAttributeName];
-}
-
--(NSDictionary*)inputAttributes {
-    return inputAttributes;
-}
-
--(NSDictionary *)candidateStringAttributes {
-    return candidateAttributes;
 }
 
 @end

@@ -20,6 +20,7 @@
 #import "DJLipikaUserSettings.h"
 #import "DJPreferenceController.h"
 #import "DJInputEngineFactory.h"
+#import "DJLogger.h"
 #import "Constants.h"
 
 /*
@@ -142,11 +143,11 @@ static long numCompositionCommits = 0;
     if ([menuItem tag] == 1) {     // Preferrence
         [self showPreferenceImplimentation:menuItem];
     }
-    else if ([menuItem tag] > 1 && [menuItem tag] < 1000) { // Input Schemes
-        [self changeInputScheme:menuItem];
-    }
-    else if ([menuItem tag] == 1001) { // Schemes directory...
+    else if ([menuItem tag] == 2) { // Schemes directory...
         [self openSchemesDirectory];
+    }
+    else if ([menuItem tag] > 2) { // Input Schemes
+        [self changeInputScheme:menuItem];
     }
     else {
         [NSException raise:@"Unknown tag" format:@"Unknown menu tag: %ld", [menuItem tag]];
@@ -170,17 +171,25 @@ static long numCompositionCommits = 0;
     }
 }
 
--(void)changeInputScheme:(NSMenuItem*)menuItem {
-    // Turn off state for all menu items
-    NSArray* peerItems = [[[menuItem parentItem] submenu] itemArray];
+-(void)clearAllOnStates:(NSMenuItem*)rootMenuItem {
+    NSArray* peerItems = [[rootMenuItem submenu] itemArray];
     [peerItems enumerateObjectsUsingBlock:^(NSMenuItem* obj, NSUInteger idx, BOOL *stop) {
         [obj setState:NSOffState];
+        if ([obj hasSubmenu]) [self clearAllOnStates:obj];
     }];
-    // Turn on state for the sender and set selected scheme
+}
+
+-(void)changeInputScheme:(NSMenuItem*)menuItem {
+    NSString* schemeName = [menuItem title];
+    NSString* scriptName = [[menuItem parentItem] title];
+    logDebug(@"Choosing script name: %@ and scheme name: %@", scriptName, schemeName);
+    // Clear state of all sub-menus under "Input Schemes" menu item
+    [self clearAllOnStates:[[menuItem parentItem] parentItem]];
+    // Turn on state for the script and scheme
+    [[menuItem parentItem] setState:NSOnState];
     [menuItem setState:NSOnState];
-    [DJLipikaUserSettings setSchemeName:[menuItem title]];
     [self flush];
-    [manager changeToSchemeWithName:[menuItem title]];
+    [manager changeToSchemeWithName:schemeName forScript:scriptName];
 }
 
 -(void)openSchemesDirectory {

@@ -29,7 +29,7 @@
 }
 
 -(id)init;
--(void)changeToSchemeWithName:(NSString*)schemeName;
+-(void)changeToSchemeWithName:(NSString*)schemeName forScript:scriptName;
 -(NSString*)outputForInput:(NSString*)string;
 -(BOOL)hasDeletable;
 -(void)delete;

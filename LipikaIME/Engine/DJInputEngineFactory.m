@@ -18,10 +18,12 @@
 
 #import "DJInputEngineFactory.h"
 #import "DJLipikaUserSettings.h"
+#import "DJLogger.h"
 
 @interface DJInputEngineFactory ()
 
-@property NSString* inputSchemeName;
+@property NSString* scriptName;
+@property NSString* schemeName;
 
 @end
 
@@ -43,25 +45,52 @@ static NSString* schemesDirectory;
     return [singletonFactory inputEngine];
 }
 
-+(void)setCurrentSchemeWithName:(NSString *)schemeName {
-    singletonFactory.inputSchemeName = schemeName;
++(void)setCurrentSchemeWithName:(NSString *)schemeName scriptName:(NSString*)scriptName {
+    singletonFactory.scriptName = scriptName;
+    singletonFactory.schemeName = schemeName;
+}
+
++(NSString*)currentScriptName {
+    return singletonFactory.scriptName;
 }
 
 +(NSString*)currentSchemeName {
-    return singletonFactory.inputSchemeName;
+    return singletonFactory.schemeName;
 }
 
 +(NSString*)schemesDirectory {
     return schemesDirectory;
 }
 
-+(NSArray*)availableSchemes {
-    // Find scheme files in schemes directory
-    NSError* error;
-    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:schemesDirectory error:&error];
++(NSArray*)availableScripts {
+    // Find script directories in schemes directory
+    NSError *error;
+    NSFileManager *mgr = [NSFileManager defaultManager];
+    NSArray *dirFiles = [mgr contentsOfDirectoryAtPath:schemesDirectory error:&error];
     if (error != nil) {
         [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
     }
+    logDebug(@"Files in scheme directory: %@", [dirFiles componentsJoinedByString:@", "]);
+    NSMutableArray* scriptNames = [[NSMutableArray alloc] initWithCapacity:0];
+    [dirFiles enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+        BOOL isDir;
+        NSString *path = [schemesDirectory stringByAppendingPathComponent: obj];
+        if ([mgr fileExistsAtPath:path isDirectory:&isDir] && isDir) {
+            [scriptNames addObject:obj];
+        }
+    }];
+    return scriptNames;
+}
+
++(NSArray*)availableSchemesForScript:(NSString*)scriptName {
+    // Find scheme files in schemes directory
+    NSError *error;
+    NSString *path = [schemesDirectory stringByAppendingPathComponent:scriptName];
+    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
+    if (error != nil) {
+        [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
+    }
+    logDebug(@"File in script %@: %@", scriptName, [dirFiles componentsJoinedByString:@", "]);
     NSArray *scmFiles = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.scm'"]];
     NSMutableArray* schemeNames = [[NSMutableArray alloc] initWithCapacity:0];
     [scmFiles enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
@@ -76,36 +105,45 @@ static NSString* schemesDirectory;
         return self;
     }
     schemesCache = [[NSMutableDictionary alloc] initWithCapacity:0];
-    inputSchemeName = [DJLipikaUserSettings schemeName];
+    scriptName = [DJLipikaUserSettings scriptName];
+    schemeName = [DJLipikaUserSettings schemeName];
     return self;
 }
 
--(NSString*)inputSchemeName {
-    return inputSchemeName;
+-(NSString*)scriptName {
+    return scriptName;
 }
 
--(void)setInputSchemeName:(NSString*)schemeName {
-    inputSchemeName = schemeName;
+-(void)setScriptName:(NSString*)theScriptName {
+    scriptName = theScriptName;
+}
+
+-(NSString*)schemeName {
+    return schemeName;
+}
+
+-(void)setSchemeName:(NSString*)theSchemeName {
+    schemeName = theSchemeName;
 }
 
 -(DJInputMethodEngine*)inputEngine {
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:[self inputSchemeForName:inputSchemeName]];
+    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:[self inputMethodScheme]];
     return engine;
 }
 
--(DJInputMethodScheme*)inputSchemeForName:(NSString*)schemeName {
+-(DJInputMethodScheme*)inputMethodScheme {
     // Initialize with the given scheme file
     DJInputMethodScheme* scheme;
     @synchronized(schemesCache) {
-        scheme = [schemesCache valueForKey:schemeName];
+        NSString* filePath = [[[schemesDirectory stringByAppendingPathComponent:scriptName] stringByAppendingPathComponent:schemeName] stringByAppendingPathExtension:@"scm"];
+        scheme = [schemesCache valueForKey:filePath];
         if (scheme == nil) {
-            NSString* filePath = [NSString stringWithFormat:@"%@/%@.scm", schemesDirectory, schemeName];
             scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:filePath];
             if (scheme == nil) {
                 return nil;
             }
             else {
-                [schemesCache setValue:scheme forKey:schemeName];
+                [schemesCache setValue:scheme forKey:filePath];
             }
         }
         return scheme;

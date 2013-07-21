@@ -20,14 +20,17 @@
 #import "DJInputMethodEngine.h"
 
 @interface DJInputEngineFactory : NSObject {
-    NSString* inputSchemeName;
+    NSString* scriptName;
+    NSString* schemeName;
     NSMutableDictionary* schemesCache;
 }
 
 +(DJInputMethodEngine*)inputEngine;
-+(void)setCurrentSchemeWithName:(NSString*)schemeName;
++(void)setCurrentSchemeWithName:(NSString*)schemeName scriptName:(NSString*)scriptName;
++(NSString*)currentScriptName;
 +(NSString*)currentSchemeName;
-+(NSArray*)availableSchemes;
++(NSArray*)availableScripts;
++(NSArray*)availableSchemesForScript:(NSString*)scriptName;
 +(NSString*)schemesDirectory;
 
 @end

@@ -20,18 +20,13 @@
 
 @interface DJPreferenceController : NSWindowController {
     IBOutlet NSStepper* opacityStepper;
-    IBOutlet NSTextView* sampleInputText;
-    IBOutlet NSTextView* sampleOutputText;
     IBOutlet NSButton* saveButton;
+    IBOutlet NSTextView* candidateTextFormat;
 }
 
 @property IBOutlet NSStepper* opacityStepper;
-@property IBOutlet NSTextView* sampleInputText;
-@property IBOutlet NSTextView* sampleOutputText;
 @property IBOutlet NSButton* saveButton;
-
--(IBAction)changeInputFont:(id)sender;
--(IBAction)changeOutputFont:(id)sender;
+@property IBOutlet NSTextView* candidateTextFormat;
 
 -(IBAction)saveSettings:(id)sender;
 -(IBAction)resetSetting:(id)sender;

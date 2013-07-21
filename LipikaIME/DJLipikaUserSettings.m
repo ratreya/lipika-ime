@@ -21,9 +21,23 @@
 
 @implementation DJLipikaUserSettings
 
+static int SETTINGS_VERSION = 1;
+static NSDictionary* candidateStringAttributeCache = nil;
+
 +(void)initialize {
     NSDictionary* defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UserSettings" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Version"] != SETTINGS_VERSION) {
+        [self reset];
+    }
+}
+
++(NSString*)scriptName {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"ScriptName"];
+}
+
++(void)setScriptName:(NSString*)scriptName {
+    [[NSUserDefaults standardUserDefaults] setObject:scriptName forKey:@"ScriptName"];
 }
 
 +(NSString*)schemeName {
@@ -34,12 +48,8 @@
     [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:@"SchemeName"];
 }
 
-+(BOOL)isShowCandidateWindow {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowCandidateWindow"];
-}
-
-+(enum DJCandidateWindowText) candidateTextType {
-    return (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"CandidateTextType"];
++(BOOL) isOverrideCandidateAttributes {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"OverrideCandidateFont"];
 }
 
 +(NSDictionary*)candidateWindowAttributes {
@@ -49,49 +59,37 @@
     return windowAttributes;
 }
 
++(void)setCandidateStringAttributes:(NSDictionary*)attributes {
+    candidateStringAttributeCache = attributes;
+    NSData* outputData = [NSArchiver archivedDataWithRootObject:attributes];
+    [[NSUserDefaults standardUserDefaults] setObject:outputData forKey:@"CandidatesStringAttributes"];
+}
+
 +(NSDictionary*)candidateStringAttributes {
+    if (candidateStringAttributeCache) return candidateStringAttributeCache;
     NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:@"CandidatesStringAttributes"];
     NSMutableDictionary* attributes;
     if (data) {
         attributes = [NSUnarchiver unarchiveObjectWithData:data];
         if(attributes) return attributes;
     }
-    // Default attributes
-    attributes = [[NSMutableDictionary alloc] initWithCapacity:3];
-    [attributes setValue:[NSFont fontWithName:@"DevanagariMT" size:14.0] forKey:NSFontAttributeName];
-    [attributes setValue:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
-    [attributes setValue:[NSColor whiteColor] forKey:NSBackgroundColorDocumentAttribute];
-    return attributes;
+    return nil;
 }
 
-+(void)setCandidateStringAttributes:(NSDictionary*)attributes {
-    NSData* outputData = [NSArchiver archivedDataWithRootObject:attributes];
-    [[NSUserDefaults standardUserDefaults] setObject:outputData forKey:@"CandidatesStringAttributes"];
++(NSString*)candidatePanelType {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"CandidatePanelType"];
 }
 
 +(BOOL)isShowInput {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowInputString"];
 }
 
-+(BOOL)isInputLikeClient {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"InputLikeClient"];
++(BOOL)isShowOutput {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowOutputString"];
 }
 
-+(NSDictionary*)inputAttributes {
-    NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:@"InputStringAttributes"];
-    NSMutableDictionary* attributes;
-    if (data) {
-        attributes = [NSUnarchiver unarchiveObjectWithData:data];
-        if(attributes) return attributes;
-    }
-    attributes = [[NSMutableDictionary alloc] initWithCapacity:5];
-    [attributes setValue:[NSFont fontWithName:@"Helvetica" size:13.0] forKey:NSFontAttributeName];
-    return attributes;
-}
-
-+(void)setInputAttributes:(NSDictionary*)attributes {
-    NSData* inputData = [NSArchiver archivedDataWithRootObject:attributes];
-    [[NSUserDefaults standardUserDefaults] setObject:inputData forKey:@"InputStringAttributes"];
++(BOOL) isOutputInCandidate {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"OutputInCandidate"];
 }
 
 +(float)opacity {

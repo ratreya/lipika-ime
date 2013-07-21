@@ -21,18 +21,18 @@
 
 @interface DJLipikaUserSettings : NSUserDefaults
 
++(NSString*)scriptName;
++(void)setScriptName:(NSString*)scriptName;
 +(NSString*)schemeName;
 +(void)setSchemeName:(NSString*)schemeName;
-+(enum DJCandidateWindowText) candidateTextType;
-+(NSDictionary*)candidateStringAttributes;
-+(void)setCandidateStringAttributes:(NSDictionary*)attributes;
++(BOOL) isOutputInCandidate;
++(BOOL) isOverrideCandidateAttributes;
 +(NSDictionary*)candidateWindowAttributes;
-+(NSDictionary*)inputAttributes;
-+(void)setInputAttributes:(NSDictionary*)attributes;
-
++(void)setCandidateStringAttributes:(NSDictionary*)attributes;
++(NSDictionary*)candidateStringAttributes;
++(NSString*)candidatePanelType;
 +(BOOL)isShowInput;
-+(BOOL)isShowCandidateWindow;
-+(BOOL)isInputLikeClient;
++(BOOL)isShowOutput;
 
 +(void)reset;
 

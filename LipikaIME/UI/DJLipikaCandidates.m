@@ -35,49 +35,42 @@ extern IMKCandidates* candidates;
 }
 
 -(void)showCandidateWithInput:(NSString*)input output:(NSString*)output {
-    NSAttributedString* inputString;
-    NSAttributedString* outputString;
-    if (input) {
-        NSDictionary* attributes;
-        if ([DJLipikaUserSettings isInputLikeClient]) {
-            NSRect rect = NSMakeRect(0, 0, 0, 0);
-            attributes = [[controller client] attributesForCharacterIndex:0 lineHeightRectangle:&rect];
-        }
-        else {
-            attributes = [[NSApp delegate] inputAttributes];
-        }
-        inputString = [[NSAttributedString alloc] initWithString:input attributes:attributes];
+    NSString* inputString;
+    NSString* outputString;
+    if (input && [DJLipikaUserSettings isShowInput]) {
+        inputString = input;
     }
-    if (output) {
-        outputString = [[NSAttributedString alloc] initWithString:output attributes:[[NSApp delegate] candidateStringAttributes]];
+    if (output && [DJLipikaUserSettings isShowOutput]) {
+        outputString = output;
     }
-    NSAttributedString* forCandidate;
-    NSAttributedString* forInput;
-    switch ([DJLipikaUserSettings candidateTextType]) {
-        case DJ_INPUT_IN_CANDIDATE:
-            forCandidate = inputString;
-            forInput = outputString;
-            break;
-            
-        case DJ_OUTPUT_IN_CANDIDATE:
-            forCandidate = outputString;
-            forInput = inputString;
-            break;
-            
-        default:
-            [NSException raise:@"Unknown Candidate Text Type" format:@"Unknown Candidate Text Type: %u", [DJLipikaUserSettings candidateTextType]];
-            break;
+    NSString* forCandidate;
+    NSAttributedString* forClient;
+    // Get the attributes of the client
+    NSDictionary* attributes;
+    NSRect rect = NSMakeRect(0, 0, 0, 0);
+    attributes = [[controller client] attributesForCharacterIndex:0 lineHeightRectangle:&rect];
+
+    if ([DJLipikaUserSettings isOutputInCandidate]) {
+        forCandidate = outputString;
+        forClient = inputString?[[NSAttributedString alloc] initWithString:inputString attributes:attributes]:nil;
+    }
+    else {
+        forCandidate = inputString;
+        forClient = outputString?[[NSAttributedString alloc] initWithString:outputString attributes:attributes]:nil;
     }
 
-    if (forInput && [DJLipikaUserSettings isShowInput]) {
-        [[controller client] setMarkedText:forInput selectionRange:NSMakeRange([forInput length], 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    if (forClient) {
+        [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     }
     if (forCandidate) {
-        currentCandidates = [NSArray arrayWithObjects:forCandidate, nil];
-        if ([DJLipikaUserSettings isShowCandidateWindow]) {
-            [candidates updateCandidates];
-            [candidates show:kIMKLocateCandidatesBelowHint];
+        if ([DJLipikaUserSettings isOverrideCandidateAttributes]) {
+            currentCandidates = [NSArray arrayWithObjects:[[NSAttributedString alloc] initWithString:forCandidate attributes:[DJLipikaUserSettings candidateStringAttributes]], nil];
         }
+        else {
+            currentCandidates = [NSArray arrayWithObjects:forCandidate, nil];
+        }
+        [candidates updateCandidates];
+        [candidates show:kIMKLocateCandidatesBelowHint];
     }
 }
 
