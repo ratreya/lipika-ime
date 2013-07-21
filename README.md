@@ -23,6 +23,16 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 ### Release Notes ###
 
 
+#### 7/21/2013: RELEASE NOTES FOR VERSION 1.2 ####
+* Input Schemes menu now groups schemes by language or rather script
+* Added Kannada mappings: Baraha, Barahavat and ITRANS
+* Preferrences greately simplified
+  * Input and Output can be displayed or not
+  * Input and Output can be displayed either in pop-up window or client
+  * Greater font control for pop-up text
+  * Ability to choose pop-up panel type
+
+
 #### 3/31/2013: RELEASE NOTES FOR VERSION 1.1 ####
 * Added ability to turn off candidate window
 * Echo input text in the client window
