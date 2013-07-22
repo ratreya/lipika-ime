@@ -7,7 +7,7 @@
 	<key>ScriptName</key>
 	<string>Devanagari</string>
 	<key>SchemeName</key>
-	<string>Barahavat</string>
+	<string>SA_Barahavat</string>
 	<key>IMKCandidatesOpacityAttributeName</key>
 	<real>0.9</real>
 	<key>LoggingLevel</key>
