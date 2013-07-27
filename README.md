@@ -26,7 +26,7 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 #### 7/21/2013: RELEASE NOTES FOR VERSION 1.2 ####
 * Input Schemes menu now groups schemes by language or rather script
 * Added Kannada mappings: Baraha, Barahavat and ITRANS
-* Added Telugu mappings: Baraha and ITRANS
+* Added Telugu mappings: Baraha, Barahavat and ITRANS
 * Preferrences greately simplified
   * Input and Output can be displayed or not
   * Input and Output can be displayed either in pop-up window or client

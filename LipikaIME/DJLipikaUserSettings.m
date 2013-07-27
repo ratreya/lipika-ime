@@ -68,12 +68,10 @@ static NSDictionary* candidateStringAttributeCache = nil;
 +(NSDictionary*)candidateStringAttributes {
     if (candidateStringAttributeCache) return candidateStringAttributeCache;
     NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:@"CandidatesStringAttributes"];
-    NSMutableDictionary* attributes;
     if (data) {
-        attributes = [NSUnarchiver unarchiveObjectWithData:data];
-        if(attributes) return attributes;
+        candidateStringAttributeCache = [NSUnarchiver unarchiveObjectWithData:data];
     }
-    return nil;
+    return candidateStringAttributeCache;
 }
 
 +(NSString*)candidatePanelType {
