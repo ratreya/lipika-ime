@@ -70,6 +70,7 @@
 							<string key="NSFrame">{{192, 18}, {70, 25}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="731700150">
@@ -1107,18 +1108,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 																	<object class="NSLayoutManager" key="NSLayoutManager">
 																		<object class="NSTextStorage" key="NSTextStorage">
 																			<object class="NSMutableString" key="NSString">
-																				<characters key="NS.bytes">Replace this text with some text in your desired language, select all and right click to format it. This format will be applied to the text in the pop-up window.</characters>
+																				<characters key="NS.bytes"/>
 																			</object>
-																			<dictionary key="NSAttributes">
-																				<object class="NSFont" key="NSFont">
-																					<string key="NSName">Helvetica</string>
-																					<double key="NSSize">14</double>
-																					<int key="NSfFlags">16</int>
-																				</object>
-																				<object class="NSMutableParagraphStyle" key="NSParagraphStyle">
-																					<nil key="NSTabStops"/>
-																				</object>
-																			</dictionary>
 																			<nil key="NSDelegate"/>
 																		</object>
 																		<array class="NSMutableArray" key="NSTextContainers">
@@ -1202,7 +1193,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 														<string key="NSFrame">{{215, 1}, {16, 98}}</string>
 														<reference key="NSSuperview" ref="909080675"/>
 														<reference key="NSWindow"/>
-														<reference key="NSNextKeyView" ref="861917538"/>
+														<reference key="NSNextKeyView" ref="286929675"/>
 														<string key="NSReuseIdentifierKey">_NS:83</string>
 														<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 														<reference key="NSTarget" ref="909080675"/>
@@ -2105,6 +2096,27 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="destination" ref="445983177"/>
 					</object>
 					<int key="connectionID">3753</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">attributedString: values.FormatString</string>
+						<reference key="source" ref="159876648"/>
+						<reference key="destination" ref="776890623"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="159876648"/>
+							<reference key="NSDestination" ref="776890623"/>
+							<string key="NSLabel">attributedString: values.FormatString</string>
+							<string key="NSBinding">attributedString</string>
+							<string key="NSKeyPath">values.FormatString</string>
+							<dictionary key="NSOptions">
+								<boolean value="YES" key="NSContinuouslyUpdatesValue"/>
+								<boolean value="YES" key="NSValidatesImmediately"/>
+								<string key="NSValueTransformerName">NSUnarchiveFromData</string>
+							</dictionary>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">3853</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -4847,7 +4859,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">3848</int>
+			<int key="maxID">3853</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
