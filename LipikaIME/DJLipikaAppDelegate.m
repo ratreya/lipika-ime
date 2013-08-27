@@ -32,6 +32,10 @@
     if (preferrence) {
         [preferrence setAction:@selector(showPreferences:)];
     }
+    // Add Convert file item
+    NSMenuItem* convertFile = [[NSMenuItem alloc] initWithTitle:@"Convert file..." action:@selector(showPreferences:) keyEquivalent:@""];
+    [convertFile setTag:++runningTagId];
+    [mainMenu addItem:convertFile];
     // Add Schemes directory item
     NSMenuItem* openSchemes = [[NSMenuItem alloc] initWithTitle:@"Open schemes directory..." action:@selector(showPreferences:) keyEquivalent:@""];
     [openSchemes setTag:++runningTagId];

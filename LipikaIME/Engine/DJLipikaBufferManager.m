@@ -73,6 +73,15 @@ static NSRegularExpression* whiteSpace;
 
 -(NSString*)outputForInput:(NSString*)string {
     @synchronized(self) {
+        // Handle non-character strings
+        if (string.length > 1) {
+            NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
+            for (NSString* singleInput in [DJInputMethodScheme charactersForString:string]) {
+                NSString *output = [self outputForInput:singleInput];
+                if (output) [aggregate addObject:output];
+            }
+            return [aggregate componentsJoinedByString:@""];
+        }
         // Fush if stop character or whitespace
         BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
         BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
