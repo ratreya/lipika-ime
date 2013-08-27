@@ -80,7 +80,7 @@ static NSRegularExpression* whiteSpace;
                 NSString *output = [self outputForInput:singleInput];
                 if (output) [aggregate addObject:output];
             }
-            return [aggregate componentsJoinedByString:@""];
+            return aggregate.count ? [aggregate componentsJoinedByString:@""] : nil;
         }
         // Fush if stop character or whitespace
         BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
