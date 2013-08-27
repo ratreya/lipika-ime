@@ -20,6 +20,7 @@
 #import "DJLipikaUserSettings.h"
 #import "DJPreferenceController.h"
 #import "DJInputEngineFactory.h"
+#import "DJLipikaFileConvertor.h"
 #import "DJLogger.h"
 #import "Constants.h"
 
@@ -143,10 +144,13 @@ static long numCompositionCommits = 0;
     if ([menuItem tag] == 1) {     // Preferrence
         [self showPreferenceImplimentation:menuItem];
     }
-    else if ([menuItem tag] == 2) { // Schemes directory...
+    else if ([menuItem tag] == 2) { // Convert file
+        [DJLipikaFileConvertor convert];
+    }
+    else if ([menuItem tag] == 3) { // Schemes directory...
         [self openSchemesDirectory];
     }
-    else if ([menuItem tag] > 2) { // Input Schemes
+    else if ([menuItem tag] > 3) { // Input Schemes
         [self changeInputScheme:menuItem];
     }
     else {

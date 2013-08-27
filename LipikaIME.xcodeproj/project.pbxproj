@@ -18,6 +18,7 @@
 		A53672FD1708C96D00B5C1E6 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A53672FC1708C96D00B5C1E6 /* icon.icns */; };
 		A54045C316C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */; };
 		A55B44BE16BF24D000CC8E94 /* LipikaIMEEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */; };
+		A563223417CAE7D0000D4453 /* DJLipikaFileConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = A563223317CAE7D0000D4453 /* DJLipikaFileConvertor.m */; };
 		A58BA2DC16FFE5F3001DE998 /* DJPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58BA2DA16FFE5F3001DE998 /* DJPreferenceController.m */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -86,6 +87,8 @@
 		A54045C216C09ECB00A6BBD3 /* LipikaIMENestedClassTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMENestedClassTest.m; sourceTree = "<group>"; };
 		A55B44BC16BF24D000CC8E94 /* LipikaIMEEngineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LipikaIMEEngineTest.h; sourceTree = "<group>"; };
 		A55B44BD16BF24D000CC8E94 /* LipikaIMEEngineTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMEEngineTest.m; sourceTree = "<group>"; };
+		A563223217CAE7D0000D4453 /* DJLipikaFileConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJLipikaFileConvertor.h; path = LipikaIME/DJLipikaFileConvertor.h; sourceTree = "<group>"; };
+		A563223317CAE7D0000D4453 /* DJLipikaFileConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJLipikaFileConvertor.m; path = LipikaIME/DJLipikaFileConvertor.m; sourceTree = "<group>"; };
 		A58BA2DA16FFE5F3001DE998 /* DJPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJPreferenceController.m; path = LipikaIME/UI/DJPreferenceController.m; sourceTree = "<group>"; };
 		A58BA2DB16FFE5F3001DE998 /* DJPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJPreferenceController.h; path = LipikaIME/UI/DJPreferenceController.h; sourceTree = "<group>"; };
 		A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaIMETest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +165,8 @@
 				A5CD9EE616EBFEED0024A20A /* DJLipikaAppDelegate.m */,
 				A5CD9EE716EBFEED0024A20A /* DJLipikaInputController.h */,
 				A5CD9EE816EBFEED0024A20A /* DJLipikaInputController.m */,
+				A563223217CAE7D0000D4453 /* DJLipikaFileConvertor.h */,
+				A563223317CAE7D0000D4453 /* DJLipikaFileConvertor.m */,
 				A5C54DF816BA1EB9007F631D /* Parser Classes */,
 			);
 			name = Classes;
@@ -454,6 +459,7 @@
 				A5CD9F0516EBFF170024A20A /* DJParseTreeNode.m in Sources */,
 				A5F984F316FFB3920088191E /* DJLipikaCandidates.m in Sources */,
 				A58BA2DC16FFE5F3001DE998 /* DJPreferenceController.m in Sources */,
+				A563223417CAE7D0000D4453 /* DJLipikaFileConvertor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
