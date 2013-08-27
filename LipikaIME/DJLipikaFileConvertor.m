@@ -18,6 +18,7 @@
 
 #import "DJLipikaFileConvertor.h"
 #import "DJLipikaBufferManager.h"
+#import "DJLipikaUserSettings.h"
 #import "DJLogger.h"
 #import <Cocoa/Cocoa.h>
 
@@ -39,12 +40,22 @@
         NSURL* fileURL = [[inputChoice URLs] objectAtIndex:0];
         logDebug(@"Chosen input file: %@", fileURL);
         // Read file contents
-        NSString* contents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
+        NSError *error;
+        NSString* contents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:&error];
+        if (error != nil) {
+            [NSAlert alertWithError:error];
+            return;
+        }
         NSArray* lines = [contents componentsSeparatedByString:@"\r"];
         // Open output file and convert
         NSString *outputFileName = [[fileURL path] stringByAppendingPathExtension:@"out"];
         logDebug(@"Ouput file: %@", outputFileName);
-        [@"" writeToFile:outputFileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        if (![[NSFileManager defaultManager] createFileAtPath:outputFileName contents:nil attributes:nil]) {
+            logError(@"Unable to create file %@", outputFileName);
+            NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:EIO userInfo:nil];
+            [NSAlert alertWithError:error];
+            return;
+        }
         NSFileHandle *outputFile = [NSFileHandle fileHandleForWritingAtPath:outputFileName];
         DJLipikaBufferManager *engine = [[DJLipikaBufferManager alloc] init];
         for (NSString *line in lines) {
@@ -53,6 +64,11 @@
             [outputFile writeData:[@"\r"  dataUsingEncoding:NSUTF8StringEncoding]];
         }
         [outputFile closeFile];
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:[NSString stringWithFormat:@"Converted file saved at: %@", outputFileName]];
+        [alert setInformativeText:[NSString stringWithFormat:@"Using mapping: %@", [DJLipikaUserSettings schemeName]]];
+        [alert setAlertStyle:NSInformationalAlertStyle];
+        [alert runModal];
     }];
 }
 

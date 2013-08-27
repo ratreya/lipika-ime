@@ -41,7 +41,7 @@
     [openSchemes setTag:++runningTagId];
     [mainMenu addItem:openSchemes];
     // Add Scheme item to the mainMenu
-    NSMenuItem* schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input Schemes" action:NULL keyEquivalent:@""];
+    NSMenuItem* schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input schemes" action:NULL keyEquivalent:@""];
     [schemeSelectionItem setTag:++runningTagId];
     [mainMenu addItem:schemeSelectionItem];
 
