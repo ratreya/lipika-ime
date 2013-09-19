@@ -76,7 +76,7 @@ static NSRegularExpression* whiteSpace;
         // Handle non-character strings
         if (string.length > 1) {
             NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
-            for (NSString* singleInput in [DJInputMethodScheme charactersForString:string]) {
+            for (NSString* singleInput in charactersForString(string)) {
                 NSString *output = [self outputForInput:singleInput];
                 if (output) [aggregate addObject:output];
             }

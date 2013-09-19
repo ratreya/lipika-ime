@@ -27,4 +27,14 @@
     return [NSString stringWithFormat:@"Output: %@; Next: %@", output, [next description]];
 }
 
+extern NSMutableArray* charactersForString(NSString *string) {
+    NSRange theRange = {0, 1};
+    NSMutableArray* array = [NSMutableArray array];
+    for ( NSInteger i = 0; i < [string length]; i++) {
+        theRange.location = i;
+        [array addObject:[string substringWithRange:theRange]];
+    }
+    return array;
+}
+
 @end

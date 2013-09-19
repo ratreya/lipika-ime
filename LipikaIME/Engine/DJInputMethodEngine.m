@@ -38,7 +38,7 @@
 -(NSArray*)executeWithInput:(NSString*)input {
     if (input.length > 1) {
         NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
-        for (NSString* singleInput in [DJInputMethodScheme charactersForString:input]) {
+        for (NSString* singleInput in charactersForString(input)) {
             [aggregate addObjectsFromArray:[self executeWithInput:singleInput]];
         }
         return aggregate;
@@ -46,7 +46,7 @@
     DJParseOutput* result = [DJParseOutput alloc];
     if (currentNode == nil) {
         // Look for mapping at root of tree
-        currentNode = [self getNodeForInput:input fromTree:[scheme parseTree]];
+        currentNode = [self getNodeForInput:input fromTree:scheme.forwardMappings.parseTree];
     }
     else {
         // Look for mapping at current level of the tree

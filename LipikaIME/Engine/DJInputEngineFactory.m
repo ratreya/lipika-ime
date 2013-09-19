@@ -18,6 +18,7 @@
 
 #import "DJInputEngineFactory.h"
 #import "DJLipikaUserSettings.h"
+#import "DJInputSchemeFactory.h"
 #import "DJLogger.h"
 
 @interface DJInputEngineFactory ()
@@ -138,7 +139,7 @@ static NSString* schemesDirectory;
         NSString* filePath = [[[schemesDirectory stringByAppendingPathComponent:scriptName] stringByAppendingPathComponent:schemeName] stringByAppendingPathExtension:@"scm"];
         scheme = [schemesCache valueForKey:filePath];
         if (scheme == nil) {
-            scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:filePath];
+            scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:filePath];
             if (scheme == nil) {
                 return nil;
             }

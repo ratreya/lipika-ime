@@ -16,41 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#import <Foundation/Foundation.h>
 #import "DJInputMethodScheme.h"
 
-@implementation DJInputMethodScheme
-
-@synthesize schemeFilePath;
-@synthesize name;
-@synthesize version;
-@synthesize usingClasses;
-@synthesize classOpenDelimiter;
-@synthesize classCloseDelimiter;
-@synthesize wildcard;
-@synthesize stopChar;
-@synthesize forwardMappings;
-
--(id)init {
-    self = [super init];
-    if (self == nil) {
-        return self;
-    }
-    forwardMappings = [[DJForwardMapping alloc] init];
-    // Set default values
-    wildcard = @"*";
-    stopChar = @"\\";
-    usingClasses = YES;
-    classOpenDelimiter = @"{";
-    classCloseDelimiter = @"}";
-    return self;
+@interface DJInputSchemeFactory : NSObject {
+    // These regular expressions have dynamic elements per scheme
+    NSRegularExpression* classDefinitionExpression;
+    NSRegularExpression* classKeyExpression;
+    NSRegularExpression* wildcardValueExpression;
+    
+    // Internal instance variable
+    DJInputMethodScheme* scheme;
+    NSArray* linesOfScheme;
+    int currentLineNumber;
+    BOOL isProcessingClassDefinition;
+    NSString* currentClassName;
+    NSMutableDictionary* currentClass;
 }
 
--(id)forwardMapping {
-    return forwardMappings;
-}
+@property DJInputMethodScheme* scheme;
 
--(id)reverseMapping {
-    return nil;
-}
++(DJInputMethodScheme*)inputSchemeForSchemeFile:(NSString*)filePath;
+
+-(id)initWithSchemeFile:(NSString*)filePath;
 
 @end
