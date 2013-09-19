@@ -16,41 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import "DJInputMethodScheme.h"
+#import "DJForwardMapping.h"
 
-@implementation DJInputMethodScheme
+@implementation DJForwardMapping
 
-@synthesize schemeFilePath;
-@synthesize name;
-@synthesize version;
-@synthesize usingClasses;
-@synthesize classOpenDelimiter;
-@synthesize classCloseDelimiter;
-@synthesize wildcard;
-@synthesize stopChar;
-@synthesize forwardMappings;
+@synthesize parseTree;
+@synthesize classes;
 
 -(id)init {
     self = [super init];
     if (self == nil) {
         return self;
     }
-    forwardMappings = [[DJForwardMapping alloc] init];
-    // Set default values
-    wildcard = @"*";
-    stopChar = @"\\";
-    usingClasses = YES;
-    classOpenDelimiter = @"{";
-    classCloseDelimiter = @"}";
+    parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
+    classes = [NSMutableDictionary dictionaryWithCapacity:0];
     return self;
 }
 
--(id)forwardMapping {
-    return forwardMappings;
+-(NSString *)classNameForInput:(NSString*)input {
+    for (NSString* className in [classes keyEnumerator]) {
+        NSMutableDictionary* classMap = [classes valueForKey:className];
+        if ([classMap objectForKey:input] != nil) {
+            return className;
+        }
+    }
+    return nil;
 }
 
--(id)reverseMapping {
-    return nil;
+-(NSMutableDictionary *)classForName:(NSString *)className {
+    return [classes valueForKey:className];
 }
 
 @end

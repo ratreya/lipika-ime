@@ -32,4 +32,6 @@
 
 -(NSString*)description;
 
+extern NSMutableArray* charactersForString(NSString *string);
+
 @end

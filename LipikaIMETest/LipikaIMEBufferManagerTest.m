@@ -18,6 +18,7 @@
 
 #import "LipikaIMEBufferManagerTest.h"
 #import "DJLipikaUserSettings.h"
+#import "DJInputSchemeFactory.h"
 
 @interface DJLipikaBufferManager (Test)
 
@@ -29,7 +30,7 @@
 
 -(void)setUp {
     [super setUp];
-    DJInputMethodScheme* scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestHappyCase.scm"];
+    DJInputMethodScheme* scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestHappyCase.scm"];
     DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     manager = [[DJLipikaBufferManager alloc] initWithEngine:engine];
 }

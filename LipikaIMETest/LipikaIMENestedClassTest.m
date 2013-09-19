@@ -17,14 +17,14 @@
  */
 
 #import "LipikaIMENestedClassTest.h"
-#import "DJInputMethodScheme.h"
+#import "DJInputSchemeFactory.h"
 #import "DJInputMethodEngine.h"
 
 @implementation LipikaIMENestedClassTest
 
 - (void)setUp {
     [super setUp];
-    scheme = [[DJInputMethodScheme alloc] initWithSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestNestedClass.scm"];
+    scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestNestedClass.scm"];
     engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }
 
@@ -34,10 +34,10 @@
 }
 
 - (void)testNestedClassParsing {
-    STAssertTrue([@"test1" isEqualToString:[scheme classNameForInput:@"c"]], @"Unexpected class name");
-    STAssertTrue([@"test2" isEqualToString:[scheme classNameForInput:@"f"]], @"Unexpected class name");
-    STAssertTrue([[scheme classForName:@"test1"] count] == 3, @"Unexpected count of mappings");
-    STAssertTrue([[scheme classForName:@"test2"] count] == 2, @"Unexpected count of mappings");
+    STAssertTrue([@"test1" isEqualToString:[scheme.forwardMappings classNameForInput:@"c"]], @"Unexpected class name");
+    STAssertTrue([@"test2" isEqualToString:[scheme.forwardMappings classNameForInput:@"f"]], @"Unexpected class name");
+    STAssertTrue([[scheme.forwardMappings classForName:@"test1"] count] == 3, @"Unexpected count of mappings");
+    STAssertTrue([[scheme.forwardMappings classForName:@"test2"] count] == 2, @"Unexpected count of mappings");
 }
 
 -(void)testHappyCase_Simple_NestedClass {

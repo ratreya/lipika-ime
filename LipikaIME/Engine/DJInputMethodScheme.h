@@ -17,46 +17,32 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "DJForwardMapping.h"
 
 @interface DJInputMethodScheme : NSObject {
-    // These regular expressions have dynamic elements per scheme
-    NSRegularExpression* classDefinitionExpression;
-    NSRegularExpression* classKeyExpression;
-    NSRegularExpression* wildcardValueExpression;
-    
-    NSString* schemeFilePath;
-    // Input as NSString to DJParseTreeNode
-    NSMutableDictionary* parseTree;
-    // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode
-    NSMutableDictionary* classes;
-    NSString* name;
-    NSString* version;
+    NSString *schemeFilePath;
+    NSString *name;
+    NSString *version;
     BOOL usingClasses;
-    NSString* classOpenDelimiter;
-    NSString* classCloseDelimiter;
-    NSString* wildcard;
-    NSString* stopChar;
-
-    NSArray* linesOfScheme;
-    int currentLineNumber;
-    BOOL isProcessingClassDefinition;
-    NSString* currentClassName;
-    NSMutableDictionary* currentClass;
+    NSString *classOpenDelimiter;
+    NSString *classCloseDelimiter;
+    NSString *wildcard;
+    NSString *stopChar;
+    
+    DJForwardMapping *forwardMappings;
 }
 
-@property NSMutableDictionary* parseTree;
-@property NSString* name;
-@property NSString* version;
+@property NSString *schemeFilePath;
+@property NSString *name;
+@property NSString *version;
 @property BOOL usingClasses;
-@property NSString* classOpenDelimiter;
-@property NSString* classCloseDelimiter;
-@property NSString* wildcard;
-@property NSString* stopChar;
+@property NSString *classOpenDelimiter;
+@property NSString *classCloseDelimiter;
+@property NSString *wildcard;
+@property NSString *stopChar;
+@property DJForwardMapping *forwardMappings;
 
--(id)initWithSchemeFile:(NSString*)filePath;
--(NSString*)classNameForInput:(NSString*)input;
--(NSMutableDictionary*)classForName:(NSString*)className;
-
-+(NSMutableArray*)charactersForString:(NSString*)string;
+-(id)forwardMapping;
+-(id)reverseMapping;
 
 @end

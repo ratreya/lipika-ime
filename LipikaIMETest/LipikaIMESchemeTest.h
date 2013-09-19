@@ -17,7 +17,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "DJInputMethodScheme.h"
+#import "DJInputSchemeFactory.h"
 
 @interface LipikaIMESchemeTest : SenTestCase {
     DJInputMethodScheme* scheme;
