@@ -24,6 +24,8 @@
 	<true/>
 	<key>OverrideCandidateFont</key>
 	<false/>
+	<key>CombineWithPreviousGlyph</key>
+	<true/>
 	<key>CandidatesStringAttributes</key>
 	<data></data>
 	<key>CandidatePanelType</key>

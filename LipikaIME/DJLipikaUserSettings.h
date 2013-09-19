@@ -31,6 +31,7 @@
 +(void)setCandidateStringAttributes:(NSDictionary*)attributes;
 +(NSDictionary*)candidateStringAttributes;
 +(NSString*)candidatePanelType;
++(BOOL)isCombineWithPreviousGlyph;
 +(BOOL)isShowInput;
 +(BOOL)isShowOutput;
 

@@ -52,6 +52,10 @@ static NSDictionary* candidateStringAttributeCache = nil;
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"OverrideCandidateFont"];
 }
 
++(BOOL)isCombineWithPreviousGlyph {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"CombineWithPreviousGlyph"];
+}
+
 +(NSDictionary*)candidateWindowAttributes {
     NSMutableDictionary* windowAttributes = [[NSMutableDictionary alloc] initWithCapacity:2];
     [windowAttributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:@"IMKCandidatesOpacityAttributeName"];
