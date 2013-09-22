@@ -18,6 +18,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DJForwardMapping.h"
+#import "DJReverseMapping.h"
 
 @interface DJInputMethodScheme : NSObject {
     NSString *schemeFilePath;
@@ -30,6 +31,7 @@
     NSString *stopChar;
     
     DJForwardMapping *forwardMappings;
+    DJReverseMapping *reverseMappings;
 }
 
 @property NSString *schemeFilePath;
@@ -40,9 +42,12 @@
 @property NSString *classCloseDelimiter;
 @property NSString *wildcard;
 @property NSString *stopChar;
-@property DJForwardMapping *forwardMappings;
 
--(id)forwardMapping;
--(id)reverseMapping;
+-(void)onStartParsingAtLine:(int)lineNumber;
+-(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber;
+-(void)onDoneParsingAtLine:(int)lineNumber;
+
+-(DJForwardMapping*)forwardMappings;
+-(DJReverseMapping*)reverseMappings;
 
 @end

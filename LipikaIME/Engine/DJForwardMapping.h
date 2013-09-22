@@ -18,7 +18,20 @@
 
 #import <Foundation/Foundation.h>
 
+@class DJInputMethodScheme;
+
 @interface DJForwardMapping : NSObject {
+    // These regular expressions have dynamic elements per scheme
+    NSRegularExpression* classDefinitionExpression;
+    NSRegularExpression* classKeyExpression;
+    NSRegularExpression* wildcardValueExpression;
+
+    int currentLineNumber;
+    DJInputMethodScheme *scheme;
+    BOOL isProcessingClassDefinition;
+    NSString* currentClassName;
+    NSMutableDictionary* currentClass;
+
     // Input as NSString to DJParseTreeNode
     NSMutableDictionary *parseTree;
     // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode
@@ -27,6 +40,10 @@
 
 @property NSMutableDictionary *parseTree;
 @property NSMutableDictionary *classes;
+
+-(id)initWithScheme:(DJInputMethodScheme*)parentScheme;
+-(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber;
+-(void)onDoneParsingAtLine:(int)lineNumber;
 
 -(NSString*)classNameForInput:(NSString*)input;
 -(NSMutableDictionary*)classForName:(NSString*)className;
