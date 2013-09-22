@@ -28,14 +28,12 @@
 @synthesize classCloseDelimiter;
 @synthesize wildcard;
 @synthesize stopChar;
-@synthesize forwardMappings;
 
 -(id)init {
     self = [super init];
     if (self == nil) {
         return self;
     }
-    forwardMappings = [[DJForwardMapping alloc] init];
     // Set default values
     wildcard = @"*";
     stopChar = @"\\";
@@ -45,11 +43,26 @@
     return self;
 }
 
--(id)forwardMapping {
+-(void)onStartParsingAtLine:(int)lineNumber {
+    if (!forwardMappings) forwardMappings = [[DJForwardMapping alloc] initWithScheme:self];
+    if (!reverseMappings) reverseMappings = [[DJReverseMapping alloc] initWithScheme:self];
+}
+
+-(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber {
+    [forwardMappings createMappingWithLine:line lineNumber:lineNumber];
+    [reverseMappings createMappingWithLine:line lineNumber:lineNumber];
+}
+
+-(void)onDoneParsingAtLine:(int)lineNumber {
+    [forwardMappings onDoneParsingAtLine:lineNumber];
+    [reverseMappings onDoneParsingAtLine:lineNumber];
+}
+
+-(DJForwardMapping*)forwardMappings {
     return forwardMappings;
 }
 
--(id)reverseMapping {
+-(DJReverseMapping*)reverseMappings {
     return nil;
 }
 

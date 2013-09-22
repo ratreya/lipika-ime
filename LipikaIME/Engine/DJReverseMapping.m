@@ -16,20 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import <Foundation/Foundation.h>
-#import "DJInputMethodScheme.h"
+#import "DJReverseMapping.h"
 
-@interface DJInputSchemeFactory : NSObject {
-    // Internal instance variable
-    DJInputMethodScheme* scheme;
-    NSArray* linesOfScheme;
-    int currentLineNumber;
+@implementation DJReverseMapping
+
+-(id)initWithScheme:(DJInputMethodScheme*)parentScheme {
+    self = [super init];
+    if (self == nil) return self;
+    return self;
 }
 
-@property DJInputMethodScheme* scheme;
+-(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber {
+    
+}
 
-+(DJInputMethodScheme*)inputSchemeForSchemeFile:(NSString*)filePath;
-
--(id)initWithSchemeFile:(NSString*)filePath;
+-(void)onDoneParsingAtLine:(int)lineNumber {
+    
+}
 
 @end
