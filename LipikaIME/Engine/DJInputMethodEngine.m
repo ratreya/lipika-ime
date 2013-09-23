@@ -99,7 +99,7 @@
     return results;
 }
 
--(DJParseTreeNode*)getNodeForInput:(NSString*)input fromTree:(NSMutableDictionary*)tree{
+-(DJParseTreeNode*)getNodeForInput:(NSString*)input fromTree:(NSDictionary*)tree{
     DJParseTreeNode* result = [tree valueForKey:input];
     [inputsSinceRoot addObject:input];
     if (result != nil && [result output] != nil) {

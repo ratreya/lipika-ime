@@ -17,25 +17,19 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "DJSchemeMapping.h"
 
-@interface DJForwardMapping : NSObject<DJSchemeMapping> {
-    int currentLineNumber;
-    DJInputMethodScheme *scheme;
-    BOOL isProcessingClassDefinition;
-    NSString* currentClassName;
-    NSMutableDictionary* currentClass;
+@class DJInputMethodScheme;
 
-    // Input as NSString to DJParseTreeNode
-    NSMutableDictionary *parseTree;
-    // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode
-    NSMutableDictionary *classes;
-}
+@protocol DJSchemeMapping <NSObject>
 
-@property NSDictionary *parseTree;
-@property NSDictionary *classes;
+-(id)initWithScheme:(DJInputMethodScheme*)parentScheme;
 
--(NSString*)classNameForInput:(NSString*)input;
--(NSDictionary*)classForName:(NSString*)className;
+-(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value;
+-(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue;
+
+-(void)startClassDefinitionWithName:(NSString*)className;
+-(void)endClassDefinition;
+
+-(void)onDoneParsingAtLine:(int)lineNumber;
 
 @end

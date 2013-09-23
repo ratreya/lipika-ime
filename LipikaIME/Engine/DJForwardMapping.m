@@ -26,18 +26,6 @@
 @synthesize parseTree;
 @synthesize classes;
 
-// This regular expression only has static elements
-static NSRegularExpression* simpleMappingExpression;
-
-+(void)initialize {
-    NSString *const simpleMappingPattern = @"^\\s*(\\S+)\\s+(\\S+)\\s*$";
-    NSError* error;
-    simpleMappingExpression = [NSRegularExpression regularExpressionWithPattern:simpleMappingPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid simple mapping expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-}
-
 -(id)initWithScheme:(DJInputMethodScheme*)parentScheme {
     self = [super init];
     if (self == nil) {
@@ -48,64 +36,46 @@ static NSRegularExpression* simpleMappingExpression;
     classes = [NSMutableDictionary dictionaryWithCapacity:0];
     isProcessingClassDefinition = NO;
 
-    // Regular expressions for matching mapping items
-    NSError* error;
-    NSString *const classDefinitionPattern = [NSString stringWithFormat:@"^\\s*class\\s+(\\S+)\\s+\\%@\\s*$", scheme.classOpenDelimiter];
-    classDefinitionExpression = [NSRegularExpression regularExpressionWithPattern:classDefinitionPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class definition expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-    /*
-     * We only support one class per mapping
-     */
-    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", scheme.classOpenDelimiter, scheme.classCloseDelimiter];
-    classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-    /*
-     * And hence only one wildcard value
-     */
-    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", scheme.wildcard];
-    wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
-
     return self;
 }
 
--(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber {
-    currentLineNumber = lineNumber;
-    if ([simpleMappingExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
-        logDebug(@"Found mapping expression");
-        
-        NSString* key = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
-        NSString* value = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
-        if (isProcessingClassDefinition) {
-            logDebug(@"Adding to class: %@", currentClassName);
-            [self parseMappingForTree:currentClass key:key value:value];
-        }
-        else {
-            logDebug(@"Adding to main parse tree");
-            [self parseMappingForTree:parseTree key:key value:value];
-        }
+-(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value {
+    DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
+    newNode.output = value;
+    [self addMappingForKey:key newNode:newNode];
+}
+
+-(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
+    NSMutableDictionary* classTree = [classes valueForKey:className];
+    if (classTree == nil) {
+        [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, currentLineNumber];
     }
-    else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
-        logDebug(@"Found beginning of class definition");
-        isProcessingClassDefinition = YES;
-        currentClassName = [classDefinitionExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
-        currentClass = [[NSMutableDictionary alloc] initWithCapacity:0];
-        logDebug(@"Class name: %@", currentClassName);
-    }
-    else if ([line isEqualToString:scheme.classCloseDelimiter]) {
-        logDebug(@"Found end of class definition");
-        isProcessingClassDefinition = NO;
-        [classes setValue:currentClass forKey:currentClassName];
+    // Parse the value; may not have wildcards in it
+    DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
+    if (isWildcard) {
+        // Output is nil and format is applied to all outputs of its subtree
+        NSString* format = [NSString stringWithFormat:@"%@%%@%@", preValue, postValue];
+        // Set the formated output tree as this node's subtree
+        newNode.next = [self applyFormat:format toTree:classTree];
     }
     else {
-        [NSException raise:@"Invalid line" format:@"Invalid line %d", currentLineNumber+1];
+        newNode.output = preValue;
+        // Append the named parse tree as-is since there is no wildcard formatting
+        newNode.next = classTree;
     }
+    [self addMappingForKey:preKey newNode:newNode];
+}
+
+-(void)startClassDefinitionWithName:(NSString*)className {
+    isProcessingClassDefinition = YES;
+    currentClassName = className;
+    currentClass = [[NSMutableDictionary alloc] initWithCapacity:0];
+    logDebug(@"Class name: %@", currentClassName);
+}
+
+-(void)endClassDefinition {
+    isProcessingClassDefinition = NO;
+    [classes setValue:currentClass forKey:currentClassName];
 }
 
 -(void)onDoneParsingAtLine:(int)lineNumber {
@@ -114,48 +84,18 @@ static NSRegularExpression* simpleMappingExpression;
     }
 }
 
--(void)parseMappingForTree:(NSMutableDictionary*)tree key:(NSString*)key value:(NSString*)value {
-    // Holds the list of inputs
-    NSMutableArray* path;
-    // Output with format elemets
-    DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
-    if ([classKeyExpression numberOfMatchesInString:key options:0 range:NSMakeRange(0, [key length])]) {
-        logDebug(@"Found class mapping");
-        // Parse the key
-        NSString* preClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$1"];
-        NSString* className = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$2"];
-        NSString* postClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$3"];
-        logDebug(@"Parsed key with pre-class: %@; class: %@", preClass, className);
-        if ([postClass length]) {
-            [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, currentLineNumber];
-        }
-        NSMutableDictionary* classTree = [classes valueForKey:className];
-        if (classTree == nil) {
-            [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, currentLineNumber];
-        }
-        // Create path from key
-        path = charactersForString(preClass);
-        // Parse the value; may not have wildcards in it
-        if ([wildcardValueExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
-            NSString* preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
-            NSString* postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
-            logDebug(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
-            // Output is nil and format is applied to all outputs of its subtree
-            NSString* format = [NSString stringWithFormat:@"%@%%@%@", preWildcard, postWildcard];
-            // Set the formated output tree as this node's subtree
-            newNode.next = [self applyFormat:format toTree:classTree];
-        }
-        else {
-            newNode.output = value;
-            // Append the named parse tree as-is since there is no wildcard formatting
-            newNode.next = classTree;
-        }
+-(void)addMappingForKey:(NSString*)key newNode:(DJParseTreeNode*)newNode {
+    NSMutableDictionary *tree;
+    if (isProcessingClassDefinition) {
+        logDebug(@"Adding to class: %@", currentClassName);
+        tree = currentClass;
     }
     else {
-        logDebug(@"Found key: %@; value: %@", key, value);
-        path = charactersForString(key);
-        newNode.output = value;
+        logDebug(@"Adding to main parse tree");
+        tree = parseTree;
     }
+    // Holds the list of inputs
+    NSMutableArray* path = charactersForString(key);
     // Merge path into the parseTree and set the output
     NSMutableDictionary* currentNode = tree;
     for (int i = 0; i < [path count]; i++) {
@@ -236,7 +176,7 @@ static NSRegularExpression* simpleMappingExpression;
     return nil;
 }
 
--(NSMutableDictionary *)classForName:(NSString *)className {
+-(NSDictionary *)classForName:(NSString *)className {
     return [classes valueForKey:className];
 }
 

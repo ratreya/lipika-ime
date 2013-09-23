@@ -17,17 +17,14 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "DJSchemeMapping.h"
 
-@class DJInputMethodScheme;
+@interface DJReverseMapping : NSObject<DJSchemeMapping> {
+    int currentLineNumber;
+    DJInputMethodScheme *scheme;
 
-@interface DJReverseMapping : NSObject {
     // Mapping of individual output character to a DJParseTreeNode
     NSMutableDictionary *reverseTrie;
 }
-
--(id)initWithScheme:(DJInputMethodScheme*)parentScheme;
-
--(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber;
--(void)onDoneParsingAtLine:(int)lineNumber;
 
 @end

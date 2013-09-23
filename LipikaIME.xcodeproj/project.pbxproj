@@ -105,6 +105,7 @@
 		A5638A4F17DD08470078053A /* DJInputMethodScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJInputMethodScheme.m; path = LipikaIME/Engine/DJInputMethodScheme.m; sourceTree = "<group>"; };
 		A58BA2DA16FFE5F3001DE998 /* DJPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJPreferenceController.m; path = LipikaIME/UI/DJPreferenceController.m; sourceTree = "<group>"; };
 		A58BA2DB16FFE5F3001DE998 /* DJPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJPreferenceController.h; path = LipikaIME/UI/DJPreferenceController.h; sourceTree = "<group>"; };
+		A5C0EA1017EF849200126799 /* DJSchemeMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DJSchemeMapping.h; path = LipikaIME/Engine/DJSchemeMapping.h; sourceTree = "<group>"; };
 		A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaIMETest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C54E0416BA20C1007F631D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A5C54E0B16BA20C1007F631D /* LipikaIMETest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LipikaIMETest-Info.plist"; sourceTree = "<group>"; };
@@ -272,6 +273,7 @@
 				A5CD9EFD16EBFF170024A20A /* DJParseOutput.m */,
 				A5CD9EFE16EBFF170024A20A /* DJParseTreeNode.h */,
 				A5CD9EFF16EBFF170024A20A /* DJParseTreeNode.m */,
+				A5C0EA1017EF849200126799 /* DJSchemeMapping.h */,
 				A51C0A8C17DC0E0500DA54C7 /* DJForwardMapping.h */,
 				A51C0A8D17DC0E0500DA54C7 /* DJForwardMapping.m */,
 				A53A71E717EAA7A800AFC09A /* DJReverseMapping.h */,

@@ -23,10 +23,24 @@
 -(id)initWithScheme:(DJInputMethodScheme*)parentScheme {
     self = [super init];
     if (self == nil) return self;
+    scheme = parentScheme;
+    reverseTrie = [NSMutableDictionary dictionaryWithCapacity:0];
     return self;
 }
 
--(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber {
+-(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value {
+    
+}
+
+-(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
+    
+}
+
+-(void)startClassDefinitionWithName:(NSString*)className {
+    
+}
+
+-(void)endClassDefinition {
     
 }
 
