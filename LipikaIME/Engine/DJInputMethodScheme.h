@@ -21,6 +21,11 @@
 #import "DJReverseMapping.h"
 
 @interface DJInputMethodScheme : NSObject {
+    // These regular expressions have dynamic elements per scheme
+    NSRegularExpression* classDefinitionExpression;
+    NSRegularExpression* classKeyExpression;
+    NSRegularExpression* wildcardValueExpression;
+
     NSString *schemeFilePath;
     NSString *name;
     NSString *version;
