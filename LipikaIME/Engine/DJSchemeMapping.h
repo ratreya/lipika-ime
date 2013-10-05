@@ -24,12 +24,10 @@
 
 -(id)initWithScheme:(DJInputMethodScheme*)parentScheme;
 
+-(void)createClassWithName:(NSString*)className;
 -(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value;
+-(void)createSimpleMappingForClass:(NSString*)className key:(NSString*)key value:(NSString*)value;
 -(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue;
-
--(void)startClassDefinitionWithName:(NSString*)className;
--(void)endClassDefinition;
-
--(void)onDoneParsingAtLine:(int)lineNumber;
+-(void)createClassMappingForClass:(NSString*)containerClass preKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue;
 
 @end

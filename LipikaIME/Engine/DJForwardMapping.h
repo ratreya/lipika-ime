@@ -20,12 +20,7 @@
 #import "DJSchemeMapping.h"
 
 @interface DJForwardMapping : NSObject<DJSchemeMapping> {
-    int currentLineNumber;
     DJInputMethodScheme *scheme;
-    BOOL isProcessingClassDefinition;
-    NSString* currentClassName;
-    NSMutableDictionary* currentClass;
-
     // Input as NSString to DJParseTreeNode
     NSMutableDictionary *parseTree;
     // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode

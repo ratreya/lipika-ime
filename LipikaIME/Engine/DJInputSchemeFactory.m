@@ -61,8 +61,11 @@ static NSRegularExpression* classesDelimiterExpression;
 }
 
 +(DJInputMethodScheme*)inputSchemeForSchemeFile:(NSString*)filePath {
-    DJInputSchemeFactory *factory = [[DJInputSchemeFactory alloc] initWithSchemeFile:filePath];
-    return [factory scheme];
+    // Parse one file at a time
+    @synchronized(self) {
+        DJInputSchemeFactory *factory = [[DJInputSchemeFactory alloc] initWithSchemeFile:filePath];
+        return [factory scheme];
+    }
 }
 
 -(id)initWithSchemeFile:(NSString *)filePath {

@@ -35,6 +35,9 @@
     NSString *wildcard;
     NSString *stopChar;
     
+    BOOL isProcessingClassDefinition;
+    NSString* currentClassName;
+    
     DJForwardMapping *forwardMappings;
     DJReverseMapping *reverseMappings;
 }
