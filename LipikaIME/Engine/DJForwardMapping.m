@@ -34,21 +34,53 @@
     scheme = parentScheme;
     parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
     classes = [NSMutableDictionary dictionaryWithCapacity:0];
-    isProcessingClassDefinition = NO;
 
     return self;
+}
+
+-(void)createClassWithName:(NSString *)className {
+    NSMutableDictionary *currentClass;
+    if (!(currentClass = [classes objectForKey:className])) {
+        currentClass = [NSMutableDictionary dictionaryWithCapacity:0];
+        [classes setObject:currentClass forKey:className];
+    }
+    else {
+        [NSException raise:@"Class redefined" format:@"Redefining existing class with name: %@", className];
+    }
 }
 
 -(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value {
     DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
     newNode.output = value;
-    [self addMappingForKey:key newNode:newNode];
+    [self addMappingForTree:parseTree key:key newNode:newNode];
 }
 
--(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
+-(void)createSimpleMappingForClass:(NSString *)className key:(NSString *)key value:(NSString *)value {
+    DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
+    newNode.output = value;
+    NSMutableDictionary *currentClass;
+    if (!(currentClass = [classes objectForKey:className])) {
+        [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
+    }
+    [self addMappingForTree:currentClass key:key newNode:newNode];
+}
+
+-(void)createClassMappingWithPreKey:(NSString *)preKey className:(NSString *)className isWildcard:(BOOL)isWildcard preValue:(NSString *)preValue postValue:(NSString *)postValue {
+    [self createClassMappingForTree:parseTree preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+}
+
+-(void)createClassMappingForClass:(NSString *)containerClass preKey:(NSString *)preKey className:(NSString *)className isWildcard:(BOOL)isWildcard preValue:(NSString *)preValue postValue:(NSString *)postValue {
+    NSMutableDictionary *currentClass;
+    if (!(currentClass = [classes objectForKey:containerClass])) {
+        [NSException raise:@"Unknown class" format:@"Unknown class name: %@", containerClass];
+    }
+    [self createClassMappingForTree:currentClass preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+}
+
+-(void)createClassMappingForTree:(NSMutableDictionary*)tree preKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
     NSMutableDictionary* classTree = [classes valueForKey:className];
     if (classTree == nil) {
-        [NSException raise:@"Unknown class" format:@"Unknown class name: %@ at line: %d", className, currentLineNumber];
+        [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
     // Parse the value; may not have wildcards in it
     DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
@@ -63,37 +95,10 @@
         // Append the named parse tree as-is since there is no wildcard formatting
         newNode.next = classTree;
     }
-    [self addMappingForKey:preKey newNode:newNode];
+    [self addMappingForTree:tree key:preKey newNode:newNode];
 }
 
--(void)startClassDefinitionWithName:(NSString*)className {
-    isProcessingClassDefinition = YES;
-    currentClassName = className;
-    currentClass = [[NSMutableDictionary alloc] initWithCapacity:0];
-    logDebug(@"Class name: %@", currentClassName);
-}
-
--(void)endClassDefinition {
-    isProcessingClassDefinition = NO;
-    [classes setValue:currentClass forKey:currentClassName];
-}
-
--(void)onDoneParsingAtLine:(int)lineNumber {
-    if (isProcessingClassDefinition) {
-        logWarning(@"Error parsing scheme file: %@; One or more class(es) not closed", scheme.name);
-    }
-}
-
--(void)addMappingForKey:(NSString*)key newNode:(DJParseTreeNode*)newNode {
-    NSMutableDictionary *tree;
-    if (isProcessingClassDefinition) {
-        logDebug(@"Adding to class: %@", currentClassName);
-        tree = currentClass;
-    }
-    else {
-        logDebug(@"Adding to main parse tree");
-        tree = parseTree;
-    }
+-(void)addMappingForTree:(NSMutableDictionary*)tree key:(NSString*)key newNode:(DJParseTreeNode*)newNode {
     // Holds the list of inputs
     NSMutableArray* path = charactersForString(key);
     // Merge path into the parseTree and set the output

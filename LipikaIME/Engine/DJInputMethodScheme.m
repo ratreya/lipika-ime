@@ -53,7 +53,8 @@ static NSRegularExpression* simpleMappingExpression;
     usingClasses = YES;
     classOpenDelimiter = @"{";
     classCloseDelimiter = @"}";
-
+    isProcessingClassDefinition = NO;
+    
     return self;
 }
 
@@ -112,25 +113,18 @@ static NSRegularExpression* simpleMappingExpression;
                 postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
                 logDebug(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
             }
-            [forwardMappings createClassMappingWithPreKey:preClass className:className isWildcard:isWildcard preValue:preWildcard postValue:postWildcard];
-            [reverseMappings createClassMappingWithPreKey:preClass className:className isWildcard:isWildcard preValue:preWildcard postValue:postWildcard];
+            [self createClassMappingWithPreKey:preClass className:className isWildcard:isWildcard preValue:preWildcard postValue:postWildcard];
         }
         else {
-            [forwardMappings createSimpleMappingWithKey:key value:value];
-            [reverseMappings createSimpleMappingWithKey:key value:value];
+            [self createSimpleMappingWithKey:key value:value];
         }
     }
     else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
-        logDebug(@"Found beginning of class definition");
         NSString *className = [classDefinitionExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
-        logDebug(@"Class name: %@", className);
-        [forwardMappings startClassDefinitionWithName:className];
-        [reverseMappings startClassDefinitionWithName:className];
+        [self startClassDefinitionWithName:className];
     }
     else if ([line isEqualToString:classCloseDelimiter]) {
-        logDebug(@"Found end of class definition");
-        [forwardMappings endClassDefinition];
-        [reverseMappings endClassDefinition];
+        [self endClassDefinition];
     }
     else {
         [NSException raise:@"Invalid line" format:@"Invalid line %d", currentLineNumber];
@@ -138,8 +132,53 @@ static NSRegularExpression* simpleMappingExpression;
 }
 
 -(void)onDoneParsingAtLine:(int)lineNumber {
-    [forwardMappings onDoneParsingAtLine:lineNumber + 1];
-    [reverseMappings onDoneParsingAtLine:lineNumber + 1];
+    if (isProcessingClassDefinition) {
+        logWarning(@"Error parsing scheme file: %@; One or more class(es) not closed", name);
+    }
+}
+
+-(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value {
+    if (isProcessingClassDefinition) {
+        [forwardMappings createSimpleMappingForClass:currentClassName key:key value:value];
+        [reverseMappings createSimpleMappingForClass:currentClassName key:key value:value];
+    }
+    else {
+        [forwardMappings createSimpleMappingWithKey:key value:value];
+        [reverseMappings createSimpleMappingWithKey:key value:value];
+    }
+}
+
+-(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
+    if (isProcessingClassDefinition) {
+        [forwardMappings createClassMappingForClass:currentClassName preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+        [reverseMappings createClassMappingForClass:currentClassName preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+    }
+    else {
+        [forwardMappings createClassMappingWithPreKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+        [reverseMappings createClassMappingWithPreKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+    }
+}
+
+-(void)startClassDefinitionWithName:(NSString*)className {
+    logDebug(@"Found beginning of class definition with name: %@", className);
+    if (isProcessingClassDefinition) {
+        logWarning(@"Did not see an end of class %@ before the beginning of class %@; forcing an end", currentClassName, className);
+        [self endClassDefinition];
+    }
+    isProcessingClassDefinition = YES;
+    currentClassName = className;
+    [forwardMappings createClassWithName:className];
+    [reverseMappings createClassWithName:className];
+}
+
+-(void)endClassDefinition {
+    logDebug(@"Found end of class definition");
+    if (!isProcessingClassDefinition) {
+        logWarning(@"Seeing end of class without a corresponding beginning");
+        return;
+    }
+    isProcessingClassDefinition = NO;
+    currentClassName = nil;
 }
 
 -(DJForwardMapping*)forwardMappings {
@@ -147,7 +186,7 @@ static NSRegularExpression* simpleMappingExpression;
 }
 
 -(DJReverseMapping*)reverseMappings {
-    return nil;
+    return reverseMappings;
 }
 
 @end
