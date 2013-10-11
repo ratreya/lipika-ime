@@ -21,32 +21,13 @@
 #import "DJParseTreeNode.h"
 #import "DJParseOutput.h"
 
-@interface DJReverseTreeNode : DJParseTreeNode {
-    /*
-     * If output is nil then check in outputMap
-     */
-    NSMutableDictionary *outputMap;
-    /*
-     * Mapping of class name to DJReverseTreeNode
-     * Fiest check in next and then nextClass
-     */
-    NSMutableDictionary *nextClass;
-}
-
-@property NSDictionary *outputMap;
-@property NSMutableDictionary *nextClass;
-
--(id)init;
-
-@end
-
 @interface DJReverseMapping : NSObject<DJSchemeMapping> {
     DJInputMethodScheme *scheme;
     // Mapping of individual output character to a DJParseTreeNode
-    DJReverseTreeNode *reverseTrieHead;
-    // Class name as NSString to DJReverseTreeNode trie head
+    DJParseTreeNode *reverseTrieHead;
+    // Class name as NSString to NSString
     NSMutableDictionary *classes;
-    // Mapping of class name to maximum output size of that class
+    // Mapping of class name to trie head (DJParseTreeNode)
     NSMutableDictionary *maxOutputSizesPerClass;
     // Overall maximum output size of this scheme
     int maxOutputSize;
