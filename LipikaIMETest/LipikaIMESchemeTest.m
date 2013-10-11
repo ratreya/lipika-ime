@@ -59,8 +59,8 @@
 
 -(void)testReverseMapping {
     DJParseOutput *result = [scheme.reverseMappings inputForOutput:@"ञी"];
-    STAssertTrue([result.input isEqualToString: @"~jee"], [NSString stringWithFormat: @"Unexpected output %@", result.input]);
-    STAssertTrue([result.output isEqualToString: @"ञी"] , [NSString stringWithFormat: @"Unexpected output %@", result.output]);
+    STAssertTrue([result.input isEqualToString: @"ञी"], [NSString stringWithFormat: @"Unexpected output %@", result.input]);
+    STAssertTrue([result.output isEqualToString: @"~Jee"] , [NSString stringWithFormat: @"Unexpected output %@", result.output]);
 }
 
 ;@end

@@ -19,16 +19,18 @@
 #import <Foundation/Foundation.h>
 
 @interface DJParseTreeNode : NSObject {
-    NSString* output;
-    NSMutableDictionary* next;
+    NSString *input;
+    NSString *output;
+    NSMutableDictionary *next;
 }
 
-@property NSString* output;
+@property NSString *input;
+@property NSString *output;
 /*
  * key is either a NSString with the next character or NSString of the class name.
  * If next character is not found then check if its class exists.
  */
-@property NSMutableDictionary* next;
+@property NSMutableDictionary *next;
 
 -(NSString*)description;
 

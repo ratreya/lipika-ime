@@ -20,6 +20,7 @@
 
 @implementation DJParseTreeNode
 
+@synthesize input;
 @synthesize output;
 @synthesize next;
 
