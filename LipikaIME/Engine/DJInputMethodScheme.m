@@ -17,6 +17,7 @@
  */
 
 #import "DJInputMethodScheme.h"
+#import "DJLipikaUserSettings.h"
 #import "DJLogger.h"
 
 @implementation DJInputMethodScheme
@@ -59,8 +60,9 @@ static NSRegularExpression* simpleMappingExpression;
 }
 
 -(void)onStartParsingAtLine:(int)lineNumber {
-    if (!forwardMappings) forwardMappings = [[DJForwardMapping alloc] initWithScheme:self];
-    if (!reverseMappings) reverseMappings = [[DJReverseMapping alloc] initWithScheme:self];
+    forwardMappings = [[DJForwardMapping alloc] initWithScheme:self];
+    if ([DJLipikaUserSettings isCombineWithPreviousGlyph]) reverseMappings = [[DJReverseMapping alloc] initWithScheme:self];
+    else reverseMappings = nil;
 
     // Regular expressions for matching mapping items
     NSError* error;
