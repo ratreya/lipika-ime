@@ -52,14 +52,13 @@
         return nil;
     }
     if (index > 0) {
-        return [self inputForOutput:outputs index:--index node:nextNode];
+        DJParseOutput *nextResult = [self inputForOutput:outputs index:--index node:nextNode];
+        if (nextResult) return nextResult;
     }
-    else {
-        DJParseOutput *result = [[DJParseOutput alloc] init];
-        result.input = nextNode.input;
-        result.output = nextNode.output;
-        return result;
-    }
+    DJParseOutput *result = [[DJParseOutput alloc] init];
+    result.input = nextNode.output;
+    result.output = nextNode.input;
+    return result;
 }
 
 -(void)createClassWithName:(NSString *)className {
@@ -149,12 +148,8 @@
             [self mergeIntoTrie:leafNode key:key value:value path:preValue];
         }
         else {
-            if (leafNode.output) {
-                logWarning(@"Reverse mapping for %@: output %@ being preferred to %@", value, leafNode.output, key);
-            }
-            else {
-                leafNode.output = key;
-            }
+            leafNode.input = value;
+            leafNode.output = key;
         }
     }
 }
@@ -178,12 +173,7 @@
     }
     current.input = value;
     if (key) {
-        if (current.output) {
-            logWarning(@"Reverse mapping for %@: output %@ being preferred to %@", value, current.output, key);
-        }
-        else {
-            current.output = key;
-        }
+        current.output = key;
     }
     return current;
 }
@@ -203,21 +193,16 @@
         DJParseTreeNode *classValue = [classNode.next objectForKey:classKey];
         DJParseTreeNode *nextValue;
         if ((nextValue = [trieHead.next objectForKey:classKey])) {
-            if (nextValue.output) {
-                logWarning(@"Reverse mapping for %@: output %@ being preferred to %@", nextValue.input, nextValue.output, classValue.output);
-            }
-            else {
-                nextValue.output = classValue.output;
-            }
+            nextValue.output = classValue.output;
         }
         else {
             nextValue = [[DJParseTreeNode alloc] init];
             nextValue.input = classValue.input;
             nextValue.output = classValue.output;
+            if (!trieHead.next) trieHead.next = [NSMutableDictionary dictionaryWithCapacity:0];
             [trieHead.next setObject:nextValue forKey:classKey];
         }
         if (classValue.next && [classValue.next count]) {
-            nextValue.next = [NSMutableDictionary dictionaryWithCapacity:0];
             [self mergeTrieWithHead:classValue intoTrie:nextValue leafNodes:leafNodes];
         }
         else {

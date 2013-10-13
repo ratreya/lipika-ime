@@ -37,7 +37,7 @@
     STAssertTrue([@"test1" isEqualToString:[scheme.forwardMappings classNameForInput:@"c"]], @"Unexpected class name");
     STAssertTrue([@"test2" isEqualToString:[scheme.forwardMappings classNameForInput:@"f"]], @"Unexpected class name");
     STAssertTrue([[scheme.forwardMappings classForName:@"test1"] count] == 3, @"Unexpected count of mappings");
-    STAssertTrue([[scheme.forwardMappings classForName:@"test2"] count] == 2, @"Unexpected count of mappings");
+    STAssertTrue([[scheme.forwardMappings classForName:@"test2"] count] == 3, @"Unexpected count of mappings");
 }
 
 -(void)testHappyCase_Simple_NestedClass {
@@ -55,7 +55,6 @@
     STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
 }
 
-
 -(void)testInvalidCase_Simple_NestedClass {
     NSArray* result = [engine executeWithInput:@"z"];
     STAssertTrue([result[0] output] == nil, @"Unexpected output");
@@ -69,6 +68,11 @@
     STAssertTrue([@"zfc" isEqualToString:[result[0] output]], @"Unexpected output: %@", [result[0] output]);
     STAssertTrue([result[0] isFinal], @"Unexpected output");
     STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
+}
+
+-(void)testNestedNoPrekey {
+    NSArray* result = [engine executeWithInput:@"zhd"];
+    STAssertTrue([@"zdh" isEqualToString:[result[2] output]], @"Unexpected output: %@", [result[2] output]);
 }
 
 @end

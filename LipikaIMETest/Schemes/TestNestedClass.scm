@@ -10,6 +10,7 @@ class test1 {
 class test2 {
     f{test1} f*
     g{test1} g*
+    h{test1} *h
 }
 
 x{test1} x*
