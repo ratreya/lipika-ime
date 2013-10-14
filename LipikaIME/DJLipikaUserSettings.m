@@ -58,8 +58,8 @@ static NSDictionary* candidateStringAttributeCache = nil;
 
 +(NSDictionary*)candidateWindowAttributes {
     NSMutableDictionary* windowAttributes = [[NSMutableDictionary alloc] initWithCapacity:2];
-    [windowAttributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:@"IMKCandidatesOpacityAttributeName"];
-    [windowAttributes setValue:[NSNumber numberWithBool:YES] forKey:@"IMKCandidatesSendServerKeyEventFirst"];
+    [windowAttributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:(NSString*)IMKCandidatesOpacityAttributeName];
+    [windowAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString*)IMKCandidatesSendServerKeyEventFirst];
     return windowAttributes;
 }
 

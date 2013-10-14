@@ -71,6 +71,39 @@ static NSRegularExpression* whiteSpace;
     }
 }
 
+-(NSString*)outputForInput:(NSString*)string previousText:(NSString*)previousText {
+    @synchronized(self) {
+        // Handle non-character strings
+        if (string.length > 1) {
+            NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
+            NSArray *characters = charactersForString(string);
+            NSString *output = [self outputForInput:characters[0] previousText:previousText];
+            if (output) [aggregate addObject:output];
+            for (int i = 1; i < [output length]; i++) {
+                NSString *output = [self outputForInput:characters[i]];
+                if (output) [aggregate addObject:output];
+            }
+            return aggregate.count ? [aggregate componentsJoinedByString:@""] : nil;
+        }
+        // Don't use previous text if stop character or whitespace
+        BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
+        BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
+        if (isStopChar || isWhiteSpace || !previousText) {
+            return [self outputForInput:string];
+        }
+        DJParseOutput *previousResult = [engine.scheme.reverseMappings inputForOutput:previousText];
+        NSString *currentResult;
+        if (previousResult) {
+            replacement = previousResult.output;
+            currentResult = [self outputForInput:[previousResult.input stringByAppendingString:string]];
+        }
+        else {
+            currentResult = [self outputForInput:string];
+        }
+        return currentResult;
+    }
+}
+
 -(NSString*)outputForInput:(NSString*)string {
     @synchronized(self) {
         // Handle non-character strings
@@ -193,7 +226,7 @@ static NSRegularExpression* whiteSpace;
     return word;
 }
 
--(NSString *)input {
+-(NSString*)input {
     if ([uncommittedOutput count] <= 0) {
         return nil;
     }
@@ -206,6 +239,14 @@ static NSRegularExpression* whiteSpace;
     return word;
 }
 
+-(int)maxOutputLength {
+    return [engine.scheme.reverseMappings maxOutputSize];
+}
+
+-(NSString *)replacement {
+    return replacement;
+}
+
 -(NSString*)flush {
     @synchronized(self) {
         [engine reset];
@@ -215,9 +256,18 @@ static NSRegularExpression* whiteSpace;
     }
 }
 
+-(NSString*)revert {
+    @synchronized(self) {
+        NSString *previous = replacement;
+        [self flush];
+        return previous;
+    }
+}
+
 -(void)reset {
     @synchronized(self) {
         [uncommittedOutput removeAllObjects];
+        replacement = nil;
         finalizedIndex = 0;
     }
 }

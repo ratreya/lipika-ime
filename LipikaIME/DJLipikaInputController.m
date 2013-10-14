@@ -59,8 +59,17 @@ static long numCompositionCommits = 0;
 #pragma mark - IMKServerInput and IMKStateSetting protocol methods
 
 -(BOOL)inputText:(NSString*)string client:(id)sender {
-    NSString* commitString = [manager outputForInput:string];
-    [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    NSString *previousText;
+    // If this is the first character and combine with previous glyph is enabled
+    if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && ![manager hasDeletable]) {
+        NSRange currentPosition = [[self client] selectedRange];
+        if (currentPosition.location != NSNotFound && currentPosition.location > 0) {
+            int length = MIN(currentPosition.location, [manager maxOutputLength]);
+            previousText = [[[self client] attributedSubstringFromRange:NSMakeRange(currentPosition.location - length, length)] string];
+        }
+    }
+    NSString *commitString = [manager outputForInput:string previousText:previousText];
+    if (commitString) [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     [self updateCandidates];
     return YES;
 }
@@ -75,7 +84,7 @@ static long numCompositionCommits = 0;
         [manager flush];
     }
     else {
-        [self flush];
+        [self commit];
     }
 }
 
@@ -83,7 +92,7 @@ static long numCompositionCommits = 0;
     if (aSelector == @selector(deleteBackward:)) {
         // If delete output then commit the string and let the client delete
         if ([DJLipikaUserSettings backspaceBehavior] == DJ_DELETE_OUTPUT) {
-            [self flush];
+            [self commit];
             return NO;
         }
         // If we deleted something then swallow the delete
@@ -93,12 +102,12 @@ static long numCompositionCommits = 0;
         return isDeleted;
     }
     else if (aSelector == @selector(cancelOperation:)) {
-        [manager flush];
+        [self revert];
         [candidates hide];
         return YES;
     }
     else {
-        [self flush];
+        [self commit];
     }
     return NO;
 }
@@ -121,10 +130,10 @@ static long numCompositionCommits = 0;
 // This message is sent when our client looses focus
 -(void)deactivateServer:(id)sender {
     if ([DJLipikaUserSettings unfocusBehavior] == DJ_COMMIT_UNCOMMITTED) {
-        [self flush];
+        [self commit];
     }
     else if ([DJLipikaUserSettings unfocusBehavior] == DJ_DISCARD_UNCOMMITTED) {
-        [manager flush];
+        [self revert];
     }
     else if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED) {
         [candidates hide];
@@ -162,13 +171,12 @@ static long numCompositionCommits = 0;
 #pragma mark - DJLipikaInputController's instance methods
 
 -(void)updateCandidates {
-    if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED
-            && numMyCompositionCommits < numCompositionCommits) {
+    if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED && numMyCompositionCommits < numCompositionCommits) {
         numMyCompositionCommits = numCompositionCommits;
         [manager flush];
     }
     if ([manager hasOutput]) {
-        [candidates showCandidateWithInput:[manager input] output:[manager output]];
+        [candidates showCandidateWithInput:[manager input] output:[manager output] replacement:[manager replacement]];
     }
     else {
         [candidates hide];
@@ -192,7 +200,7 @@ static long numCompositionCommits = 0;
     // Turn on state for the script and scheme
     [[menuItem parentItem] setState:NSOnState];
     [menuItem setState:NSOnState];
-    [self flush];
+    [self commit];
     [manager changeToSchemeWithName:schemeName forScript:scriptName];
 }
 
@@ -210,12 +218,17 @@ static long numCompositionCommits = 0;
     [preference showWindow:self];
 }
 
--(void)flush {
+-(void)commit {
     NSString* commitString = [manager flush];
     if (commitString) {
         [[self client] insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     }
     [candidates hide];
+}
+
+-(void)revert {
+    NSString *previous = [manager revert];
+    if (previous) [[self client] insertText:previous replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
 }
 
 @end
