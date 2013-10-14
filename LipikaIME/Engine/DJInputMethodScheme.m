@@ -61,8 +61,7 @@ static NSRegularExpression* simpleMappingExpression;
 
 -(void)onStartParsingAtLine:(int)lineNumber {
     forwardMappings = [[DJForwardMapping alloc] initWithScheme:self];
-    if ([DJLipikaUserSettings isCombineWithPreviousGlyph]) reverseMappings = [[DJReverseMapping alloc] initWithScheme:self];
-    else reverseMappings = nil;
+    reverseMappings = [[DJReverseMapping alloc] initWithScheme:self];
 
     // Regular expressions for matching mapping items
     NSError* error;
