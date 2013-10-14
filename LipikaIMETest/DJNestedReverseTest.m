@@ -30,7 +30,6 @@
 
 - (void)setUp {
     [super setUp];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"CombineWithPreviousGlyph"];
     scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestNestedClass.scm"];
     engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }
