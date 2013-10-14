@@ -22,6 +22,10 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 
 ### Release Notes ###
 
+#### 10/14/2013: RELEASE NOTES FOR VERSION 1.3 ####
+* Support for combining fresh typing with existing glyph
+* Several bug fixes around candidate window configuration
+
 
 #### 7/21/2013: RELEASE NOTES FOR VERSION 1.2 ####
 * Input Schemes menu now groups schemes by language or rather script
