@@ -21,21 +21,27 @@
 
 @interface DJLipikaBufferManager : NSObject {
     // One instance of the engine per connection
-    DJInputMethodEngine* engine;
+    DJInputMethodEngine *engine;
     // Holds NSString outputs that need to be handed off to the client
-    NSMutableArray* uncommittedOutput;
+    NSMutableArray *uncommittedOutput;
     // New output from the engine will replace all output after this index
     unsigned long finalizedIndex;
+    // The string in the client that is being replaced
+    NSString *replacement;
 }
 
 -(id)init;
 -(void)changeToSchemeWithName:(NSString*)schemeName forScript:scriptName;
 -(NSString*)outputForInput:(NSString*)string;
+-(NSString*)outputForInput:(NSString*)string previousText:(NSString*)previousText;
 -(BOOL)hasDeletable;
 -(void)delete;
 -(BOOL)hasOutput;
 -(NSString*)output;
 -(NSString*)input;
 -(NSString*)flush;
+-(NSString*)revert;
+-(int)maxOutputLength;
+-(NSString*)replacement;
 
 @end

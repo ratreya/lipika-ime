@@ -26,7 +26,7 @@
 }
 
 -(id)initWithController:(DJLipikaInputController*)controller;
--(void)showCandidateWithInput:(NSString*)input output:(NSString*)output;
+-(void)showCandidateWithInput:(NSString*)input output:(NSString*)output replacement:(NSString*)replacement;
 -(NSArray*)candidates:(id)sender;
 -(void)hide;
 

@@ -25,14 +25,14 @@ IMKCandidates* candidates = nil;
 
 int main(int argc, char *argv[]) {
     @autoreleasepool {
-        // Load the bundle explicitly because the input method is a background only application
-        [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
-
         // Initialize the IMK system
         NSString* kConnectionName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"InputMethodConnectionName"];
         NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
         server = [[IMKServer alloc] initWithName:kConnectionName bundleIdentifier:identifier];
         candidates = [[IMKCandidates alloc] initWithServer:server panelType:kIMKScrollingGridCandidatePanel];
+
+        // Load the bundle explicitly because the input method is a background only application
+        [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
 
         // Run everything
         [[NSApplication sharedApplication] run];

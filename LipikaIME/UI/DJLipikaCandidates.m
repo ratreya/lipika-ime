@@ -34,7 +34,7 @@ extern IMKCandidates* candidates;
     return self;
 }
 
--(void)showCandidateWithInput:(NSString*)input output:(NSString*)output {
+-(void)showCandidateWithInput:(NSString*)input output:(NSString*)output replacement:(NSString*)replacement {
     NSString* inputString;
     NSString* outputString;
     if (input && [DJLipikaUserSettings isShowInput]) {
@@ -60,7 +60,15 @@ extern IMKCandidates* candidates;
     }
 
     if (forClient) {
-        [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+        if (replacement) {
+            NSRange replacementRange = [[controller client] selectedRange];
+            replacementRange.location -= [replacement length];
+            replacementRange.length = [replacement length];
+            [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:replacementRange];
+        }
+        else {
+            [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+        }
     }
     if (forCandidate) {
         if ([DJLipikaUserSettings isOverrideCandidateAttributes]) {
