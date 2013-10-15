@@ -62,11 +62,7 @@ static long numCompositionCommits = 0;
     NSString *previousText;
     // If this is the first character and combine with previous glyph is enabled
     if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && ![manager hasDeletable]) {
-        NSRange currentPosition = [[self client] selectedRange];
-        if (currentPosition.location != NSNotFound && currentPosition.location > 0) {
-            int length = MIN(currentPosition.location, [manager maxOutputLength]);
-            previousText = [[[self client] attributedSubstringFromRange:NSMakeRange(currentPosition.location - length, length)] string];
-        }
+        previousText = [self previousText];
     }
     NSString *commitString = [manager outputForInput:string previousText:previousText];
     if (commitString) [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
@@ -97,6 +93,17 @@ static long numCompositionCommits = 0;
         }
         // If we deleted something then swallow the delete
         BOOL isDeleted = [manager hasDeletable];
+        if (!isDeleted) {
+            NSString *previousText = [self previousText];
+            if (previousText) {
+                if ([manager outputForInput:@"" previousText:previousText]) {
+                    // This only happens when previousText is whitespace or non-reverse-mapable character
+                    return NO;
+                }
+                [self updateCandidates];
+                return YES;
+            }
+        }
         [manager delete];
         [self updateCandidates];
         return isDeleted;
@@ -169,6 +176,16 @@ static long numCompositionCommits = 0;
 
 
 #pragma mark - DJLipikaInputController's instance methods
+
+-(NSString*)previousText {
+    NSString *previousText;
+    NSRange currentPosition = [[self client] selectedRange];
+    if (currentPosition.location != NSNotFound && currentPosition.location > 0) {
+        int length = MIN(currentPosition.location, [manager maxOutputLength]);
+        previousText = [[[self client] attributedSubstringFromRange:NSMakeRange(currentPosition.location - length, length)] string];
+    }
+    return previousText;
+}
 
 -(void)updateCandidates {
     if ([DJLipikaUserSettings unfocusBehavior] == DJ_RESTORE_UNCOMMITTED && numMyCompositionCommits < numCompositionCommits) {
