@@ -106,6 +106,8 @@ static NSRegularExpression* whiteSpace;
 
 -(NSString*)outputForInput:(NSString*)string {
     @synchronized(self) {
+        // This can happen for the delete case when you encounter whitespace or non-reverse-mapabled character
+        if (string.length < 1) return @"";
         // Handle non-character strings
         if (string.length > 1) {
             NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
@@ -207,6 +209,9 @@ static NSRegularExpression* whiteSpace;
             else {
                 logError(@"Unrecognized backspace behavior");
             }
+        }
+        if (![self hasDeletable]) {
+            replacement = nil;
         }
     }
 }
