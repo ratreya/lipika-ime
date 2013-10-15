@@ -93,7 +93,7 @@ static long numCompositionCommits = 0;
         }
         // If we deleted something then swallow the delete
         BOOL isDeleted = [manager hasDeletable];
-        if (!isDeleted) {
+        if (!isDeleted && [DJLipikaUserSettings isCombineWithPreviousGlyph]) {
             NSString *previousText = [self previousText];
             if (previousText) {
                 if ([manager outputForInput:@"" previousText:previousText]) {
