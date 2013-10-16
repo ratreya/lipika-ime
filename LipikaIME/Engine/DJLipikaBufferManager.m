@@ -120,12 +120,20 @@ static NSRegularExpression* whiteSpace;
         // Fush if stop character or whitespace
         BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
         BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
-        if (isStopChar || isWhiteSpace) {
+        if (isWhiteSpace) {
+            [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];
+            return [self flush];
+        }
+        if (isStopChar) {
             // Only include the stop character if it does nothing to the engine
-            if (!isStopChar || [engine isAtRoot]) {
+            if ([engine isAtRoot]) {
                 [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];
             }
-            return [self flush];
+            else {
+                finalizedIndex = [uncommittedOutput count];
+                [engine reset];
+            }
+            return nil;
         }
 
         NSArray* results = [engine executeWithInput:string];
