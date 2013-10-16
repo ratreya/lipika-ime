@@ -109,9 +109,13 @@
     result = [manager outputForInput:@"J"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"\\"];
-    STAssertTrue([result isEqualToString:@"ञ्"], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    STAssertTrue([[manager output] isEqualToString:@"ञ्"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
     result = [manager outputForInput:@"\\"];
-    STAssertTrue([result isEqualToString:@"\\"], [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
+    STAssertTrue([[manager output] isEqualToString:@"ञ्\\"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    result = [manager outputForInput:@" "];
+    STAssertTrue([result isEqualToString:@"ञ्\\ "], @"Unexpected output: %@", result);
     result = [manager outputForInput:@"~"];
     STAssertTrue(result == nil, [NSString stringWithFormat: @"Unexpected output: %@", result]);
     result = [manager outputForInput:@"l"];
