@@ -213,11 +213,17 @@ static NSRegularExpression* whiteSpace;
                         [self handleResults:results];
                     }
                 }
+                else {
+                    --finalizedIndex;
+                    lastBundle = [uncommittedOutput lastObject];
+                    [engine executeWithInput:lastBundle.input];
+                }
             }
             else {
                 logError(@"Unrecognized backspace behavior");
             }
         }
+        // If there are no more glyphs then reset the replacement string
         if (![self hasDeletable]) {
             replacement = nil;
         }
