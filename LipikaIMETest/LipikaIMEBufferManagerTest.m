@@ -207,4 +207,18 @@
     STAssertTrue([[manager output] isEqualToString:@"र्"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
 }
 
+-(void)testCombineAfterDelete {
+    [[NSUserDefaults standardUserDefaults] setObject:@"Input character" forKey:@"BackspaceDeletes"];
+    [manager outputForInput:@"vRuddhi"];
+    STAssertTrue([[manager output] isEqualToString:@"वृद्धि"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager delete];
+    STAssertTrue([[manager output] isEqualToString:@"वृद्ध्"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager outputForInput:@"k"];
+    STAssertTrue([[manager output] isEqualToString:@"वृद्ध्क्"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager delete];
+    STAssertTrue([[manager output] isEqualToString:@"वृद्ध्"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager outputForInput:@"u"];
+    STAssertTrue([[manager output] isEqualToString:@"वृद्धु"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+}
+
 @end
