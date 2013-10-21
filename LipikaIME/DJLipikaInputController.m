@@ -100,8 +100,8 @@ static long numCompositionCommits = 0;
                     // This only happens when previousText is whitespace or non-reverse-mapable character
                     return NO;
                 }
+                isDeleted = [manager hasDeletable];
                 [self updateCandidates];
-                return YES;
             }
         }
         [manager delete];
