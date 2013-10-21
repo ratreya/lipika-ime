@@ -60,14 +60,14 @@ extern IMKCandidates* candidates;
     }
 
     if (forClient) {
+        NSRange replacementRange = [[controller client] selectedRange];
         if (replacement) {
-            NSRange replacementRange = [[controller client] selectedRange];
             replacementRange.location -= [replacement length];
-            replacementRange.length = [replacement length];
+            replacementRange.length += [replacement length];
             [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:replacementRange];
         }
         else {
-            [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+            [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:replacementRange];
         }
     }
     if (forCandidate) {
