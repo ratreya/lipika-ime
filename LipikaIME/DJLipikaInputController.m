@@ -46,7 +46,7 @@ static long numCompositionCommits = 0;
 }
 
 -(void)candidateSelected:(NSAttributedString*)candidateString {
-    [[self client] insertText:candidateString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [[self client] insertText:candidateString replacementRange:[[self client] selectedRange]];
     [manager flush];
     [candidates hide];
 }
@@ -65,7 +65,7 @@ static long numCompositionCommits = 0;
         previousText = [self previousText];
     }
     NSString *commitString = [manager outputForInput:string previousText:previousText];
-    if (commitString) [sender insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    if (commitString) [sender insertText:commitString replacementRange:[sender selectedRange]];
     [self updateCandidates];
     return YES;
 }
@@ -86,8 +86,8 @@ static long numCompositionCommits = 0;
 
 -(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
     if (aSelector == @selector(deleteBackward:)) {
-        // If delete output then commit the string and let the client delete
-        if ([DJLipikaUserSettings backspaceBehavior] == DJ_DELETE_OUTPUT) {
+        // If delete output or if more than one letter is selected then commit the string and let the client delete
+        if ([DJLipikaUserSettings backspaceBehavior] == DJ_DELETE_OUTPUT || [sender selectedRange].length > 0) {
             [self commit];
             return NO;
         }
@@ -238,7 +238,7 @@ static long numCompositionCommits = 0;
 -(void)commit {
     NSString* commitString = [manager flush];
     if (commitString) {
-        [[self client] insertText:commitString replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+        [[self client] insertText:commitString replacementRange:[[self client] selectedRange]];
     }
     [candidates hide];
 }

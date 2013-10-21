@@ -213,10 +213,10 @@ static NSRegularExpression* whiteSpace;
                         [self handleResults:results];
                     }
                 }
-                else {
-                    --finalizedIndex;
+                else if ([uncommittedOutput count] > 0) {
+                    if (finalizedIndex == [uncommittedOutput count]) --finalizedIndex;
                     lastBundle = [uncommittedOutput lastObject];
-                    [engine executeWithInput:lastBundle.input];
+                    if (lastBundle) [engine executeWithInput:lastBundle.input];
                 }
             }
             else {
