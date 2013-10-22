@@ -221,4 +221,14 @@
     STAssertTrue([[manager output] isEqualToString:@"वृद्धु"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
 }
 
+-(void)testCombineAfterDeleteNonMappableChar {
+    [[NSUserDefaults standardUserDefaults] setObject:@"Input character" forKey:@"BackspaceDeletes"];
+    [manager outputForInput:@"guNavRi"];
+    STAssertTrue([[manager output] isEqualToString:@"गुणव्Ri"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager delete];
+    [manager delete];
+    [manager outputForInput:@"Ru"];
+    STAssertTrue([[manager output] isEqualToString:@"गुणवृ"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+}
+
 @end

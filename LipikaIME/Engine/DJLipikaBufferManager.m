@@ -196,6 +196,11 @@ static NSRegularExpression* whiteSpace;
         if ([engine hasDeletable]) {
             // First clear out any inputs that have not produced output yet
             [engine reset];
+            if ([uncommittedOutput count] > 0) {
+                if (finalizedIndex == [uncommittedOutput count]) --finalizedIndex;
+                DJParseOutput* lastBundle = [uncommittedOutput lastObject];
+                if (lastBundle) [engine executeWithInput:lastBundle.input];
+            }
         }
         else if ([uncommittedOutput count] > 0) {
             [engine reset];
@@ -262,7 +267,7 @@ static NSRegularExpression* whiteSpace;
     return [engine.scheme.reverseMappings maxOutputSize];
 }
 
--(NSString *)replacement {
+-(NSString*)replacement {
     return replacement;
 }
 

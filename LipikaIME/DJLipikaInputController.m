@@ -86,27 +86,7 @@ static long numCompositionCommits = 0;
 
 -(BOOL)didCommandBySelector:(SEL)aSelector client:(id)sender {
     if (aSelector == @selector(deleteBackward:)) {
-        // If delete output or if more than one letter is selected then commit the string and let the client delete
-        if ([DJLipikaUserSettings backspaceBehavior] == DJ_DELETE_OUTPUT || [sender selectedRange].length > 0) {
-            [self commit];
-            return NO;
-        }
-        // If we deleted something then swallow the delete
-        BOOL isDeleted = [manager hasDeletable];
-        if (!isDeleted && [DJLipikaUserSettings isCombineWithPreviousGlyph]) {
-            NSString *previousText = [self previousText];
-            if (previousText) {
-                if ([manager outputForInput:@"" previousText:previousText]) {
-                    // This only happens when previousText is whitespace or non-reverse-mapable character
-                    return NO;
-                }
-                isDeleted = [manager hasDeletable];
-                [self updateCandidates];
-            }
-        }
-        [manager delete];
-        [self updateCandidates];
-        return isDeleted;
+        return [self handleBackspaceForSender:sender];
     }
     else if (aSelector == @selector(cancelOperation:)) {
         [self revert];
@@ -176,6 +156,38 @@ static long numCompositionCommits = 0;
 
 
 #pragma mark - DJLipikaInputController's instance methods
+
+-(BOOL)handleBackspaceForSender:(id)sender {
+    // If delete output or if more than one letter is selected then commit the string and let the client delete
+    if ([DJLipikaUserSettings backspaceBehavior] == DJ_DELETE_OUTPUT || [sender selectedRange].length > 0) {
+        [self commit];
+        return NO;
+    }
+    BOOL isDeleted = [manager hasDeletable];
+    if (!isDeleted && [DJLipikaUserSettings isCombineWithPreviousGlyph]) {
+        NSString *previousText = [self previousText];
+        if (previousText) {
+            if ([manager outputForInput:@"" previousText:previousText]) {
+                // This only happens when previousText is whitespace or non-reverse-mapable character
+                return NO;
+            }
+            isDeleted = [manager hasDeletable];
+            [self updateCandidates];
+        }
+    }
+    [manager delete];
+    [self updateCandidates];
+    // If there are no more deletables then pre-parse previous text
+    if (![manager hasDeletable] && [DJLipikaUserSettings isCombineWithPreviousGlyph]) {
+        NSString *previousText = [self previousText];
+        if (previousText && ![manager outputForInput:@"" previousText:previousText]) {
+            // There is some previous text and it is reversable
+            [self updateCandidates];
+        }
+    }
+    // If we deleted something then swallow the delete
+    return isDeleted;
+}
 
 -(NSString*)previousText {
     NSString *previousText;
