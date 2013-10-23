@@ -31,7 +31,7 @@
 @property DJInputMethodScheme* scheme;
 
 -(id)initWithScheme:(DJInputMethodScheme*)inputScheme;
--(NSArray*)executeWithInput:(NSString*) input;
+-(NSArray*)executeWithInput:(NSString*)input;
 -(NSArray*)inputsSinceLastOutput;
 -(BOOL)isAtRoot;
 -(BOOL)hasDeletable;

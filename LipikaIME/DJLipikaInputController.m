@@ -163,16 +163,25 @@ static long numCompositionCommits = 0;
         [self commit];
         return NO;
     }
-    BOOL isDeleted = [manager hasDeletable];
-    if (!isDeleted && [DJLipikaUserSettings isCombineWithPreviousGlyph]) {
+    BOOL isHandled = [manager hasDeletable];
+    if (!isHandled && [DJLipikaUserSettings isCombineWithPreviousGlyph]) {
         NSString *previousText = [self previousText];
         if (previousText) {
             if ([manager outputForInput:@"" previousText:previousText]) {
-                // This only happens when previousText is whitespace or non-reverse-mapable character
-                return NO;
+                // This means that the previous character is either whitespace, stop character or non-reverse-mappable
+                NSRange replacementRange = [sender selectedRange];
+                replacementRange.location -= 1;
+                replacementRange.length += 1;
+                [sender setMarkedText:@"" selectionRange:NSMakeRange(0, 0) replacementRange:replacementRange];
+                isHandled = YES;
             }
-            isDeleted = [manager hasDeletable];
-            [self updateCandidates];
+            else {
+                [self updateCandidates];
+                return YES;
+            }
+        }
+        else {
+            return NO;
         }
     }
     [manager delete];
@@ -180,17 +189,17 @@ static long numCompositionCommits = 0;
     // If there are no more deletables then pre-parse previous text
     if (![manager hasDeletable] && [DJLipikaUserSettings isCombineWithPreviousGlyph]) {
         NSString *previousText = [self previousText];
-        if (previousText && ![manager outputForInput:@"" previousText:previousText]) {
-            // There is some previous text and it is reversable
+        if (previousText) {
+            [manager outputForInput:@"" previousText:previousText];
             [self updateCandidates];
         }
     }
     // If we deleted something then swallow the delete
-    return isDeleted;
+    return isHandled;
 }
 
 -(NSString*)previousText {
-    NSString *previousText;
+    NSString *previousText = nil;
     NSRange currentPosition = [[self client] selectedRange];
     if (currentPosition.location != NSNotFound && currentPosition.location > 0) {
         int length = MIN(currentPosition.location, [manager maxOutputLength]);
