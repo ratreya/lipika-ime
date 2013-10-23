@@ -231,4 +231,13 @@
     STAssertTrue([[manager output] isEqualToString:@"गुणवृ"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
 }
 
+-(void)testPartialParseStopCharacter {
+    [[NSUserDefaults standardUserDefaults] setObject:@"Input character" forKey:@"BackspaceDeletes"];
+    [manager outputForInput:@"guNavRi"];
+    STAssertTrue([[manager output] isEqualToString:@"गुणव्Ri"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+    [manager delete];
+    [manager outputForInput:@"\\"];
+    STAssertTrue([[manager output] isEqualToString:@"गुणव्R"], [NSString stringWithFormat: @"Unexpected output: %@", [manager output]]);
+}
+
 @end

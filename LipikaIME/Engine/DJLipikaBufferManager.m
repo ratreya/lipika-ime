@@ -106,8 +106,7 @@ static NSRegularExpression* whiteSpace;
 
 -(NSString*)outputForInput:(NSString*)string {
     @synchronized(self) {
-        // This can happen for the delete case when you encounter whitespace or non-reverse-mapabled character
-        if (string.length < 1) return @"";
+        if (string.length < 1) return string;
         // Handle non-character strings
         if (string.length > 1) {
             NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
@@ -130,6 +129,7 @@ static NSRegularExpression* whiteSpace;
                 [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];
             }
             else {
+                [uncommittedOutput addObject:[DJParseOutput sameInputOutput:[[engine inputsSinceLastOutput] componentsJoinedByString:@""]]];
                 finalizedIndex = [uncommittedOutput count];
                 [engine reset];
             }
