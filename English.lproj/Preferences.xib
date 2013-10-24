@@ -90,15 +90,6 @@
                                                 </binding>
                                             </connections>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1695">
-                                            <rect key="frame" x="139" y="15" width="103" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="1 is opaque 0 is transparent" id="1700">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="selectedKnobColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1696">
                                             <rect key="frame" x="109" y="18" width="19" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -231,6 +222,18 @@
                                                 <binding destination="1491" name="enabled" keyPath="values.ShowOutputString" id="3841"/>
                                             </connections>
                                         </matrix>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1695">
+                                            <rect key="frame" x="137" y="15" width="111" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="107" id="TfY-Fs-kRS"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="1 is opaque 0 is transparent" id="1700">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="selectedKnobColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="1691" firstAttribute="leading" secondItem="1683" secondAttribute="trailing" constant="8" symbolic="YES" id="2409"/>
@@ -242,7 +245,6 @@
                                         <constraint firstItem="3016" firstAttribute="leading" secondItem="1671" secondAttribute="leading" constant="29" id="3035"/>
                                         <constraint firstItem="1683" firstAttribute="leading" secondItem="1671" secondAttribute="leading" constant="17" id="3122"/>
                                         <constraint firstItem="1696" firstAttribute="top" secondItem="1691" secondAttribute="top" id="3148"/>
-                                        <constraint firstAttribute="trailing" secondItem="1695" secondAttribute="trailing" constant="26" id="3350"/>
                                         <constraint firstItem="1696" firstAttribute="leading" secondItem="1671" secondAttribute="leading" constant="112" id="3352"/>
                                         <constraint firstItem="3016" firstAttribute="trailing" secondItem="3025" secondAttribute="trailing" id="3422"/>
                                         <constraint firstItem="3368" firstAttribute="leading" secondItem="3176" secondAttribute="leading" id="3424"/>
@@ -253,7 +255,8 @@
                                         <constraint firstItem="3025" firstAttribute="top" secondItem="3368" secondAttribute="bottom" constant="8" symbolic="YES" id="3445"/>
                                         <constraint firstItem="3368" firstAttribute="top" secondItem="1671" secondAttribute="top" constant="130" id="3446"/>
                                         <constraint firstItem="3368" firstAttribute="centerY" secondItem="2992" secondAttribute="centerY" id="3447"/>
-                                        <constraint firstAttribute="bottom" secondItem="1695" secondAttribute="bottom" constant="15" id="3483"/>
+                                        <constraint firstAttribute="trailing" secondItem="1695" secondAttribute="trailing" constant="20" symbolic="YES" id="PM6-Ky-Yvo"/>
+                                        <constraint firstAttribute="bottom" secondItem="1683" secondAttribute="bottom" constant="24" id="jvI-f5-OCF"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
