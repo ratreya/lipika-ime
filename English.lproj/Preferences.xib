@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
@@ -63,7 +63,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1683">
-                                            <rect key="frame" x="14" y="24" width="52" height="17"/>
+                                            <rect key="frame" x="15" y="24" width="52" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Opacity" id="1715">
                                                 <font key="font" metaFont="system"/>
@@ -72,7 +72,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="1691">
-                                            <rect key="frame" x="71" y="21" width="35" height="22"/>
+                                            <rect key="frame" x="73" y="21" width="35" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="2390"/>
@@ -91,7 +91,7 @@
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1695">
-                                            <rect key="frame" x="139" y="15" width="104" height="34"/>
+                                            <rect key="frame" x="139" y="15" width="103" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="1 is opaque 0 is transparent" id="1700">
                                                 <font key="font" metaFont="system"/>
@@ -138,7 +138,7 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3016">
-                                            <rect key="frame" x="26" y="189" width="234" height="51"/>
+                                            <rect key="frame" x="27" y="189" width="232" height="51"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="228" id="3174"/>
@@ -150,7 +150,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3025">
-                                            <rect key="frame" x="26" y="66" width="234" height="68"/>
+                                            <rect key="frame" x="27" y="66" width="232" height="68"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Characters being generated in the chosen language as you type. Specify if you want to see it and if so where." id="3027">
                                                 <font key="font" metaFont="system"/>
@@ -186,12 +186,12 @@
                                                 </column>
                                             </cells>
                                             <connections>
-                                                <binding destination="1491" name="enabled" keyPath="values.ShowInputString" id="3838"/>
                                                 <binding destination="1491" name="selectedIndex" keyPath="values.OutputInCandidate" id="3448">
                                                     <dictionary key="options">
                                                         <bool key="NSValidatesImmediately" value="YES"/>
                                                     </dictionary>
                                                 </binding>
+                                                <binding destination="1491" name="enabled" keyPath="values.ShowInputString" id="3838"/>
                                             </connections>
                                         </matrix>
                                         <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3368">
@@ -222,13 +222,13 @@
                                                 </column>
                                             </cells>
                                             <connections>
-                                                <binding destination="1491" name="enabled" keyPath="values.ShowOutputString" id="3841"/>
                                                 <binding destination="1491" name="selectedIndex" keyPath="values.OutputInCandidate" id="3449">
                                                     <dictionary key="options">
                                                         <bool key="NSValidatesImmediately" value="YES"/>
                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                     </dictionary>
                                                 </binding>
+                                                <binding destination="1491" name="enabled" keyPath="values.ShowOutputString" id="3841"/>
                                             </connections>
                                         </matrix>
                                     </subviews>
@@ -263,16 +263,16 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1860">
-                                            <rect key="frame" x="22" y="250" width="88" height="17"/>
+                                            <rect key="frame" x="23" y="250" width="88" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Logging level" id="1861">
                                                 <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="selectedKnobColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1866">
-                                            <rect key="frame" x="115" y="244" width="99" height="26"/>
+                                            <rect key="frame" x="117" y="244" width="99" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="96" id="2421"/>
@@ -296,10 +296,10 @@
                                             </connections>
                                         </comboBox>
                                         <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1879">
-                                            <rect key="frame" x="97" y="139" width="143" height="26"/>
+                                            <rect key="frame" x="102" y="139" width="138" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="140" id="2422"/>
+                                                <constraint firstAttribute="width" constant="135" id="2422"/>
                                             </constraints>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Output character" drawsBackground="YES" completes="NO" numberOfVisibleItems="3" id="1880">
                                                 <font key="font" metaFont="system"/>
@@ -320,23 +320,23 @@
                                             </connections>
                                         </comboBox>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1890">
-                                            <rect key="frame" x="22" y="136" width="70" height="34"/>
+                                            <rect key="frame" x="23" y="136" width="73" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="64" id="2424"/>
+                                                <constraint firstAttribute="width" constant="69" id="2424"/>
                                             </constraints>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Backspace Deletes:" id="1891">
                                                 <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="selectedKnobColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1929">
-                                            <rect key="frame" x="22" y="80" width="218" height="34"/>
+                                            <rect key="frame" x="23" y="80" width="216" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="On losing focus, unfinished word in the candidate window:" id="1930">
                                                 <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="selectedKnobColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
@@ -383,11 +383,11 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3869">
-                                            <rect key="frame" x="48" y="192" width="192" height="34"/>
+                                            <rect key="frame" x="49" y="192" width="190" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Combine fresh typing with the previous glyph" id="3870">
                                                 <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="selectedKnobColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
@@ -430,7 +430,7 @@
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3470">
-                                            <rect key="frame" x="14" y="139" width="238" height="68"/>
+                                            <rect key="frame" x="15" y="139" width="238" height="68"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="3471">
                                                 <font key="font" metaFont="system"/>
@@ -486,7 +486,7 @@
                                             </connections>
                                         </scrollView>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3797">
-                                            <rect key="frame" x="14" y="251" width="91" height="23"/>
+                                            <rect key="frame" x="15" y="251" width="89" height="23"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="3824"/>
