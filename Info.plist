@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSMinimumSystemVersion</key>
-	<string>10.8.0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -30,6 +28,8 @@
 	<string>DJLipikaInputController</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.8.0</string>
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSMainNibFile</key>
@@ -41,6 +41,7 @@
 		<string>Deva</string>
 		<string>Knda</string>
 		<string>Telu</string>
+		<string>Taml</string>
 	</array>
 	<key>tsInputMethodIconFileKey</key>
 	<string>LipikaIcon.png</string>

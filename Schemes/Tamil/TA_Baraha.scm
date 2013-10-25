@@ -1,0 +1,216 @@
+version: 1.0
+name: Baraha
+stop-char: \
+using classes
+class-delimiters: { }
+wildcard: *
+
+a அ
+aa ஆ
+A ஆ
+i இ
+ee ஈ
+I ஈ
+u உ
+oo ஊ
+U ஊ
+e எ
+E ஏ
+ai ஐ
+o ஒ
+O ஓ
+au ஔ
+ou ஔ
+
+ka க
+kha க
+Ka க
+ga க
+gha க
+Ga க
+~ga ங
+ca ச
+cha ச
+Ca ச
+Cha ச
+ja ஜ
+Ja ஜ
+jha ஜ
+~ja ஞ
+Ta ட
+Tha ட
+Da ட
+Dha ட
+Na ண
+ta த
+tha த
+da த
+dha த
+~na ந
+na ன
+pa ப
+pha ப
+Pa ப
+ba ப
+bha ப
+Ba ப
+ma ம
+Ma ம
+ya ய
+ra ர
+Ra ற
+la ல
+La ள
+Lxa ழ
+zha ழ
+va வ
+wa வ
+sha ஶ
+Sa ஶ
+Sha ஷ
+sa ஸ
+ha ஹ
+~ha ஹ
+
+class VowelSigns {
+  aa ா
+  A ா
+  i ி
+  ee ீ
+  I ீ
+  u ு
+  oo ூ
+  U ூ
+  e ெ
+  E ே
+  ai ை
+  o ொ
+  O ோ
+  au ௌ
+  ou ௌ
+}
+
+k க்
+kh க்
+K க்
+g க்
+gh க்
+G க்
+~g ங்
+c ச்
+ch ச்
+C ச்
+Ch ச்
+j ஜ்
+J ஜ்
+jh ஜ்
+~j ஞ்
+T ட்
+Th ட்
+D ட்
+Dh ட்
+N ண்
+t த்
+th த்
+d த்
+dh த்
+~n ந்
+n ன்
+p ப்
+ph ப்
+P ப்
+b ப்
+bh ப்
+B ப்
+m ம்
+M ம்
+y ய்
+r ர்
+R ற்
+l ல்
+L ள்
+Lx ழ்
+zh ழ்
+v வ்
+w வ்
+sh ஶ்
+S ஶ்
+Sh ஷ்
+s ஸ்
+h ஹ்
+~h ஹ்
+
+k{VowelSigns} க*
+kh{VowelSigns} க*
+K{VowelSigns} க*
+g{VowelSigns} க*
+gh{VowelSigns} க*
+G{VowelSigns} க*
+~g{VowelSigns} ங*
+c{VowelSigns} ச*
+ch{VowelSigns} ச*
+C{VowelSigns} ச*
+Ch{VowelSigns} ச*
+j{VowelSigns} ஜ*
+J{VowelSigns} ஜ*
+jh{VowelSigns} ஜ*
+~j{VowelSigns} ஞ*
+T{VowelSigns} ட*
+Th{VowelSigns} ட*
+D{VowelSigns} ட*
+Dh{VowelSigns} ட*
+N{VowelSigns} ண*
+t{VowelSigns} த*
+th{VowelSigns} த*
+d{VowelSigns} த*
+dh{VowelSigns} த*
+~n{VowelSigns} ந*
+n{VowelSigns} ன*
+p{VowelSigns} ப*
+ph{VowelSigns} ப*
+P{VowelSigns} ப*
+b{VowelSigns} ப*
+bh{VowelSigns} ப*
+B{VowelSigns} ப*
+m{VowelSigns} ம*
+M{VowelSigns} ம*
+y{VowelSigns} ய*
+r{VowelSigns} ர*
+R{VowelSigns} ற*
+l{VowelSigns} ல*
+L{VowelSigns} ள*
+Lx{VowelSigns} ழ*
+zh{VowelSigns} ழ*
+v{VowelSigns} வ*
+w{VowelSigns} வ*
+sh{VowelSigns} ஶ*
+S{VowelSigns} ஶ*
+Sh{VowelSigns} ஷ*
+s{VowelSigns} ஸ*
+h{VowelSigns} ஹ*
+~h{VowelSigns} ஹ*
+
+0 ௦
+1 ௧
+2 ௨
+3 ௩
+4 ௪
+5 ௫
+6 ௬
+7 ௭
+8 ௮
+9 ௯
+10 ௰
+100 ௱
+1000 ௲
+
+H ஃ
+
+| ।
+! ॥
+
+aum ௐ
+Rs ௹
+# ௺
+'' ௸
+q ்
