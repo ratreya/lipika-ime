@@ -101,7 +101,7 @@ g గ్
 gh ఘ్
 ~N ఙ్
 ~N^ ఙ్
-c చ్
+ch చ్
 chh ఛ్
 Ch ఛ్
 j జ్
@@ -142,7 +142,7 @@ g{VowelSigns} గ#
 gh{VowelSigns} ఘ#
 ~N{VowelSigns} ఙ#
 ~N^{VowelSigns} ఙ#
-c{VowelSigns} చ#
+ch{VowelSigns} చ#
 Ch{VowelSigns} ఛ#
 chh{VowelSigns} ఛ#
 j{VowelSigns} జ#
