@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
         candidates = [[IMKCandidates alloc] initWithServer:server panelType:kIMKScrollingGridCandidatePanel];
 
         // Load the bundle explicitly because the input method is a background only application
-        [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
+        [[NSBundle mainBundle] loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication] topLevelObjects:nil];
 
         // Run everything
         [[NSApplication sharedApplication] run];

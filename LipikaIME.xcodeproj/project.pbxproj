@@ -30,6 +30,9 @@
 		A58BA2DC16FFE5F3001DE998 /* DJPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58BA2DA16FFE5F3001DE998 /* DJPreferenceController.m */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A5BA7D5A181D912100461B2F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BA7D59181D912100461B2F /* Foundation.framework */; };
+		A5BA7D66181D91A000461B2F /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BA7D65181D91A000461B2F /* Carbon.framework */; };
+		A5BA7D68181DA28100461B2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BA7D67181DA28100461B2F /* main.m */; };
 		A5C2FEBA17EF64AA00653E7A /* DJReverseMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A53A71E817EAA7A900AFC09A /* DJReverseMapping.m */; };
 		A5C54E0516BA20C1007F631D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C54E0416BA20C1007F631D /* SenTestingKit.framework */; };
 		A5C54E0E16BA20C1007F631D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A5C54E0C16BA20C1007F631D /* InfoPlist.strings */; };
@@ -108,6 +111,10 @@
 		A5638A4F17DD08470078053A /* DJInputMethodScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJInputMethodScheme.m; path = LipikaIME/Engine/DJInputMethodScheme.m; sourceTree = "<group>"; };
 		A58BA2DA16FFE5F3001DE998 /* DJPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJPreferenceController.m; path = LipikaIME/UI/DJPreferenceController.m; sourceTree = "<group>"; };
 		A58BA2DB16FFE5F3001DE998 /* DJPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJPreferenceController.h; path = LipikaIME/UI/DJPreferenceController.h; sourceTree = "<group>"; };
+		A5BA7D58181D912100461B2F /* LipikaIMEInstaller */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LipikaIMEInstaller; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5BA7D59181D912100461B2F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A5BA7D65181D91A000461B2F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		A5BA7D67181DA28100461B2F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Installer/Source/main.m; sourceTree = SOURCE_ROOT; };
 		A5C0EA1017EF849200126799 /* DJSchemeMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DJSchemeMapping.h; path = LipikaIME/Engine/DJSchemeMapping.h; sourceTree = "<group>"; };
 		A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaIMETest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C54E0416BA20C1007F631D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -162,6 +169,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5BA7D55181D912100461B2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5BA7D66181D91A000461B2F /* Carbon.framework in Frameworks */,
+				A5BA7D5A181D912100461B2F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5C54DFF16BA20C1007F631D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -202,6 +218,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* LipikaIME.app */,
 				A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */,
+				A5BA7D58181D912100461B2F /* LipikaIMEInstaller */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,6 +230,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				A5BA7D5B181D912100461B2F /* LipikaIMEInstaller */,
 				A5C54E0916BA20C1007F631D /* LipikaIMETest */,
 			);
 			name = NumberInput;
@@ -250,8 +268,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5BA7D65181D91A000461B2F /* Carbon.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				A5C54E0416BA20C1007F631D /* SenTestingKit.framework */,
+				A5BA7D59181D912100461B2F /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -297,6 +317,14 @@
 				29B97315FDCFA39411CA2CEA /* Supporting Classes */,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		A5BA7D5B181D912100461B2F /* LipikaIMEInstaller */ = {
+			isa = PBXGroup;
+			children = (
+				A5BA7D67181DA28100461B2F /* main.m */,
+			);
+			path = LipikaIMEInstaller;
 			sourceTree = "<group>";
 		};
 		A5C54DF816BA1EB9007F631D /* Input Method Engine */ = {
@@ -388,6 +416,22 @@
 			productReference = 8D1107320486CEB800E47090 /* LipikaIME.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A5BA7D57181D912100461B2F /* LipikaIMEInstaller */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5BA7D64181D912100461B2F /* Build configuration list for PBXNativeTarget "LipikaIMEInstaller" */;
+			buildPhases = (
+				A5BA7D54181D912100461B2F /* Sources */,
+				A5BA7D55181D912100461B2F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LipikaIMEInstaller;
+			productName = LipikaIMEInstaller;
+			productReference = A5BA7D58181D912100461B2F /* LipikaIMEInstaller */;
+			productType = "com.apple.product-type.tool";
+		};
 		A5C54E0216BA20C1007F631D /* LipikaIMETest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5C54E1316BA20C1007F631D /* Build configuration list for PBXNativeTarget "LipikaIMETest" */;
@@ -436,6 +480,7 @@
 			targets = (
 				8D1107260486CEB800E47090 /* LipikaIME */,
 				A5C54E0216BA20C1007F631D /* LipikaIMETest */,
+				A5BA7D57181D912100461B2F /* LipikaIMEInstaller */,
 			);
 		};
 /* End PBXProject section */
@@ -513,6 +558,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5BA7D54181D912100461B2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5BA7D68181DA28100461B2F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5C54DFE16BA20C1007F631D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -586,6 +639,77 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A5BA7D62181D912100461B2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A5BA7D63181D912100461B2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		A5C54E1416BA20C1007F631D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -649,8 +773,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -659,7 +783,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = LipikaIME;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "42662FB2-C0DA-4065-BFB9-8223FC481856";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -668,15 +792,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = LipikaIME;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "42662FB2-C0DA-4065-BFB9-8223FC481856";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -701,6 +825,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A5BA7D64181D912100461B2F /* Build configuration list for PBXNativeTarget "LipikaIMEInstaller" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5BA7D62181D912100461B2F /* Debug */,
+				A5BA7D63181D912100461B2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A5C54E1316BA20C1007F631D /* Build configuration list for PBXNativeTarget "LipikaIMETest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1,0 +1,3 @@
+#!/bin/sh
+killall LipikaIME
+exit 0
