@@ -1,0 +1,3 @@
+#!/bin/sh
+pkgbuild --component LipikaIME.app --scripts ./Scripts --install-location /Library/Input\ Methods com.daivajnanam.inputmethod.LipikaIME.pkg
+productbuild --distribution ./Distribution --package-path ./ --resources ./Resources --sign "3rd Party Mac Developer Installer: Ranganath Atreya" LipikaIME.pkg

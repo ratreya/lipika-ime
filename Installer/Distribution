@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<installer-gui-script minSpecVersion="2">
+    <pkg-ref id="com.daivajnanam.inputmethod.LipikaIME">
+        <bundle-version>
+            <bundle CFBundleShortVersionString="1.3.0" CFBundleVersion="7" id="com.daivajnanam.inputmethod.LipikaIME" path="LipikaIME.app"/>
+        </bundle-version>
+    </pkg-ref>
+    <product id="com.daivajnanam.inputmethod.LipikaIME" version="1.3.0"/>
+    <title>LipikaIME</title>
+    <welcome file="Welcome.rtf"/>
+    <conclusion file="Conclusion.rtf"/>
+    <options customize="never" require-scripts="false" hostArchitectures="x86_64"/>
+    <volume-check>
+        <allowed-os-versions>
+            <os-version min="10.8.0"/>
+        </allowed-os-versions>
+    </volume-check>
+    <choices-outline>
+        <line choice="default"/>
+    </choices-outline>
+    <choice id="default" title="LipikaIME" visible="true" customLocation="/Library/Input Methods">
+        <pkg-ref id="com.daivajnanam.inputmethod.LipikaIME"/>
+    </choice>
+    <pkg-ref id="com.daivajnanam.inputmethod.LipikaIME" version="1.3.0" onConclusion="none" installKBytes="1411">#com.daivajnanam.inputmethod.LipikaIME.pkg</pkg-ref>
+</installer-gui-script>
