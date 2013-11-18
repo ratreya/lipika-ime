@@ -62,7 +62,7 @@ class VowelSigns {
   R ृ
   RR ॄ
   lR ॢ
-  LRR ॣ
+  lRR ॣ
   e े
   ai ै
   o ो
