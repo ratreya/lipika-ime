@@ -8,13 +8,13 @@
  */
 
 #import "LipikaIMEEngineTest.h"
-#import "DJInputSchemeFactory.h"
+#import "DJGoogleSchemeFactory.h"
 
 @implementation LipikaIMEEngineTest
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestHappyCase.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestHappyCase.scm"];
     engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }
 

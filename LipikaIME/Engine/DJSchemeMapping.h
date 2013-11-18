@@ -9,11 +9,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class DJInputMethodScheme;
+@class DJGoogleInputScheme;
 
 @protocol DJSchemeMapping <NSObject>
 
--(id)initWithScheme:(DJInputMethodScheme*)parentScheme;
+-(id)initWithScheme:(DJGoogleInputScheme*)parentScheme;
 
 -(void)createClassWithName:(NSString*)className;
 -(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value;

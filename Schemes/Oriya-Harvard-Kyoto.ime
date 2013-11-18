@@ -1,0 +1,9 @@
+Script: Oriya
+Transliteration: Harvard-Kyoto, Overrides/DirghaE
+
+{VOWEL}	[VOWEL]
+{CONSONANT}	[CONSONANT][SIGN/VIRAMA]
+{CONSONANT}a	[CONSONANT]
+{CONSONANT}{DEPENDENT}	[CONSONANT][DEPENDENT]
+{SIGN}	[SIGN]
+{DIGIT}	[DIGIT]

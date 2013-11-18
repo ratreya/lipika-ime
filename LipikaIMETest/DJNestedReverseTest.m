@@ -8,11 +8,11 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "DJInputSchemeFactory.h"
+#import "DJGoogleSchemeFactory.h"
 #import "DJInputEngineFactory.h"
 
 @interface DJNestedReverseTest : SenTestCase {
-    DJInputMethodScheme* scheme;
+    DJGoogleInputScheme* scheme;
     DJInputMethodEngine* engine;
 }
 @end
@@ -21,7 +21,7 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestNestedClass.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestNestedClass.scm"];
     engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }
 

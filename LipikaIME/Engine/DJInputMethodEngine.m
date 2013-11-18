@@ -14,7 +14,7 @@
 
 @synthesize scheme;
 
--(id)initWithScheme:(DJInputMethodScheme*)inputScheme {
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme {
     self = [super init];
     if (self == nil) {
         return self;
