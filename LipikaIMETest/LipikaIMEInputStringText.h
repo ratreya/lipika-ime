@@ -1,10 +1,11 @@
-//
-//  LipikaIMEInputStringText.h
-//  LipikaIME
-//
-//  Created by Atreya, Ranganath on 4/1/13.
-//  Copyright (c) 2013 com.daivajnanam. All rights reserved.
-//
+/*
+ * LipikaIME is a user-configurable phonetic Input Method Engine for Mac OS X.
+ * Copyright (C) 2013 Ranganath Atreya
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJLipikaBufferManager.h"

@@ -1,18 +1,10 @@
-_LipikaIME_, a user-configurable, phonetic, Input Method Engine for Mac OS X.
+_LipikaIME_ is a user-configurable, phonetic, Input Method Engine for Mac OS X.
 
 > Copyright (C) 2013 Ranganath Atreya
 
 ```
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU 
-General Public License as published by the Free Software Foundation; either version 3 of the License, 
-or (at your option) any later version.
-
 This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 ```
-
-### Installation ###
-
-Download **[LipikaIME Installer](https://s3.amazonaws.com/sanskrit/LipikaIME.pkg)** and run it.
 
 
 ### Release Notes ###
