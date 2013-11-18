@@ -8,10 +8,10 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "DJInputMethodScheme.h"
+#import "DJGoogleInputScheme.h"
 
 @interface LipikaIMESpecialCharsTest : SenTestCase {
-    DJInputMethodScheme* scheme;
+    DJGoogleInputScheme* scheme;
 }
 
 @end

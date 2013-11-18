@@ -13,15 +13,15 @@
 #import "DJParseOutput.h"
 
 @interface DJInputMethodEngine : NSObject {
-    DJInputMethodScheme* scheme;
+    id<DJInputMethodScheme> scheme;
     DJParseTreeNode* currentNode;
     NSMutableArray* inputsSinceRoot;
     unsigned long lastOutputIndex;
 }
 
-@property DJInputMethodScheme* scheme;
+@property id<DJInputMethodScheme> scheme;
 
--(id)initWithScheme:(DJInputMethodScheme*)inputScheme;
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
 -(NSArray*)executeWithInput:(NSString*)input;
 -(NSArray*)inputsSinceLastOutput;
 -(BOOL)isAtRoot;

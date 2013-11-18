@@ -8,11 +8,11 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "DJInputMethodScheme.h"
+#import "DJGoogleInputScheme.h"
 #import "DJInputMethodEngine.h"
 
 @interface LipikaIMENestedClassTest : SenTestCase {
-    DJInputMethodScheme* scheme;
+    DJGoogleInputScheme* scheme;
     DJInputMethodEngine* engine;
 }
 

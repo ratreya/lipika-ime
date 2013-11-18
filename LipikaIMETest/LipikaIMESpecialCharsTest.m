@@ -8,13 +8,13 @@
  */
 
 #import "LipikaIMESpecialCharsTest.h"
-#import "DJInputSchemeFactory.h"
+#import "DJGoogleSchemeFactory.h"
 
 @implementation LipikaIMESpecialCharsTest
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestSpecialChars.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestSpecialChars.scm"];
 }
 
 // Ignoring for now; @ symbol does not work; Issue: #1

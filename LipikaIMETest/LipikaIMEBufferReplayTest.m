@@ -8,7 +8,7 @@
  */
 
 #import "LipikaIMEBufferReplayTest.h"
-#import "DJInputSchemeFactory.h"
+#import "DJGoogleSchemeFactory.h"
 
 @interface DJLipikaBufferManager (Test)
 
@@ -20,7 +20,7 @@
 
 -(void)setUp {
     [super setUp];
-    DJInputMethodScheme* scheme = [DJInputSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestMultipleReplay.scm"];
+    DJGoogleInputScheme* scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestMultipleReplay.scm"];
     DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     manager = [[DJLipikaBufferManager alloc] initWithEngine:engine];
 }

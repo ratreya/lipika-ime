@@ -27,10 +27,6 @@
     NSMenuItem* convertFile = [[NSMenuItem alloc] initWithTitle:@"Convert file..." action:@selector(showPreferences:) keyEquivalent:@""];
     [convertFile setTag:++runningTagId];
     [mainMenu addItem:convertFile];
-    // Add Schemes directory item
-    NSMenuItem* openSchemes = [[NSMenuItem alloc] initWithTitle:@"Open schemes directory..." action:@selector(showPreferences:) keyEquivalent:@""];
-    [openSchemes setTag:++runningTagId];
-    [mainMenu addItem:openSchemes];
     // Add Scheme item to the mainMenu
     NSMenuItem* schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input schemes" action:NULL keyEquivalent:@""];
     [schemeSelectionItem setTag:++runningTagId];
@@ -49,7 +45,7 @@
         }
         // Create schemes under this script
         NSMenu* schemeSubMenu = [[NSMenu alloc] initWithTitle:scriptName];
-        NSArray* schemeNames = [DJInputEngineFactory availableSchemesForScript:scriptName];
+        NSArray* schemeNames = [DJInputEngineFactory availableSchemes];
         for (NSString* schemeName in schemeNames) {
             // Add add the schemes to the sub menu
             NSMenuItem* schemeItem = [[NSMenuItem alloc] initWithTitle:schemeName action:@selector(showPreferences:) keyEquivalent:@""];

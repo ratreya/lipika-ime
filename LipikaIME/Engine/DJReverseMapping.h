@@ -8,21 +8,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "DJSchemeMapping.h"
-#import "DJParseTreeNode.h"
 #import "DJParseOutput.h"
 
-@interface DJReverseMapping : NSObject<DJSchemeMapping> {
-    DJInputMethodScheme *scheme;
-    // Mapping of individual output character to a DJParseTreeNode
-    DJParseTreeNode *reverseTrieHead;
-    // Class name as NSString to NSString
-    NSMutableDictionary *classes;
-    // Mapping of class name to trie head (DJParseTreeNode)
-    NSMutableDictionary *maxOutputSizesPerClass;
-    // Overall maximum output size of this scheme
-    int maxOutputSize;
-}
+@protocol DJReverseMapping <NSObject>
 
 -(int)maxOutputSize;
 -(DJParseOutput*)inputForOutput:(NSString*)output;

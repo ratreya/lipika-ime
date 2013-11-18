@@ -134,10 +134,7 @@ static long numCompositionCommits = 0;
     else if ([menuItem tag] == 2) { // Convert file
         [DJLipikaFileConvertor convert];
     }
-    else if ([menuItem tag] == 3) { // Schemes directory...
-        [self openSchemesDirectory];
-    }
-    else if ([menuItem tag] > 3) { // Input Schemes
+    else if ([menuItem tag] > 2) { // Input Schemes
         [self changeInputScheme:menuItem];
     }
     else {
@@ -231,10 +228,6 @@ static long numCompositionCommits = 0;
     [menuItem setState:NSOnState];
     [self commit];
     [manager changeToSchemeWithName:schemeName forScript:scriptName];
-}
-
--(void)openSchemesDirectory {
-    [[NSWorkspace sharedWorkspace] openFile:[DJInputEngineFactory schemesDirectory]];
 }
 
 -(void)showPreferenceImplimentation:(NSMenuItem*)menuItem {

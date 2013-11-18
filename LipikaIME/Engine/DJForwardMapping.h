@@ -8,20 +8,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "DJSchemeMapping.h"
 
-@interface DJForwardMapping : NSObject<DJSchemeMapping> {
-    DJInputMethodScheme *scheme;
-    // Input as NSString to DJParseTreeNode
-    NSMutableDictionary *parseTree;
-    // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode
-    NSMutableDictionary *classes;
-}
+@protocol DJForwardMapping <NSObject>
 
-@property NSDictionary *parseTree;
-@property NSDictionary *classes;
-
--(NSString*)classNameForInput:(NSString*)input;
--(NSDictionary*)classForName:(NSString*)className;
+-(NSDictionary*)parseTree;
 
 @end

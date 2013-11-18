@@ -21,7 +21,6 @@
 +(NSString*)currentScriptName;
 +(NSString*)currentSchemeName;
 +(NSArray*)availableScripts;
-+(NSArray*)availableSchemesForScript:(NSString*)scriptName;
-+(NSString*)schemesDirectory;
++(NSArray*)availableSchemes;
 
 @end
