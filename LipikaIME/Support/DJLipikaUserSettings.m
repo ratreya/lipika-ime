@@ -39,6 +39,18 @@ static NSDictionary* candidateStringAttributeCache = nil;
     [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:@"SchemeName"];
 }
 
++(enum DJSchemeType)schemeType {
+    return (unsigned int)[[NSUserDefaults standardUserDefaults] integerForKey:@"SchemeType"];
+}
+
++(void)setSchemeType:(enum DJSchemeType)schemeType {
+    [[NSUserDefaults standardUserDefaults] setInteger:schemeType forKey:@"SchemeType"];
+}
+
++(NSString*)lipikaSchemeStopChar {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"LipikaSchemeStopChar"];
+}
+
 +(BOOL) isOverrideCandidateAttributes {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"OverrideCandidateFont"];
 }

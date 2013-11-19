@@ -10,21 +10,47 @@
 #import "DJInputSchemeUberFactory.h"
 #import "DJInputMethodScheme.h"
 #import "DJGoogleSchemeFactory.h"
+#import "DJLipikaSchemeFactory.h"
 
 @implementation DJInputSchemeUberFactory
 
-+(BOOL)acceptsSchemeFile:(NSString*)filePath {
-    if ([DJGoogleSchemeFactory acceptsSchemeFile:filePath]) {
-        return YES;
++(id<DJInputMethodScheme>)inputSchemeForScript:(NSString*)script scheme:(NSString*)scheme type:(enum DJSchemeType)type {
+    switch (type) {
+        case LIPIKA:
+            return [DJLipikaSchemeFactory inputSchemeForScript:script scheme:scheme];
+            break;
+        case GOOGLE:
+            return [DJGoogleSchemeFactory inputSchemeForScheme:scheme];
+            break;
+        default:
+            return nil;
+            break;
     }
-    return NO;
 }
 
-+(id<DJInputMethodScheme>)inputSchemeForSchemeFile:(NSString*)filePath {
-    if ([DJGoogleSchemeFactory acceptsSchemeFile:filePath]) {
-        return [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
++(NSArray*)availableScriptsForType:(enum DJSchemeType)type {
+    switch (type) {
+        case LIPIKA:
+            return [DJLipikaSchemeFactory availableScripts];
+            break;
+        default:
+            return nil;
+            break;
     }
-    return nil;
+}
+
++(NSArray*)availableSchemesForType:(enum DJSchemeType)type {
+    switch (type) {
+        case LIPIKA:
+            return [DJLipikaSchemeFactory availableSchemes];
+            break;
+        case GOOGLE:
+            return [DJGoogleSchemeFactory availableSchemes];
+            break;
+        default:
+            return nil;
+            break;
+    }
 }
 
 @end

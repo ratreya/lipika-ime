@@ -7,7 +7,11 @@
 	<key>ScriptName</key>
 	<string>Devanagari</string>
 	<key>SchemeName</key>
-	<string>SA_Barahavat</string>
+	<string>ITRANS</string>
+	<key>SchemeType</key>
+	<integer>1</integer>
+	<key>LipikaSchemeStopChar</key>
+	<string>\</string>
 	<key>IMKCandidatesOpacityAttributeName</key>
 	<real>0.9</real>
 	<key>LoggingLevel</key>

@@ -17,11 +17,12 @@
     int currentLineNumber;
 }
 
-@property DJGoogleInputScheme* scheme;
-
-+(BOOL)acceptsSchemeFile:(NSString*)filePath;
++(DJGoogleInputScheme*)inputSchemeForScheme:scheme;
+// For testing only
 +(DJGoogleInputScheme*)inputSchemeForSchemeFile:(NSString*)filePath;
++(NSArray*)availableSchemes;
 
 -(id)initWithSchemeFile:(NSString*)filePath;
+-(id<DJInputMethodScheme>)scheme;
 
 @end

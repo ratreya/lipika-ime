@@ -12,13 +12,13 @@
 
 @implementation DJGoogleSchemeFactory
 
-@synthesize scheme;
-
 static NSString *const VERSION = @"version";
 static NSString *const NAME = @"name";
 static NSString *const STOP_CHAR = @"stop-char";
 static NSString *const CLASS_DELIMITERS = @"class-delimiters";
 static NSString *const WILDCARD = @"wildcard";
+static NSString *const SCHEMESPATH = @"%@/Contents/Resources/Schemes/Google";
+static NSString *const EXTENSION = @"scm";
 
 // These regular expressions don't have dynamic elements
 static NSRegularExpression* whitespaceExpression;
@@ -51,8 +51,14 @@ static NSRegularExpression* classesDelimiterExpression;
     }
 }
 
-+(BOOL)acceptsSchemeFile:(NSString*)filePath {
-    return [[filePath pathExtension] isEqualToString:@"scm"];
++(DJGoogleInputScheme*)inputSchemeForScheme:scheme {
+    // Parse one file at a time
+    @synchronized(self) {
+        NSString *schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
+        NSString* filePath = [[schemesDirectory stringByAppendingPathComponent:scheme] stringByAppendingPathExtension:EXTENSION];
+        DJGoogleSchemeFactory *factory = [[DJGoogleSchemeFactory alloc] initWithSchemeFile:filePath];
+        return [factory scheme];
+    }
 }
 
 +(DJGoogleInputScheme*)inputSchemeForSchemeFile:(NSString*)filePath {
@@ -61,6 +67,25 @@ static NSRegularExpression* classesDelimiterExpression;
         DJGoogleSchemeFactory *factory = [[DJGoogleSchemeFactory alloc] initWithSchemeFile:filePath];
         return [factory scheme];
     }
+}
+
++(NSArray*)availableSchemes {
+    NSError *error;
+    NSString *schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
+    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:schemesDirectory error:&error];
+    if (error != nil) {
+        [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
+    }
+    NSArray *files = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self ENDSWITH '.%@'", EXTENSION]]];
+    NSMutableArray* names = [[NSMutableArray alloc] initWithCapacity:0];
+    [files enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+        [names addObject:[obj stringByDeletingPathExtension]];
+    }];
+    return names;
+}
+
+-(id<DJInputMethodScheme>)scheme {
+    return scheme;
 }
 
 -(id)initWithSchemeFile:(NSString *)filePath {

@@ -1,6 +1,3 @@
-Script: Malayalam
-Transliteration: ITRANS
-
 {VOWEL}	[VOWEL]
 {CONSONANT}	[CONSONANT][SIGN/VIRAMA]
 {CONSONANT}a	[CONSONANT]

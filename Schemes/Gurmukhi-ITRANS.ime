@@ -1,9 +1,2 @@
-Script: Gurmukhi
-Transliteration: ITRANS, Overrides/DirghaE, Overrides/Gurmukhi
-
-{VOWEL}	[VOWEL]
-{CONSONANT}	[CONSONANT][SIGN/VIRAMA]
-{CONSONANT}a	[CONSONANT]
-{CONSONANT}{DEPENDENT}	[CONSONANT][DEPENDENT]
-{SIGN}	[SIGN]
-{DIGIT}	[DIGIT]
+Transliteration: Overrides/DirghaE, Overrides/Gurmukhi
+IME: Default

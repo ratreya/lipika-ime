@@ -9,18 +9,19 @@
 
 #import <Foundation/Foundation.h>
 #import "DJInputMethodEngine.h"
+#import "Constants.h"
 
 @interface DJInputEngineFactory : NSObject {
-    NSString* scriptName;
-    NSString* schemeName;
-    NSMutableDictionary* schemesCache;
+    NSString *scriptName;
+    NSString *schemeName;
+    enum DJSchemeType schemeType;
+    NSMutableDictionary *schemesCache;
 }
 
 +(DJInputMethodEngine*)inputEngine;
-+(void)setCurrentSchemeWithName:(NSString*)schemeName scriptName:(NSString*)scriptName;
++(void)setCurrentSchemeWithName:(NSString*)schemeName scriptName:(NSString*)scriptName type:(enum DJSchemeType)type;
++(enum DJSchemeType)currentSchemeType;
 +(NSString*)currentScriptName;
 +(NSString*)currentSchemeName;
-+(NSArray*)availableScripts;
-+(NSArray*)availableSchemes;
 
 @end

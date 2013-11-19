@@ -53,11 +53,12 @@ static NSRegularExpression* whiteSpace;
     finalizedIndex = 0;
 }
 
--(void)changeToSchemeWithName:(NSString*)schemeName forScript:(NSString*)scriptName {
+-(void)changeToSchemeWithName:(NSString*)schemeName forScript:(NSString*)scriptName type:(enum DJSchemeType)type {
     [DJLipikaUserSettings setScriptName:scriptName];
     [DJLipikaUserSettings setSchemeName:schemeName];
+    [DJLipikaUserSettings setSchemeType:type];
     @synchronized (self) {
-        [DJInputEngineFactory setCurrentSchemeWithName:schemeName scriptName:scriptName];
+        [DJInputEngineFactory setCurrentSchemeWithName:schemeName scriptName:scriptName type:type];
         engine = [DJInputEngineFactory inputEngine];
     }
 }

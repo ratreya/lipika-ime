@@ -11,7 +11,7 @@
 
 @class DJGoogleInputScheme;
 
-@protocol DJSchemeMapping <NSObject>
+@protocol DJGoogleSchemeMapping <NSObject>
 
 -(id)initWithScheme:(DJGoogleInputScheme*)parentScheme;
 

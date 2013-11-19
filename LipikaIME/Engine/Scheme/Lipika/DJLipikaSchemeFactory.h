@@ -8,13 +8,17 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "DJInputMethodScheme.h"
-#import "Constants.h"
+#import "DJLipikaInputScheme.h"
 
-@interface DJInputSchemeUberFactory : NSObject
+@interface DJLipikaSchemeFactory : NSObject {
+    DJLipikaInputScheme *scheme;
+}
 
-+(id<DJInputMethodScheme>)inputSchemeForScript:(NSString*)script scheme:(NSString*)scheme type:(enum DJSchemeType)type;
-+(NSArray*)availableScriptsForType:(enum DJSchemeType)type;
-+(NSArray*)availableSchemesForType:(enum DJSchemeType)type;
++(DJLipikaInputScheme*)inputSchemeForScript:script scheme:scheme;
++(NSArray*)availableScripts;
++(NSArray*)availableSchemes;
+
+-(id)initWithScript:script scheme:scheme;
+-(id<DJInputMethodScheme>)scheme;
 
 @end
