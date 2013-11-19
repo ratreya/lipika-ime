@@ -24,3 +24,8 @@ enum DJOnUnfocusBehavior {
     DJ_COMMIT_UNCOMMITTED = 2,
     DJ_RESTORE_UNCOMMITTED = 3
 };
+
+enum DJSchemeType {
+    LIPIKA = 1,
+    GOOGLE = 2
+};

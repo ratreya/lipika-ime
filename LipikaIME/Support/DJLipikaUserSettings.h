@@ -16,6 +16,9 @@
 +(void)setScriptName:(NSString*)scriptName;
 +(NSString*)schemeName;
 +(void)setSchemeName:(NSString*)schemeName;
++(enum DJSchemeType)schemeType;
++(void)setSchemeType:(enum DJSchemeType)schemeType;
++(NSString*)lipikaSchemeStopChar;
 +(BOOL) isOutputInCandidate;
 +(BOOL) isOverrideCandidateAttributes;
 +(NSDictionary*)candidateWindowAttributes;
@@ -25,13 +28,12 @@
 +(BOOL)isCombineWithPreviousGlyph;
 +(BOOL)isShowInput;
 +(BOOL)isShowOutput;
-
-+(void)reset;
-
 +(enum DJLogLevel)loggingLevel;
 +(NSString*)logLevelStringForEnum:(enum DJLogLevel)level;
 +(enum DJLogLevel)logLevelForString:(NSString*)level;
 +(enum DJBackspaceBehavior)backspaceBehavior;
 +(enum DJOnUnfocusBehavior)unfocusBehavior;
+
++(void)reset;
 
 @end

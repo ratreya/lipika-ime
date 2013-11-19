@@ -1,9 +1,2 @@
-Script: Gurmukhi
-Transliteration: Baraha, Overrides/DirghaE, Overrides/GurmukhiBaraha
-
-{VOWEL}	[VOWEL]
-{CONSONANT}	[CONSONANT][SIGN/VIRAMA]
-{CONSONANT}a	[CONSONANT]
-{CONSONANT}{DEPENDENT}	[CONSONANT][DEPENDENT]
-{SIGN}	[SIGN]
-{DIGIT}	[DIGIT]
+Transliteration: Overrides/DirghaE, Overrides/GurmukhiBaraha
+IME: Default

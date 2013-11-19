@@ -8,12 +8,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "DJSchemeMapping.h"
+#import "DJGoogleSchemeMapping.h"
 #import "DJReverseMapping.h"
 #import "DJParseTreeNode.h"
 #import "DJParseOutput.h"
 
-@interface DJGoogleReverseMapping : NSObject<DJSchemeMapping, DJReverseMapping> {
+@interface DJGoogleReverseMapping : NSObject<DJGoogleSchemeMapping, DJReverseMapping> {
     DJGoogleInputScheme *scheme;
     // Mapping of individual output character to a DJParseTreeNode
     DJParseTreeNode *reverseTrieHead;

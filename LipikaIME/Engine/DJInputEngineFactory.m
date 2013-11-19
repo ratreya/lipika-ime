@@ -14,22 +14,25 @@
 
 @interface DJInputEngineFactory ()
 
-@property NSString* scriptName;
-@property NSString* schemeName;
+@property NSString *scriptName;
+@property NSString *schemeName;
+@property enum DJSchemeType schemeType;
 
 @end
 
 @implementation DJInputEngineFactory
 
+@synthesize schemeType;
+@synthesize schemeName;
+@synthesize scriptName;
+
 static DJInputEngineFactory* singletonFactory = nil;
-static NSString* schemesDirectory;
 
 +(void)initialize {
     static BOOL initialized = NO;
     if(!initialized) {
         initialized = YES;
         singletonFactory = [[DJInputEngineFactory alloc] init];
-        schemesDirectory = [NSString stringWithFormat:@"%@/Contents/Resources/Schemes", [[NSBundle mainBundle] bundlePath]];
     }
 }
 
@@ -37,7 +40,7 @@ static NSString* schemesDirectory;
     return [singletonFactory inputEngine];
 }
 
-+(void)setCurrentSchemeWithName:(NSString *)schemeName scriptName:(NSString*)scriptName {
++(void)setCurrentSchemeWithName:(NSString*)schemeName scriptName:(NSString*)scriptName type:(enum DJSchemeType)type; {
     singletonFactory.scriptName = scriptName;
     singletonFactory.schemeName = schemeName;
 }
@@ -50,31 +53,8 @@ static NSString* schemesDirectory;
     return singletonFactory.schemeName;
 }
 
-+(NSString*)schemesDirectory {
-    return schemesDirectory;
-}
-
-+(NSArray*)availableScripts {
-    return [DJInputEngineFactory fileInSubdirectory:@"Script" withExternsion:@".map"];
-}
-
-+(NSArray*)availableSchemes {
-    return [DJInputEngineFactory fileInSubdirectory:@"Transliteration" withExternsion:@".ltr"];
-}
-
-+(NSArray*)fileInSubdirectory:(NSString*)subDirectory withExternsion:(NSString*)extension {
-    NSError *error;
-    NSString *path = [schemesDirectory stringByAppendingPathComponent:subDirectory];
-    NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
-    if (error != nil) {
-        [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
-    }
-    NSArray *files = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self ENDSWITH '%@'", extension]]];
-    NSMutableArray* names = [[NSMutableArray alloc] initWithCapacity:0];
-    [files enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
-        [names addObject:[obj stringByDeletingPathExtension]];
-    }];
-    return names;
++(enum DJSchemeType)currentSchemeType {
+    return singletonFactory.schemeType;
 }
 
 -(id)init {
@@ -113,15 +93,15 @@ static NSString* schemesDirectory;
     // Initialize with the given scheme file
     id<DJInputMethodScheme> scheme;
     @synchronized(schemesCache) {
-        NSString* filePath = [[[schemesDirectory stringByAppendingPathComponent:scriptName] stringByAppendingPathComponent:schemeName] stringByAppendingPathExtension:@"scm"];
-        scheme = [schemesCache valueForKey:filePath];
+        NSString *key = [NSString stringWithFormat:@"%@-%@-%u", scriptName, schemeName, schemeType];
+        scheme = [schemesCache valueForKey:key];
         if (scheme == nil) {
-            scheme = [DJInputSchemeUberFactory inputSchemeForSchemeFile:filePath];
+            scheme = [DJInputSchemeUberFactory inputSchemeForScript:scriptName scheme:schemeName type:schemeType];
             if (scheme == nil) {
                 return nil;
             }
             else {
-                [schemesCache setValue:scheme forKey:filePath];
+                [schemesCache setValue:scheme forKey:key];
             }
         }
         return scheme;

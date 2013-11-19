@@ -209,25 +209,41 @@ static long numCompositionCommits = 0;
     }
 }
 
--(void)clearAllOnStates:(NSMenuItem*)rootMenuItem {
-    NSArray* peerItems = [[rootMenuItem submenu] itemArray];
+-(void)clearAllOnStates:(NSMenu*)rootMenu {
+    NSArray* peerItems = [rootMenu itemArray];
     [peerItems enumerateObjectsUsingBlock:^(NSMenuItem* obj, NSUInteger idx, BOOL *stop) {
         [obj setState:NSOffState];
-        if ([obj hasSubmenu]) [self clearAllOnStates:obj];
+        if ([obj hasSubmenu]) [self clearAllOnStates:[obj submenu]];
     }];
 }
 
 -(void)changeInputScheme:(NSMenuItem*)menuItem {
-    NSString* schemeName = [menuItem title];
-    NSString* scriptName = [[menuItem parentItem] title];
-    logDebug(@"Choosing script name: %@ and scheme name: %@", scriptName, schemeName);
-    // Clear state of all sub-menus under "Input Schemes" menu item
-    [self clearAllOnStates:[[menuItem parentItem] parentItem]];
+    BOOL isGoogleItem = [[[menuItem parentItem] title] isEqualToString:@"GoogleSubMenu"];
+    BOOL isSchemeItem = [[[menuItem parentItem] title] isEqualToString:@"SchemeSubMenu"];
+    BOOL isScriptItem = [[[menuItem parentItem] title] isEqualToString:@"ScriptSubMenu"];
+    if (isGoogleItem) {
+        [self clearAllOnStates:[NSApp mainMenu]];
+    }
+    else if (isScriptItem || isSchemeItem) {
+        // Clear state of all sub-menus under "Input scheme" or "Output script" menu item
+        [self clearAllOnStates:[[menuItem parentItem] submenu]];
+    }
+    else {
+        [NSException raise:@"Unknown menu item" format:@"Menu parent title %@ not recognized", [[menuItem parentItem] title]];
+    }
     // Turn on state for the script and scheme
-    [[menuItem parentItem] setState:NSOnState];
     [menuItem setState:NSOnState];
     [self commit];
-    [manager changeToSchemeWithName:schemeName forScript:scriptName];
+    NSString *name = [menuItem title];
+    if (isSchemeItem) {
+        [manager changeToSchemeWithName:name forScript:[DJInputEngineFactory currentScriptName] type:LIPIKA];
+    }
+    else if (isGoogleItem) {
+        [manager changeToSchemeWithName:name forScript:nil type:GOOGLE];
+    }
+    else if (isScriptItem) {
+        [manager changeToSchemeWithName:[DJInputEngineFactory currentSchemeName] forScript:name type:LIPIKA];
+    }
 }
 
 -(void)showPreferenceImplimentation:(NSMenuItem*)menuItem {

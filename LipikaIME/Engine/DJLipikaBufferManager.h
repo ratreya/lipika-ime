@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DJInputMethodEngine.h"
+#import "Constants.h"
 
 @interface DJLipikaBufferManager : NSObject {
     // One instance of the engine per connection
@@ -22,7 +23,7 @@
 }
 
 -(id)init;
--(void)changeToSchemeWithName:(NSString*)schemeName forScript:scriptName;
+-(void)changeToSchemeWithName:(NSString*)schemeName forScript:scriptName type:(enum DJSchemeType)type;
 -(NSString*)outputForInput:(NSString*)string;
 -(NSString*)outputForInput:(NSString*)string previousText:(NSString*)previousText;
 -(BOOL)hasDeletable;

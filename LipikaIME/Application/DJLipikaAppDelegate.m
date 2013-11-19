@@ -7,10 +7,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJLipikaAppDelegate.h"
-#import "DJInputEngineFactory.h"
-#import "DJLipikaUserSettings.h"
 #import <InputMethodKit/InputMethodKit.h>
+#import "DJLipikaAppDelegate.h"
+#import "DJInputSchemeUberFactory.h"
+#import "DJLipikaUserSettings.h"
 
 @implementation DJLipikaAppDelegate
 
@@ -28,37 +28,59 @@
     [convertFile setTag:++runningTagId];
     [mainMenu addItem:convertFile];
     // Add Scheme item to the mainMenu
-    NSMenuItem* schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input schemes" action:NULL keyEquivalent:@""];
+    NSMenuItem* schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input scheme" action:NULL keyEquivalent:@""];
     [schemeSelectionItem setTag:++runningTagId];
     [mainMenu addItem:schemeSelectionItem];
-
-    // Create a schemes sub menus
-    NSString* defaultScriptName = [DJLipikaUserSettings scriptName];
+    // Create a schemes submenu
+    NSMenu* schemeSubMenu = [[NSMenu alloc] initWithTitle:@"SchemeSubMenu"];
+    NSArray* schemeNames = [DJInputSchemeUberFactory availableSchemesForType:LIPIKA];
     NSString* defaultSchemeName = [DJLipikaUserSettings schemeName];
+    enum DJSchemeType type = [DJLipikaUserSettings schemeType];
+    for (NSString* schemeName in schemeNames) {
+        // Add add the schemes to the sub menu
+        NSMenuItem* schemeItem = [[NSMenuItem alloc] initWithTitle:schemeName action:@selector(showPreferences:) keyEquivalent:@""];
+        [schemeItem setTag:++runningTagId];
+        if (type == LIPIKA && [defaultSchemeName isEqualToString:schemeName]) {
+            [schemeItem setState:NSOnState];
+        }
+        [schemeSubMenu addItem:schemeItem];
+    }
+    [schemeSelectionItem setSubmenu:schemeSubMenu];
+    // Add Script item to the mainMenu
+    NSMenuItem* scriptSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Output script" action:NULL keyEquivalent:@""];
+    [scriptSelectionItem setTag:++runningTagId];
+    [mainMenu addItem:scriptSelectionItem];
+    // Create a scripts submenu
     NSMenu *scriptSubMenu = [[NSMenu alloc] initWithTitle:@"ScriptSubMenu"];
-    NSArray *scriptNames = [DJInputEngineFactory availableScripts];
+    NSArray *scriptNames = [DJInputSchemeUberFactory availableScriptsForType:LIPIKA];
+    NSString* defaultScriptName = [DJLipikaUserSettings scriptName];
     for (NSString *scriptName in scriptNames) {
         NSMenuItem *scriptItem = [[NSMenuItem alloc] initWithTitle:scriptName action:NULL keyEquivalent:@""];
         [scriptItem setTag:++runningTagId];
-        if ([defaultScriptName isEqualToString:scriptName]) {
+        if (type == LIPIKA && [defaultScriptName isEqualToString:scriptName]) {
             [scriptItem setState:NSOnState];
         }
-        // Create schemes under this script
-        NSMenu* schemeSubMenu = [[NSMenu alloc] initWithTitle:scriptName];
-        NSArray* schemeNames = [DJInputEngineFactory availableSchemes];
-        for (NSString* schemeName in schemeNames) {
-            // Add add the schemes to the sub menu
-            NSMenuItem* schemeItem = [[NSMenuItem alloc] initWithTitle:schemeName action:@selector(showPreferences:) keyEquivalent:@""];
-            [schemeItem setTag:++runningTagId];
-            if ([defaultScriptName isEqualToString:scriptName] && [defaultSchemeName isEqualToString:schemeName]) {
-                [schemeItem setState:NSOnState];
-            }
-            [schemeSubMenu addItem:schemeItem];
-        }
-        [scriptItem setSubmenu:schemeSubMenu];
         [scriptSubMenu addItem:scriptItem];
     }
-    [schemeSelectionItem setSubmenu:scriptSubMenu];
+    [scriptSelectionItem setSubmenu:scriptSubMenu];
+    // Create a custom schemes submenu if needed
+    NSArray *googleSchemes = [DJInputSchemeUberFactory availableSchemesForType:GOOGLE];
+    if (googleSchemes && googleSchemes.count > 0) {
+        NSMenuItem* googleSchemeItem = [[NSMenuItem alloc] initWithTitle:@"Custom schemes" action:NULL keyEquivalent:@""];
+        [googleSchemeItem setTag:++runningTagId];
+        [mainMenu addItem:googleSchemeItem];
+        NSMenu* googleSubMenu = [[NSMenu alloc] initWithTitle:@"GoogleSubMenu"];
+        for (NSString* googleScheme in googleSchemes) {
+            // Add add the schemes to the sub menu
+            NSMenuItem* schemeItem = [[NSMenuItem alloc] initWithTitle:googleScheme action:@selector(showPreferences:) keyEquivalent:@""];
+            [schemeItem setTag:++runningTagId];
+            if (type == GOOGLE && [defaultSchemeName isEqualToString:googleScheme]) {
+                [schemeItem setState:NSOnState];
+            }
+            [googleSubMenu addItem:schemeItem];
+        }
+        [googleSchemeItem setSubmenu:googleSubMenu];
+    }
     [self configureCandiates];
 }
 
