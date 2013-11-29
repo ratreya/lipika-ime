@@ -15,7 +15,7 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestNestedClass.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Google/Schemes/TestNestedClass.scm"];
     engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }
 

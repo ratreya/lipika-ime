@@ -14,7 +14,7 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestHappyCase.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Google/Schemes/TestHappyCase.scm"];
 }
 
 - (void)testHeaderParsing {
@@ -40,7 +40,7 @@
 }
 
 -(void)testNonDefaultHeaders {
-    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Schemes/TestITRANS.scm"];
+    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Google/Schemes/TestITRANS.scm"];
     STAssertTrue([@"VowelSigns" isEqualToString:[myScheme.forwardMappings classNameForInput:@"u"]], @"Unexpected output");
     NSString* output = [[[[[myScheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"n"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
