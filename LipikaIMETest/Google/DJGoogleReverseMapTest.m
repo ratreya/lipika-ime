@@ -11,12 +11,12 @@
 #import "DJGoogleSchemeFactory.h"
 #import "DJLipikaUserSettings.h"
 
-@interface DJReverseMappingTest : SenTestCase {
+@interface DJGoogleReverseMapTest : SenTestCase {
     id<DJInputMethodScheme> scheme;
 }
 @end
 
-@implementation DJReverseMappingTest
+@implementation DJGoogleReverseMapTest
 
 -(void)setUp {
     [super setUp];

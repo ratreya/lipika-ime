@@ -11,13 +11,13 @@
 #import "DJGoogleSchemeFactory.h"
 #import "DJInputEngineFactory.h"
 
-@interface DJNestedReverseTest : SenTestCase {
+@interface DJGoogleNestedReverseTest : SenTestCase {
     DJGoogleInputScheme* scheme;
     DJInputMethodEngine* engine;
 }
 @end
 
-@implementation DJNestedReverseTest
+@implementation DJGoogleNestedReverseTest
 
 - (void)setUp {
     [super setUp];

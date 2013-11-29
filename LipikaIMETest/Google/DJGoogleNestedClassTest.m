@@ -7,9 +7,18 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "LipikaIMENestedClassTest.h"
 #import "DJGoogleSchemeFactory.h"
 #import "DJInputMethodEngine.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "DJGoogleInputScheme.h"
+#import "DJInputMethodEngine.h"
+
+@interface LipikaIMENestedClassTest : SenTestCase {
+    DJGoogleInputScheme* scheme;
+    DJInputMethodEngine* engine;
+}
+
+@end
 
 @implementation LipikaIMENestedClassTest
 
