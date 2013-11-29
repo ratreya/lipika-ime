@@ -13,6 +13,7 @@
 extern void logDebug(NSString* format, ...);
 extern void logWarning(NSString* format, ...);
 extern void logError(NSString* format, ...);
+extern void logFatal(NSString* format, ...);
 
 extern NSString* startBatch();
 extern NSArray* endBatch(NSString* batchId);

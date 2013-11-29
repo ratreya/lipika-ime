@@ -9,23 +9,14 @@
 
 #import <Foundation/Foundation.h>
 #import "DJGoogleSchemeMapping.h"
-#import "DJReverseMapping.h"
-#import "DJParseTreeNode.h"
-#import "DJParseOutput.h"
+#import "DJSimpleReverseMapping.h"
 
-@interface DJGoogleReverseMapping : NSObject<DJGoogleSchemeMapping, DJReverseMapping> {
+@interface DJGoogleReverseMapping : DJSimpleReverseMapping<DJGoogleSchemeMapping> {
     DJGoogleInputScheme *scheme;
-    // Mapping of individual output character to a DJParseTreeNode
-    DJParseTreeNode *reverseTrieHead;
     // Class name as NSString to NSString
     NSMutableDictionary *classes;
     // Mapping of class name to trie head (DJParseTreeNode)
     NSMutableDictionary *maxOutputSizesPerClass;
-    // Overall maximum output size of this scheme
-    int maxOutputSize;
 }
-
--(int)maxOutputSize;
--(DJParseOutput*)inputForOutput:(NSString*)output;
 
 @end

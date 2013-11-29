@@ -13,7 +13,6 @@
 
 @protocol DJInputMethodScheme <NSObject>
 
--(NSString*)schemeFilePath;
 -(NSString*)stopChar;
 -(id<DJForwardMapping>)forwardMappings;
 -(id<DJReverseMapping>)reverseMappings;

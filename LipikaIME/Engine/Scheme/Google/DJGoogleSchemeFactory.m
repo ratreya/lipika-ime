@@ -101,7 +101,7 @@ static NSRegularExpression* classesDelimiterExpression;
     scheme.schemeFilePath = filePath;
     NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
     if (handle == nil) {
-        logError(@"Failed to open file %@ for reading", filePath);
+        logFatal(@"Failed to open file %@ for reading", filePath);
         return nil;
     }
     NSData* dataBuffer = [handle readDataToEndOfFile];
@@ -115,7 +115,7 @@ static NSRegularExpression* classesDelimiterExpression;
         endBatch(batchId);
     }
     @catch (NSException* exception) {
-        logError(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
+        logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
     @try {
@@ -125,7 +125,7 @@ static NSRegularExpression* classesDelimiterExpression;
         endBatch(batchId);
     }
     @catch (NSException* exception) {
-        logError(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
+        logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
     [scheme onDoneParsingAtLine:currentLineNumber];

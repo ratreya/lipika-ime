@@ -18,7 +18,7 @@
 +(NSArray*)availableScripts;
 +(NSArray*)availableSchemes;
 
--(id)initWithScript:script scheme:scheme;
+-(id)initWithScript:(NSString*)scriptName scheme:(NSString*)schemeName;
 -(id<DJInputMethodScheme>)scheme;
 
 @end

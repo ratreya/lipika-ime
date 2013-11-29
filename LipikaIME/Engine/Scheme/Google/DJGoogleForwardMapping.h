@@ -10,17 +10,13 @@
 #import <Foundation/Foundation.h>
 #import "DJGoogleSchemeMapping.h"
 #import "DJForwardMapping.h"
+#import "DJSimpleForwardMapping.h"
 
-@interface DJGoogleForwardMapping : NSObject<DJGoogleSchemeMapping, DJForwardMapping> {
+@interface DJGoogleForwardMapping : DJSimpleForwardMapping<DJGoogleSchemeMapping> {
     DJGoogleInputScheme *scheme;
-    // Input as NSString to DJParseTreeNode
-    NSMutableDictionary *parseTree;
     // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode
     NSMutableDictionary *classes;
 }
-
-@property NSDictionary *parseTree;
-@property NSDictionary *classes;
 
 -(NSString*)classNameForInput:(NSString*)input;
 -(NSDictionary*)classForName:(NSString*)className;

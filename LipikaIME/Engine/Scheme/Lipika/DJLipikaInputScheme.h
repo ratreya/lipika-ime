@@ -9,7 +9,17 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DJInputMethodScheme.h"
+#import "DJSimpleForwardMapping.h"
+#import "DJSimpleReverseMapping.h"
 
-@interface DJLipikaInputScheme : NSObject<DJInputMethodScheme>
+@interface DJLipikaInputScheme : NSObject<DJInputMethodScheme> {
+    DJSimpleForwardMapping *forwardMapping;
+    DJSimpleReverseMapping *reverseMapping;
+    NSDictionary *schemeTable;
+    NSDictionary *scriptTable;
+    NSDictionary *validKeys;
+}
+
+-(id)initWithSchemeTable:(NSDictionary*)schemeTable scriptTable:(NSDictionary*)scriptTable imeLines:(NSArray*)imeLines;
 
 @end

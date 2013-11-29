@@ -10,7 +10,8 @@
 enum DJLogLevel {
     DJ_DEBUG = 1,
     DJ_WARNING = 2,
-    DJ_ERROR = 3
+    DJ_ERROR = 3,
+    DJ_FATAL = 4
 };
 
 enum DJBackspaceBehavior {
