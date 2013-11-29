@@ -157,6 +157,9 @@ static NSDictionary* candidateStringAttributeCache = nil;
         case DJ_ERROR:
             severity = @"Error";
             break;
+        case DJ_FATAL:
+            severity = @"Fatal";
+            break;
         default:
             severity = @"Unknown";
             break;
@@ -172,6 +175,9 @@ static NSDictionary* candidateStringAttributeCache = nil;
         return DJ_WARNING;
     }
     else if ([level isEqualToString:@"Error"]) {
+        return DJ_ERROR;
+    }
+    else if ([level isEqualToString:@"Fatal"]) {
         return DJ_ERROR;
     }
     else {

@@ -71,6 +71,13 @@ void logError(NSString* format, ...) {
     va_end(args);
 }
 
+void logFatal(NSString* format, ...) {
+    va_list args;
+    va_start(args, format);
+    logGenericBatch(DJ_FATAL, format, args);
+    va_end(args);
+}
+
 NSString* startBatch() {
     currentBatchId = getUUIDString();
     return currentBatchId;
