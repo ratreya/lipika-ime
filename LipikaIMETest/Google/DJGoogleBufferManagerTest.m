@@ -7,9 +7,16 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "LipikaIMEBufferManagerTest.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "DJLipikaBufferManager.h"
 #import "DJLipikaUserSettings.h"
 #import "DJGoogleSchemeFactory.h"
+
+@interface LipikaIMEBufferManagerTest : SenTestCase {
+    DJLipikaBufferManager* manager;
+}
+
+@end
 
 @interface DJLipikaBufferManager (Test)
 

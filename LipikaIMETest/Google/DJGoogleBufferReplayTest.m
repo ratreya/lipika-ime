@@ -7,8 +7,15 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "LipikaIMEInputStringText.h"
 #import "DJGoogleSchemeFactory.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "DJLipikaBufferManager.h"
+
+@interface LipikaIMEBufferReplayTest : SenTestCase {
+    DJLipikaBufferManager* manager;
+}
+
+@end
 
 @interface DJLipikaBufferManager (Test)
 
@@ -16,7 +23,7 @@
 
 @end
 
-@implementation LipikaIMEInputStringText
+@implementation LipikaIMEBufferReplayTest
 
 -(void)setUp {
     [super setUp];
@@ -30,22 +37,28 @@
     [super tearDown];
 }
 
--(void)testHappyCase_NilOutput {
+-(void)testHappyCase_Replay {
     // abcdf should output pqs
     NSString* output = [manager outputForInput:@"a"];
-    STAssertTrue([@"a" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
     output = [manager outputForInput:@"b"];
-    STAssertTrue([@"ab" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
     output = [manager outputForInput:@"c"];
-    STAssertTrue([@"abc" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
     output = [manager outputForInput:@"d"];
-    STAssertTrue([@"abcd" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
     output = [manager outputForInput:@"f"];
-    STAssertTrue([@"abcdf" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
     output = [manager outputForInput:@"g"];
-    STAssertTrue([@"abcdfg" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
     output = [manager outputForInput:@" "];
     STAssertTrue([output isEqualToString:@"qs "], [NSString stringWithFormat:@"Unexpected output: %@", output]);
+}
+
+-(void)testHappyCase_Multiple_Replay {
+    // abcdfh should output pqt
+    NSString* output = [manager outputForInput:@"a"];
+    output = [manager outputForInput:@"b"];
+    output = [manager outputForInput:@"c"];
+    output = [manager outputForInput:@"d"];
+    output = [manager outputForInput:@"f"];
+    output = [manager outputForInput:@"h"];
+    output = [manager outputForInput:@" "];
+    STAssertTrue([output isEqualToString:@"qt "], [NSString stringWithFormat:@"Unexpected output: %@", output]);
 }
 
 @end

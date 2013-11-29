@@ -7,8 +7,15 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "LipikaIMESchemeTest.h"
 #import "DJParseTreeNode.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "DJGoogleSchemeFactory.h"
+
+@interface LipikaIMESchemeTest : SenTestCase {
+    DJGoogleInputScheme *scheme;
+}
+
+@end
 
 @implementation LipikaIMESchemeTest
 
