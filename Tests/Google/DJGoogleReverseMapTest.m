@@ -20,7 +20,7 @@
 
 -(void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Google/Schemes/TestHappyCase.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/Tests/Google/Schemes/TestHappyCase.scm"];
 }
 
 -(void)testHapyCase {

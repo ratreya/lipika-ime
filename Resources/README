@@ -1,18 +1,14 @@
-_LipikaIME_ is a user-configurable, phonetic, Input Method Engine for Mac OS X.
+LipikaIME is a user-configurable, phonetic, Input Method Engine for Mac OS X.
 
-> Copyright (C) 2013 Ranganath Atreya
+Copyright (C) 2013 Ranganath Atreya
 
-```
 This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
-```
-
 
 ### Release Notes ###
 
 #### 10/14/2013: RELEASE NOTES FOR VERSION 1.3 ####
 * Support for combining fresh typing with existing glyph
 * Several bug fixes around candidate window configuration
-
 
 #### 7/21/2013: RELEASE NOTES FOR VERSION 1.2 ####
 * Input Schemes menu now groups schemes by language or rather script
@@ -24,13 +20,11 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
   * Greater font control for pop-up text
   * Ability to choose pop-up panel type
 
-
 #### 3/31/2013: RELEASE NOTES FOR VERSION 1.1 ####
 * Added ability to turn off candidate window
 * Echo input text in the client window
 * More configuration options for input and candidate text
 * Added standard Baraha scheme
-
 
 #### 3/09/2013: RELEASE NOTES FOR VERSION 1.0 ####
 * Ability to configure log level; default is warning
@@ -38,12 +32,10 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 * Configurable onUnfocus behavior: commit inflight, discard inflight, restore inflight onFocus
 * Open sourcing the code on github
 
-
 #### 3/02/2013: RELEASE NOTES FOR VERSION 0.97 ####
 * ITRANS version 5.30 using classes for maintainability
 * Backspace now deletes single output character at a time
 * Various bug fixes including fix for #11
-
 
 #### 2/25/2013: RELEASE NOTES FOR VERSION 0.95 ####
 * Ability to choose from list of available schemes
@@ -51,7 +43,6 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 * Functionality to automatically persist user preferrences
 * Added ITRANS.scm for Indian languages TRANSliteration
 * Various bug fixes
-
 
 #### 2/17/2013: RELEASE NOTES FOR VERSION 0.90 ####
 This first release is a minimal credible product with the following features:
