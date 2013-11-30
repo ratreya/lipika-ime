@@ -46,6 +46,22 @@
 		A5999AB418498171002EE8AE /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = A500ED3E184976A300A6945D /* MainMenu.nib */; };
 		A5999AB518498171002EE8AE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = A500ED40184976A300A6945D /* Preferences.xib */; };
 		A5999AB618498195002EE8AE /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A500ED361849765200A6945D /* UserSettings.plist */; };
+		A5999AB918498604002EE8AE /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ECFD184974DD00A6945D /* DJInputEngineFactory.m */; };
+		A5999ABA18498604002EE8AE /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ECFF184974DD00A6945D /* DJInputMethodEngine.m */; };
+		A5999ABB18498604002EE8AE /* DJLipikaBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED01184974DD00A6945D /* DJLipikaBufferManager.m */; };
+		A5999ABC18498604002EE8AE /* DJInputSchemeUberFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED08184974F600A6945D /* DJInputSchemeUberFactory.m */; };
+		A5999ABD18498604002EE8AE /* DJSimpleForwardMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED0F184974F600A6945D /* DJSimpleForwardMapping.m */; };
+		A5999ABE18498604002EE8AE /* DJSimpleReverseMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED11184974F600A6945D /* DJSimpleReverseMapping.m */; };
+		A5999ABF18498604002EE8AE /* DJParseOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED0A184974F600A6945D /* DJParseOutput.m */; };
+		A5999AC018498604002EE8AE /* DJParseTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED0C184974F600A6945D /* DJParseTreeNode.m */; };
+		A5999AC118498604002EE8AE /* DJGoogleSchemeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED241849754600A6945D /* DJGoogleSchemeFactory.m */; };
+		A5999AC218498604002EE8AE /* DJGoogleInputScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED201849754600A6945D /* DJGoogleInputScheme.m */; };
+		A5999AC318498604002EE8AE /* DJGoogleForwardMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED1E1849754600A6945D /* DJGoogleForwardMapping.m */; };
+		A5999AC418498604002EE8AE /* DJGoogleReverseMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED221849754600A6945D /* DJGoogleReverseMapping.m */; };
+		A5999AC518498631002EE8AE /* DJLipikaSchemeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED1A1849752800A6945D /* DJLipikaSchemeFactory.m */; };
+		A5999AC618498631002EE8AE /* DJLipikaInputScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED181849752800A6945D /* DJLipikaInputScheme.m */; };
+		A5999AC718498631002EE8AE /* DJLipikaUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED2C1849758500A6945D /* DJLipikaUserSettings.m */; };
+		A5999AC818498647002EE8AE /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A500ED2E1849758500A6945D /* DJLogger.m */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A5BA7D5A181D912100461B2F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BA7D59181D912100461B2F /* Foundation.framework */; };
@@ -611,6 +627,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5999AC818498647002EE8AE /* DJLogger.m in Sources */,
+				A5999AC518498631002EE8AE /* DJLipikaSchemeFactory.m in Sources */,
+				A5999AC618498631002EE8AE /* DJLipikaInputScheme.m in Sources */,
+				A5999AC718498631002EE8AE /* DJLipikaUserSettings.m in Sources */,
+				A5999AB918498604002EE8AE /* DJInputEngineFactory.m in Sources */,
+				A5999ABA18498604002EE8AE /* DJInputMethodEngine.m in Sources */,
+				A5999ABB18498604002EE8AE /* DJLipikaBufferManager.m in Sources */,
+				A5999ABC18498604002EE8AE /* DJInputSchemeUberFactory.m in Sources */,
+				A5999ABD18498604002EE8AE /* DJSimpleForwardMapping.m in Sources */,
+				A5999ABE18498604002EE8AE /* DJSimpleReverseMapping.m in Sources */,
+				A5999ABF18498604002EE8AE /* DJParseOutput.m in Sources */,
+				A5999AC018498604002EE8AE /* DJParseTreeNode.m in Sources */,
+				A5999AC118498604002EE8AE /* DJGoogleSchemeFactory.m in Sources */,
+				A5999AC218498604002EE8AE /* DJGoogleInputScheme.m in Sources */,
+				A5999AC318498604002EE8AE /* DJGoogleForwardMapping.m in Sources */,
+				A5999AC418498604002EE8AE /* DJGoogleReverseMapping.m in Sources */,
 				A5999AAA18497860002EE8AE /* DJGoogleBufferManagerTest.m in Sources */,
 				A5999AAB18497860002EE8AE /* DJGoogleBufferReplayTest.m in Sources */,
 				A5999AAC18497860002EE8AE /* DJGoogleEngineTest.m in Sources */,
@@ -769,6 +801,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TEST_HOST = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -795,6 +828,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				TEST_HOST = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
