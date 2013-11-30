@@ -1,0 +1,10 @@
+﻿/* Localized versions of Info.plist keys */
+
+NSHumanReadableCopyright = "Copyright (C) 2013 Ranganath Atreya";
+
+/* Include your mode strings here.  See TN2128 for details. */
+
+CFBundleName = "LipikaIME";
+CFBundleDisplayName = "LipikaIME";
+CFBundleShortVersionString = "1.3.0";
+CFBundleGetInfoString = "LipikaIME version 1.3.0, Copyright (C) 2013 Ranganath Atreya";

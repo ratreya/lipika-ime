@@ -28,7 +28,7 @@
 
 -(void)setUp {
     [super setUp];
-    DJGoogleInputScheme* scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/LipikaIMETest/Google/Schemes/TestHappyCase.scm"];
+    DJGoogleInputScheme* scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/Tests/Google/Schemes/TestHappyCase.scm"];
     DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     manager = [[DJLipikaBufferManager alloc] initWithEngine:engine];
 }
