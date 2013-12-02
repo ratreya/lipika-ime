@@ -11,13 +11,13 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJGoogleInputScheme.h"
 
-@interface LipikaIMESpecialCharsTest : SenTestCase {
+@interface DJGoogleSpecialCharsTest : SenTestCase {
     DJGoogleInputScheme* scheme;
 }
 
 @end
 
-@implementation LipikaIMESpecialCharsTest
+@implementation DJGoogleSpecialCharsTest
 
 - (void)setUp {
     [super setUp];

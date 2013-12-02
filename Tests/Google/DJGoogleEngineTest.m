@@ -12,14 +12,14 @@
 #import "DJGoogleInputScheme.h"
 #import "DJInputMethodEngine.h"
 
-@interface LipikaIMEEngineTest : SenTestCase {
+@interface DJGoogleEngineTest : SenTestCase {
     DJGoogleInputScheme* scheme;
     DJInputMethodEngine* engine;
 }
 
 @end
 
-@implementation LipikaIMEEngineTest
+@implementation DJGoogleEngineTest
 
 - (void)setUp {
     [super setUp];

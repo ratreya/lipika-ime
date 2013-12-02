@@ -11,7 +11,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJLipikaBufferManager.h"
 
-@interface LipikaIMEInputStringText : SenTestCase {
+@interface DJGoogleInputStringText : SenTestCase {
     DJLipikaBufferManager* manager;
 }
 
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation LipikaIMEInputStringText
+@implementation DJGoogleInputStringText
 
 -(void)setUp {
     [super setUp];

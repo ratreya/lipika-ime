@@ -11,13 +11,13 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJGoogleSchemeFactory.h"
 
-@interface LipikaIMESchemeTest : SenTestCase {
+@interface DJGoogleSchemeTest : SenTestCase {
     DJGoogleInputScheme *scheme;
 }
 
 @end
 
-@implementation LipikaIMESchemeTest
+@implementation DJGoogleSchemeTest
 
 - (void)setUp {
     [super setUp];

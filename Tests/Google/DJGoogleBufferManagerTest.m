@@ -12,7 +12,7 @@
 #import "DJLipikaUserSettings.h"
 #import "DJGoogleSchemeFactory.h"
 
-@interface LipikaIMEBufferManagerTest : SenTestCase {
+@interface DJGoogleBufferManagerTest : SenTestCase {
     DJLipikaBufferManager* manager;
 }
 
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation LipikaIMEBufferManagerTest
+@implementation DJGoogleBufferManagerTest
 
 -(void)setUp {
     [super setUp];

@@ -11,7 +11,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJLipikaBufferManager.h"
 
-@interface LipikaIMEBufferReplayTest : SenTestCase {
+@interface DJGoogleBufferReplayTest : SenTestCase {
     DJLipikaBufferManager* manager;
 }
 
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation LipikaIMEBufferReplayTest
+@implementation DJGoogleBufferReplayTest
 
 -(void)setUp {
     [super setUp];
