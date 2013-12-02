@@ -28,6 +28,8 @@ enum DJReferenceType {
 @property NSString *class;
 @property NSString *valueKey;
 
+-(DJMapReference*)mapReferenceWithValueKey:(NSString*)valueKey;
+
 @end
 
 @implementation DJMapReference
@@ -36,6 +38,15 @@ enum DJReferenceType {
 @synthesize replacement;
 @synthesize class;
 @synthesize valueKey;
+
+-(DJMapReference*)mapReferenceWithValueKey:(NSString*)theValueKey {
+    DJMapReference *new = [[DJMapReference alloc] init];
+    new.type = type;
+    new.replacement = replacement;
+    new.class = class;
+    new.valueKey = theValueKey;
+    return new;
+}
 
 @end
 
@@ -49,7 +60,7 @@ static NSRegularExpression *mapStringSubExpression;
 +(void)initialize {
     NSString *const twoColumnTSVPattern = @"^(\\S+)\\t+(\\S+)$";
     NSString *const specificValuePattern = @"^\\s*(\\S+)\\s*/\\s*(\\S+)\\s*$";
-    NSString *const mapStringSubPattern = @"([\\S+]|{\\S+})";
+    NSString *const mapStringSubPattern = @"(\\[[^\\]]+?\\]|\\{[^\\}]+?\\})";
 
     NSError* error;
     twoColumnTSVExpression = [NSRegularExpression regularExpressionWithPattern:twoColumnTSVPattern options:0 error:&error];
@@ -61,6 +72,9 @@ static NSRegularExpression *mapStringSubExpression;
         [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
     mapStringSubExpression = [NSRegularExpression regularExpressionWithPattern:mapStringSubPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
 }
 
 -(id)initWithSchemeTable:(NSDictionary*)theSchemeTable scriptTable:(NSDictionary*)theScriptTable imeLines:(NSArray*)imeLines {
@@ -70,6 +84,8 @@ static NSRegularExpression *mapStringSubExpression;
     }
     schemeTable = theSchemeTable;
     scriptTable = theScriptTable;
+    forwardMapping = [[DJSimpleForwardMapping alloc] init];
+    reverseMapping = [[DJSimpleReverseMapping alloc] init];
     // Figure out the common set of valid keys between the two tables
     validKeys = [NSMutableDictionary dictionaryWithCapacity:MAX(schemeTable.count, scriptTable.count)];
     NSMutableSet *commonClasses = [NSMutableSet setWithArray:[schemeTable allKeys]];
@@ -79,8 +95,7 @@ static NSRegularExpression *mapStringSubExpression;
         NSMutableSet *commonValueKeys = [NSMutableSet setWithArray:[[schemeTable objectForKey:className] allKeys]];
         NSSet *scriptValueKeys = [NSSet setWithArray:[[scriptTable objectForKey:className] allKeys]];
         [commonValueKeys intersectSet:scriptValueKeys];
-        NSMutableArray *sortedValueKeys = [NSMutableArray arrayWithArray:[commonValueKeys allObjects]];
-        [sortedValueKeys sortedArrayUsingSelector:@selector(compare:)];
+        NSArray *sortedValueKeys = [[NSMutableArray arrayWithArray:[commonValueKeys allObjects]] sortedArrayUsingSelector:@selector(compare:)];
         [validKeys setValue:sortedValueKeys forKey:className];
     }
     for (NSString *line in imeLines) {
@@ -91,7 +106,7 @@ static NSRegularExpression *mapStringSubExpression;
             NSString *batchId = startBatch();
             NSArray *preValues = [self parseMapString:preMap];
             endBatch(batchId);
-            logDebug(@"Parsing postMap: %@", preMap);
+            logDebug(@"Parsing postMap: %@", postMap);
             batchId = startBatch();
             NSArray *postValues = [self parseMapString:postMap];
             endBatch(batchId);
@@ -99,8 +114,13 @@ static NSRegularExpression *mapStringSubExpression;
                 [NSException raise:@"Invalid IME line" format:@"For IME line %@: count of mappings from left column (%ld) does not match that from the right (%ld)", line, preValues.count, postValues.count];
             }
             for (int i=0; i<preValues.count; i++) {
-                [forwardMapping createSimpleMappingWithKey:[preValues objectAtIndex:i] value:[postValues objectAtIndex:i]];
-                [reverseMapping createSimpleMappingWithKey:[preValues objectAtIndex:i] value:[postValues objectAtIndex:i]];
+                NSString *preValue = [preValues objectAtIndex:i];
+                NSString *postValue = [postValues objectAtIndex:i];
+                NSArray *perPreValues = csvToArrayForString(preValue);
+                for (NSString *prePreValue in perPreValues) {
+                    [forwardMapping createSimpleMappingWithKey:prePreValue value:postValue];
+                    [reverseMapping createSimpleMappingWithKey:prePreValue value:postValue];
+                }
             }
         }
         else {
@@ -113,8 +133,8 @@ static NSRegularExpression *mapStringSubExpression;
 -(NSArray*)parseMapString:(NSString*)mapString {
     NSArray *matches = [mapStringSubExpression matchesInString:mapString options:0 range:NSMakeRange(0, mapString.length)];
     NSMutableArray *references = [NSMutableArray arrayWithCapacity:matches.count];
-    NSRange range = [mapStringSubExpression rangeOfFirstMatchInString:mapString options:0 range:NSMakeRange(0, mapString.length)];
-    while (range.location != NSNotFound) {
+    for (NSTextCheckingResult *match in matches) {
+        NSRange range = [match range];
         DJMapReference *reference = [[DJMapReference alloc] init];
         NSString *token = [mapString substringWithRange:range];
         logDebug(@"Parsing token: %@", token);
@@ -132,7 +152,7 @@ static NSRegularExpression *mapStringSubExpression;
             [NSException raise:@"Internal error" format:@"Token is of unknown type: %@", token];
         }
         logDebug(@"Token type: %u", reference.type);
-        NSString *moniker = [token substringWithRange:NSMakeRange(1, token.length-1)];
+        NSString *moniker = [token substringWithRange:NSMakeRange(1, token.length-2)];
         if ([specificValueExpression numberOfMatchesInString:moniker options:0 range:NSMakeRange(0, moniker.length)]) {
             reference.class = [specificValueExpression stringByReplacingMatchesInString:moniker options:0 range:NSMakeRange(0, moniker.length) withTemplate:@"$1"];
             reference.valueKey = [specificValueExpression stringByReplacingMatchesInString:moniker options:0 range:NSMakeRange(0, moniker.length) withTemplate:@"$2"];
@@ -143,45 +163,62 @@ static NSRegularExpression *mapStringSubExpression;
         logDebug(@"Token class name: %@", reference.class);
         if (reference.valueKey) logDebug(@"Token value key: %@", reference.valueKey);
         [references addObject:reference];
-        range = [mapStringSubExpression rangeOfFirstMatchInString:mapString options:0 range:NSMakeRange(range.location + range.length, mapString.length)];
     }
-    NSArray *formattedStrings = [NSArray arrayWithObject:mapString];
-    for (DJMapReference *reference in references) {
-        formattedStrings = [self applyReference:reference toMapStrings:formattedStrings];
-    }
-    return formattedStrings;
+    NSMutableArray *results = [NSMutableArray arrayWithCapacity:0];
+    [self applyReferences:references toMapString:mapString withAdjustment:0 results:results];
+    return results;
 }
 
--(NSArray*)applyReference:(DJMapReference*)reference toMapStrings:(NSArray*)mapStrings {
+-(void)applyReferences:(NSArray*)references toMapString:(NSString*)mapString withAdjustment:(int)adjustment results:(NSMutableArray*)results {
+    DJMapReference *reference = [references objectAtIndex:0];
     if (reference.valueKey) {
-        return [self applyReference:reference withValue:reference.valueKey toMapStrings:mapStrings];
+        NSString *substituant = [self substituantForReference:reference];
+        NSRange range = NSMakeRange(reference.replacement.location - adjustment, reference.replacement.length);
+        NSString *result = [mapString stringByReplacingCharactersInRange:range withString:substituant];
+        if (references.count >= 2) {
+            adjustment += range.length - substituant.length;
+            NSArray *remaining = [references subarrayWithRange:NSMakeRange(1, references.count - 1)];
+            [self applyReferences:remaining toMapString:result withAdjustment:adjustment results:results];
+        }
+        else {
+            [results addObject:result];
+        }
     }
     else {
         NSArray *valueKeys = [validKeys valueForKey:reference.class];
-        if (!validKeys) {
+        if (!valueKeys) {
             [NSException raise:@"Unrecognized class name" format:@"Invalid class name: %@", reference.class];
         }
-        NSMutableArray *formattedStrings = [NSMutableArray arrayWithCapacity:valueKeys.count*mapStrings.count];
         for (NSString *valueKey in valueKeys) {
-            [formattedStrings addObjectsFromArray:[self applyReference:reference withValue:valueKey toMapStrings:mapStrings]];
+            DJMapReference *valueKeyRef = [reference mapReferenceWithValueKey:valueKey];
+            NSMutableArray *remaining = [NSMutableArray arrayWithObject:valueKeyRef];
+            if (references.count > 1) [remaining addObjectsFromArray:[references subarrayWithRange:NSMakeRange(1, references.count - 1)]];
+            [self applyReferences:remaining toMapString:mapString withAdjustment:adjustment results:results];
         }
-        return formattedStrings;
     }
 }
 
--(NSArray*)applyReference:(DJMapReference*)reference withValue:(NSString*)valueKey toMapStrings:(NSArray*)mapStrings {
+-(NSString*)substituantForReference:(DJMapReference*)reference {
     NSString *substituant;
-    if (reference.type == SCHEME) substituant = [[schemeTable objectForKey:reference.class] objectForKey:valueKey];
-    else if (reference.type == SCRIPT) substituant = [[scriptTable objectForKey:reference.class] objectForKey:valueKey];
+    if (reference.type == SCHEME) {
+        substituant = [[schemeTable objectForKey:reference.class] objectForKey:reference.valueKey];
+    }
+    else if (reference.type == SCRIPT) {
+        substituant = [[scriptTable objectForKey:reference.class] objectForKey:reference.valueKey];
+    }
     else [NSException raise:@"Unregcognized reference type" format:@"Unknown reference type: %u", reference.type];
     if (!substituant) {
-        [NSException raise:@"Unknown class/key" format:@"Could not find key %@ in class name %@ for Script(1)/Scheme(2): %u", valueKey, reference.class, reference.type];
+        [NSException raise:@"Unknown class/key" format:@"Could not find key %@ in class name %@ for Script(1)/Scheme(2): %u", reference.valueKey, reference.class, reference.type];
     }
-    NSMutableArray *formattedStrings = [NSMutableArray arrayWithCapacity:mapStrings.count];
-    for (NSString *mapString in mapStrings) {
-        [formattedStrings addObject:[mapString stringByReplacingCharactersInRange:reference.replacement withString:substituant]];
-    }
-    return formattedStrings;
+    if (reference.type == SCRIPT) substituant = [self stringForUnicode:substituant];
+    return substituant;
+}
+
+-(NSString*)stringForUnicode:(NSString*)unicodeString {
+    NSScanner *scanner = [NSScanner scannerWithString:unicodeString];
+    unsigned unicode = 0;
+    [scanner scanHexInt:&unicode];
+    return [[NSString alloc] initWithBytes:&unicode length:4 encoding:NSUTF32LittleEndianStringEncoding];
 }
 
 -(NSString*)stopChar {

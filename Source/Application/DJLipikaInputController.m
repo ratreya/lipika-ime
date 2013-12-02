@@ -238,11 +238,11 @@ static long numCompositionCommits = 0;
     if (isSchemeItem) {
         [manager changeToSchemeWithName:name forScript:[DJInputEngineFactory currentScriptName] type:LIPIKA];
     }
-    else if (isGoogleItem) {
-        [manager changeToSchemeWithName:name forScript:nil type:GOOGLE];
-    }
     else if (isScriptItem) {
         [manager changeToSchemeWithName:[DJInputEngineFactory currentSchemeName] forScript:name type:LIPIKA];
+    }
+    else if (isGoogleItem) {
+        [manager changeToSchemeWithName:name forScript:nil type:GOOGLE];
     }
 }
 
