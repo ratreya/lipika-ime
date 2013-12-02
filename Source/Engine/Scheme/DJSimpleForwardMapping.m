@@ -12,6 +12,13 @@
 
 @implementation DJSimpleForwardMapping
 
+-(id)init {
+    self = [super init];
+    if (!self) return self;
+    parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
+    return self;
+}
+
 -(NSDictionary*)parseTree {
     return parseTree;
 }

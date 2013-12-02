@@ -114,12 +114,11 @@ static NSRegularExpression *mapStringSubExpression;
                 [NSException raise:@"Invalid IME line" format:@"For IME line %@: count of mappings from left column (%ld) does not match that from the right (%ld)", line, preValues.count, postValues.count];
             }
             for (int i=0; i<preValues.count; i++) {
-                NSString *preValue = [preValues objectAtIndex:i];
-                NSString *postValue = [postValues objectAtIndex:i];
-                NSArray *perPreValues = csvToArrayForString(preValue);
-                for (NSString *prePreValue in perPreValues) {
-                    [forwardMapping createSimpleMappingWithKey:prePreValue value:postValue];
-                    [reverseMapping createSimpleMappingWithKey:prePreValue value:postValue];
+                NSArray *preValueList = [preValues objectAtIndex:i];
+                NSString *postValue = [[postValues objectAtIndex:i] objectAtIndex:0];
+                for (NSString *preValue in preValueList) {
+                    [forwardMapping createSimpleMappingWithKey:preValue value:postValue];
+                    [reverseMapping createSimpleMappingWithKey:preValue value:postValue];
                 }
             }
         }
@@ -164,24 +163,37 @@ static NSRegularExpression *mapStringSubExpression;
         if (reference.valueKey) logDebug(@"Token value key: %@", reference.valueKey);
         [references addObject:reference];
     }
-    NSMutableArray *results = [NSMutableArray arrayWithCapacity:0];
-    [self applyReferences:references toMapString:mapString withAdjustment:0 results:results];
-    return results;
+    NSMutableDictionary *results = [NSMutableDictionary dictionaryWithCapacity:0];
+    [self applyReferences:references atIndex:0 toMapString:mapString withAdjustment:0 results:results];
+    NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:results.count];
+    [[[results allKeys] sortedArrayUsingSelector:@selector(compare:)] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [sortedResults addObject:[results objectForKey:obj]];
+    }];
+    return sortedResults;
 }
 
--(void)applyReferences:(NSArray*)references toMapString:(NSString*)mapString withAdjustment:(int)adjustment results:(NSMutableArray*)results {
-    DJMapReference *reference = [references objectAtIndex:0];
+-(void)applyReferences:(NSArray*)references atIndex:(int)index toMapString:(NSString*)mapString withAdjustment:(unsigned long)adjustment results:(NSMutableDictionary*)results {
+    DJMapReference *reference = [references objectAtIndex:index];
     if (reference.valueKey) {
-        NSString *substituant = [self substituantForReference:reference];
+        NSArray *substituants = [self substituantForReference:reference];
         NSRange range = NSMakeRange(reference.replacement.location - adjustment, reference.replacement.length);
-        NSString *result = [mapString stringByReplacingCharactersInRange:range withString:substituant];
-        if (references.count >= 2) {
-            adjustment += range.length - substituant.length;
-            NSArray *remaining = [references subarrayWithRange:NSMakeRange(1, references.count - 1)];
-            [self applyReferences:remaining toMapString:result withAdjustment:adjustment results:results];
-        }
-        else {
-            [results addObject:result];
+        for (NSString *substituant in substituants) {
+            NSString *result = [mapString stringByReplacingCharactersInRange:range withString:substituant];
+            if (references.count - index > 1) {
+                unsigned long subAdjustment = adjustment + (range.length - substituant.length);
+                [self applyReferences:references atIndex:index+1 toMapString:result withAdjustment:subAdjustment results:results];
+            }
+            else {
+                NSString *key = @"";
+                for (int i=0; i<=index; i++) {
+                    DJMapReference *ref = [references objectAtIndex:i];
+                    key = [[key stringByAppendingString:ref.class] stringByAppendingString:ref.valueKey];
+                }
+                NSMutableArray *resultsForKey = [results objectForKey:key];
+                if (!resultsForKey) resultsForKey = [NSMutableArray arrayWithObject:result];
+                else [resultsForKey addObject:result];
+                [results setObject:resultsForKey forKey:key];
+            }
         }
     }
     else {
@@ -191,14 +203,14 @@ static NSRegularExpression *mapStringSubExpression;
         }
         for (NSString *valueKey in valueKeys) {
             DJMapReference *valueKeyRef = [reference mapReferenceWithValueKey:valueKey];
-            NSMutableArray *remaining = [NSMutableArray arrayWithObject:valueKeyRef];
-            if (references.count > 1) [remaining addObjectsFromArray:[references subarrayWithRange:NSMakeRange(1, references.count - 1)]];
-            [self applyReferences:remaining toMapString:mapString withAdjustment:adjustment results:results];
+            NSMutableArray *remaining = [references mutableCopy];
+            [remaining replaceObjectAtIndex:index withObject:valueKeyRef];
+            [self applyReferences:remaining atIndex:index toMapString:mapString withAdjustment:adjustment results:results];
         }
     }
 }
 
--(NSString*)substituantForReference:(DJMapReference*)reference {
+-(NSArray*)substituantForReference:(DJMapReference*)reference {
     NSString *substituant;
     if (reference.type == SCHEME) {
         substituant = [[schemeTable objectForKey:reference.class] objectForKey:reference.valueKey];
@@ -210,8 +222,8 @@ static NSRegularExpression *mapStringSubExpression;
     if (!substituant) {
         [NSException raise:@"Unknown class/key" format:@"Could not find key %@ in class name %@ for Script(1)/Scheme(2): %u", reference.valueKey, reference.class, reference.type];
     }
-    if (reference.type == SCRIPT) substituant = [self stringForUnicode:substituant];
-    return substituant;
+    if (reference.type == SCRIPT) return [NSArray arrayWithObject:[self stringForUnicode:substituant]];
+    else return csvToArrayForString(substituant);
 }
 
 -(NSString*)stringForUnicode:(NSString*)unicodeString {

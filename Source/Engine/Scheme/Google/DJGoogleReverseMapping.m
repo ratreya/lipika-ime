@@ -17,11 +17,8 @@
     self = [super init];
     if (self == nil) return self;
     scheme = parentScheme;
-    reverseTrieHead = [[DJParseTreeNode alloc] init];
-    reverseTrieHead.next = [NSMutableDictionary dictionaryWithCapacity:0];
     classes = [NSMutableDictionary dictionaryWithCapacity:0];
     maxOutputSizesPerClass = [NSMutableDictionary dictionaryWithCapacity:0];
-    maxOutputSize = 0;
     return self;
 }
 
