@@ -29,4 +29,13 @@ extern NSMutableArray* charactersForString(NSString *string) {
     return array;
 }
 
+extern NSArray* csvToArrayForString(NSString *csvLine) {
+    NSArray *items = [csvLine componentsSeparatedByString:@","];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:items.count];
+    [items enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+        [result addObject:[obj stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]]];
+    }];
+    return result;
+}
+
 @end

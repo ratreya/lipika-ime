@@ -196,7 +196,7 @@ static NSString *schemesDirectory;
         logDebug(@"Parsing line %@", line);
         if ([scriptOverrideExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
             NSString *override = [scriptOverrideExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
-            NSArray *scriptOverrides = [self csvToArrayForString:override];
+            NSArray *scriptOverrides = csvToArrayForString(override);
             for (NSString *scriptOverride in scriptOverrides) {
                 NSString *scriptFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCRIPTSUBDIR] stringByAppendingPathComponent:scriptOverride] stringByAppendingPathExtension:SCRIPTEXTENSION];
                 logDebug(@"Parsing script override file: %@", scriptFilePath);
@@ -205,7 +205,7 @@ static NSString *schemesDirectory;
         }
         else if ([schemeOverrideExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
             NSString *override = [schemeOverrideExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
-            NSArray *schemeOverrides = [self csvToArrayForString:override];
+            NSArray *schemeOverrides = csvToArrayForString(override);
             for (NSString *schemeOverride in schemeOverrides) {
                 NSString *schemeFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCRIPTSUBDIR] stringByAppendingPathComponent:schemeOverride] stringByAppendingPathExtension:SCRIPTEXTENSION];
                 logDebug(@"Parsing scheme override file: %@", schemeFilePath);
@@ -223,15 +223,6 @@ static NSString *schemesDirectory;
         }
     }
     return imeLines;
-}
-
--(NSArray*)csvToArrayForString:(NSString*)csvLine {
-    NSArray *items = [csvLine componentsSeparatedByString:@","];
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:items.count];
-    [items enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
-        [result addObject:[obj stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]]];
-    }];
-    return result;
 }
 
 -(NSArray*)linesOfFile:(NSString*)filePath {

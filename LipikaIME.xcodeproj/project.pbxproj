@@ -70,6 +70,7 @@
 		A5C54E0516BA20C1007F631D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C54E0416BA20C1007F631D /* SenTestingKit.framework */; };
 		A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5C6BB2016B5A5F100B02E1B /* Schemes */; };
 		A5CD9F0716EBFF4E0024A20A /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */; };
+		A5FBD8B4184AD7E9000336EE /* DJLipikaSchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FBD8B3184AD7E9000336EE /* DJLipikaSchemeTest.m */; };
 		E93074B70A5C264700470842 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +167,7 @@
 		A5C54E0416BA20C1007F631D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A5C6BB2016B5A5F100B02E1B /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LipikaIcon.png; path = Resources/LipikaIcon.png; sourceTree = "<group>"; };
+		A5FBD8B3184AD7E9000336EE /* DJLipikaSchemeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJLipikaSchemeTest.m; path = Tests/Lipika/DJLipikaSchemeTest.m; sourceTree = SOURCE_ROOT; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -320,6 +322,7 @@
 		A555039D1848699100B3EA6E /* Lipika */ = {
 			isa = PBXGroup;
 			children = (
+				A5FBD8B3184AD7E9000336EE /* DJLipikaSchemeTest.m */,
 			);
 			name = Lipika;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				A5999AC018498604002EE8AE /* DJParseTreeNode.m in Sources */,
 				A5999AC118498604002EE8AE /* DJGoogleSchemeFactory.m in Sources */,
 				A5999AC218498604002EE8AE /* DJGoogleInputScheme.m in Sources */,
+				A5FBD8B4184AD7E9000336EE /* DJLipikaSchemeTest.m in Sources */,
 				A5999AC318498604002EE8AE /* DJGoogleForwardMapping.m in Sources */,
 				A5999AC418498604002EE8AE /* DJGoogleReverseMapping.m in Sources */,
 				A5999AAA18497860002EE8AE /* DJGoogleBufferManagerTest.m in Sources */,

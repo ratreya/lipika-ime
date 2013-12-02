@@ -55,7 +55,7 @@
     NSArray *scriptNames = [DJInputSchemeUberFactory availableScriptsForType:LIPIKA];
     NSString* defaultScriptName = [DJLipikaUserSettings scriptName];
     for (NSString *scriptName in scriptNames) {
-        NSMenuItem *scriptItem = [[NSMenuItem alloc] initWithTitle:scriptName action:NULL keyEquivalent:@""];
+        NSMenuItem *scriptItem = [[NSMenuItem alloc] initWithTitle:scriptName action:@selector(showPreferences:) keyEquivalent:@""];
         [scriptItem setTag:++runningTagId];
         if (type == LIPIKA && [defaultScriptName isEqualToString:scriptName]) {
             [scriptItem setState:NSOnState];
