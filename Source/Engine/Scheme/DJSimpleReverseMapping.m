@@ -11,6 +11,15 @@
 
 @implementation DJSimpleReverseMapping
 
+-(id)init {
+    self = [super init];
+    if (self == nil) return self;
+    reverseTrieHead = [[DJParseTreeNode alloc] init];
+    reverseTrieHead.next = [NSMutableDictionary dictionaryWithCapacity:0];
+    maxOutputSize = 0;
+    return self;
+}
+
 -(int)maxOutputSize {
     return maxOutputSize;
 }

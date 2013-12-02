@@ -20,9 +20,7 @@
         return self;
     }
     scheme = parentScheme;
-    parseTree = [NSMutableDictionary dictionaryWithCapacity:0];
     classes = [NSMutableDictionary dictionaryWithCapacity:0];
-
     return self;
 }
 

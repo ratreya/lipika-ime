@@ -9,6 +9,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJLipikaInputScheme.h"
+#import "DJInputMethodEngine.h"
 
 @interface DJLipikaInputScheme (Test)
 
@@ -73,6 +74,12 @@
 -(void)testMapStringParsing {
     DJLipikaInputScheme *scheme = [self schemeWithDefaultData];
     STAssertNotNil([scheme forwardMappings], @"Forward parse tree unexpectedly nil");
+    DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
+    NSArray *results = [engine executeWithInput:@"khi"];
+    STAssertNotNil(results, @"Unexpected result");
+    STAssertTrue([[results[0] output] isEqualToString:@"ಕ್"], @"Unexpected result: %@", [results[0] output]);
+    STAssertTrue([[results[1] output] isEqualToString:@"ಖ್"], @"Unexpected result: %@", [results[1] output]);
+    STAssertTrue([[results[2] output] isEqualToString:@"ಖಿ"], @"Unexpected result: %@", [results[2] output]);
 }
 
 @end
