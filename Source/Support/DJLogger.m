@@ -21,7 +21,7 @@ void logGenericBatch(enum DJLogLevel level, NSString* format, va_list variables)
         return;
     }
     // Create the formatted log statement
-    NSString* severity = [DJLipikaUserSettings logLevelStringForEnum:currentLevel];
+    NSString* severity = [DJLipikaUserSettings logLevelStringForEnum:level];
     NSString* log = [NSString stringWithFormat:@"%@: %@", severity, [[NSString alloc] initWithFormat:format arguments:variables]];
 
     // Local variabel to avoid concurrent modification

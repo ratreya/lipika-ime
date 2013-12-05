@@ -84,6 +84,11 @@
     STAssertNotNil(results, @"Unexpected result");
     STAssertTrue([[results[0] output] isEqualToString:@"ಖ್"], @"Unexpected result: %@", [results[0] output]);
     STAssertTrue([[results[1] output] isEqualToString:@"ಖಿ"], @"Unexpected result: %@", [results[1] output]);
+    results = [engine executeWithInput:@"gha"];
+    STAssertNotNil(results, @"Unexpected result");
+    STAssertTrue([[results[0] output] isEqualToString:@"ಗ್"], @"Unexpected result: %@", [results[0] output]);
+    STAssertTrue([[results[1] output] isEqualToString:@"ಘ್"], @"Unexpected result: %@", [results[1] output]);
+    STAssertTrue([[results[2] output] isEqualToString:@"ಘ"], @"Unexpected result: %@", [results[2] output]);
 }
 
 @end

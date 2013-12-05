@@ -16,10 +16,10 @@
 
 +(id<DJInputMethodScheme>)inputSchemeForScript:(NSString*)script scheme:(NSString*)scheme type:(enum DJSchemeType)type {
     switch (type) {
-        case LIPIKA:
+        case DJ_LIPIKA:
             return [DJLipikaSchemeFactory inputSchemeForScript:script scheme:scheme];
             break;
-        case GOOGLE:
+        case DJ_GOOGLE:
             return [DJGoogleSchemeFactory inputSchemeForScheme:scheme];
             break;
         default:
@@ -30,7 +30,7 @@
 
 +(NSArray*)availableScriptsForType:(enum DJSchemeType)type {
     switch (type) {
-        case LIPIKA:
+        case DJ_LIPIKA:
             return [DJLipikaSchemeFactory availableScripts];
             break;
         default:
@@ -41,10 +41,10 @@
 
 +(NSArray*)availableSchemesForType:(enum DJSchemeType)type {
     switch (type) {
-        case LIPIKA:
+        case DJ_LIPIKA:
             return [DJLipikaSchemeFactory availableSchemes];
             break;
-        case GOOGLE:
+        case DJ_GOOGLE:
             return [DJGoogleSchemeFactory availableSchemes];
             break;
         default:

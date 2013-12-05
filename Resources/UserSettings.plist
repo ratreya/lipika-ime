@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Version</key>
-	<integer>1</integer>
+	<integer>2</integer>
 	<key>ScriptName</key>
 	<string>Devanagari</string>
 	<key>SchemeName</key>
