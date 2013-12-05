@@ -30,7 +30,7 @@ static NSString *schemesDirectory;
 +(void)initialize {
     schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSString *const whitespacePattern = @"^\\s+$";
-    NSString *const threeColumnTSVPattern = @"^\\s*(\\S+)\\t+(\\S+)\\t+(\\S+)\\s*$";
+    NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+([^\\t]*)\\s*$";
     NSString *const scriptOverridePattern = @"^\\s*Script\\s*:\\s*(\\S+)\\s*$";
     NSString *const schemeOverridePattern = @"^\\s*Transliteration\\s*:\\s*(\\S+)\\s*$";
     NSString *const imeOverridePattern = @"^\\s*IME\\s*:\\s*(\\S+)\\s*$";
@@ -56,6 +56,11 @@ static NSString *schemesDirectory;
     if (error != nil) {
         [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
+}
+
+// Used for testing only
++(void)setSchemesDirectory:(NSString*)directory {
+    schemesDirectory = directory;
 }
 
 +(DJLipikaInputScheme*)inputSchemeForScript:script scheme:scheme {
@@ -165,8 +170,9 @@ static NSString *schemesDirectory;
             NSString* one = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             NSString* two = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             NSString* three = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$3"];
-            if (one.length || two.length || three.length) {
+            if (!(one.length && two.length && three.length)) {
                 logWarning(@"Not all values specified; ignoring line: %@", line);
+                continue;
             }
             NSMutableDictionary *innerTable = [outerTable objectForKey:one];
             if (!innerTable) {
@@ -207,7 +213,7 @@ static NSString *schemesDirectory;
             NSString *override = [schemeOverrideExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
             NSArray *schemeOverrides = csvToArrayForString(override);
             for (NSString *schemeOverride in schemeOverrides) {
-                NSString *schemeFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCRIPTSUBDIR] stringByAppendingPathComponent:schemeOverride] stringByAppendingPathExtension:SCRIPTEXTENSION];
+                NSString *schemeFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCHEMESUBDIR] stringByAppendingPathComponent:schemeOverride] stringByAppendingPathExtension:SCHEMEEXTENSION];
                 logDebug(@"Parsing scheme override file: %@", schemeFilePath);
                 [self tsvToDictionaryForFile:schemeFilePath dictionary:schemeTable];
             }
@@ -232,7 +238,7 @@ static NSString *schemesDirectory;
     }
     NSData* dataBuffer = [handle readDataToEndOfFile];
     NSString *data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
-    return [data componentsSeparatedByString:@"\n"];
+    return [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
 }
 
 @end

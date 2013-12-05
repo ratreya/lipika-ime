@@ -218,31 +218,31 @@ static long numCompositionCommits = 0;
 }
 
 -(void)changeInputScheme:(NSMenuItem*)menuItem {
-    BOOL isGoogleItem = [[[menuItem parentItem] title] isEqualToString:@"GoogleSubMenu"];
-    BOOL isSchemeItem = [[[menuItem parentItem] title] isEqualToString:@"SchemeSubMenu"];
-    BOOL isScriptItem = [[[menuItem parentItem] title] isEqualToString:@"ScriptSubMenu"];
+    BOOL isGoogleItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJGoogleSubMenu];
+    BOOL isSchemeItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJSchemeSubMenu];
+    BOOL isScriptItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJScriptSubMenu];
     if (isGoogleItem) {
         [self clearAllOnStates:[NSApp mainMenu]];
     }
     else if (isScriptItem || isSchemeItem) {
         // Clear state of all sub-menus under "Input scheme" or "Output script" menu item
-        [self clearAllOnStates:[[menuItem parentItem] submenu]];
+        [self clearAllOnStates:[menuItem menu]];
     }
     else {
-        [NSException raise:@"Unknown menu item" format:@"Menu parent title %@ not recognized", [[menuItem parentItem] title]];
+        [NSException raise:@"Unknown menu item" format:@"Menu parent title %@ not recognized", [[[menuItem parentItem] submenu] title]];
     }
     // Turn on state for the script and scheme
     [menuItem setState:NSOnState];
     [self commit];
     NSString *name = [menuItem title];
     if (isSchemeItem) {
-        [manager changeToSchemeWithName:name forScript:[DJInputEngineFactory currentScriptName] type:LIPIKA];
+        [manager changeToSchemeWithName:name forScript:[DJInputEngineFactory currentScriptName] type:DJ_LIPIKA];
     }
     else if (isScriptItem) {
-        [manager changeToSchemeWithName:[DJInputEngineFactory currentSchemeName] forScript:name type:LIPIKA];
+        [manager changeToSchemeWithName:[DJInputEngineFactory currentSchemeName] forScript:name type:DJ_LIPIKA];
     }
     else if (isGoogleItem) {
-        [manager changeToSchemeWithName:name forScript:nil type:GOOGLE];
+        [manager changeToSchemeWithName:name forScript:nil type:DJ_GOOGLE];
     }
 }
 

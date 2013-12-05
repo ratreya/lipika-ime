@@ -7,6 +7,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+static NSString *const DJGoogleSubMenu = @"GoogleSubMenu";
+static NSString *const DJSchemeSubMenu = @"SchemeSubMenu";
+static NSString *const DJScriptSubMenu = @"ScriptSubMenu";
+
 enum DJLogLevel {
     DJ_DEBUG = 1,
     DJ_WARNING = 2,
@@ -27,6 +31,6 @@ enum DJOnUnfocusBehavior {
 };
 
 enum DJSchemeType {
-    LIPIKA = 1,
-    GOOGLE = 2
+    DJ_LIPIKA = 1,
+    DJ_GOOGLE = 2
 };

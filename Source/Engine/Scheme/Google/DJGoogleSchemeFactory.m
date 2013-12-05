@@ -106,7 +106,7 @@ static NSRegularExpression* classesDelimiterExpression;
     }
     NSData* dataBuffer = [handle readDataToEndOfFile];
     NSString* data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
-    linesOfScheme = [data componentsSeparatedByString:@"\n"];
+    linesOfScheme = [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
     
     @try {
         NSString *batchId = startBatch();

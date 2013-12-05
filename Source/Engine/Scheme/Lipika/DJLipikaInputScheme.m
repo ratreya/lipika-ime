@@ -86,7 +86,7 @@ static NSRegularExpression *mapStringSubExpression;
     scriptTable = theScriptTable;
     forwardMapping = [[DJSimpleForwardMapping alloc] init];
     reverseMapping = [[DJSimpleReverseMapping alloc] init];
-    // Figure out the common set of valid keys between the two tables
+    // Figure out the common set of valid keys between the two tables and only use this set
     validKeys = [NSMutableDictionary dictionaryWithCapacity:MAX(schemeTable.count, scriptTable.count)];
     NSMutableSet *commonClasses = [NSMutableSet setWithArray:[schemeTable allKeys]];
     NSSet *scriptClasses = [NSSet setWithArray:[scriptTable allKeys]];
@@ -164,6 +164,7 @@ static NSRegularExpression *mapStringSubExpression;
         [references addObject:reference];
     }
     NSMutableDictionary *results = [NSMutableDictionary dictionaryWithCapacity:0];
+    // Return results sorted by key to enable correct mapping to script
     [self applyReferences:references atIndex:0 toMapString:mapString withAdjustment:0 results:results];
     NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:results.count];
     [[[results allKeys] sortedArrayUsingSelector:@selector(compare:)] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -184,6 +185,7 @@ static NSRegularExpression *mapStringSubExpression;
                 [self applyReferences:references atIndex:index+1 toMapString:result withAdjustment:subAdjustment results:results];
             }
             else {
+                // Aggregate results by key so that CSV style scheme values can be later mapped to the appropriate script
                 NSString *key = @"";
                 for (int i=0; i<=index; i++) {
                     DJMapReference *ref = [references objectAtIndex:i];

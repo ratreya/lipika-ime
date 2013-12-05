@@ -43,6 +43,7 @@ static DJInputEngineFactory* singletonFactory = nil;
 +(void)setCurrentSchemeWithName:(NSString*)schemeName scriptName:(NSString*)scriptName type:(enum DJSchemeType)type; {
     singletonFactory.scriptName = scriptName;
     singletonFactory.schemeName = schemeName;
+    singletonFactory.schemeType = type;
 }
 
 +(NSString*)currentScriptName {
@@ -65,6 +66,7 @@ static DJInputEngineFactory* singletonFactory = nil;
     schemesCache = [[NSMutableDictionary alloc] initWithCapacity:0];
     scriptName = [DJLipikaUserSettings scriptName];
     schemeName = [DJLipikaUserSettings schemeName];
+    schemeType = [DJLipikaUserSettings schemeType];
     return self;
 }
 
@@ -98,7 +100,7 @@ static DJInputEngineFactory* singletonFactory = nil;
         if (scheme == nil) {
             scheme = [DJInputSchemeUberFactory inputSchemeForScript:scriptName scheme:schemeName type:schemeType];
             if (scheme == nil) {
-                return nil;
+                [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, schemeType];
             }
             else {
                 [schemesCache setValue:scheme forKey:key];
