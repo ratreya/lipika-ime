@@ -84,7 +84,7 @@ NSString* startBatch() {
 }
 
 NSArray* endBatch(NSString* batchId) {
-    if (!messageMap) return nil;
+    if (!messageMap || ![messageMap valueForKey:batchId]) return nil;
     currentBatchId = nil;
     NSArray* messages = [messageMap valueForKey:batchId];
     [messageMap removeObjectForKey:batchId];

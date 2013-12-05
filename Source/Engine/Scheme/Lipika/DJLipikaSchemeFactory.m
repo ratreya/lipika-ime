@@ -137,7 +137,7 @@ static NSString *schemesDirectory;
     if ([[NSFileManager defaultManager] fileExistsAtPath:specificImeFilePath]) {
         imeFilePath = specificImeFilePath;
     }
-    else if ([[NSFileManager defaultManager] fileExistsAtPath:imeFilePath]) {
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:defaultImeFilePath]) {
         imeFilePath = defaultImeFilePath;
     }
     else {
