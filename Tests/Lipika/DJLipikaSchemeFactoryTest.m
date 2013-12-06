@@ -45,9 +45,13 @@
     STAssertTrue([output isEqualToString: @"ञे"], @"Unexpected output: %@", output);
 }
 
--(void)testDefaultIMELoading {
-    DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"Kannada" scheme:@"Baraha"];
-    STAssertNotNil(scheme, @"Unexpected result");
+-(void)testLoadingCurrentIMEs {
+    for (NSString *schemeName in [DJLipikaSchemeFactory availableSchemes]) {
+        for (NSString *scriptName in [DJLipikaSchemeFactory availableScripts]) {
+            DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:scriptName scheme:schemeName];
+            STAssertNotNil(scheme, @"Unexpected result");
+        }
+    }
 }
 
 @end

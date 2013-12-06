@@ -136,30 +136,21 @@ static NSRegularExpression* whiteSpace;
 
 -(void)handleResults:(NSArray*)results {
     for (DJParseOutput* result in results) {
-        if (result == nil) {
-            // Add the input as-is if there is no mapping for it
-            result.output = result.input;
-            [uncommittedOutput addObject:result];
-            // And finalize all outputs
+        if ([result isPreviousFinal]) {
             finalizedIndex = [uncommittedOutput count];
         }
         else {
-            if ([result isPreviousFinal]) {
-                finalizedIndex = [uncommittedOutput count];
-            }
-            else {
-                // If there is a replacement then remove unfinalized
-                if ([result output] != nil) {
-                    [self removeUnfinalized];
-                }
-            }
+            // If there is a replacement then remove unfinalized
             if ([result output] != nil) {
-                [uncommittedOutput addObject:result];
+                [self removeUnfinalized];
             }
-            if ([result isFinal]) {
-                // This includes any additions
-                finalizedIndex = [uncommittedOutput count];
-            }
+        }
+        if ([result output] != nil) {
+            [uncommittedOutput addObject:result];
+        }
+        if ([result isFinal]) {
+            // This includes any additions
+            finalizedIndex = [uncommittedOutput count];
         }
     }
 }

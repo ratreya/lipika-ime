@@ -58,8 +58,8 @@ static NSRegularExpression *specificValueExpression;
 static NSRegularExpression *mapStringSubExpression;
 
 +(void)initialize {
-    NSString *const twoColumnTSVPattern = @"^(\\S+)\\t+(\\S+)$";
-    NSString *const specificValuePattern = @"^\\s*(\\S+)\\s*/\\s*(\\S+)\\s*$";
+    NSString *const twoColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\s*$";
+    NSString *const specificValuePattern = @"^\\s*(.+)\\s*/\\s*(.+)\\s*$";
     NSString *const mapStringSubPattern = @"(\\[[^\\]]+?\\]|\\{[^\\}]+?\\})";
 
     NSError* error;

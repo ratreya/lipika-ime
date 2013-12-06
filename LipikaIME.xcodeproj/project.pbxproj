@@ -392,12 +392,12 @@
 		A5C54DF816BA1EB9007F631D /* Input Method Engine */ = {
 			isa = PBXGroup;
 			children = (
+				A500ED00184974DD00A6945D /* DJLipikaBufferManager.h */,
+				A500ED01184974DD00A6945D /* DJLipikaBufferManager.m */,
 				A500ECFC184974DD00A6945D /* DJInputEngineFactory.h */,
 				A500ECFD184974DD00A6945D /* DJInputEngineFactory.m */,
 				A500ECFE184974DD00A6945D /* DJInputMethodEngine.h */,
 				A500ECFF184974DD00A6945D /* DJInputMethodEngine.m */,
-				A500ED00184974DD00A6945D /* DJLipikaBufferManager.h */,
-				A500ED01184974DD00A6945D /* DJLipikaBufferManager.m */,
 				A576704517E63613009EEEC0 /* Input Method Scheme */,
 			);
 			name = "Input Method Engine";
