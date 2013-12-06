@@ -31,9 +31,9 @@ static NSString *schemesDirectory;
     schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSString *const whitespacePattern = @"^\\s+$";
     NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+([^\\t]*)\\s*$";
-    NSString *const scriptOverridePattern = @"^\\s*Script\\s*:\\s*(\\S+)\\s*$";
-    NSString *const schemeOverridePattern = @"^\\s*Transliteration\\s*:\\s*(\\S+)\\s*$";
-    NSString *const imeOverridePattern = @"^\\s*IME\\s*:\\s*(\\S+)\\s*$";
+    NSString *const scriptOverridePattern = @"^\\s*Script\\s*:\\s*(.+)\\s*$";
+    NSString *const schemeOverridePattern = @"^\\s*Transliteration\\s*:\\s*(.+)\\s*$";
+    NSString *const imeOverridePattern = @"^\\s*IME\\s*:\\s*(.+)\\s*$";
 
     NSError* error;
     whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
@@ -85,7 +85,6 @@ static NSString *schemesDirectory;
 
 +(NSArray*)fileInSubdirectory:(NSString*)subDirectory withExternsion:(NSString*)extension {
     NSError *error;
-    NSString *schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSString *path = subDirectory? [schemesDirectory stringByAppendingPathComponent:subDirectory] : schemesDirectory;
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
     if (error != nil) {
@@ -163,7 +162,7 @@ static NSString *schemesDirectory;
     if (!outerTable) outerTable = [NSMutableDictionary dictionaryWithCapacity:0];
     for (NSString* line in linesOfScheme) {
         logDebug(@"Parsing line %@", line);
-        if([whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+        if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             continue;
         }
         else if ([threeColumnTSVExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
@@ -196,7 +195,7 @@ static NSString *schemesDirectory;
     NSArray *lines = [self linesOfFile:filePath];
     NSMutableArray *imeLines = [NSMutableArray arrayWithCapacity:0];
     for (NSString *line in lines) {
-        if([whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+        if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             continue;
         }
         logDebug(@"Parsing line %@", line);
@@ -219,10 +218,13 @@ static NSString *schemesDirectory;
             }
         }
         else if ([imeOverrideExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
-            NSString *imeFileName = [imeOverrideExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
-            NSString *imeFilePath = [[schemesDirectory stringByAppendingPathComponent:imeFileName] stringByAppendingPathExtension:IMEEXTENSION];
-            logDebug(@"Including IME override file: %@", imeFilePath);
-            [imeLines addObjectsFromArray:[self linesOfImeFile:imeFilePath schemeTable:schemeTable scriptTable:scriptTable depth:++depth]];
+            NSString *override = [imeOverrideExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
+            NSArray *imeFileNames = csvToArrayForString(override);
+            for (NSString *imeFileName in imeFileNames) {
+                NSString *imeFilePath = [[schemesDirectory stringByAppendingPathComponent:imeFileName] stringByAppendingPathExtension:IMEEXTENSION];
+                logDebug(@"Including IME override file: %@", imeFilePath);
+                [imeLines addObjectsFromArray:[self linesOfImeFile:imeFilePath schemeTable:schemeTable scriptTable:scriptTable depth:depth+1]];
+            }
         }
         else {
             [imeLines addObject:line];

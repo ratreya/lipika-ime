@@ -12,7 +12,7 @@
 
 @implementation DJLipikaUserSettings
 
-static int SETTINGS_VERSION = 1;
+static int SETTINGS_VERSION = 2;
 static NSDictionary* candidateStringAttributeCache = nil;
 
 +(void)initialize {
