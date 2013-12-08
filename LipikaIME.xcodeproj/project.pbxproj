@@ -71,6 +71,9 @@
 		A5C54E0516BA20C1007F631D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C54E0416BA20C1007F631D /* SenTestingKit.framework */; };
 		A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5C6BB2016B5A5F100B02E1B /* Schemes */; };
 		A5CD9F0716EBFF4E0024A20A /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */; };
+		A5F8EF911853F40B0036E31A /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F8EF901853F40B0036E31A /* DJTestHelper.m */; };
+		A5F8EF941854005F0036E31A /* DJSchemeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F8EF931854005F0036E31A /* DJSchemeHelper.m */; };
+		A5F8EF95185464860036E31A /* DJSchemeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F8EF931854005F0036E31A /* DJSchemeHelper.m */; };
 		A5FBD8B4184AD7E9000336EE /* DJLipikaSchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FBD8B3184AD7E9000336EE /* DJLipikaSchemeTest.m */; };
 		E93074B70A5C264700470842 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 /* End PBXBuildFile section */
@@ -169,6 +172,13 @@
 		A5C54E0416BA20C1007F631D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A5C6BB2016B5A5F100B02E1B /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LipikaIcon.png; path = Resources/LipikaIcon.png; sourceTree = "<group>"; };
+		A5F8EF7A1853D7D80036E31A /* SpecialChar.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = SpecialChar.map; sourceTree = "<group>"; };
+		A5F8EF871853D7D80036E31A /* SpecialChar.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = SpecialChar.tlr; sourceTree = "<group>"; };
+		A5F8EF8E1853D8750036E31A /* SpecialChar-SpecialChar.ime */ = {isa = PBXFileReference; lastKnownFileType = text; name = "SpecialChar-SpecialChar.ime"; path = "Tests/Lipika/Schemes/SpecialChar-SpecialChar.ime"; sourceTree = SOURCE_ROOT; };
+		A5F8EF8F1853F40B0036E31A /* DJTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJTestHelper.h; path = Tests/DJTestHelper.h; sourceTree = SOURCE_ROOT; };
+		A5F8EF901853F40B0036E31A /* DJTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJTestHelper.m; path = Tests/DJTestHelper.m; sourceTree = SOURCE_ROOT; };
+		A5F8EF921854005F0036E31A /* DJSchemeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJSchemeHelper.h; path = Source/Engine/Scheme/DJSchemeHelper.h; sourceTree = "<group>"; };
+		A5F8EF931854005F0036E31A /* DJSchemeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJSchemeHelper.m; path = Source/Engine/Scheme/DJSchemeHelper.m; sourceTree = "<group>"; };
 		A5FBD8B3184AD7E9000336EE /* DJLipikaSchemeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJLipikaSchemeTest.m; path = Tests/Lipika/DJLipikaSchemeTest.m; sourceTree = SOURCE_ROOT; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -326,6 +336,7 @@
 			children = (
 				A5FBD8B3184AD7E9000336EE /* DJLipikaSchemeTest.m */,
 				A572AB18184D5E750023BDDA /* DJLipikaSchemeFactoryTest.m */,
+				A5F8EF771853D7610036E31A /* Resources */,
 			);
 			name = Lipika;
 			sourceTree = "<group>";
@@ -342,6 +353,8 @@
 				A500ED0F184974F600A6945D /* DJSimpleForwardMapping.m */,
 				A500ED10184974F600A6945D /* DJSimpleReverseMapping.h */,
 				A500ED11184974F600A6945D /* DJSimpleReverseMapping.m */,
+				A5F8EF921854005F0036E31A /* DJSchemeHelper.h */,
+				A5F8EF931854005F0036E31A /* DJSchemeHelper.m */,
 				A500ED09184974F600A6945D /* DJParseOutput.h */,
 				A500ED0A184974F600A6945D /* DJParseOutput.m */,
 				A500ED0B184974F600A6945D /* DJParseTreeNode.h */,
@@ -409,6 +422,8 @@
 				A555039D1848699100B3EA6E /* Lipika */,
 				A599296C1848603A0008FADF /* Google */,
 				A5C54E0A16BA20C1007F631D /* Supporting Files */,
+				A5F8EF8F1853F40B0036E31A /* DJTestHelper.h */,
+				A5F8EF901853F40B0036E31A /* DJTestHelper.m */,
 			);
 			name = Tests;
 			path = LipikaIMETest;
@@ -438,6 +453,34 @@
 			);
 			name = "Google Scheme";
 			sourceTree = "<group>";
+		};
+		A5F8EF771853D7610036E31A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A5F8EF8E1853D8750036E31A /* SpecialChar-SpecialChar.ime */,
+				A5F8EF781853D7D80036E31A /* Script */,
+				A5F8EF831853D7D80036E31A /* Transliteration */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A5F8EF781853D7D80036E31A /* Script */ = {
+			isa = PBXGroup;
+			children = (
+				A5F8EF7A1853D7D80036E31A /* SpecialChar.map */,
+			);
+			name = Script;
+			path = Tests/Lipika/Schemes/Script;
+			sourceTree = SOURCE_ROOT;
+		};
+		A5F8EF831853D7D80036E31A /* Transliteration */ = {
+			isa = PBXGroup;
+			children = (
+				A5F8EF871853D7D80036E31A /* SpecialChar.tlr */,
+			);
+			name = Transliteration;
+			path = Tests/Lipika/Schemes/Transliteration;
+			sourceTree = SOURCE_ROOT;
 		};
 		A5F984F416FFB39E0088191E /* User Interface */ = {
 			isa = PBXGroup;
@@ -608,6 +651,7 @@
 				A500ED14184974F600A6945D /* DJParseTreeNode.m in Sources */,
 				A500ECF21849747A00A6945D /* DJPreferenceController.m in Sources */,
 				A500ED02184974DD00A6945D /* DJInputEngineFactory.m in Sources */,
+				A5F8EF941854005F0036E31A /* DJSchemeHelper.m in Sources */,
 				A500ED321849758500A6945D /* main.m in Sources */,
 				A500ED1C1849752800A6945D /* DJLipikaSchemeFactory.m in Sources */,
 				A500ED261849754600A6945D /* DJGoogleForwardMapping.m in Sources */,
@@ -634,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5999AC818498647002EE8AE /* DJLogger.m in Sources */,
+				A5F8EF95185464860036E31A /* DJSchemeHelper.m in Sources */,
 				A572AB19184D5E750023BDDA /* DJLipikaSchemeFactoryTest.m in Sources */,
 				A5999AC518498631002EE8AE /* DJLipikaSchemeFactory.m in Sources */,
 				A5999AC618498631002EE8AE /* DJLipikaInputScheme.m in Sources */,
@@ -652,6 +697,7 @@
 				A5999AC318498604002EE8AE /* DJGoogleForwardMapping.m in Sources */,
 				A5999AC418498604002EE8AE /* DJGoogleReverseMapping.m in Sources */,
 				A5999AAA18497860002EE8AE /* DJGoogleBufferManagerTest.m in Sources */,
+				A5F8EF911853F40B0036E31A /* DJTestHelper.m in Sources */,
 				A5999AAB18497860002EE8AE /* DJGoogleBufferReplayTest.m in Sources */,
 				A5999AAC18497860002EE8AE /* DJGoogleEngineTest.m in Sources */,
 				A5999AAD18497860002EE8AE /* DJGoogleInputStringText.m in Sources */,
@@ -809,7 +855,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -836,7 +881,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;

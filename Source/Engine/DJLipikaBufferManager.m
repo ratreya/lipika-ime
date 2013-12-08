@@ -10,6 +10,7 @@
 #import "DJLipikaBufferManager.h"
 #import "DJInputEngineFactory.h"
 #import "DJLipikaUserSettings.h"
+#import "DJSchemeHelper.h"
 #import "DJLogger.h"
 
 @implementation DJLipikaBufferManager

@@ -7,16 +7,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJParseTreeNode.h"
+#import <Foundation/Foundation.h>
 
-@implementation DJParseTreeNode
+@interface DJSchemeHelper : NSObject
 
-@synthesize input;
-@synthesize output;
-@synthesize next;
-
--(NSString*)description {
-    return [NSString stringWithFormat:@"Input: %@; Output: %@; Next: %@", input, output, next];
-}
+extern NSMutableArray* charactersForString(NSString *string);
+extern NSArray* csvToArrayForString(NSString *csvLine);
+extern NSString* stringForUnicode(NSString *unicodeString);
 
 @end

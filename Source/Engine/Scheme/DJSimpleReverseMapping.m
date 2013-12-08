@@ -8,6 +8,7 @@
  */
 
 #import "DJSimpleReverseMapping.h"
+#import "DJSchemeHelper.h"
 
 @implementation DJSimpleReverseMapping
 

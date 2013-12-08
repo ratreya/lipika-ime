@@ -8,6 +8,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "DJSchemeHelper.h"
 #import "DJLipikaInputScheme.h"
 #import "DJInputMethodEngine.h"
 
@@ -67,8 +68,7 @@
 }
 
 -(void)testCharacterConversion {
-    DJLipikaInputScheme *scheme = [[DJLipikaInputScheme alloc] init];
-    STAssertTrue([[scheme stringForUnicode:@"0C95"] isEqualToString:@"ಕ"], @"Bad character");
+    STAssertTrue([stringForUnicode(@"0C95") isEqualToString:@"ಕ"], @"Bad character");
 }
 
 -(void)testCSVSchemeParsing {

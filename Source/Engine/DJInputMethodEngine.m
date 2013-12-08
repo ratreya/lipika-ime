@@ -8,6 +8,7 @@
  */
 
 #import "DJInputMethodEngine.h"
+#import "DJSchemeHelper.h"
 #include <AppKit/AppKit.h>
 
 @implementation DJInputMethodEngine

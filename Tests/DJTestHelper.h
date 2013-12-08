@@ -7,16 +7,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJParseTreeNode.h"
+#import <Foundation/Foundation.h>
 
-@implementation DJParseTreeNode
+@interface DJTestHelper : NSObject
 
-@synthesize input;
-@synthesize output;
-@synthesize next;
-
--(NSString*)description {
-    return [NSString stringWithFormat:@"Input: %@; Output: %@; Next: %@", input, output, next];
-}
++(NSString*)genRandStringLength:(int)len;
 
 @end

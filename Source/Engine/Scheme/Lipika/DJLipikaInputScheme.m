@@ -9,6 +9,7 @@
 
 #import "DJLipikaInputScheme.h"
 #import "DJLipikaUserSettings.h"
+#import "DJSchemeHelper.h"
 #import "DJLogger.h"
 
 enum DJReferenceType {
@@ -58,7 +59,7 @@ static NSRegularExpression *specificValueExpression;
 static NSRegularExpression *mapStringSubExpression;
 
 +(void)initialize {
-    NSString *const twoColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\s*$";
+    NSString *const twoColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+(.+)\\s*$";
     NSString *const specificValuePattern = @"^\\s*(.+)\\s*/\\s*(.+)\\s*$";
     NSString *const mapStringSubPattern = @"(\\[[^\\]]+?\\]|\\{[^\\}]+?\\})";
 
@@ -224,15 +225,8 @@ static NSRegularExpression *mapStringSubExpression;
     if (!substituant) {
         [NSException raise:@"Unknown class/key" format:@"Could not find key %@ in class name %@ for Script(1)/Scheme(2): %u", reference.valueKey, reference.class, reference.type];
     }
-    if (reference.type == SCRIPT) return [NSArray arrayWithObject:[self stringForUnicode:substituant]];
+    if (reference.type == SCRIPT) return [NSArray arrayWithObject:stringForUnicode(substituant)];
     else return csvToArrayForString(substituant);
-}
-
--(NSString*)stringForUnicode:(NSString*)unicodeString {
-    NSScanner *scanner = [NSScanner scannerWithString:unicodeString];
-    unsigned unicode = 0;
-    [scanner scanHexInt:&unicode];
-    return [[NSString alloc] initWithBytes:&unicode length:4 encoding:NSUTF32LittleEndianStringEncoding];
 }
 
 -(NSString*)stopChar {
