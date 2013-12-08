@@ -8,6 +8,7 @@
  */
 
 #import "DJLipikaSchemeFactory.h"
+#import "DJSchemeHelper.h"
 #import "DJLogger.h"
 
 @implementation DJLipikaSchemeFactory
@@ -30,7 +31,7 @@ static NSString *schemesDirectory;
 +(void)initialize {
     schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSString *const whitespacePattern = @"^\\s+$";
-    NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+([^\\t]*)\\s*$";
+    NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+(.*)\\s*$";
     NSString *const scriptOverridePattern = @"^\\s*Script\\s*:\\s*(.+)\\s*$";
     NSString *const schemeOverridePattern = @"^\\s*Transliteration\\s*:\\s*(.+)\\s*$";
     NSString *const imeOverridePattern = @"^\\s*IME\\s*:\\s*(.+)\\s*$";
@@ -195,7 +196,7 @@ static NSString *schemesDirectory;
     NSArray *lines = [self linesOfFile:filePath];
     NSMutableArray *imeLines = [NSMutableArray arrayWithCapacity:0];
     for (NSString *line in lines) {
-        if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+        if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
             continue;
         }
         logDebug(@"Parsing line %@", line);

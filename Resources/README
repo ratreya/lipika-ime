@@ -6,6 +6,15 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 
 ### Release Notes ###
 
+#### TBD: RELEASE NOTES FOR VERSION 1.4 ####
+* Highly maintainable proprietary scheme format
+* Schemes standerdized for applicability to all Indian languages
+  * ITRANS, Baraha, Harvard Kyoto and Barahavat
+  * Minimized exceptions for individual language
+* Unicode mapping to all major Indian language scripts
+  * Bengali, Devanagari, Gujarati, Gurmukhi, Hindi, Kannada, Malayalam, Oriya, Tamil and Telugu
+  * Standerdized naming for consistent transliteration
+
 #### 10/14/2013: RELEASE NOTES FOR VERSION 1.3 ####
 * Support for combining fresh typing with existing glyph
 * Several bug fixes around candidate window configuration
@@ -46,6 +55,5 @@ This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 
 #### 2/17/2013: RELEASE NOTES FOR VERSION 0.90 ####
 This first release is a minimal credible product with the following features:
-
-* User configurable IME mapping in Google IME cannonical scheme format.
-* Single candidate in cadidate window showing the current word being worked on.
+  * User configurable IME mapping in Google IME cannonical scheme format.
+  * Single candidate in cadidate window showing the current word being worked on.

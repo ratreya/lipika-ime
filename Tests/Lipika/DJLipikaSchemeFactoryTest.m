@@ -9,10 +9,18 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJLipikaSchemeFactory.h"
+#import "DJLipikaBufferManager.h"
+#import "DJTestHelper.h"
 
 @interface DJLipikaSchemeFactory (Test)
 
 +(void)setSchemesDirectory:(NSString*)directory;
+
+@end
+
+@interface DJLipikaBufferManager (Test)
+
+-(id)initWithEngine:(DJInputMethodEngine*)myEngine;
 
 @end
 
@@ -45,11 +53,18 @@
     STAssertTrue([output isEqualToString: @"ञे"], @"Unexpected output: %@", output);
 }
 
--(void)testLoadingCurrentIMEs {
+-(void)XXXtestLoadingCurrentIMEs {
     for (NSString *schemeName in [DJLipikaSchemeFactory availableSchemes]) {
         for (NSString *scriptName in [DJLipikaSchemeFactory availableScripts]) {
             DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:scriptName scheme:schemeName];
             STAssertNotNil(scheme, @"Unexpected result");
+            DJLipikaBufferManager *manager = [[DJLipikaBufferManager alloc] initWithEngine:[[DJInputMethodEngine alloc] initWithScheme:scheme]];
+            NSString *fuzzInput = [[DJTestHelper genRandStringLength:10] stringByAppendingString:@" "];
+            NSString *output = [manager outputForInput:fuzzInput];
+            DJParseOutput *reverse = [scheme.reverseMappings inputForOutput:output];
+            NSString *reversedInput = [reverse input];
+            NSString *reversedOutput = [manager outputForInput:reversedInput];
+            STAssertEqualObjects(output, reversedOutput, @"Fuzz test failed for input: %@", fuzzInput);
         }
     }
 }

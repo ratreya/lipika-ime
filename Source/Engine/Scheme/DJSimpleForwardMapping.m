@@ -8,6 +8,7 @@
  */
 
 #import "DJSimpleForwardMapping.h"
+#import "DJSchemeHelper.h"
 #import "DJLogger.h"
 
 @implementation DJSimpleForwardMapping

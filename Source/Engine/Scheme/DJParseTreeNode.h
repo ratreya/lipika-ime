@@ -25,7 +25,4 @@
 
 -(NSString*)description;
 
-extern NSMutableArray* charactersForString(NSString *string);
-extern NSArray* csvToArrayForString(NSString *csvLine);
-
 @end
