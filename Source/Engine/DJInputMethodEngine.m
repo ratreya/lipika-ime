@@ -27,26 +27,26 @@
     return self;
 }
 
--(NSArray*)executeWithInput:(NSString*)input {
+-(NSArray *)executeWithInput:(NSString *)input {
     if (input.length > 1) {
-        NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
-        for (NSString* singleInput in charactersForString(input)) {
+        NSMutableArray *aggregate = [[NSMutableArray alloc] initWithCapacity:0];
+        for (NSString *singleInput in charactersForString(input)) {
             [aggregate addObjectsFromArray:[self executeWithInput:singleInput]];
         }
         return aggregate;
     }
-    DJParseOutput* result = [DJParseOutput alloc];
+    DJParseOutput *result = [DJParseOutput alloc];
     if (currentNode == nil) {
-        // Look for mapping at root of tree
-        currentNode = [self getNodeForInput:input fromTree:scheme.forwardMappings.parseTree];
+        // Look for mapping at root of trie
+        currentNode = [self nextNodeFromNode:nil forInput:input];
     }
     else {
-        // Look for mapping at current level of the tree
-        DJParseTreeNode* nextNode = [self getNodeForInput:input fromTree:[currentNode next]];
+        // Look for mapping at current level of the trie
+        DJTrieNode *nextNode = [self nextNodeFromNode:currentNode forInput:input];
         if (nextNode == nil) {
             // If we had any output since root, then replay all inputs since last output at root
             if ([self isOutputSinceRoot]) {
-                // Search at root of tree
+                // Search at root of trie
                 return [self replayAtRootWithInput:[self inputsSinceLastOutput]];
             }
             else {
@@ -65,7 +65,7 @@
         result.isFinal = true;
     }
     else {
-        result.output = currentNode.output;
+        result.output = currentNode.value;
         // If there cannot be another modification
         if (currentNode.next == nil) {
             result.isFinal = YES;
@@ -74,11 +74,11 @@
     return [[NSArray alloc] initWithObjects:result, nil];
 }
 
--(NSArray*)replayAtRootWithInput:(NSArray*)remaining {
+-(NSArray *)replayAtRootWithInput:(NSArray *)remaining {
     [self reset];
-    NSMutableArray* results;
-    for (NSString* input in remaining) {
-        NSArray* result = [self executeWithInput:input];
+    NSMutableArray *results;
+    for (NSString *input in remaining) {
+        NSArray *result = [self executeWithInput:input];
         if (result != nil) {
             if (results == nil) {
                 results = [[NSMutableArray alloc] initWithCapacity:1];
@@ -91,10 +91,10 @@
     return results;
 }
 
--(DJParseTreeNode*)getNodeForInput:(NSString*)input fromTree:(NSDictionary*)tree{
-    DJParseTreeNode* result = [tree valueForKey:input];
+-(DJTrieNode *)nextNodeFromNode:(DJTrieNode *)node forInput:(NSString *)input {
+    DJTrieNode *result = [scheme.forwardMappings nextNodeFromNode:node forInput:input];
     [inputsSinceRoot addObject:input];
-    if (result != nil && [result output] != nil) {
+    if (result != nil && result.value != nil) {
         lastOutputIndex = inputsSinceRoot.count;
     }
     return result;
@@ -112,7 +112,7 @@
     return lastOutputIndex > 0;
 }
 
--(NSArray*)inputsSinceLastOutput {
+-(NSArray *)inputsSinceLastOutput {
     return [inputsSinceRoot subarrayWithRange:NSMakeRange(lastOutputIndex, inputsSinceRoot.count - lastOutputIndex)];
 }
 

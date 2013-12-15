@@ -13,29 +13,29 @@
 @implementation DJLipikaUserSettings
 
 static int SETTINGS_VERSION = 2;
-static NSDictionary* candidateStringAttributeCache = nil;
+static NSDictionary *candidateStringAttributeCache = nil;
 
 +(void)initialize {
-    NSDictionary* defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UserSettings" ofType:@"plist"]];
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UserSettings" ofType:@"plist"]];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Version"] != SETTINGS_VERSION) {
         [self reset];
     }
 }
 
-+(NSString*)scriptName {
++(NSString *)scriptName {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"ScriptName"];
 }
 
-+(void)setScriptName:(NSString*)scriptName {
++(void)setScriptName:(NSString *)scriptName {
     [[NSUserDefaults standardUserDefaults] setObject:scriptName forKey:@"ScriptName"];
 }
 
-+(NSString*)schemeName {
++(NSString *)schemeName {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"SchemeName"];
 }
 
-+(void)setSchemeName:(NSString*)schemeName {
++(void)setSchemeName:(NSString *)schemeName {
     [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:@"SchemeName"];
 }
 
@@ -47,7 +47,7 @@ static NSDictionary* candidateStringAttributeCache = nil;
     [[NSUserDefaults standardUserDefaults] setInteger:schemeType forKey:@"SchemeType"];
 }
 
-+(NSString*)lipikaSchemeStopChar {
++(NSString *)lipikaSchemeStopChar {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"LipikaSchemeStopChar"];
 }
 
@@ -59,29 +59,29 @@ static NSDictionary* candidateStringAttributeCache = nil;
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"CombineWithPreviousGlyph"];
 }
 
-+(NSDictionary*)candidateWindowAttributes {
-    NSMutableDictionary* windowAttributes = [[NSMutableDictionary alloc] initWithCapacity:2];
-    [windowAttributes setValue:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:(NSString*)IMKCandidatesOpacityAttributeName];
-    [windowAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString*)IMKCandidatesSendServerKeyEventFirst];
++(NSDictionary *)candidateWindowAttributes {
+    NSMutableDictionary *windowAttributes = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [windowAttributes setObject:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:(NSString *)IMKCandidatesOpacityAttributeName];
+    [windowAttributes setObject:[NSNumber numberWithBool:YES] forKey:(NSString *)IMKCandidatesSendServerKeyEventFirst];
     return windowAttributes;
 }
 
-+(void)setCandidateStringAttributes:(NSDictionary*)attributes {
++(void)setCandidateStringAttributes:(NSDictionary *)attributes {
     candidateStringAttributeCache = attributes;
-    NSData* outputData = [NSArchiver archivedDataWithRootObject:attributes];
+    NSData *outputData = [NSArchiver archivedDataWithRootObject:attributes];
     [[NSUserDefaults standardUserDefaults] setObject:outputData forKey:@"CandidatesStringAttributes"];
 }
 
-+(NSDictionary*)candidateStringAttributes {
++(NSDictionary *)candidateStringAttributes {
     if (candidateStringAttributeCache) return candidateStringAttributeCache;
-    NSData* data = [[NSUserDefaults standardUserDefaults] objectForKey:@"CandidatesStringAttributes"];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"CandidatesStringAttributes"];
     if (data) {
         candidateStringAttributeCache = [NSUnarchiver unarchiveObjectWithData:data];
     }
     return candidateStringAttributeCache;
 }
 
-+(NSString*)candidatePanelType {
++(NSString *)candidatePanelType {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"CandidatePanelType"];
 }
 
@@ -110,7 +110,7 @@ static NSDictionary* candidateStringAttributeCache = nil;
 }
 
 +(enum DJBackspaceBehavior)backspaceBehavior {
-    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:@"BackspaceDeletes"];
+    NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:@"BackspaceDeletes"];
     if ([string isEqualToString:@"Output character"]) {
         return DJ_DELETE_OUTPUT;
     }
@@ -126,7 +126,7 @@ static NSDictionary* candidateStringAttributeCache = nil;
 }
 
 +(enum DJOnUnfocusBehavior)unfocusBehavior {
-    NSString* string = [[NSUserDefaults standardUserDefaults] stringForKey:@"OnUnfocusUncommitted"];
+    NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:@"OnUnfocusUncommitted"];
     if ([string isEqualToString:@"Gets discarded"]) {
         return DJ_DISCARD_UNCOMMITTED;
     }
@@ -145,8 +145,8 @@ static NSDictionary* candidateStringAttributeCache = nil;
     return [DJLipikaUserSettings logLevelForString:[[NSUserDefaults standardUserDefaults] stringForKey:@"LoggingLevel"]];
 }
 
-+(NSString*)logLevelStringForEnum:(enum DJLogLevel)level {
-    NSString* severity;
++(NSString *)logLevelStringForEnum:(enum DJLogLevel)level {
+    NSString *severity;
     switch (level) {
         case DJ_DEBUG:
             severity = @"Debug";
@@ -167,7 +167,7 @@ static NSDictionary* candidateStringAttributeCache = nil;
     return severity;
 }
 
-+(enum DJLogLevel)logLevelForString:(NSString*)level {
++(enum DJLogLevel)logLevelForString:(NSString *)level {
     if ([level isEqualToString:@"Debug"]) {
         return DJ_DEBUG;
     }

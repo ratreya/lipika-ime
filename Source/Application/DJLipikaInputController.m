@@ -25,7 +25,7 @@ static long numCompositionCommits = 0;
 
 #pragma mark - Overridden methods of IMKInputController
 
--(id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient {
+-(id)initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)inputClient {
     self = [super initWithServer:server delegate:delegate client:inputClient];
     if (self == nil) {
         return self;
@@ -36,20 +36,20 @@ static long numCompositionCommits = 0;
     return self;
 }
 
--(void)candidateSelected:(NSAttributedString*)candidateString {
+-(void)candidateSelected:(NSAttributedString *)candidateString {
     [[self client] insertText:candidateString replacementRange:[[self client] selectedRange]];
     [manager flush];
     [candidates hide];
 }
 
--(NSMenu*)menu {
+-(NSMenu *)menu {
 	return [[NSApp delegate] mainMenu];
 }
 
 
 #pragma mark - IMKServerInput and IMKStateSetting protocol methods
 
--(BOOL)inputText:(NSString*)string client:(id)sender {
+-(BOOL)inputText:(NSString *)string client:(id)sender {
     NSString *previousText;
     // If this is the first character and combine with previous glyph is enabled
     if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && ![manager hasDeletable]) {
@@ -127,7 +127,7 @@ static long numCompositionCommits = 0;
     IMKMenuTitle = "<NSString>";
  }
  */
-    NSMenuItem* menuItem = [sender valueForKey:@"IMKCommandMenuItem"];
+    NSMenuItem *menuItem = [sender objectForKey:@"IMKCommandMenuItem"];
     if ([menuItem tag] == 1) {     // Preferrence
         [self showPreferenceImplimentation:menuItem];
     }
@@ -186,7 +186,7 @@ static long numCompositionCommits = 0;
     return isHandled;
 }
 
--(NSString*)previousText {
+-(NSString *)previousText {
     NSString *previousText = nil;
     NSRange currentPosition = [[self client] selectedRange];
     if (currentPosition.location != NSNotFound && currentPosition.location > 0) {
@@ -209,15 +209,15 @@ static long numCompositionCommits = 0;
     }
 }
 
--(void)clearAllOnStates:(NSMenu*)rootMenu {
-    NSArray* peerItems = [rootMenu itemArray];
-    [peerItems enumerateObjectsUsingBlock:^(NSMenuItem* obj, NSUInteger idx, BOOL *stop) {
+-(void)clearAllOnStates:(NSMenu *)rootMenu {
+    NSArray *peerItems = [rootMenu itemArray];
+    [peerItems enumerateObjectsUsingBlock:^(NSMenuItem *obj, NSUInteger idx, BOOL *stop) {
         [obj setState:NSOffState];
         if ([obj hasSubmenu]) [self clearAllOnStates:[obj submenu]];
     }];
 }
 
--(void)changeInputScheme:(NSMenuItem*)menuItem {
+-(void)changeInputScheme:(NSMenuItem *)menuItem {
     BOOL isGoogleItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJGoogleSubMenu];
     BOOL isSchemeItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJSchemeSubMenu];
     BOOL isScriptItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJScriptSubMenu];
@@ -246,8 +246,8 @@ static long numCompositionCommits = 0;
     }
 }
 
--(void)showPreferenceImplimentation:(NSMenuItem*)menuItem {
-    static DJPreferenceController* preference;
+-(void)showPreferenceImplimentation:(NSMenuItem *)menuItem {
+    static DJPreferenceController *preference;
     if (!preference) {
         preference = [[DJPreferenceController alloc] initWithWindowNibName:@"Preferences"];
     }
@@ -257,7 +257,7 @@ static long numCompositionCommits = 0;
 }
 
 -(void)commit {
-    NSString* commitString = [manager flush];
+    NSString *commitString = [manager flush];
     if (commitString) {
         [[self client] insertText:commitString replacementRange:[[self client] selectedRange]];
     }

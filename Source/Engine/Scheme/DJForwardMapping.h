@@ -8,9 +8,10 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "DJTrieNode.h"
 
 @protocol DJForwardMapping <NSObject>
 
--(NSDictionary*)parseTree;
+-(DJTrieNode *)nextNodeFromNode:(DJTrieNode *)currentNode forInput:(NSString *)input;
 
 @end

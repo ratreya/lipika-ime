@@ -13,12 +13,12 @@
 
 @protocol DJGoogleSchemeMapping <NSObject>
 
--(id)initWithScheme:(DJGoogleInputScheme*)parentScheme;
+-(id)initWithScheme:(DJGoogleInputScheme *)parentScheme;
 
--(void)createClassWithName:(NSString*)className;
--(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value;
--(void)createSimpleMappingForClass:(NSString*)className key:(NSString*)key value:(NSString*)value;
--(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue;
--(void)createClassMappingForClass:(NSString*)containerClass preKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue;
+-(void)createClassWithName:(NSString *)className;
+-(void)createSimpleMappingWithInput:(NSString *)input output:(NSString *)output;
+-(void)createSimpleMappingForClass:(NSString *)className input:(NSString *)input output:(NSString *)output;
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput;
+-(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput;
 
 @end

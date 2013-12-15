@@ -17,7 +17,7 @@
 
 +(void) convert {
     // Display the input file dialog
-    NSOpenPanel* inputChoice = [NSOpenPanel openPanel];
+    NSOpenPanel *inputChoice = [NSOpenPanel openPanel];
     [inputChoice setCanChooseFiles:YES];
     [inputChoice setAllowsMultipleSelection:NO];
     [inputChoice setTitle:@"Choose input file..."];
@@ -28,16 +28,16 @@
         if (result == NSFileHandlingPanelCancelButton) {
             return;
         }
-        NSURL* fileURL = [[inputChoice URLs] objectAtIndex:0];
+        NSURL *fileURL = [[inputChoice URLs] objectAtIndex:0];
         logDebug(@"Chosen input file: %@", fileURL);
         // Read file contents
         NSError *error;
-        NSString* contents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:&error];
+        NSString *contents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:&error];
         if (error != nil) {
             [NSAlert alertWithError:error];
             return;
         }
-        NSArray* lines = [contents componentsSeparatedByString:@"\r"];
+        NSArray *lines = [contents componentsSeparatedByString:@"\r"];
         // Open output file and convert
         NSString *outputFileName = [[fileURL path] stringByAppendingPathExtension:@"out"];
         logDebug(@"Ouput file: %@", outputFileName);
@@ -52,7 +52,7 @@
         for (NSString *line in lines) {
             NSString *output = [engine outputForInput:line];
             [outputFile writeData:[output dataUsingEncoding:NSUTF8StringEncoding]];
-            [outputFile writeData:[@"\r"  dataUsingEncoding:NSUTF8StringEncoding]];
+            [outputFile writeData:[@"\r" dataUsingEncoding:NSUTF8StringEncoding]];
         }
         [outputFile closeFile];
         NSAlert *alert = [[NSAlert alloc] init];

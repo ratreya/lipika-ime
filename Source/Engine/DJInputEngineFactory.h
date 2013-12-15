@@ -18,10 +18,10 @@
     NSMutableDictionary *schemesCache;
 }
 
-+(DJInputMethodEngine*)inputEngine;
-+(void)setCurrentSchemeWithName:(NSString*)schemeName scriptName:(NSString*)scriptName type:(enum DJSchemeType)type;
++(DJInputMethodEngine *)inputEngine;
++(void)setCurrentSchemeWithName:(NSString *)schemeName scriptName:(NSString *)scriptName type:(enum DJSchemeType)type;
 +(enum DJSchemeType)currentSchemeType;
-+(NSString*)currentScriptName;
-+(NSString*)currentSchemeName;
++(NSString *)currentScriptName;
++(NSString *)currentSchemeName;
 
 @end

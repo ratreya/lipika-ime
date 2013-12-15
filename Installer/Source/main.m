@@ -34,7 +34,7 @@ int main(int argc, const char * argv[]) {
             NSLog(@"Unable to register input source at %@", location);
             return -1;
         }
-        NSDictionary *properties = [NSDictionary dictionaryWithObject:bundleId forKey:(NSString*)kTISPropertyBundleID];
+        NSDictionary *properties = [NSDictionary dictionaryWithObject:bundleId forKey(NSString *)kTISPropertyBundleID];
         NSArray *inputlist = (__bridge NSArray *)(TISCreateInputSourceList((__bridge CFDictionaryRef)(properties), YES));
         if (inputlist.count != 1) {
             NSLog(@"Expected 1 but found %ld input source(s) with bundle id: %@", inputlist.count, bundleId);

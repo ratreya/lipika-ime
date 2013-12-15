@@ -14,13 +14,19 @@
 
 @interface DJLipikaSchemeFactory (Test)
 
-+(void)setSchemesDirectory:(NSString*)directory;
++(void)setSchemesDirectory(NSString *)directory;
 
 @end
 
 @interface DJLipikaBufferManager (Test)
 
--(id)initWithEngine:(DJInputMethodEngine*)myEngine;
+-(id)initWithEngine(DJInputMethodEngine *)myEngine;
+
+@end
+
+@interface DJSimpleForwardMapping (Test)
+
+-(NSDictionary *)parseTrie;
 
 @end
 
@@ -38,18 +44,20 @@
 -(void)testHappyCase {
     DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"Devanagari" scheme:@"Baraha"];
     STAssertNotNil(scheme, @"Unexpected result");
-    NSString* output = [[[[[scheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"j"] output];
+    DJSimpleForwardMapping *forwardMappings = scheme.forwardMappings;
+    NSString* output = [[[[[forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
-    output = [[[[[[[scheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"I"] output];
+    output = [[[[[[[forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] next] objectForKey:@"I"] output];
     STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
 }
 
 -(void)testSchemeOverrides {
     DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"Devanagari" scheme:@"Baraha"];
     STAssertNotNil(scheme, @"Unexpected result");
-    NSString* output = [[[[[scheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"j"] output];
+    DJSimpleForwardMapping *forwardMappings = scheme.forwardMappings;
+    NSString* output = [[[[[forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
-    output = [[[[[[[scheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"e"] output];
+    output = [[[[[[[forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] next] objectForKey:@"e"] output];
     STAssertTrue([output isEqualToString: @"ञे"], @"Unexpected output: %@", output);
 }
 
@@ -67,6 +75,37 @@
             STAssertEqualObjects(output, reversedOutput, @"Fuzz test failed for input: %@", fuzzInput);
         }
     }
+}
+
+-(void)XXXtestBacktracking {
+    [DJLipikaSchemeFactory setSchemesDirectory:@"/Users/ratreya/workspace/Lipika_IME/Tests/Lipika/Schemes"];
+    DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"UsingBacktrack" scheme:@"UsingBacktrack"];
+    DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
+    DJLipikaBufferManager *manager = [[DJLipikaBufferManager alloc] initWithEngine:engine];
+    [manager outputForInput:@"k"];
+    STAssertEqualObjects([manager output], @"क", @"Invalid output");
+    [manager flush];
+    [manager outputForInput:@"ka"];
+    STAssertEqualObjects([manager output], @"क", @"Invalid output");
+    [manager flush];
+    [manager outputForInput:@"kk"];
+    STAssertEqualObjects([manager output], @"क्क", @"Invalid output");
+    [manager flush];
+    [manager outputForInput:@"kka"];
+    STAssertEqualObjects([manager output], @"क्क", @"Invalid output");
+    [manager flush];
+    [manager outputForInput:@"kkk"];
+    STAssertEqualObjects([manager output], @"क्क्क", @"Invalid output");
+    [manager flush];
+    [manager outputForInput:@"kkka"];
+    STAssertEqualObjects([manager output], @"क्क्क", @"Invalid output");
+    [manager flush];
+    [manager outputForInput:@"kakki"];
+    STAssertEqualObjects([manager output], @"कक्कि", @"Invalid output");
+    [manager flush];
+    [manager outputForInput:@"kkhg"];
+    STAssertEqualObjects([manager output], @"क्ख्ग", @"Invalid output");
+    [manager flush];
 }
 
 @end

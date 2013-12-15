@@ -12,25 +12,25 @@
 
 @interface DJLipikaUserSettings : NSUserDefaults
 
-+(NSString*)scriptName;
-+(void)setScriptName:(NSString*)scriptName;
-+(NSString*)schemeName;
-+(void)setSchemeName:(NSString*)schemeName;
++(NSString *)scriptName;
++(void)setScriptName:(NSString *)scriptName;
++(NSString *)schemeName;
++(void)setSchemeName:(NSString *)schemeName;
 +(enum DJSchemeType)schemeType;
 +(void)setSchemeType:(enum DJSchemeType)schemeType;
-+(NSString*)lipikaSchemeStopChar;
++(NSString *)lipikaSchemeStopChar;
 +(BOOL) isOutputInCandidate;
 +(BOOL) isOverrideCandidateAttributes;
-+(NSDictionary*)candidateWindowAttributes;
-+(void)setCandidateStringAttributes:(NSDictionary*)attributes;
-+(NSDictionary*)candidateStringAttributes;
-+(NSString*)candidatePanelType;
++(NSDictionary *)candidateWindowAttributes;
++(void)setCandidateStringAttributes:(NSDictionary *)attributes;
++(NSDictionary *)candidateStringAttributes;
++(NSString *)candidatePanelType;
 +(BOOL)isCombineWithPreviousGlyph;
 +(BOOL)isShowInput;
 +(BOOL)isShowOutput;
 +(enum DJLogLevel)loggingLevel;
-+(NSString*)logLevelStringForEnum:(enum DJLogLevel)level;
-+(enum DJLogLevel)logLevelForString:(NSString*)level;
++(NSString *)logLevelStringForEnum:(enum DJLogLevel)level;
++(enum DJLogLevel)logLevelForString:(NSString *)level;
 +(enum DJBackspaceBehavior)backspaceBehavior;
 +(enum DJOnUnfocusBehavior)unfocusBehavior;
 

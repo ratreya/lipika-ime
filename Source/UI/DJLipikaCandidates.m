@@ -12,11 +12,11 @@
 #import "DJLipikaAppDelegate.h"
 #import "DJLipikaUserSettings.h"
 
-extern IMKCandidates* candidates;
+extern IMKCandidates *candidates;
 
 @implementation DJLipikaCandidates
 
--(id)initWithController:(DJLipikaInputController*)myController {
+-(id)initWithController:(DJLipikaInputController *)myController {
     self = [super init];
     if (self == nil) {
         return self;
@@ -25,19 +25,19 @@ extern IMKCandidates* candidates;
     return self;
 }
 
--(void)showCandidateWithInput:(NSString*)input output:(NSString*)output replacement:(NSString*)replacement {
-    NSString* inputString;
-    NSString* outputString;
+-(void)showCandidateWithInput:(NSString *)input output:(NSString *)output replacement:(NSString *)replacement {
+    NSString *inputString;
+    NSString *outputString;
     if (input && [DJLipikaUserSettings isShowInput]) {
         inputString = input;
     }
     if (output && [DJLipikaUserSettings isShowOutput]) {
         outputString = output;
     }
-    NSString* forCandidate;
-    NSAttributedString* forClient;
+    NSString *forCandidate;
+    NSAttributedString *forClient;
     // Get the attributes of the client
-    NSDictionary* attributes;
+    NSDictionary *attributes;
     NSRect rect = NSMakeRect(0, 0, 0, 0);
     attributes = [[controller client] attributesForCharacterIndex:0 lineHeightRectangle:&rect];
 

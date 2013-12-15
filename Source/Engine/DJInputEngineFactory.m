@@ -26,7 +26,7 @@
 @synthesize schemeName;
 @synthesize scriptName;
 
-static DJInputEngineFactory* singletonFactory = nil;
+static DJInputEngineFactory *singletonFactory = nil;
 
 +(void)initialize {
     static BOOL initialized = NO;
@@ -36,21 +36,21 @@ static DJInputEngineFactory* singletonFactory = nil;
     }
 }
 
-+(DJInputMethodEngine*)inputEngine {
++(DJInputMethodEngine *)inputEngine {
     return [singletonFactory inputEngine];
 }
 
-+(void)setCurrentSchemeWithName:(NSString*)schemeName scriptName:(NSString*)scriptName type:(enum DJSchemeType)type; {
++(void)setCurrentSchemeWithName:(NSString *)schemeName scriptName:(NSString *)scriptName type:(enum DJSchemeType)type; {
     singletonFactory.scriptName = scriptName;
     singletonFactory.schemeName = schemeName;
     singletonFactory.schemeType = type;
 }
 
-+(NSString*)currentScriptName {
++(NSString *)currentScriptName {
     return singletonFactory.scriptName;
 }
 
-+(NSString*)currentSchemeName {
++(NSString *)currentSchemeName {
     return singletonFactory.schemeName;
 }
 
@@ -70,24 +70,24 @@ static DJInputEngineFactory* singletonFactory = nil;
     return self;
 }
 
--(NSString*)scriptName {
+-(NSString *)scriptName {
     return scriptName;
 }
 
--(void)setScriptName:(NSString*)theScriptName {
+-(void)setScriptName:(NSString *)theScriptName {
     scriptName = theScriptName;
 }
 
--(NSString*)schemeName {
+-(NSString *)schemeName {
     return schemeName;
 }
 
--(void)setSchemeName:(NSString*)theSchemeName {
+-(void)setSchemeName:(NSString *)theSchemeName {
     schemeName = theSchemeName;
 }
 
--(DJInputMethodEngine*)inputEngine {
-    DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:[self inputMethodScheme]];
+-(DJInputMethodEngine *)inputEngine {
+    DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:[self inputMethodScheme]];
     return engine;
 }
 
@@ -96,14 +96,14 @@ static DJInputEngineFactory* singletonFactory = nil;
     id<DJInputMethodScheme> scheme;
     @synchronized(schemesCache) {
         NSString *key = [NSString stringWithFormat:@"%@-%@-%u", scriptName, schemeName, schemeType];
-        scheme = [schemesCache valueForKey:key];
+        scheme = [schemesCache objectForKey:key];
         if (scheme == nil) {
             scheme = [DJInputSchemeUberFactory inputSchemeForScript:scriptName scheme:schemeName type:schemeType];
             if (scheme == nil) {
                 [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, schemeType];
             }
             else {
-                [schemesCache setValue:scheme forKey:key];
+                [schemesCache setObject:scheme forKey:key];
             }
         }
         return scheme;

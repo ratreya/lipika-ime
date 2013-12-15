@@ -7,16 +7,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJParseTreeNode.h"
+#import "DJSimpleForwardMapping.h"
 
-@implementation DJParseTreeNode
-
-@synthesize input;
-@synthesize output;
-@synthesize next;
-
--(NSString*)description {
-    return [NSString stringWithFormat:@"Input: %@; Output: %@; Next: %@", input, output, next];
+@interface DJLipikaForwardMapping : DJSimpleForwardMapping {
+    NSMutableDictionary *inputRegexs;
 }
+
+-(id)init;
+-(void)addInputRegex:(NSString *)regex insertionValue:(NSString *)value;
 
 @end

@@ -14,11 +14,11 @@
     DJLipikaInputScheme *scheme;
 }
 
-+(DJLipikaInputScheme*)inputSchemeForScript:script scheme:scheme;
-+(NSArray*)availableScripts;
-+(NSArray*)availableSchemes;
++(DJLipikaInputScheme *)inputSchemeForScript:script scheme:scheme;
++(NSArray *)availableScripts;
++(NSArray *)availableSchemes;
 
--(id)initWithScript:(NSString*)scriptName scheme:(NSString*)schemeName;
+-(id)initWithScript:(NSString *)scriptName scheme:(NSString *)schemeName;
 -(id<DJInputMethodScheme>)scheme;
 
 @end

@@ -10,14 +10,14 @@
 #import <Cocoa/Cocoa.h>
 
 @interface DJPreferenceController : NSWindowController {
-    IBOutlet NSStepper* opacityStepper;
-    IBOutlet NSButton* saveButton;
-    IBOutlet NSTextView* candidateTextFormat;
+    IBOutlet NSStepper *opacityStepper;
+    IBOutlet NSButton *saveButton;
+    IBOutlet NSTextView *candidateTextFormat;
 }
 
-@property IBOutlet NSStepper* opacityStepper;
-@property IBOutlet NSButton* saveButton;
-@property IBOutlet NSTextView* candidateTextFormat;
+@property IBOutlet NSStepper *opacityStepper;
+@property IBOutlet NSButton *saveButton;
+@property IBOutlet NSTextView *candidateTextFormat;
 
 -(IBAction)saveSettings:(id)sender;
 -(IBAction)resetSetting:(id)sender;

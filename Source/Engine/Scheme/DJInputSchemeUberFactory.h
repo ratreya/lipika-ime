@@ -13,8 +13,8 @@
 
 @interface DJInputSchemeUberFactory : NSObject
 
-+(id<DJInputMethodScheme>)inputSchemeForScript:(NSString*)script scheme:(NSString*)scheme type:(enum DJSchemeType)type;
-+(NSArray*)availableScriptsForType:(enum DJSchemeType)type;
-+(NSArray*)availableSchemesForType:(enum DJSchemeType)type;
++(id<DJInputMethodScheme>)inputSchemeForScript:(NSString *)script scheme:(NSString *)scheme type:(enum DJSchemeType)type;
++(NSArray *)availableScriptsForType:(enum DJSchemeType)type;
++(NSArray *)availableSchemesForType:(enum DJSchemeType)type;
 
 @end

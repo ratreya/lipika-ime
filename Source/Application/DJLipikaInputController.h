@@ -13,9 +13,9 @@
 #import "DJLipikaCandidates.h"
 
 @interface DJLipikaInputController : IMKInputController {
-    DJLipikaBufferManager* manager;
+    DJLipikaBufferManager *manager;
     long numMyCompositionCommits;
-    DJLipikaCandidates* candidates;
+    DJLipikaCandidates *candidates;
 }
 
 @end

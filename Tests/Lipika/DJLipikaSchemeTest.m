@@ -14,8 +14,8 @@
 
 @interface DJLipikaInputScheme (Test)
 
--(NSArray*)parseMapString:(NSString*)mapString;
--(NSString*)stringForUnicode:(NSString*)unicodeString;
+-(NSArray *)parseMapString(NSString *)mapString;
+-(NSString *)stringForUnicode(NSString *)unicodeString;
 
 @end
 
@@ -29,7 +29,7 @@
     [super setUp];
 }
 
--(DJLipikaInputScheme*)schemeWithDefaultData {
+-(DJLipikaInputScheme *)schemeWithDefaultData {
     NSMutableDictionary *depScript = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                       @"0CBF",   @"I",
                                       @"0CC1",   @"U", nil];
@@ -73,7 +73,7 @@
 
 -(void)testCSVSchemeParsing {
     DJLipikaInputScheme *scheme = [self schemeWithDefaultData];
-    STAssertNotNil([scheme forwardMappings], @"Forward parse tree unexpectedly nil");
+    STAssertNotNil([scheme forwardMappings], @"Forward parse trie unexpectedly nil");
     DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     NSArray *results = [engine executeWithInput:@"khi"];
     STAssertNotNil(results, @"Unexpected result");

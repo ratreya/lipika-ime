@@ -15,10 +15,10 @@
 
 @implementation DJLipikaBufferManager
 
-static NSRegularExpression* whiteSpace;
+static NSRegularExpression *whiteSpace;
 
 +(void)initialize {
-    NSError* error;
+    NSError *error;
     whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid whitespace regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -39,7 +39,7 @@ static NSRegularExpression* whiteSpace;
 }
 
 // Only for testing purposes and not exposed in the interface
--(id)initWithEngine:(DJInputMethodEngine*)myEngine {
+-(id)initWithEngine:(DJInputMethodEngine *)myEngine {
     self = [super init];
     if (self == nil) {
         return self;
@@ -54,7 +54,7 @@ static NSRegularExpression* whiteSpace;
     finalizedIndex = 0;
 }
 
--(void)changeToSchemeWithName:(NSString*)schemeName forScript:(NSString*)scriptName type:(enum DJSchemeType)type {
+-(void)changeToSchemeWithName:(NSString *)schemeName forScript:(NSString *)scriptName type:(enum DJSchemeType)type {
     [DJLipikaUserSettings setScriptName:scriptName];
     [DJLipikaUserSettings setSchemeName:schemeName];
     [DJLipikaUserSettings setSchemeType:type];
@@ -64,11 +64,11 @@ static NSRegularExpression* whiteSpace;
     }
 }
 
--(NSString*)outputForInput:(NSString*)string previousText:(NSString*)previousText {
+-(NSString *)outputForInput:(NSString *)string previousText:(NSString *)previousText {
     @synchronized(self) {
         // Handle non-character strings
         if (string.length > 1) {
-            NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
+            NSMutableArray *aggregate = [[NSMutableArray alloc] initWithCapacity:0];
             NSArray *characters = charactersForString(string);
             NSString *output = [self outputForInput:characters[0] previousText:previousText];
             if (output) [aggregate addObject:output];
@@ -97,13 +97,13 @@ static NSRegularExpression* whiteSpace;
     }
 }
 
--(NSString*)outputForInput:(NSString*)string {
+-(NSString *)outputForInput:(NSString *)string {
     @synchronized(self) {
         if (string.length < 1) return string;
         // Handle non-character strings
         if (string.length > 1) {
-            NSMutableArray* aggregate = [[NSMutableArray alloc] initWithCapacity:0];
-            for (NSString* singleInput in charactersForString(string)) {
+            NSMutableArray *aggregate = [[NSMutableArray alloc] initWithCapacity:0];
+            for (NSString *singleInput in charactersForString(string)) {
                 NSString *output = [self outputForInput:singleInput];
                 if (output) [aggregate addObject:output];
             }
@@ -123,22 +123,25 @@ static NSRegularExpression* whiteSpace;
             }
             else {
                 [uncommittedOutput addObject:[DJParseOutput sameInputOutput:[[engine inputsSinceLastOutput] componentsJoinedByString:@""]]];
-                finalizedIndex = [uncommittedOutput count];
-                [engine reset];
             }
+            finalizedIndex = [uncommittedOutput count];
+            [engine reset];
             return nil;
         }
-
-        NSArray* results = [engine executeWithInput:string];
+        NSArray *results = [engine executeWithInput:string];
         [self handleResults:results];
         return nil;
     }
 }
 
--(void)handleResults:(NSArray*)results {
-    for (DJParseOutput* result in results) {
+-(void)handleResults:(NSArray *)results {
+    for (DJParseOutput *result in results) {
         if ([result isPreviousFinal]) {
             finalizedIndex = [uncommittedOutput count];
+            // Post-process the last two inputs
+            if (uncommittedOutput.count > 2) {
+                [engine.scheme postProcessResult:[uncommittedOutput lastObject] withPreviousResult:uncommittedOutput[uncommittedOutput.count - 2]];
+            }
         }
         else {
             // If there is a replacement then remove unfinalized
@@ -182,7 +185,7 @@ static NSRegularExpression* whiteSpace;
             [engine reset];
             if ([uncommittedOutput count] > 0) {
                 if (finalizedIndex == [uncommittedOutput count]) --finalizedIndex;
-                DJParseOutput* lastBundle = [uncommittedOutput lastObject];
+                DJParseOutput *lastBundle = [uncommittedOutput lastObject];
                 if (lastBundle) [engine executeWithInput:lastBundle.input];
             }
         }
@@ -193,12 +196,12 @@ static NSRegularExpression* whiteSpace;
                 [self removeLastMapping];
             }
             else if (behavior == DJ_DELETE_INPUT) {
-                DJParseOutput* lastBundle = [uncommittedOutput lastObject];
+                DJParseOutput *lastBundle = [uncommittedOutput lastObject];
                 [self removeLastMapping];
                 if (lastBundle.input.length > 1) {
-                    NSString* input = [lastBundle.input substringToIndex:lastBundle.input.length - 1];
+                    NSString *input = [lastBundle.input substringToIndex:lastBundle.input.length - 1];
                     if (input.length > 0) {
-                        NSArray* results = [engine executeWithInput:input];
+                        NSArray *results = [engine executeWithInput:input];
                         [self handleResults:results];
                     }
                 }
@@ -223,23 +226,23 @@ static NSRegularExpression* whiteSpace;
     return [uncommittedOutput count] > 0;
 }
 
--(NSString*)output {
+-(NSString *)output {
     if ([uncommittedOutput count] <= 0) {
         return nil;
     }
-    NSMutableString* word = [[NSMutableString alloc] init];
-    for (DJParseOutput* bundle in uncommittedOutput) {
+    NSMutableString *word = [[NSMutableString alloc] init];
+    for (DJParseOutput *bundle in uncommittedOutput) {
         [word appendString:[bundle output]];
     }
     return word;
 }
 
--(NSString*)input {
+-(NSString *)input {
     if ([uncommittedOutput count] <= 0) {
         return nil;
     }
-    NSMutableString* word = [[NSMutableString alloc] init];
-    for (DJParseOutput* bundle in uncommittedOutput) {
+    NSMutableString *word = [[NSMutableString alloc] init];
+    for (DJParseOutput *bundle in uncommittedOutput) {
         [word appendString:[bundle input]];
     }
     // Add in the inputs that have yet to generate an output
@@ -251,20 +254,20 @@ static NSRegularExpression* whiteSpace;
     return [engine.scheme.reverseMappings maxOutputSize];
 }
 
--(NSString*)replacement {
+-(NSString *)replacement {
     return replacement;
 }
 
--(NSString*)flush {
+-(NSString *)flush {
     @synchronized(self) {
         [engine reset];
-        NSString* result = [self output];
+        NSString *result = [self output];
         [self reset];
         return result;
     }
 }
 
--(NSString*)revert {
+-(NSString *)revert {
     @synchronized(self) {
         NSString *previous = replacement;
         [self flush];
