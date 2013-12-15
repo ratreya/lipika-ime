@@ -10,8 +10,8 @@
 #import <Foundation/Foundation.h>
 
 @interface DJParseOutput : NSObject {
-    NSString* input;
-    NSString* output;
+    NSString *input;
+    NSString *output;
     /*
      * If this is true then the output is final and will not be changed anymore.
      * Else the above output could be replaced by subsequent outputs until
@@ -26,11 +26,11 @@
     BOOL isPreviousFinal;
 }
 
-@property NSString* input;
-@property NSString* output;
+@property NSString *input;
+@property NSString *output;
 @property BOOL isFinal;
 @property BOOL isPreviousFinal;
 
-+(DJParseOutput*)sameInputOutput:(NSString*)input;
++(DJParseOutput *)sameInputOutput:(NSString *)input;
 
 @end

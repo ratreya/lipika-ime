@@ -11,9 +11,9 @@
 
 @implementation DJSchemeHelper
 
-extern NSMutableArray* charactersForString(NSString *string) {
+extern NSMutableArray *charactersForString(NSString *string) {
     NSRange theRange = {0, 1};
-    NSMutableArray* array = [NSMutableArray array];
+    NSMutableArray *array = [NSMutableArray array];
     for ( NSInteger i = 0; i < [string length]; i++) {
         theRange.location = i;
         [array addObject:[string substringWithRange:theRange]];
@@ -21,17 +21,17 @@ extern NSMutableArray* charactersForString(NSString *string) {
     return array;
 }
 
-extern NSArray* csvToArrayForString(NSString *csvLine) {
+extern NSArray *csvToArrayForString(NSString *csvLine) {
     NSArray *items = [csvLine componentsSeparatedByString:@","];
     if (items.count == 1) return items;
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:items.count];
-    [items enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+    [items enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
         [result addObject:[obj stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]]];
     }];
     return result;
 }
 
-extern NSString* stringForUnicode(NSString *unicodeString) {
+extern NSString *stringForUnicode(NSString *unicodeString) {
     NSScanner *scanner = [NSScanner scannerWithString:unicodeString];
     unsigned unicode = 0;
     [scanner scanHexInt:&unicode];

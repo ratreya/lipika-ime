@@ -7,9 +7,15 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJParseTreeNode.h"
+#import "DJParseTrieNode.h"
 #import <SenTestingKit/SenTestingKit.h>
 #import "DJGoogleSchemeFactory.h"
+
+@interface DJGoogleForwardMapping (Test)
+
+-(NSDictionary *)parseTrie;
+
+@end
 
 @interface DJGoogleSchemeTest : SenTestCase {
     DJGoogleInputScheme *scheme;
@@ -40,18 +46,18 @@
 }
 
 - (void)testMappingParsing {
-    NSString* output = [[[[[scheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"j"] output];
+    NSString* output = [[[[[scheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
-    output = [[[[[[[scheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"j"] next] valueForKey:@"I"] output];
+    output = [[[[[[[scheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] next] objectForKey:@"I"] output];
     STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
 }
 
 -(void)testNonDefaultHeaders {
     DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/Tests/Google/Schemes/TestITRANS.scm"];
     STAssertTrue([@"VowelSigns" isEqualToString:[myScheme.forwardMappings classNameForInput:@"u"]], @"Unexpected output");
-    NSString* output = [[[[[myScheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"n"] output];
+    NSString* output = [[[[[myScheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"n"] output];
     STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
-    output = [[[[[[[myScheme.forwardMappings parseTree] valueForKey:@"~"] next] valueForKey:@"n"] next] valueForKey:@"I"] output];
+    output = [[[[[[[myScheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"n"] next] objectForKey:@"I"] output];
     STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
 }
 

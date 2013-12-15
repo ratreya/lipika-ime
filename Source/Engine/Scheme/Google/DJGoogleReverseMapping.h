@@ -15,7 +15,7 @@
     DJGoogleInputScheme *scheme;
     // Class name as NSString to NSString
     NSMutableDictionary *classes;
-    // Mapping of class name to trie head (DJParseTreeNode)
+    // Mapping of class name to DJReadWriteTrie
     NSMutableDictionary *maxOutputSizesPerClass;
 }
 

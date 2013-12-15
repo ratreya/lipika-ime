@@ -20,7 +20,7 @@
 
 -(void)awakeFromNib {
     // Configure the model controller
-    NSUserDefaultsController* controller = [NSUserDefaultsController sharedUserDefaultsController];
+    NSUserDefaultsController *controller = [NSUserDefaultsController sharedUserDefaultsController];
     [controller setAppliesImmediately:NO];
     // Configure the UI elements
     [opacityStepper setMaxValue:1.0];
@@ -32,14 +32,14 @@
 
 -(IBAction)saveSettings:(id)sender {
     // Save all values
-    NSUserDefaultsController* controller = [NSUserDefaultsController sharedUserDefaultsController];
+    NSUserDefaultsController *controller = [NSUserDefaultsController sharedUserDefaultsController];
     // controller-save: does not save immediately unless this is set
     [controller setAppliesImmediately:YES];
     [controller save:sender];
     if ([DJLipikaUserSettings isOverrideCandidateAttributes]) {
         // Get the string attributes and store it
         NSRange range = NSMakeRange(0, 1);
-        NSDictionary* attributes = [[candidateTextFormat attributedString] attributesAtIndex:0 effectiveRange:&range];
+        NSDictionary *attributes = [[candidateTextFormat attributedString] attributesAtIndex:0 effectiveRange:&range];
         [DJLipikaUserSettings setCandidateStringAttributes:attributes];
     }
     [[NSApp delegate] configureCandiates];

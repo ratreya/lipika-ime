@@ -17,9 +17,9 @@
     DJSimpleReverseMapping *reverseMapping;
     NSDictionary *schemeTable;
     NSDictionary *scriptTable;
-    NSDictionary *validKeys;
+    NSMutableDictionary *validKeys;
 }
 
--(id)initWithSchemeTable:(NSDictionary*)schemeTable scriptTable:(NSDictionary*)scriptTable imeLines:(NSArray*)imeLines;
+-(id)initWithSchemeTable:(NSDictionary *)schemeTable scriptTable:(NSDictionary *)scriptTable imeLines:(NSArray *)imeLines;
 
 @end

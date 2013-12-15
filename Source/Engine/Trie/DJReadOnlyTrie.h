@@ -8,14 +8,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "DJForwardMapping.h"
-#import "DJReverseMapping.h"
+#import "DJTrieNode.h"
 
-@protocol DJInputMethodScheme <NSObject>
+@protocol DJReadOnlyTrie <NSObject>
 
--(NSString *)stopChar;
--(id<DJForwardMapping>)forwardMappings;
--(id<DJReverseMapping>)reverseMappings;
--(void)postProcessResult:(DJParseOutput *)result withPreviousResult:(DJParseOutput *)previousResult;
+-(DJTrieNode *)trieHead;
+-(DJTrieNode *)nodeForKey:(NSString *)key;
+-(DJTrieNode *)nextNodeFromNode:(DJTrieNode *)currentNode forKey:(NSString *)key;
 
 @end

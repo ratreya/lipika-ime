@@ -14,11 +14,11 @@
 
 @interface DJGoogleForwardMapping : DJSimpleForwardMapping<DJGoogleSchemeMapping> {
     DJGoogleInputScheme *scheme;
-    // Class name as NSString to NSMutableDictionary of NSString to DJParseTreeNode
+    // Class name as NSString to DJReadWriteTrie
     NSMutableDictionary *classes;
 }
 
--(NSString*)classNameForInput:(NSString*)input;
--(NSDictionary*)classForName:(NSString*)className;
+-(NSString *)classNameForInput:(NSString *)input;
+-(DJReadWriteTrie *)classForName:(NSString *)className;
 
 @end

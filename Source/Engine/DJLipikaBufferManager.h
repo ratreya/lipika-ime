@@ -23,17 +23,17 @@
 }
 
 -(id)init;
--(void)changeToSchemeWithName:(NSString*)schemeName forScript:scriptName type:(enum DJSchemeType)type;
--(NSString*)outputForInput:(NSString*)string;
--(NSString*)outputForInput:(NSString*)string previousText:(NSString*)previousText;
+-(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName type:(enum DJSchemeType)type;
+-(NSString *)outputForInput:(NSString *)string;
+-(NSString *)outputForInput:(NSString *)string previousText:(NSString *)previousText;
 -(BOOL)hasDeletable;
 -(void)delete;
 -(BOOL)hasOutput;
--(NSString*)output;
--(NSString*)input;
--(NSString*)flush;
--(NSString*)revert;
+-(NSString *)output;
+-(NSString *)input;
+-(NSString *)flush;
+-(NSString *)revert;
 -(int)maxOutputLength;
--(NSString*)replacement;
+-(NSString *)replacement;
 
 @end

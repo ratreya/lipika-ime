@@ -12,13 +12,13 @@
 @class DJLipikaInputController;
 
 @interface DJLipikaCandidates : NSObject {
-    DJLipikaInputController* controller;
-    NSArray* currentCandidates;
+    DJLipikaInputController *controller;
+    NSArray *currentCandidates;
 }
 
--(id)initWithController:(DJLipikaInputController*)controller;
--(void)showCandidateWithInput:(NSString*)input output:(NSString*)output replacement:(NSString*)replacement;
--(NSArray*)candidates:(id)sender;
+-(id)initWithController:(DJLipikaInputController *)controller;
+-(void)showCandidateWithInput:(NSString *)input output:(NSString *)output replacement:(NSString *)replacement;
+-(NSArray *)candidates:(id)sender;
 -(void)hide;
 
 @end

@@ -11,9 +11,21 @@
 #import "DJGoogleInputScheme.h"
 #import "DJLogger.h"
 
+@interface DJSimpleReverseMapping (Google)
+
++(DJTrieNode *)createReverseMappingForTrie:(DJReadWriteTrie *)trie withInput:(NSString *)input output:(NSString *)output;
+
+@end
+
+@interface DJReadWriteTrie (Google)
+
+-(DJTrieNode *)addValue:(NSString *)value forKey:(NSString *)key atNode:(DJTrieNode *)atNode withPath:(NSString *)path;
+
+@end
+
 @implementation DJGoogleReverseMapping
 
--(id)initWithScheme:(DJGoogleInputScheme*)parentScheme {
+-(id)initWithScheme:(DJGoogleInputScheme *)parentScheme {
     self = [super init];
     if (self == nil) return self;
     scheme = parentScheme;
@@ -23,9 +35,9 @@
 }
 
 -(void)createClassWithName:(NSString *)className {
-    DJParseTreeNode *currentClass;
+    DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:className])) {
-        currentClass = [[DJParseTreeNode alloc] init];
+        currentClass = [[DJReadWriteTrie alloc] initWithIsOverwrite:NO];
         [classes setObject:currentClass forKey:className];
     }
     else {
@@ -33,109 +45,79 @@
     }
 }
 
--(void)createSimpleMappingForClass:(NSString *)className key:(NSString *)key value:(NSString *)value {
-    DJParseTreeNode *currentClass;
+-(void)createSimpleMappingForClass:(NSString *)className input:(NSString *)input output:(NSString *)output {
+    DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:className])) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    int size = ((int)value.length);
-    if (size > 0) [self mergeIntoTrie:currentClass key:key value:value];
+    int size = ((int)output.length);
+    if (size > 0) [DJSimpleReverseMapping createReverseMappingForTrie:currentClass withInput:input output:output];
     // Update the maximum size of value per class
     NSNumber *maxSize;
-    if (!(maxSize = [maxOutputSizesPerClass valueForKey:className])) {
-        [maxOutputSizesPerClass setValue:[NSNumber numberWithInt:size] forKey:className];
+    if (!(maxSize = [maxOutputSizesPerClass objectForKey:className])) {
+        [maxOutputSizesPerClass setObject:[NSNumber numberWithInt:size] forKey:className];
     }
     else if (size > [maxSize intValue]) {
-        [maxOutputSizesPerClass setValue:[NSNumber numberWithInt:size] forKey:className];
+        [maxOutputSizesPerClass setObject:[NSNumber numberWithInt:size] forKey:className];
     }
 }
 
--(void)createClassMappingWithPreKey:(NSString *)preKey className:(NSString *)className isWildcard:(BOOL)isWildcard preValue:(NSString *)preValue postValue:(NSString *)postValue {
-    [self createClassMappingForTrie:reverseTrieHead preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    [self createClassMappingForTrie:parseTrie preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     // Update maximum size
-    NSNumber *classSize = [maxOutputSizesPerClass valueForKey:className];
+    NSNumber *classSize = [maxOutputSizesPerClass objectForKey:className];
     if (!classSize) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    int size = ((int)preValue.length) + [classSize intValue] + ((int)postValue.length);
+    int size = ((int)preOutput.length) + [classSize intValue] + ((int)postOutput.length);
     if (size > maxOutputSize) {
         maxOutputSize = size;
     }
 }
 
--(void)createClassMappingForClass:(NSString *)containerClass preKey:(NSString *)preKey className:(NSString *)className isWildcard:(BOOL)isWildcard preValue:(NSString *)preValue postValue:(NSString *)postValue {
-    DJParseTreeNode *currentClass;
+-(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:containerClass])) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", containerClass];
     }
-    [self createClassMappingForTrie:currentClass preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+    [self createClassMappingForTrie:currentClass preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     // Update the maximum size of value per class
-    NSNumber *classSize = [maxOutputSizesPerClass valueForKey:className];
+    NSNumber *classSize = [maxOutputSizesPerClass objectForKey:className];
     if (!classSize) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    int size = ((int)preValue.length) + [classSize intValue] + ((int)postValue.length);
+    int size = ((int)preOutput.length) + [classSize intValue] + ((int)postOutput.length);
     NSNumber *maxSize;
-    if (!(maxSize = [maxOutputSizesPerClass valueForKey:containerClass])) {
-        [maxOutputSizesPerClass setValue:[NSNumber numberWithInt:size] forKey:containerClass];
+    if (!(maxSize = [maxOutputSizesPerClass objectForKey:containerClass])) {
+        [maxOutputSizesPerClass setObject:[NSNumber numberWithInt:size] forKey:containerClass];
     }
     else if (size > [maxSize intValue]) {
-        [maxOutputSizesPerClass setValue:[NSNumber numberWithInt:size] forKey:containerClass];
+        [maxOutputSizesPerClass setObject:[NSNumber numberWithInt:size] forKey:containerClass];
     }
 }
 
--(void)createClassMappingForTrie:(DJParseTreeNode*)trieHead preKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
-    DJParseTreeNode *node = trieHead;
+-(void)createClassMappingForTrie:(DJReadWriteTrie *)trie preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    DJTrieNode *currentNode;
     // Merge in all the post values
-    if (postValue && postValue.length > 0) {
-        node = [self mergeIntoTrie:trieHead key:nil value:postValue];
+    if (postOutput && postOutput.length > 0) {
+        currentNode = [DJSimpleReverseMapping createReverseMappingForTrie:trie withInput:nil output:postOutput];
     }
     // Merge in the class hop
-    NSArray *leafNodes = [self mergeClassWithName:className intoTrie:node];
-    
-    // Merge in the pre values
-    for (DJParseTreeNode *leafNode in leafNodes) {
-        NSString *key = [preKey stringByAppendingString:leafNode.output];
-        NSString *value = [NSString stringWithFormat:@"%@%@%@", preValue, leafNode.input, postValue];
-        if (preValue && preValue.length > 0) {
-            [self mergeIntoTrie:leafNode key:key value:value path:preValue];
-        }
-        else {
-            leafNode.input = value;
-            leafNode.output = key;
-        }
-    }
-}
-
--(NSArray*)mergeClassWithName:(NSString*)className intoTrie:(DJParseTreeNode*)trieHead {
-    DJParseTreeNode *classNode = [classes objectForKey:className];
-    if (!classNode) {
+    DJReadWriteTrie *classTrie = [classes objectForKey:className];
+    if (!classTrie) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    NSMutableArray *leafNodes = [NSMutableArray arrayWithCapacity:0];
-    [self mergeTrieWithHead:classNode intoTrie:trieHead leafNodes:leafNodes];
-    return leafNodes;
-}
-
--(void)mergeTrieWithHead:(DJParseTreeNode*)classNode intoTrie:(DJParseTreeNode*)trieHead leafNodes:(NSMutableArray*)leafNodes {
-    for (NSString *classKey in [classNode.next keyEnumerator]) {
-        DJParseTreeNode *classValue = [classNode.next objectForKey:classKey];
-        DJParseTreeNode *nextValue;
-        if ((nextValue = [trieHead.next objectForKey:classKey])) {
-            nextValue.output = classValue.output;
+    NSArray *leafNodes = [trie mergeTrieWithHead:classTrie.trieHead atNode:currentNode];
+    // Merge in the pre values
+    for (DJTrieNode *leafNode in leafNodes) {
+        NSString *input = [preInput stringByAppendingString:leafNode.key];
+        NSString *value = [NSString stringWithFormat:@"%@%@%@", preOutput, leafNode.value, postOutput];
+        if (preOutput && preOutput.length > 0) {
+            [parseTrie addValue:value forKey:input atNode:leafNode withPath:preOutput];
         }
         else {
-            nextValue = [[DJParseTreeNode alloc] init];
-            nextValue.input = classValue.input;
-            nextValue.output = classValue.output;
-            if (!trieHead.next) trieHead.next = [NSMutableDictionary dictionaryWithCapacity:0];
-            [trieHead.next setObject:nextValue forKey:classKey];
-        }
-        if (classValue.next && [classValue.next count]) {
-            [self mergeTrieWithHead:classValue intoTrie:nextValue leafNodes:leafNodes];
-        }
-        else {
-            [leafNodes addObject:nextValue];
+            leafNode.key = value;
+            leafNode.value = input;
         }
     }
 }

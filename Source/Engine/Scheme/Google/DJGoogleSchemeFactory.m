@@ -21,18 +21,18 @@ static NSString *const SCHEMESPATH = @"%@/Contents/Resources/Schemes/Google";
 static NSString *const EXTENSION = @"scm";
 
 // These regular expressions don't have dynamic elements
-static NSRegularExpression* whitespaceExpression;
-static NSRegularExpression* headerExpression;
-static NSRegularExpression* usingClassesExpression;
-static NSRegularExpression* classesDelimiterExpression;
+static NSRegularExpression *whitespaceExpression;
+static NSRegularExpression *headerExpression;
+static NSRegularExpression *usingClassesExpression;
+static NSRegularExpression *classesDelimiterExpression;
 
 +(void)initialize {
     NSString *const whitespacePattern = @"^\\s+$";
-    NSString *const headerPattern = @"^\\s*(.*\\S)\\s*:\\s*(.*\\S)\\s*$";
+    NSString *const headerPattern = @"^\\s*:(.*\\S)\\s*:\\s*:(.*\\S)\\s*$";
     NSString *const usingClassesPattern = @"^\\s*using\\s+classes\\s*$";
-    NSString *const classesDelimiterPattern = @"^\\s*(\\S)\\s*(\\S)\\s*$";
+    NSString *const classesDelimiterPattern = @"^\\s*:(\\S)\\s*:(\\S)\\s*$";
     
-    NSError* error;
+    NSError *error;
     whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -51,17 +51,17 @@ static NSRegularExpression* classesDelimiterExpression;
     }
 }
 
-+(DJGoogleInputScheme*)inputSchemeForScheme:scheme {
++(DJGoogleInputScheme *)inputSchemeForScheme:scheme {
     // Parse one file at a time
     @synchronized(self) {
         NSString *schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
-        NSString* filePath = [[schemesDirectory stringByAppendingPathComponent:scheme] stringByAppendingPathExtension:EXTENSION];
+        NSString *filePath = [[schemesDirectory stringByAppendingPathComponent:scheme] stringByAppendingPathExtension:EXTENSION];
         DJGoogleSchemeFactory *factory = [[DJGoogleSchemeFactory alloc] initWithSchemeFile:filePath];
         return [factory scheme];
     }
 }
 
-+(DJGoogleInputScheme*)inputSchemeForSchemeFile:(NSString*)filePath {
++(DJGoogleInputScheme *)inputSchemeForSchemeFile:(NSString *)filePath {
     // Parse one file at a time
     @synchronized(self) {
         DJGoogleSchemeFactory *factory = [[DJGoogleSchemeFactory alloc] initWithSchemeFile:filePath];
@@ -69,7 +69,7 @@ static NSRegularExpression* classesDelimiterExpression;
     }
 }
 
-+(NSArray*)availableSchemes {
++(NSArray *)availableSchemes {
     NSError *error;
     NSString *schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:schemesDirectory error:&error];
@@ -77,8 +77,8 @@ static NSRegularExpression* classesDelimiterExpression;
         [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
     }
     NSArray *files = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self ENDSWITH '.%@'", EXTENSION]]];
-    NSMutableArray* names = [[NSMutableArray alloc] initWithCapacity:0];
-    [files enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+    NSMutableArray *names = [[NSMutableArray alloc] initWithCapacity:0];
+    [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
         [names addObject:[obj stringByDeletingPathExtension]];
     }];
     return names;
@@ -99,13 +99,13 @@ static NSRegularExpression* classesDelimiterExpression;
     // Read contents of the Scheme file
     logDebug(@"Parsing scheme file: %@", filePath);
     scheme.schemeFilePath = filePath;
-    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
+    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
     if (handle == nil) {
         logFatal(@"Failed to open file %@ for reading", filePath);
         return nil;
     }
-    NSData* dataBuffer = [handle readDataToEndOfFile];
-    NSString* data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
+    NSData *dataBuffer = [handle readDataToEndOfFile];
+    NSString *data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
     linesOfScheme = [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
     
     @try {
@@ -114,7 +114,7 @@ static NSRegularExpression* classesDelimiterExpression;
         [self parseHeaders];
         endBatch(batchId);
     }
-    @catch (NSException* exception) {
+    @catch (NSException *exception) {
         logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
@@ -124,7 +124,7 @@ static NSRegularExpression* classesDelimiterExpression;
         [self parseMappings];
         endBatch(batchId);
     }
-    @catch (NSException* exception) {
+    @catch (NSException *exception) {
         logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
@@ -134,7 +134,7 @@ static NSRegularExpression* classesDelimiterExpression;
 
 -(void)parseHeaders {
     // Parse out the headers
-    for (NSString* line in linesOfScheme) {
+    for (NSString *line in linesOfScheme) {
         // For empty lines move on
         if ([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             currentLineNumber++;
@@ -142,8 +142,8 @@ static NSRegularExpression* classesDelimiterExpression;
         }
         logDebug(@"Parsing line: %@", line);
         if ([headerExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
-            NSString* key = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
-            NSString* value = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
+            NSString *key = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
+            NSString *value = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             logDebug(@"Parsed header. Key: %@; Value: %@", key, value);
             if ([key isEqualToString:VERSION]) {
                 scheme.version = value;
@@ -184,9 +184,9 @@ static NSRegularExpression* classesDelimiterExpression;
 -(void)parseMappings {
     [scheme onStartParsingAtLine:currentLineNumber];
     for (; currentLineNumber<[linesOfScheme count]; currentLineNumber++) {
-        NSString* line = linesOfScheme[currentLineNumber];
+        NSString *line = linesOfScheme[currentLineNumber];
         // For empty lines move on
-        if ([line length] <=0  || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) continue;
+        if ([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) continue;
         logDebug(@"Parsing line: %@", line);
         [scheme createMappingWithLine:line lineNumber:currentLineNumber];
     }

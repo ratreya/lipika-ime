@@ -14,7 +14,7 @@
 
 @implementation DJInputSchemeUberFactory
 
-+(id<DJInputMethodScheme>)inputSchemeForScript:(NSString*)script scheme:(NSString*)scheme type:(enum DJSchemeType)type {
++(id<DJInputMethodScheme>)inputSchemeForScript:(NSString *)script scheme:(NSString *)scheme type:(enum DJSchemeType)type {
     switch (type) {
         case DJ_LIPIKA:
             return [DJLipikaSchemeFactory inputSchemeForScript:script scheme:scheme];
@@ -28,7 +28,7 @@
     }
 }
 
-+(NSArray*)availableScriptsForType:(enum DJSchemeType)type {
++(NSArray *)availableScriptsForType:(enum DJSchemeType)type {
     switch (type) {
         case DJ_LIPIKA:
             return [DJLipikaSchemeFactory availableScripts];
@@ -39,7 +39,7 @@
     }
 }
 
-+(NSArray*)availableSchemesForType:(enum DJSchemeType)type {
++(NSArray *)availableSchemesForType:(enum DJSchemeType)type {
     switch (type) {
         case DJ_LIPIKA:
             return [DJLipikaSchemeFactory availableSchemes];

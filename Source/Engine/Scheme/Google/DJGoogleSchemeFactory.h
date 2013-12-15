@@ -12,17 +12,17 @@
 
 @interface DJGoogleSchemeFactory : NSObject {
     // Internal instance variable
-    DJGoogleInputScheme* scheme;
-    NSArray* linesOfScheme;
+    DJGoogleInputScheme *scheme;
+    NSArray *linesOfScheme;
     int currentLineNumber;
 }
 
-+(DJGoogleInputScheme*)inputSchemeForScheme:scheme;
++(DJGoogleInputScheme *)inputSchemeForScheme:scheme;
 // For testing only
-+(DJGoogleInputScheme*)inputSchemeForSchemeFile:(NSString*)filePath;
-+(NSArray*)availableSchemes;
++(DJGoogleInputScheme *)inputSchemeForSchemeFile:(NSString *)filePath;
++(NSArray *)availableSchemes;
 
--(id)initWithSchemeFile:(NSString*)filePath;
+-(id)initWithSchemeFile:(NSString *)filePath;
 -(id<DJInputMethodScheme>)scheme;
 
 @end

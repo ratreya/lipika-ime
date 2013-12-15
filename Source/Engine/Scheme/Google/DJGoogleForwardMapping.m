@@ -9,12 +9,12 @@
 
 #import "DJGoogleForwardMapping.h"
 #import "DJGoogleInputScheme.h"
-#import "DJParseTreeNode.h"
+#import "DJTrieNode.h"
 #import "DJLogger.h"
 
 @implementation DJGoogleForwardMapping
 
--(id)initWithScheme:(DJGoogleInputScheme*)parentScheme {
+-(id)initWithScheme:(DJGoogleInputScheme *)parentScheme {
     self = [super init];
     if (self == nil) {
         return self;
@@ -25,9 +25,9 @@
 }
 
 -(void)createClassWithName:(NSString *)className {
-    NSMutableDictionary *currentClass;
+    DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:className])) {
-        currentClass = [NSMutableDictionary dictionaryWithCapacity:0];
+        currentClass = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
         [classes setObject:currentClass forKey:className];
     }
     else {
@@ -35,70 +35,56 @@
     }
 }
 
--(void)createSimpleMappingForClass:(NSString *)className key:(NSString *)key value:(NSString *)value {
-    DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
-    newNode.output = value;
-    NSMutableDictionary *currentClass;
+-(void)createSimpleMappingForClass:(NSString *)className input:(NSString *)input output:(NSString *)output {
+    DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:className])) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    [self addMappingForTree:currentClass key:key newNode:newNode];
+    [currentClass addValue:output forKey:input];
 }
 
--(void)createClassMappingWithPreKey:(NSString *)preKey className:(NSString *)className isWildcard:(BOOL)isWildcard preValue:(NSString *)preValue postValue:(NSString *)postValue {
-    [self createClassMappingForTree:parseTree preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    [self createClassMappingForTrie:parseTrie preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
 }
 
--(void)createClassMappingForClass:(NSString *)containerClass preKey:(NSString *)preKey className:(NSString *)className isWildcard:(BOOL)isWildcard preValue:(NSString *)preValue postValue:(NSString *)postValue {
-    NSMutableDictionary *currentClass;
+-(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:containerClass])) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", containerClass];
     }
-    [self createClassMappingForTree:currentClass preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+    [self createClassMappingForTrie:currentClass preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
 }
 
--(void)createClassMappingForTree:(NSMutableDictionary*)tree preKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
-    NSMutableDictionary* classTree = [classes valueForKey:className];
-    if (classTree == nil) {
+-(void)createClassMappingForTrie:(DJReadWriteTrie *)trie preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    DJReadWriteTrie *classTrie = [classes objectForKey:className];
+    if (classTrie == nil) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    // Parse the value; may not have wildcards in it
-    DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
+    // Clone the class trie and format it if needed
+    DJTrieNode *nextNode;
     if (isWildcard) {
-        // Output is nil and format is applied to all outputs of its subtree
-        NSString* format = [NSString stringWithFormat:@"%@%%@%@", preValue, postValue];
-        // Set the formated output tree as this node's subtree
-        newNode.next = [self applyFormat:format toTree:classTree];
+        // Output is nil and format is applied to all outputs of its subtrie
+        NSString *format = [NSString stringWithFormat:@"%@%%@%@", preOutput, postOutput];
+        // Set the formated output trie as this node's subtrie
+        DJReadWriteTrie *clonedClassTrie = [classTrie cloneTrieUsingBlock:^DJTrieNode *(DJTrieNode *original) {
+            DJTrieNode *clonedNode = [[DJTrieNode alloc] init];
+            clonedNode.key = original.key;
+            clonedNode.value = [NSString stringWithFormat:format, original.value];
+            return clonedNode;
+        }];
+        nextNode = clonedClassTrie.trieHead;
     }
     else {
-        newNode.output = preValue;
-        // Append the named parse tree as-is since there is no wildcard formatting
-        newNode.next = classTree;
+        // Append the named parse trie as-is since there is no wildcard formatting
+        nextNode = classTrie.trieHead;
     }
-    [self addMappingForTree:tree key:preKey newNode:newNode];
+    DJTrieNode *atNode = [parseTrie addValue:preOutput forKey:preInput];
+    [parseTrie linkTrieWithHead:nextNode atNode:atNode];
 }
 
--(NSMutableDictionary*)applyFormat:(NSString*)format toTree:(NSMutableDictionary*)classTree {
-    NSMutableDictionary* newTree = [[NSMutableDictionary alloc] initWithCapacity:0];
-    for (NSString* key in [classTree keyEnumerator]) {
-        DJParseTreeNode* node = [classTree valueForKey:key];
-        if (node != nil) {
-            DJParseTreeNode* newNode = [[DJParseTreeNode alloc] init];
-            if (node.output != nil) {
-                newNode.output = [NSString stringWithFormat:format, node.output];
-            }
-            if (node.next != nil) {
-                newNode.next = [self applyFormat:format toTree:node.next];
-            }
-            [newTree setValue:newNode forKey:key];
-        }
-    }
-    return newTree;
-}
-
--(NSString *)classNameForInput:(NSString*)input {
-    for (NSString* className in [classes keyEnumerator]) {
-        NSMutableDictionary* classMap = [classes valueForKey:className];
+-(NSString *)classNameForInput:(NSString *)input {
+    for (NSString *className in [classes keyEnumerator]) {
+        NSMutableDictionary *classMap = [classes objectForKey:className];
         if ([classMap objectForKey:input] != nil) {
             return className;
         }
@@ -106,8 +92,8 @@
     return nil;
 }
 
--(NSDictionary *)classForName:(NSString *)className {
-    return [classes valueForKey:className];
+-(DJReadWriteTrie *)classForName:(NSString *)className {
+    return [classes objectForKey:className];
 }
 
 @end

@@ -16,8 +16,8 @@
 @synthesize isFinal;
 @synthesize isPreviousFinal;
 
-+(DJParseOutput*)sameInputOutput:(NSString*)input {
-    DJParseOutput* result = [[DJParseOutput alloc] init];
++(DJParseOutput *)sameInputOutput:(NSString *)input {
+    DJParseOutput *result = [[DJParseOutput alloc] init];
     result.input = input;
     result.output = input;
     result.isFinal = YES;

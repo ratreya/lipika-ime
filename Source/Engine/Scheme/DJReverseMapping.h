@@ -13,6 +13,6 @@
 @protocol DJReverseMapping <NSObject>
 
 -(int)maxOutputSize;
--(DJParseOutput*)inputForOutput:(NSString*)output;
+-(DJParseOutput *)inputForOutput:(NSString *)output;
 
 @end

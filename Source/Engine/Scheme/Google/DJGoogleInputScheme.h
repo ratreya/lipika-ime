@@ -14,9 +14,9 @@
 
 @interface DJGoogleInputScheme : NSObject<DJInputMethodScheme> {
     // These regular expressions have dynamic elements per scheme
-    NSRegularExpression* classDefinitionExpression;
-    NSRegularExpression* classKeyExpression;
-    NSRegularExpression* wildcardValueExpression;
+    NSRegularExpression *classDefinitionExpression;
+    NSRegularExpression *classKeyExpression;
+    NSRegularExpression *wildcardValueExpression;
 
     NSString *schemeFilePath;
     NSString *name;
@@ -28,7 +28,7 @@
     NSString *stopChar;
     
     BOOL isProcessingClassDefinition;
-    NSString* currentClassName;
+    NSString *currentClassName;
     
     DJGoogleForwardMapping *forwardMappings;
     DJGoogleReverseMapping *reverseMappings;
@@ -44,10 +44,10 @@
 @property NSString *stopChar;
 
 -(void)onStartParsingAtLine:(int)lineNumber;
--(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber;
+-(void)createMappingWithLine:(NSString *)line lineNumber:(int)lineNumber;
 -(void)onDoneParsingAtLine:(int)lineNumber;
 
--(DJGoogleForwardMapping*)forwardMappings;
--(DJGoogleReverseMapping*)reverseMappings;
+-(DJGoogleForwardMapping *)forwardMappings;
+-(DJGoogleReverseMapping *)reverseMappings;
 
 @end

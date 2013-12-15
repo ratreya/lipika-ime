@@ -12,12 +12,12 @@
 
 // Global server so controllers can access it
 IMKServer *server = nil;
-IMKCandidates* candidates = nil;
+IMKCandidates *candidates = nil;
 
 int main(int argc, char *argv[]) {
     @autoreleasepool {
         // Initialize the IMK system
-        NSString* kConnectionName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"InputMethodConnectionName"];
+        NSString *kConnectionName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"InputMethodConnectionName"];
         NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
         server = [[IMKServer alloc] initWithName:kConnectionName bundleIdentifier:identifier];
         candidates = [[IMKCandidates alloc] initWithServer:server panelType:kIMKScrollingGridCandidatePanel];

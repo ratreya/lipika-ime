@@ -7,14 +7,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <Cocoa/Cocoa.h>
-#import "DJForwardMapping.h"
-#import "DJReadWriteTrie.h"
+#import "DJTrieNode.h"
 
-@interface DJSimpleForwardMapping : NSObject<DJForwardMapping> {
-    DJReadWriteTrie *parseTrie;
-}
+@implementation DJTrieNode
 
--(void)createSimpleMappingWithInput:(NSString *)input output:(NSString *)output;
+@synthesize key;
+@synthesize value;
+@synthesize next;
 
 @end

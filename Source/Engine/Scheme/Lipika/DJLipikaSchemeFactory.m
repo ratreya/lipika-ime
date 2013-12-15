@@ -31,12 +31,12 @@ static NSString *schemesDirectory;
 +(void)initialize {
     schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSString *const whitespacePattern = @"^\\s+$";
-    NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+(.*)\\s*$";
+    NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+(. *)\\s*$";
     NSString *const scriptOverridePattern = @"^\\s*Script\\s*:\\s*(.+)\\s*$";
     NSString *const schemeOverridePattern = @"^\\s*Transliteration\\s*:\\s*(.+)\\s*$";
     NSString *const imeOverridePattern = @"^\\s*IME\\s*:\\s*(.+)\\s*$";
 
-    NSError* error;
+    NSError *error;
     whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -60,11 +60,11 @@ static NSString *schemesDirectory;
 }
 
 // Used for testing only
-+(void)setSchemesDirectory:(NSString*)directory {
++(void)setSchemesDirectory:(NSString *)directory {
     schemesDirectory = directory;
 }
 
-+(DJLipikaInputScheme*)inputSchemeForScript:script scheme:scheme {
++(DJLipikaInputScheme *)inputSchemeForScript:script scheme:scheme {
     // Parse one file at a time
     @synchronized(self) {
         DJLipikaSchemeFactory *factory = [[DJLipikaSchemeFactory alloc] initWithScript:script scheme:scheme];
@@ -72,11 +72,11 @@ static NSString *schemesDirectory;
     }
 }
 
-+(NSArray*)availableScripts {
++(NSArray *)availableScripts {
     return [DJLipikaSchemeFactory fileInSubdirectory:SCRIPTSUBDIR withExternsion:[NSString stringWithFormat:@".%@", SCRIPTEXTENSION]];
 }
 
-+(NSArray*)availableSchemes {
++(NSArray *)availableSchemes {
     return [DJLipikaSchemeFactory fileInSubdirectory:SCHEMESUBDIR withExternsion:[NSString stringWithFormat:@".%@", SCHEMEEXTENSION]];
 }
 
@@ -84,7 +84,7 @@ static NSString *schemesDirectory;
     return scheme;
 }
 
-+(NSArray*)fileInSubdirectory:(NSString*)subDirectory withExternsion:(NSString*)extension {
++(NSArray *)fileInSubdirectory:(NSString *)subDirectory withExternsion:(NSString *)extension {
     NSError *error;
     NSString *path = subDirectory? [schemesDirectory stringByAppendingPathComponent:subDirectory] : schemesDirectory;
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
@@ -92,14 +92,14 @@ static NSString *schemesDirectory;
         [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
     }
     NSArray *files = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self ENDSWITH '%@'", extension]]];
-    NSMutableArray* names = [[NSMutableArray alloc] initWithCapacity:0];
-    [files enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+    NSMutableArray *names = [[NSMutableArray alloc] initWithCapacity:0];
+    [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
         [names addObject:[obj stringByDeletingPathExtension]];
     }];
     return names;
 }
 
--(id)initWithScript:(NSString*)scriptName scheme:(NSString*)schemeName {
+-(id)initWithScript:(NSString *)scriptName scheme:(NSString *)schemeName {
     self = [super init];
     if (self == nil) {
         return self;
@@ -158,18 +158,18 @@ static NSString *schemesDirectory;
     return self;
 }
 
--(NSMutableDictionary*)tsvToDictionaryForFile:(NSString*)filePath dictionary:(NSMutableDictionary*)outerTable {
+-(NSMutableDictionary *)tsvToDictionaryForFile:(NSString *)filePath dictionary:(NSMutableDictionary *)outerTable {
     NSArray *linesOfScheme = [self linesOfFile:filePath];
     if (!outerTable) outerTable = [NSMutableDictionary dictionaryWithCapacity:0];
-    for (NSString* line in linesOfScheme) {
+    for (NSString *line in linesOfScheme) {
         logDebug(@"Parsing line %@", line);
         if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
             continue;
         }
         else if ([threeColumnTSVExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
-            NSString* one = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
-            NSString* two = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
-            NSString* three = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$3"];
+            NSString *one = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
+            NSString *two = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
+            NSString *three = [threeColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$3"];
             if (!(one.length && two.length && three.length)) {
                 logWarning(@"Not all values specified; ignoring line: %@", line);
                 continue;
@@ -188,7 +188,7 @@ static NSString *schemesDirectory;
     return outerTable;
 }
 
--(NSArray*)linesOfImeFile:(NSString*)filePath schemeTable:(NSMutableDictionary*)schemeTable scriptTable:(NSMutableDictionary*)scriptTable depth:(int)depth {
+-(NSArray *)linesOfImeFile:(NSString *)filePath schemeTable:(NSMutableDictionary *)schemeTable scriptTable:(NSMutableDictionary *)scriptTable depth:(int)depth {
     if (depth > 5) {
         [NSException raise:@"IME referrences depth greater than five" format:@"Terminating IME parsing at %@", filePath];
     }
@@ -234,12 +234,12 @@ static NSString *schemesDirectory;
     return imeLines;
 }
 
--(NSArray*)linesOfFile:(NSString*)filePath {
-    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
+-(NSArray *)linesOfFile:(NSString *)filePath {
+    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
     if (handle == nil) {
         [NSException raise:@"Unable to read file" format:@"Failed to open file %@ for reading", filePath];
     }
-    NSData* dataBuffer = [handle readDataToEndOfFile];
+    NSData *dataBuffer = [handle readDataToEndOfFile];
     NSString *data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
     return [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
 }

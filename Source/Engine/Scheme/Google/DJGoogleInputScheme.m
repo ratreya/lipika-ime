@@ -23,11 +23,11 @@
 @synthesize stopChar;
 
 // This regular expression only has static elements
-static NSRegularExpression* simpleMappingExpression;
+static NSRegularExpression *simpleMappingExpression;
 
 +(void)initialize {
     NSString *const simpleMappingPattern = @"^\\s*(\\S+)\\s+(\\S+)\\s*$";
-    NSError* error;
+    NSError *error;
     simpleMappingExpression = [NSRegularExpression regularExpressionWithPattern:simpleMappingPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid simple mapping expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -50,12 +50,16 @@ static NSRegularExpression* simpleMappingExpression;
     return self;
 }
 
+-(void)postProcessResult:(DJParseOutput *)result withPreviousResult:(DJParseOutput *)previousResult {
+    // Google IME does not do post processing
+}
+
 -(void)onStartParsingAtLine:(int)lineNumber {
     forwardMappings = [[DJGoogleForwardMapping alloc] initWithScheme:self];
     reverseMappings = [[DJGoogleReverseMapping alloc] initWithScheme:self];
 
     // Regular expressions for matching mapping items
-    NSError* error;
+    NSError *error;
     NSString *const classDefinitionPattern = [NSString stringWithFormat:@"^\\s*class\\s+(\\S+)\\s+\\%@\\s*$", classOpenDelimiter];
     classDefinitionExpression = [NSRegularExpression regularExpressionWithPattern:classDefinitionPattern options:0 error:&error];
     if (error != nil) {
@@ -64,7 +68,7 @@ static NSRegularExpression* simpleMappingExpression;
     /*
      * We only support one class per mapping
      */
-    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
+    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@:(\\S+)\\%@:(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
     classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -72,43 +76,43 @@ static NSRegularExpression* simpleMappingExpression;
     /*
      * And hence only one wildcard value
      */
-    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
+    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*:(\\S*)\\%@:(\\S*)\\s*$", wildcard];
     wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
 }
 
--(void)createMappingWithLine:(NSString*)line lineNumber:(int)lineNumber {
+-(void)createMappingWithLine:(NSString *)line lineNumber:(int)lineNumber {
     int currentLineNumber = lineNumber + 1;
     if ([simpleMappingExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
         logDebug(@"Found mapping expression");
-        NSString* key = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
-        NSString* value = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
-        if ([classKeyExpression numberOfMatchesInString:key options:0 range:NSMakeRange(0, [key length])]) {
+        NSString *input = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
+        NSString *output = [simpleMappingExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
+        if ([classKeyExpression numberOfMatchesInString:input options:0 range:NSMakeRange(0, [input length])]) {
             logDebug(@"Found class mapping");
-            // Parse the key
-            NSString* preClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$1"];
-            NSString* className = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$2"];
-            NSString* postClass = [classKeyExpression stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, [key length]) withTemplate:@"$3"];
-            logDebug(@"Parsed key with pre-class: %@; class: %@", preClass, className);
+            // Parse the input
+            NSString *preClass = [classKeyExpression stringByReplacingMatchesInString:input options:0 range:NSMakeRange(0, [input length]) withTemplate:@"$1"];
+            NSString *className = [classKeyExpression stringByReplacingMatchesInString:input options:0 range:NSMakeRange(0, [input length]) withTemplate:@"$2"];
+            NSString *postClass = [classKeyExpression stringByReplacingMatchesInString:input options:0 range:NSMakeRange(0, [input length]) withTemplate:@"$3"];
+            logDebug(@"Parsed input with pre-class: %@; class: %@", preClass, className);
             if ([postClass length]) {
                 [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, currentLineNumber];
             }
             BOOL isWildcard = NO;
-            NSString* preWildcard;
-            NSString* postWildcard;
-            // Parse the value; may not have wildcards in it
-            if ([wildcardValueExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
+            NSString *preWildcard;
+            NSString *postWildcard;
+            // Parse the output; may not have wildcards in it
+            if ([wildcardValueExpression numberOfMatchesInString:output options:0 range:NSMakeRange(0, [output length])]) {
                 isWildcard = YES;
-                preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$1"];
-                postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:value options:0 range:NSMakeRange(0, [value length]) withTemplate:@"$2"];
-                logDebug(@"Parsed value with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
+                preWildcard = [wildcardValueExpression stringByReplacingMatchesInString:output options:0 range:NSMakeRange(0, [output length]) withTemplate:@"$1"];
+                postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:output options:0 range:NSMakeRange(0, [output length]) withTemplate:@"$2"];
+                logDebug(@"Parsed output with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
             }
-            [self createClassMappingWithPreKey:preClass className:className isWildcard:isWildcard preValue:preWildcard postValue:postWildcard];
+            [self createClassMappingWithPreInput:preClass className:className isWildcard:isWildcard preOutput:preWildcard postOutput:postWildcard];
         }
         else {
-            [self createSimpleMappingWithKey:key value:value];
+            [self createSimpleMappingWithInput:input output:output];
         }
     }
     else if ([classDefinitionExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
@@ -129,29 +133,29 @@ static NSRegularExpression* simpleMappingExpression;
     }
 }
 
--(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value {
+-(void)createSimpleMappingWithInput:(NSString *)input output:(NSString *)output {
     if (isProcessingClassDefinition) {
-        [forwardMappings createSimpleMappingForClass:currentClassName key:key value:value];
-        [reverseMappings createSimpleMappingForClass:currentClassName key:key value:value];
+        [forwardMappings createSimpleMappingForClass:currentClassName input:input output:output];
+        [reverseMappings createSimpleMappingForClass:currentClassName input:input output:output];
     }
     else {
-        [forwardMappings createSimpleMappingWithKey:key value:value];
-        [reverseMappings createSimpleMappingWithKey:key value:value];
+        [forwardMappings createSimpleMappingWithInput:input output:output];
+        [reverseMappings createSimpleMappingWithInput:input output:output];
     }
 }
 
--(void)createClassMappingWithPreKey:(NSString*)preKey className:(NSString*)className isWildcard:(BOOL)isWildcard preValue:(NSString*)preValue postValue:(NSString*)postValue {
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
     if (isProcessingClassDefinition) {
-        [forwardMappings createClassMappingForClass:currentClassName preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
-        [reverseMappings createClassMappingForClass:currentClassName preKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+        [forwardMappings createClassMappingForClass:currentClassName preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+        [reverseMappings createClassMappingForClass:currentClassName preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     }
     else {
-        [forwardMappings createClassMappingWithPreKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
-        [reverseMappings createClassMappingWithPreKey:preKey className:className isWildcard:isWildcard preValue:preValue postValue:postValue];
+        [forwardMappings createClassMappingWithPreInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+        [reverseMappings createClassMappingWithPreInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     }
 }
 
--(void)startClassDefinitionWithName:(NSString*)className {
+-(void)startClassDefinitionWithName:(NSString *)className {
     logDebug(@"Found beginning of class definition with name: %@", className);
     if (isProcessingClassDefinition) {
         logWarning(@"Did not see an end of class %@ before the beginning of class %@; forcing an end", currentClassName, className);
@@ -173,11 +177,11 @@ static NSRegularExpression* simpleMappingExpression;
     currentClassName = nil;
 }
 
--(DJGoogleForwardMapping*)forwardMappings {
+-(DJGoogleForwardMapping *)forwardMappings {
     return forwardMappings;
 }
 
--(DJGoogleReverseMapping*)reverseMappings {
+-(DJGoogleReverseMapping *)reverseMappings {
     return reverseMappings;
 }
 

@@ -29,7 +29,7 @@ enum DJReferenceType {
 @property NSString *class;
 @property NSString *valueKey;
 
--(DJMapReference*)mapReferenceWithValueKey:(NSString*)valueKey;
+-(DJMapReference *)mapReferenceWithValueKey:(NSString *)valueKey;
 
 @end
 
@@ -40,7 +40,7 @@ enum DJReferenceType {
 @synthesize class;
 @synthesize valueKey;
 
--(DJMapReference*)mapReferenceWithValueKey:(NSString*)theValueKey {
+-(DJMapReference *)mapReferenceWithValueKey:(NSString *)theValueKey {
     DJMapReference *new = [[DJMapReference alloc] init];
     new.type = type;
     new.replacement = replacement;
@@ -63,7 +63,7 @@ static NSRegularExpression *mapStringSubExpression;
     NSString *const specificValuePattern = @"^\\s*(.+)\\s*/\\s*(.+)\\s*$";
     NSString *const mapStringSubPattern = @"(\\[[^\\]]+?\\]|\\{[^\\}]+?\\})";
 
-    NSError* error;
+    NSError *error;
     twoColumnTSVExpression = [NSRegularExpression regularExpressionWithPattern:twoColumnTSVPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -78,7 +78,7 @@ static NSRegularExpression *mapStringSubExpression;
     }
 }
 
--(id)initWithSchemeTable:(NSDictionary*)theSchemeTable scriptTable:(NSDictionary*)theScriptTable imeLines:(NSArray*)imeLines {
+-(id)initWithSchemeTable:(NSDictionary *)theSchemeTable scriptTable:(NSDictionary *)theScriptTable imeLines:(NSArray *)imeLines {
     self = [super init];
     if (self == nil) {
         return self;
@@ -97,7 +97,7 @@ static NSRegularExpression *mapStringSubExpression;
         NSSet *scriptValueKeys = [NSSet setWithArray:[[scriptTable objectForKey:className] allKeys]];
         [commonValueKeys intersectSet:scriptValueKeys];
         NSArray *sortedValueKeys = [[NSMutableArray arrayWithArray:[commonValueKeys allObjects]] sortedArrayUsingSelector:@selector(compare:)];
-        [validKeys setValue:sortedValueKeys forKey:className];
+        [validKeys setObject:sortedValueKeys forKey:className];
     }
     for (NSString *line in imeLines) {
         if ([twoColumnTSVExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
@@ -112,14 +112,14 @@ static NSRegularExpression *mapStringSubExpression;
             NSArray *postValues = [self parseMapString:postMap];
             endBatch(batchId);
             if (preValues.count != postValues.count) {
-                [NSException raise:@"Invalid IME line" format:@"For IME line %@: count of mappings from left column (%ld) does not match that from the right (%ld)", line, preValues.count, postValues.count];
+                [NSException raise:@"Invalid IME line" format:@"For IME line %@: count of mappings from left column :(%ld) does not match that from the right :(%ld)", line, preValues.count, postValues.count];
             }
             for (int i=0; i<preValues.count; i++) {
                 NSArray *preValueList = [preValues objectAtIndex:i];
                 NSString *postValue = [[postValues objectAtIndex:i] objectAtIndex:0];
                 for (NSString *preValue in preValueList) {
-                    [forwardMapping createSimpleMappingWithKey:preValue value:postValue];
-                    [reverseMapping createSimpleMappingWithKey:preValue value:postValue];
+                    [forwardMapping createSimpleMappingWithInput:preValue output:postValue];
+                    [reverseMapping createSimpleMappingWithInput:preValue output:postValue];
                 }
             }
         }
@@ -130,7 +130,7 @@ static NSRegularExpression *mapStringSubExpression;
     return self;
 }
 
--(NSArray*)parseMapString:(NSString*)mapString {
+-(NSArray *)parseMapString:(NSString *)mapString {
     NSArray *matches = [mapStringSubExpression matchesInString:mapString options:0 range:NSMakeRange(0, mapString.length)];
     NSMutableArray *references = [NSMutableArray arrayWithCapacity:matches.count];
     for (NSTextCheckingResult *match in matches) {
@@ -174,7 +174,7 @@ static NSRegularExpression *mapStringSubExpression;
     return sortedResults;
 }
 
--(void)applyReferences:(NSArray*)references atIndex:(int)index toMapString:(NSString*)mapString withAdjustment:(unsigned long)adjustment results:(NSMutableDictionary*)results {
+-(void)applyReferences:(NSArray *)references atIndex:(int)index toMapString:(NSString *)mapString withAdjustment:(unsigned long)adjustment results:(NSMutableDictionary *)results {
     DJMapReference *reference = [references objectAtIndex:index];
     if (reference.valueKey) {
         NSArray *substituants = [self substituantForReference:reference];
@@ -200,7 +200,7 @@ static NSRegularExpression *mapStringSubExpression;
         }
     }
     else {
-        NSArray *valueKeys = [validKeys valueForKey:reference.class];
+        NSArray *valueKeys = [validKeys objectForKey:reference.class];
         if (!valueKeys) {
             [NSException raise:@"Unrecognized class name" format:@"Invalid class name: %@", reference.class];
         }
@@ -213,7 +213,7 @@ static NSRegularExpression *mapStringSubExpression;
     }
 }
 
--(NSArray*)substituantForReference:(DJMapReference*)reference {
+-(NSArray *)substituantForReference:(DJMapReference *)reference {
     NSString *substituant;
     if (reference.type == SCHEME) {
         substituant = [[schemeTable objectForKey:reference.class] objectForKey:reference.valueKey];
@@ -229,15 +229,15 @@ static NSRegularExpression *mapStringSubExpression;
     else return csvToArrayForString(substituant);
 }
 
--(NSString*)stopChar {
+-(NSString *)stopChar {
     return [DJLipikaUserSettings lipikaSchemeStopChar];
 }
 
--(DJSimpleForwardMapping*)forwardMappings {
+-(DJSimpleForwardMapping *)forwardMappings {
     return forwardMapping;
 }
 
--(DJSimpleReverseMapping*)reverseMappings {
+-(DJSimpleReverseMapping *)reverseMappings {
     return reverseMapping;
 }
 

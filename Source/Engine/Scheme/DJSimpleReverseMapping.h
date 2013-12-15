@@ -9,17 +9,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DJReverseMapping.h"
-#import "DJParseTreeNode.h"
+#import "DJReadWriteTrie.h"
 
 @interface DJSimpleReverseMapping : NSObject<DJReverseMapping> {
-    // Mapping of individual output character to a DJParseTreeNode
-    DJParseTreeNode *reverseTrieHead;
+    DJReadWriteTrie *parseTrie;
     // Overall maximum output size of this scheme
     int maxOutputSize;
 }
 
--(void)createSimpleMappingWithKey:(NSString*)key value:(NSString*)value;
--(DJParseTreeNode*)mergeIntoTrie:(DJParseTreeNode*)current key:(NSString*)key value:(NSString*)value;
--(DJParseTreeNode*)mergeIntoTrie:(DJParseTreeNode*)current key:(NSString*)key value:(NSString*)value path:(NSString*)path;
+-(void)createSimpleMappingWithInput:(NSString *)input output:(NSString *)output;
 
 @end

@@ -20,7 +20,7 @@
 
 @interface DJLipikaBufferManager (Test)
 
--(id)initWithEngine:(DJInputMethodEngine*)myEngine;
+-(id)initWithEngine(DJInputMethodEngine *)myEngine;
 
 @end
 

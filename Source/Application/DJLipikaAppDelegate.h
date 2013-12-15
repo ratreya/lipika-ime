@@ -10,10 +10,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface DJLipikaAppDelegate : NSObject<NSApplicationDelegate> {
-    IBOutlet NSMenu* mainMenu;
+    IBOutlet NSMenu *mainMenu;
 }
 
-@property IBOutlet NSMenu* mainMenu;
+@property IBOutlet NSMenu *mainMenu;
 
 -(void)configureCandiates;
 
