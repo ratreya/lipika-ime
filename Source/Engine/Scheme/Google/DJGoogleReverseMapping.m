@@ -97,7 +97,7 @@
 }
 
 -(void)createClassMappingForTrie:(DJReadWriteTrie *)trie preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
-    DJTrieNode *currentNode;
+    DJTrieNode *currentNode = trie.trieHead;
     // Merge in all the post values
     if (postOutput && postOutput.length > 0) {
         currentNode = [DJSimpleReverseMapping createReverseMappingForTrie:trie withInput:nil output:postOutput];
@@ -107,16 +107,16 @@
     if (!classTrie) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    NSArray *leafNodes = [trie mergeTrieWithHead:classTrie.trieHead atNode:currentNode];
+    NSArray *leafNodes = [trie mergeTrieWithHead:classTrie.trieHead intoNode:currentNode];
     // Merge in the pre values
     for (DJTrieNode *leafNode in leafNodes) {
-        NSString *input = [preInput stringByAppendingString:leafNode.key];
-        NSString *value = [NSString stringWithFormat:@"%@%@%@", preOutput, leafNode.value, postOutput];
+        NSString *input = [preInput stringByAppendingString:leafNode.value];
+        NSString *output = [NSString stringWithFormat:@"%@%@%@", preOutput, leafNode.key, postOutput];
         if (preOutput && preOutput.length > 0) {
-            [parseTrie addValue:value forKey:input atNode:leafNode withPath:preOutput];
+            [parseTrie addValue:input forKey:output atNode:leafNode withPath:preOutput];
         }
         else {
-            leafNode.key = value;
+            leafNode.key = output;
             leafNode.value = input;
         }
     }

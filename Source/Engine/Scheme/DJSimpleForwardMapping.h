@@ -15,6 +15,7 @@
     DJReadWriteTrie *parseTrie;
 }
 
+-(DJReadWriteTrie *)parseTrie;
 -(void)createSimpleMappingWithInput:(NSString *)input output:(NSString *)output;
 
 @end

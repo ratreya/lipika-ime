@@ -28,9 +28,9 @@ static NSRegularExpression *classesDelimiterExpression;
 
 +(void)initialize {
     NSString *const whitespacePattern = @"^\\s+$";
-    NSString *const headerPattern = @"^\\s*:(.*\\S)\\s*:\\s*:(.*\\S)\\s*$";
+    NSString *const headerPattern = @"^\\s*(.*\\S)\\s*:\\s*(.*\\S)\\s*$";
     NSString *const usingClassesPattern = @"^\\s*using\\s+classes\\s*$";
-    NSString *const classesDelimiterPattern = @"^\\s*:(\\S)\\s*:(\\S)\\s*$";
+    NSString *const classesDelimiterPattern = @"^\\s*(\\S)\\s*(\\S)\\s*$";
     
     NSError *error;
     whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];

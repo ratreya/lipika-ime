@@ -8,10 +8,10 @@
  */
 
 #import "DJGoogleSchemeFactory.h"
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DJLipikaBufferManager.h"
 
-@interface DJGoogleInputStringText : SenTestCase {
+@interface DJGoogleInputStringText : XCTestCase {
     DJLipikaBufferManager* manager;
 }
 
@@ -19,7 +19,7 @@
 
 @interface DJLipikaBufferManager (Test)
 
--(id)initWithEngine(DJInputMethodEngine *)myEngine;
+-(id)initWithEngine:(DJInputMethodEngine *)myEngine;
 
 @end
 
@@ -40,19 +40,19 @@
 -(void)testHappyCase_NilOutput {
     // abcdf should output pqs
     NSString* output = [manager outputForInput:@"a"];
-    STAssertTrue([@"a" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
+    XCTAssertEqualObjects(@"a", [manager input], @"Unexpected input: %@", [manager input]);
     output = [manager outputForInput:@"b"];
-    STAssertTrue([@"ab" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
+    XCTAssertEqualObjects(@"ab", [manager input], @"Unexpected input: %@", [manager input]);
     output = [manager outputForInput:@"c"];
-    STAssertTrue([@"abc" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
+    XCTAssertEqualObjects(@"abc", [manager input], @"Unexpected input: %@", [manager input]);
     output = [manager outputForInput:@"d"];
-    STAssertTrue([@"abcd" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
+    XCTAssertEqualObjects(@"abcd", [manager input], @"Unexpected input: %@", [manager input]);
     output = [manager outputForInput:@"f"];
-    STAssertTrue([@"abcdf" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
+    XCTAssertEqualObjects(@"abcdf", [manager input], @"Unexpected input: %@", [manager input]);
     output = [manager outputForInput:@"g"];
-    STAssertTrue([@"abcdfg" isEqualToString:[manager input]], [NSString stringWithFormat:@"Unexpected input: %@", [manager input]]);
+    XCTAssertEqualObjects(@"abcdfg", [manager input], @"Unexpected input: %@", [manager input]);
     output = [manager outputForInput:@" "];
-    STAssertTrue([output isEqualToString:@"qs "], [NSString stringWithFormat:@"Unexpected output: %@", output]);
+    XCTAssertEqualObjects(output, @"qs ", @"Unexpected output: %@", output);
 }
 
 @end

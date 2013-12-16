@@ -7,19 +7,19 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DJSchemeHelper.h"
 #import "DJLipikaInputScheme.h"
 #import "DJInputMethodEngine.h"
 
 @interface DJLipikaInputScheme (Test)
 
--(NSArray *)parseMapString(NSString *)mapString;
--(NSString *)stringForUnicode(NSString *)unicodeString;
+-(NSArray *)parseMapString:(NSString *)mapString;
+-(NSString *)stringForUnicode:(NSString *)unicodeString;
 
 @end
 
-@interface DJLipikaSchemeTest : SenTestCase
+@interface DJLipikaSchemeTest : XCTestCase
 
 @end
 
@@ -68,27 +68,27 @@
 }
 
 -(void)testCharacterConversion {
-    STAssertTrue([stringForUnicode(@"0C95") isEqualToString:@"ಕ"], @"Bad character");
+    XCTAssertEqualObjects(stringForUnicode(@"0C95"), @"ಕ", @"Bad character");
 }
 
 -(void)testCSVSchemeParsing {
     DJLipikaInputScheme *scheme = [self schemeWithDefaultData];
-    STAssertNotNil([scheme forwardMappings], @"Forward parse trie unexpectedly nil");
+    XCTAssertNotNil([scheme forwardMappings], @"Forward parse trie unexpectedly nil");
     DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
     NSArray *results = [engine executeWithInput:@"khi"];
-    STAssertNotNil(results, @"Unexpected result");
-    STAssertTrue([[results[0] output] isEqualToString:@"ಕ್"], @"Unexpected result: %@", [results[0] output]);
-    STAssertTrue([[results[1] output] isEqualToString:@"ಖ್"], @"Unexpected result: %@", [results[1] output]);
-    STAssertTrue([[results[2] output] isEqualToString:@"ಖಿ"], @"Unexpected result: %@", [results[2] output]);
+    XCTAssertNotNil(results, @"Unexpected result");
+    XCTAssertEqualObjects([results[0] output], @"ಕ್", @"Unexpected result: %@", [results[0] output]);
+    XCTAssertEqualObjects([results[1] output], @"ಖ್", @"Unexpected result: %@", [results[1] output]);
+    XCTAssertEqualObjects([results[2] output], @"ಖಿ", @"Unexpected result: %@", [results[2] output]);
     results = [engine executeWithInput:@"Ki"];
-    STAssertNotNil(results, @"Unexpected result");
-    STAssertTrue([[results[0] output] isEqualToString:@"ಖ್"], @"Unexpected result: %@", [results[0] output]);
-    STAssertTrue([[results[1] output] isEqualToString:@"ಖಿ"], @"Unexpected result: %@", [results[1] output]);
+    XCTAssertNotNil(results, @"Unexpected result");
+    XCTAssertEqualObjects([results[0] output], @"ಖ್", @"Unexpected result: %@", [results[0] output]);
+    XCTAssertEqualObjects([results[1] output], @"ಖಿ", @"Unexpected result: %@", [results[1] output]);
     results = [engine executeWithInput:@"gha"];
-    STAssertNotNil(results, @"Unexpected result");
-    STAssertTrue([[results[0] output] isEqualToString:@"ಗ್"], @"Unexpected result: %@", [results[0] output]);
-    STAssertTrue([[results[1] output] isEqualToString:@"ಘ್"], @"Unexpected result: %@", [results[1] output]);
-    STAssertTrue([[results[2] output] isEqualToString:@"ಘ"], @"Unexpected result: %@", [results[2] output]);
+    XCTAssertNotNil(results, @"Unexpected result");
+    XCTAssertEqualObjects([results[0] output], @"ಗ್", @"Unexpected result: %@", [results[0] output]);
+    XCTAssertEqualObjects([results[1] output], @"ಘ್", @"Unexpected result: %@", [results[1] output]);
+    XCTAssertEqualObjects([results[2] output], @"ಘ", @"Unexpected result: %@", [results[2] output]);
 }
 
 @end

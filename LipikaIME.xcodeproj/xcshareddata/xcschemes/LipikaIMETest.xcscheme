@@ -17,7 +17,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A5C54E0216BA20C1007F631D"
-               BuildableName = "LipikaIMETest.octest"
+               BuildableName = "LipikaIMETest.xctest"
                BlueprintName = "LipikaIMETest"
                ReferencedContainer = "container:LipikaIME.xcodeproj">
             </BuildableReference>

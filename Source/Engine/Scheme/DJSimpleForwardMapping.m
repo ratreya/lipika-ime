@@ -20,6 +20,10 @@
     return self;
 }
 
+-(DJReadWriteTrie *)parseTrie {
+    return parseTrie;
+}
+
 -(DJTrieNode *)nextNodeFromNode:(DJTrieNode *)currentNode forInput:(NSString *)input {
     return [parseTrie nextNodeFromNode:currentNode forKey:input];
 }

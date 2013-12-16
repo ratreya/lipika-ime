@@ -130,6 +130,10 @@ static NSRegularExpression *mapStringSubExpression;
     return self;
 }
 
+-(void)postProcessResult:(DJParseOutput *)result withPreviousResult:(DJParseOutput *)previousResult {
+    
+}
+
 -(NSArray *)parseMapString:(NSString *)mapString {
     NSArray *matches = [mapStringSubExpression matchesInString:mapString options:0 range:NSMakeRange(0, mapString.length)];
     NSMutableArray *references = [NSMutableArray arrayWithCapacity:matches.count];

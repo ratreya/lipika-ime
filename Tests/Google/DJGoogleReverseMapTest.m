@@ -7,11 +7,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DJGoogleSchemeFactory.h"
 #import "DJLipikaUserSettings.h"
 
-@interface DJGoogleReverseMapTest : SenTestCase {
+@interface DJGoogleReverseMapTest : XCTestCase {
     id<DJInputMethodScheme> scheme;
 }
 @end
@@ -25,20 +25,20 @@
 
 -(void)testHapyCase {
     DJParseOutput *result = [scheme.reverseMappings inputForOutput:@"ञी"];
-    STAssertTrue([result.output isEqualToString: @"ञी"], [NSString stringWithFormat: @"Unexpected output %@", result.output]);
-    STAssertTrue([result.input isEqualToString: @"~jI"] , [NSString stringWithFormat: @"Unexpected output %@", result.input]);
+    XCTAssertEqualObjects(result.output,  @"ञी", @"Unexpected output %@", result.output);
+    XCTAssertEqualObjects(result.input, @"~jI", @"Unexpected output %@", result.input);
 }
 
 -(void)testCompletelyReversed {
     DJParseOutput *result = [scheme.reverseMappings inputForOutput:@"रि"];
-    STAssertTrue([result.output isEqualToString: @"रि"], [NSString stringWithFormat: @"Unexpected output %@", result.output]);
-    STAssertTrue([result.input isEqualToString: @"ri"] , [NSString stringWithFormat: @"Unexpected output %@", result.input]);
+    XCTAssertEqualObjects(result.output,  @"रि", @"Unexpected output %@", result.output);
+    XCTAssertEqualObjects(result.input, @"ri", @"Unexpected output %@", result.input);
 }
 
 -(void)testPartiallyReversed {
     DJParseOutput *result = [scheme.reverseMappings inputForOutput:@"दैव"];
-    STAssertTrue([result.output isEqualToString: @"व"], [NSString stringWithFormat: @"Unexpected output %@", result.output]);
-    STAssertTrue([result.input isEqualToString: @"va"] , [NSString stringWithFormat: @"Unexpected output %@", result.input]);
+    XCTAssertEqualObjects(result.output,  @"व", @"Unexpected output %@", result.output);
+    XCTAssertEqualObjects(result.input, @"va", @"Unexpected output %@", result.input);
 }
 
 @end

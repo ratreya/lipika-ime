@@ -18,7 +18,6 @@
     if (self == nil) return self;
     isOverwrite = theIsOverwrite;
     trieHead = [[DJTrieNode alloc] init];
-    trieHead.next = [NSMutableDictionary dictionaryWithCapacity:0];
     return self;
 }
 
@@ -32,82 +31,61 @@
 }
 
 -(DJTrieNode *)nodeForKey:(NSString *)key {
-    return [self nodeForKey:charactersForString(key) atIndex:0 atNode:trieHead];
-}
-
--(DJTrieNode *)nodeForKey:(NSArray *)keyChars atIndex:(int)index atNode:(DJTrieNode *)node {
-    NSString *key = [keyChars objectAtIndex:index];
-    DJTrieNode *nextNode = [node.next objectForKey:key];
-    if (!nextNode) {
-        return nil;
+    NSArray *keyChars = charactersForString(key);
+    DJTrieNode *node = trieHead;
+    for (NSString *keyChar in keyChars) {
+        node = [node.next objectForKey:keyChar];
+        if (!node) return nil;
     }
-    if (index > 0) {
-        DJTrieNode *nextResult = [self nodeForKey:keyChars atIndex:index-1 atNode:nextNode];
-        if (nextResult) return nextResult;
-    }
-    return nextNode;
+    return node;
 }
 
 -(DJTrieNode *)addValue:(NSString *)value forKey:(NSString *)key {
-    return [self addValue:value forKey:key atNode:trieHead];
-}
-
--(DJTrieNode *)addValue:(NSString *)value forKey:(NSString *)key atNode:(DJTrieNode *)atNode {
-    return [self addValue:value forKey:key atNode:atNode withPath:key];
+    return [self addValue:value forKey:key atNode:trieHead withPath:key];
 }
 
 -(DJTrieNode *)addValue:(NSString *)value forKey:(NSString *)key atNode:(DJTrieNode *)atNode withPath:(NSString *)path {
-    NSMutableArray *inputs = charactersForString(path);
-    NSEnumerator * inputsEnumerator = [inputs objectEnumerator];
-    NSString *input;
-    DJTrieNode *nextNode;
-    while (input = [inputsEnumerator nextObject]) {
+    NSMutableArray *pathChars = charactersForString(path);
+    NSEnumerator * pathEnumerator = [pathChars objectEnumerator];
+    NSString *pathChar;
+    while (pathChar = [pathEnumerator nextObject]) {
+        DJTrieNode *nextNode;
         if (!atNode.next) atNode.next = [NSMutableDictionary dictionaryWithCapacity:0];
-        if (!(nextNode = [atNode.next objectForKey:input])) {
+        if (!(nextNode = [atNode.next objectForKey:pathChar])) {
             nextNode = [[DJTrieNode alloc] init];
-            [atNode.next setObject:nextNode forKey:input];
+            [atNode.next setObject:nextNode forKey:pathChar];
         }
         atNode = nextNode;
     }
     atNode.key = key;
-    if (atNode.value && isOverwrite) {
-        logWarning(@"Value: %@ for key: %@ being replaced by value: %@", atNode.value, atNode.key, value);
-        atNode.value = value;
-    }
+    [self setValue:value toNode:atNode];
     return atNode;
 }
 
--(NSArray *)mergeTrieWithHead:(DJTrieNode *)toTrieHead atNode:(DJTrieNode *)atNode {
+-(NSArray *)mergeTrieWithHead:(DJTrieNode *)fromTrieHead intoNode:(DJTrieNode *)atNode {
     NSMutableArray *leafNodes = [NSMutableArray arrayWithCapacity:0];
-    [self mergeTrieWithHead:toTrieHead intoTrie:toTrieHead leafNodes:leafNodes];
+    [self mergeTrieFromNode:fromTrieHead intoTrieNode:atNode leafNodes:leafNodes];
     return leafNodes;
 }
 
--(void)mergeTrieWithHead:(DJTrieNode *)fromTrieHead intoTrie:(DJTrieNode *)toTrieHead leafNodes:(NSMutableArray *)leafNodes {
-    for (NSString *key in [fromTrieHead.next keyEnumerator]) {
-        DJTrieNode *node = [fromTrieHead.next objectForKey:key];
-        DJTrieNode *nextNode;
-        if ((nextNode = [toTrieHead.next objectForKey:key])) {
-            nextNode.value = node.value;
+-(void)mergeTrieFromNode:(DJTrieNode *)fromTrieNode intoTrieNode:(DJTrieNode *)toTrieNode leafNodes:(NSMutableArray *)leafNodes {
+    if (!toTrieNode.next && fromTrieNode.next.count) toTrieNode.next = [NSMutableDictionary dictionaryWithCapacity:fromTrieNode.next.count];
+    for (NSString *fromKey in [fromTrieNode.next keyEnumerator]) {
+        DJTrieNode *fromNode = [fromTrieNode.next objectForKey:fromKey];
+        DJTrieNode *toNode;
+        if (!(toNode = [toTrieNode.next objectForKey:fromKey])) {
+            toNode = [[DJTrieNode alloc] init];
+            [toTrieNode.next setObject:toNode forKey:fromKey];
+        }
+        toNode.key = fromNode.key;
+        [self setValue:fromNode.value toNode:toNode];
+        if (fromNode.next && [fromNode.next count]) {
+            [self mergeTrieFromNode:fromNode intoTrieNode:toNode leafNodes:leafNodes];
         }
         else {
-            nextNode = [[DJTrieNode alloc] init];
-            nextNode.key = node.key;
-            nextNode.value = node.value;
-            if (!toTrieHead.next) toTrieHead.next = [NSMutableDictionary dictionaryWithCapacity:0];
-            [toTrieHead.next setObject:nextNode forKey:key];
-        }
-        if (node.next && [node.next count]) {
-            [self mergeTrieWithHead:node intoTrie:nextNode leafNodes:leafNodes];
-        }
-        else {
-            [leafNodes addObject:nextNode];
+            [leafNodes addObject:toNode];
         }
     }
-}
-
--(void)linkTrieWithHead:(DJTrieNode *)theTrieHead atNode:(DJTrieNode *)atNode {
-    atNode.next = theTrieHead.next;
 }
 
 -(DJReadWriteTrie *)cloneTrieUsingBlock:(DJTrieNode*(^)(DJTrieNode *original))cloneNode {
@@ -125,6 +103,18 @@
             [toNode.next setObject:clonedNode forKey:key];
             [self cloneToTrieNode:clonedNode fromNode:node usingBlock:cloneNode];
         }
+    }
+}
+
+-(void)setValue:(NSString *)value toNode:(DJTrieNode *)toNode {
+    if (toNode.value) {
+        if (isOverwrite && value) {
+            logWarning(@"Value: %@ for key: %@ being replaced by value: %@", toNode.value, toNode.key, value);
+            toNode.value = value;
+        }
+    }
+    else {
+        toNode.value = value;
     }
 }
 

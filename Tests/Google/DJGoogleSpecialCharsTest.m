@@ -8,10 +8,10 @@
  */
 
 #import "DJGoogleSchemeFactory.h"
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DJGoogleInputScheme.h"
 
-@interface DJGoogleSpecialCharsTest : SenTestCase {
+@interface DJGoogleSpecialCharsTest : XCTestCase {
     DJGoogleInputScheme* scheme;
 }
 
@@ -28,11 +28,11 @@
 - (void)XXXtestSpecialCharacterParsing {
     // Removed @ @ from TestSpecialChars.scm for the sake of running other tests
     // Add it back in after this bug is fixed
-    STAssertTrue(scheme != nil, @"Unable to parse special characters");
+    XCTAssertTrue(scheme != nil, @"Unable to parse special characters");
 }
 
 - (void)testWindowsCRLF {
-    STAssertTrue(scheme != nil, @"Unable to parse special characters");
+    XCTAssertTrue(scheme != nil, @"Unable to parse special characters");
 }
 
 @end
