@@ -69,7 +69,7 @@
         DJReadWriteTrie *clonedClassTrie = [classTrie cloneTrieUsingBlock:^DJTrieNode *(DJTrieNode *original) {
             DJTrieNode *clonedNode = [[DJTrieNode alloc] init];
             clonedNode.key = original.key;
-            clonedNode.value = [NSString stringWithFormat:format, original.value];
+            clonedNode.value = original.value? [NSString stringWithFormat:format, original.value] : nil;
             return clonedNode;
         }];
         nextNode = clonedClassTrie.trieHead;
@@ -78,14 +78,14 @@
         // Append the named parse trie as-is since there is no wildcard formatting
         nextNode = classTrie.trieHead;
     }
-    DJTrieNode *atNode = [parseTrie addValue:preOutput forKey:preInput];
-    [parseTrie linkTrieWithHead:nextNode atNode:atNode];
+    DJTrieNode *atNode = [trie addValue:nil forKey:preInput];
+    [trie mergeTrieWithHead:nextNode intoNode:atNode];
 }
 
 -(NSString *)classNameForInput:(NSString *)input {
     for (NSString *className in [classes keyEnumerator]) {
-        NSMutableDictionary *classMap = [classes objectForKey:className];
-        if ([classMap objectForKey:input] != nil) {
+        DJReadWriteTrie *classTrie = [classes objectForKey:className];
+        if ([classTrie nodeForKey:input] != nil) {
             return className;
         }
     }

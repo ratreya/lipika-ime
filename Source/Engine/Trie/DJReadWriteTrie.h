@@ -17,8 +17,7 @@
 
 -(id)initWithIsOverwrite:(BOOL)theIsOverwrite;
 -(DJTrieNode *)addValue:(NSString *)value forKey:(NSString *)key;
--(NSArray *)mergeTrieWithHead:(DJTrieNode *)trieHead atNode:(DJTrieNode *)atNode;
--(void)linkTrieWithHead:(DJTrieNode *)theTrieHead atNode:(DJTrieNode *)atNode;
+-(NSArray *)mergeTrieWithHead:(DJTrieNode *)trieHead intoNode:(DJTrieNode *)atNode;
 -(DJReadWriteTrie *)cloneTrieUsingBlock:(DJTrieNode*(^)(DJTrieNode *original))cloneNode;
 
 @end

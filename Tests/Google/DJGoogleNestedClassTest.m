@@ -9,11 +9,11 @@
 
 #import "DJGoogleSchemeFactory.h"
 #import "DJInputMethodEngine.h"
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DJGoogleInputScheme.h"
 #import "DJInputMethodEngine.h"
 
-@interface DJGoogleNestedClassTest : SenTestCase {
+@interface DJGoogleNestedClassTest : XCTestCase {
     DJGoogleInputScheme* scheme;
     DJInputMethodEngine* engine;
 }
@@ -34,45 +34,45 @@
 }
 
 - (void)testNestedClassParsing {
-    STAssertTrue([@"test1" isEqualToString:[scheme.forwardMappings classNameForInput:@"c"]], @"Unexpected class name");
-    STAssertTrue([@"test2" isEqualToString:[scheme.forwardMappings classNameForInput:@"f"]], @"Unexpected class name");
-    STAssertTrue([[scheme.forwardMappings classForName:@"test1"] count] == 3, @"Unexpected count of mappings");
-    STAssertTrue([[scheme.forwardMappings classForName:@"test2"] count] == 3, @"Unexpected count of mappings");
+    XCTAssertEqualObjects(@"test1", [scheme.forwardMappings classNameForInput:@"c"], @"Unexpected class name");
+    XCTAssertEqualObjects(@"test2", [scheme.forwardMappings classNameForInput:@"f"], @"Unexpected class name");
+    XCTAssertTrue([[scheme.forwardMappings classForName:@"test1"].trieHead.next count] == 3, @"Unexpected count of mappings");
+    XCTAssertTrue([[scheme.forwardMappings classForName:@"test2"].trieHead.next count] == 3, @"Unexpected count of mappings");
 }
 
 -(void)testHappyCase_Simple_NestedClass {
     NSArray* result = [engine executeWithInput:@"z"];
-    STAssertTrue([result[0] output] == nil, @"Unexpected output");
-    STAssertFalse([result[0] isFinal], @"Unexpected output");
-    STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
+    XCTAssertTrue([result[0] output] == nil, @"Unexpected output");
+    XCTAssertFalse([result[0] isFinal], @"Unexpected output");
+    XCTAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"f"];
-    STAssertTrue([result[0] output] == nil, @"Unexpected output");
-    STAssertFalse([result[0] isFinal], @"Unexpected output");
-    STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
+    XCTAssertNil([result[0] output], @"Unexpected output");
+    XCTAssertFalse([result[0] isFinal], @"Unexpected output");
+    XCTAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"c"];
-    STAssertTrue([@"zfc" isEqualToString:[result[0] output]], [NSString stringWithFormat: @"Unexpected output: %@", [result[0] output]]);
-    STAssertTrue([result[0] isFinal], @"Unexpected output");
-    STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
+    XCTAssertEqualObjects(@"zfc", [result[0] output], @"Unexpected output: %@", [result[0] output]);
+    XCTAssertTrue([result[0] isFinal], @"Unexpected output");
+    XCTAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
 }
 
 -(void)testInvalidCase_Simple_NestedClass {
     NSArray* result = [engine executeWithInput:@"z"];
-    STAssertTrue([result[0] output] == nil, @"Unexpected output");
-    STAssertFalse([result[0] isFinal], @"Unexpected output");
-    STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
+    XCTAssertTrue([result[0] output] == nil, @"Unexpected output");
+    XCTAssertFalse([result[0] isFinal], @"Unexpected output");
+    XCTAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"f"];
-    STAssertTrue([result[0] output] == nil, @"Unexpected output");
-    STAssertFalse([result[0] isFinal], @"Unexpected output");
-    STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
+    XCTAssertNil([result[0] output], @"Unexpected output");
+    XCTAssertFalse([result[0] isFinal], @"Unexpected output");
+    XCTAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"c"];
-    STAssertTrue([@"zfc" isEqualToString:[result[0] output]], @"Unexpected output: %@", [result[0] output]);
-    STAssertTrue([result[0] isFinal], @"Unexpected output");
-    STAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
+    XCTAssertEqualObjects(@"zfc", [result[0] output], @"Unexpected output: %@", [result[0] output]);
+    XCTAssertTrue([result[0] isFinal], @"Unexpected output");
+    XCTAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
 }
 
 -(void)testNestedNoPrekey {
     NSArray* result = [engine executeWithInput:@"zhd"];
-    STAssertTrue([@"zdh" isEqualToString:[result[2] output]], @"Unexpected output: %@", [result[2] output]);
+    XCTAssertEqualObjects(@"zdh", [result[2] output], @"Unexpected output: %@", [result[2] output]);
 }
 
 @end

@@ -8,10 +8,10 @@
  */
 
 #import "DJGoogleSchemeFactory.h"
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DJLipikaBufferManager.h"
 
-@interface DJGoogleBufferReplayTest : SenTestCase {
+@interface DJGoogleBufferReplayTest : XCTestCase {
     DJLipikaBufferManager* manager;
 }
 
@@ -19,7 +19,7 @@
 
 @interface DJLipikaBufferManager (Test)
 
--(id)initWithEngine(DJInputMethodEngine *)myEngine;
+-(id)initWithEngine:(DJInputMethodEngine *)myEngine;
 
 @end
 
@@ -46,7 +46,7 @@
     output = [manager outputForInput:@"f"];
     output = [manager outputForInput:@"g"];
     output = [manager outputForInput:@" "];
-    STAssertTrue([output isEqualToString:@"qs "], [NSString stringWithFormat:@"Unexpected output: %@", output]);
+    XCTAssertEqualObjects(output, @"qs ", @"Unexpected output: %@", output);
 }
 
 -(void)testHappyCase_Multiple_Replay {
@@ -58,7 +58,7 @@
     output = [manager outputForInput:@"f"];
     output = [manager outputForInput:@"h"];
     output = [manager outputForInput:@" "];
-    STAssertTrue([output isEqualToString:@"qt "], [NSString stringWithFormat:@"Unexpected output: %@", output]);
+    XCTAssertEqualObjects(output, @"qt ", @"Unexpected output: %@", output);
 }
 
 @end

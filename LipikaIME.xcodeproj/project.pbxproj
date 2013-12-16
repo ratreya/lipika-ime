@@ -35,6 +35,8 @@
 		A5526A0F1857BDA0001C8F5E /* Hindi.map in Resources */ = {isa = PBXBuildFile; fileRef = A5526A0E1857BDA0001C8F5E /* Hindi.map */; };
 		A5526A111857BDA6001C8F5E /* Hindi.tlr in Resources */ = {isa = PBXBuildFile; fileRef = A5526A101857BDA6001C8F5E /* Hindi.tlr */; };
 		A572AB19184D5E750023BDDA /* DJLipikaSchemeFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A572AB18184D5E750023BDDA /* DJLipikaSchemeFactoryTest.m */; };
+		A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
+		A577D868185F608B001C8942 /* DJReadWriteTrieTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A577D867185F608B001C8942 /* DJReadWriteTrieTest.m */; };
 		A579C5B6185AB050001F4CD9 /* DJReadWriteTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = A579C5B5185AB050001F4CD9 /* DJReadWriteTrie.m */; };
 		A579C5B7185AB050001F4CD9 /* DJReadWriteTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = A579C5B5185AB050001F4CD9 /* DJReadWriteTrie.m */; };
 		A579C5BB185AB48B001F4CD9 /* DJTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A579C5BA185AB48B001F4CD9 /* DJTrieNode.m */; };
@@ -73,7 +75,6 @@
 		A5BA7D5A181D912100461B2F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BA7D59181D912100461B2F /* Foundation.framework */; };
 		A5BA7D66181D91A000461B2F /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5BA7D65181D91A000461B2F /* Carbon.framework */; };
 		A5BA7D68181DA28100461B2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BA7D67181DA28100461B2F /* main.m */; };
-		A5C54E0516BA20C1007F631D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C54E0416BA20C1007F631D /* SenTestingKit.framework */; };
 		A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5C6BB2016B5A5F100B02E1B /* Schemes */; };
 		A5CD9F0716EBFF4E0024A20A /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */; };
 		A5DC40FF185AE5B300B22A87 /* DJSimpleForwardMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DC40FE185AE5B300B22A87 /* DJSimpleForwardMapping.m */; };
@@ -161,6 +162,8 @@
 		A5526A0E1857BDA0001C8F5E /* Hindi.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hindi.map; sourceTree = "<group>"; };
 		A5526A101857BDA6001C8F5E /* Hindi.tlr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hindi.tlr; sourceTree = "<group>"; };
 		A572AB18184D5E750023BDDA /* DJLipikaSchemeFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJLipikaSchemeFactoryTest.m; path = Tests/Lipika/DJLipikaSchemeFactoryTest.m; sourceTree = SOURCE_ROOT; };
+		A577D863185F5E58001C8942 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A577D867185F608B001C8942 /* DJReadWriteTrieTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJReadWriteTrieTest.m; sourceTree = "<group>"; };
 		A579C5B4185AB050001F4CD9 /* DJReadWriteTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJReadWriteTrie.h; path = Source/Engine/Trie/DJReadWriteTrie.h; sourceTree = "<group>"; };
 		A579C5B5185AB050001F4CD9 /* DJReadWriteTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJReadWriteTrie.m; path = Source/Engine/Trie/DJReadWriteTrie.m; sourceTree = "<group>"; };
 		A579C5B8185AB1C9001F4CD9 /* DJReadOnlyTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJReadOnlyTrie.h; path = Source/Engine/Trie/DJReadOnlyTrie.h; sourceTree = "<group>"; };
@@ -183,8 +186,7 @@
 		A5BA7D59181D912100461B2F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5BA7D65181D91A000461B2F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		A5BA7D67181DA28100461B2F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Installer/Source/main.m; sourceTree = SOURCE_ROOT; };
-		A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaIMETest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5C54E0416BA20C1007F631D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		A5C54E0316BA20C1007F631D /* LipikaIMETest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaIMETest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C6BB2016B5A5F100B02E1B /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LipikaIcon.png; path = Resources/LipikaIcon.png; sourceTree = "<group>"; };
 		A5DC40FE185AE5B300B22A87 /* DJSimpleForwardMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJSimpleForwardMapping.m; path = Source/Engine/Scheme/DJSimpleForwardMapping.m; sourceTree = "<group>"; };
@@ -219,7 +221,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5C54E0516BA20C1007F631D /* SenTestingKit.framework in Frameworks */,
+				A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */,
 				A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */,
 				A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */,
 			);
@@ -254,7 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* LipikaIME.app */,
-				A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */,
+				A5C54E0316BA20C1007F631D /* LipikaIMETest.xctest */,
 				A5BA7D58181D912100461B2F /* LipikaIMEInstaller */,
 			);
 			name = Products;
@@ -303,9 +305,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A5BA7D65181D91A000461B2F /* Carbon.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
-				A5C54E0416BA20C1007F631D /* SenTestingKit.framework */,
+				A577D863185F5E58001C8942 /* XCTest.framework */,
+				A5BA7D65181D91A000461B2F /* Carbon.framework */,
 				A5BA7D59181D912100461B2F /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -379,6 +381,15 @@
 			name = "Input Method Scheme";
 			sourceTree = "<group>";
 		};
+		A577D866185F608B001C8942 /* ReadWriteTrie */ = {
+			isa = PBXGroup;
+			children = (
+				A577D867185F608B001C8942 /* DJReadWriteTrieTest.m */,
+			);
+			name = ReadWriteTrie;
+			path = Tests/ReadWriteTrie;
+			sourceTree = SOURCE_ROOT;
+		};
 		A579C5B3185AB018001F4CD9 /* Trie Implementation */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +456,7 @@
 		A5C54E0916BA20C1007F631D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A577D866185F608B001C8942 /* ReadWriteTrie */,
 				A555039D1848699100B3EA6E /* Lipika */,
 				A599296C1848603A0008FADF /* Google */,
 				A5C54E0A16BA20C1007F631D /* Supporting Files */,
@@ -582,8 +594,8 @@
 			);
 			name = LipikaIMETest;
 			productName = LipikaIMETest;
-			productReference = A5C54E0316BA20C1007F631D /* LipikaIMETest.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = A5C54E0316BA20C1007F631D /* LipikaIMETest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -734,6 +746,7 @@
 				A5F8EF911853F40B0036E31A /* DJTestHelper.m in Sources */,
 				A5999AAB18497860002EE8AE /* DJGoogleBufferReplayTest.m in Sources */,
 				A5999AAC18497860002EE8AE /* DJGoogleEngineTest.m in Sources */,
+				A577D868185F608B001C8942 /* DJReadWriteTrieTest.m in Sources */,
 				A5999AAD18497860002EE8AE /* DJGoogleInputStringText.m in Sources */,
 				A5999AAE18497860002EE8AE /* DJGoogleNestedClassTest.m in Sources */,
 				A5999AAF18497860002EE8AE /* DJGoogleNestedReverseTest.m in Sources */,
@@ -871,7 +884,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -889,7 +902,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -905,7 +917,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_FRAMEWORKS_DIR)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -915,7 +927,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

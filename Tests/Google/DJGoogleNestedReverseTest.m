@@ -7,11 +7,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "DJGoogleSchemeFactory.h"
 #import "DJInputEngineFactory.h"
 
-@interface DJGoogleNestedReverseTest : SenTestCase {
+@interface DJGoogleNestedReverseTest : XCTestCase {
     DJGoogleInputScheme* scheme;
     DJInputMethodEngine* engine;
 }
@@ -32,14 +32,14 @@
 
 -(void)testHappyCase {
     DJParseOutput *result = [scheme.reverseMappings inputForOutput:@"zfc"];
-    STAssertTrue([@"zfc" isEqualToString: result.input], @"Unexpected output: %@", result.input);
-    STAssertTrue([@"zfc" isEqualToString: result.output], @"Unexpected output: %@", result.output);
+    XCTAssertEqualObjects(@"zfc",  result.input, @"Unexpected output: %@", result.input);
+    XCTAssertEqualObjects(@"zfc",  result.output, @"Unexpected output: %@", result.output);
 }
 
 -(void)testNestedNoPrekey {
     DJParseOutput *result = [scheme.reverseMappings inputForOutput:@"zdh"];
-    STAssertTrue([@"zhd" isEqualToString: result.input], @"Unexpected output: %@", result.input);
-    STAssertTrue([@"zdh" isEqualToString: result.output], @"Unexpected output: %@", result.output);
+    XCTAssertEqualObjects(@"zhd",  result.input, @"Unexpected output: %@", result.input);
+    XCTAssertEqualObjects(@"zdh",  result.output, @"Unexpected output: %@", result.output);
 }
 
 @end

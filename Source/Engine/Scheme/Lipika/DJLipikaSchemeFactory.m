@@ -31,7 +31,7 @@ static NSString *schemesDirectory;
 +(void)initialize {
     schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSString *const whitespacePattern = @"^\\s+$";
-    NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+(. *)\\s*$";
+    NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+(.*)\\s*$";
     NSString *const scriptOverridePattern = @"^\\s*Script\\s*:\\s*(.+)\\s*$";
     NSString *const schemeOverridePattern = @"^\\s*Transliteration\\s*:\\s*(.+)\\s*$";
     NSString *const imeOverridePattern = @"^\\s*IME\\s*:\\s*(.+)\\s*$";

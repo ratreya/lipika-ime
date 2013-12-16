@@ -68,7 +68,7 @@ static NSRegularExpression *simpleMappingExpression;
     /*
      * We only support one class per mapping
      */
-    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@:(\\S+)\\%@:(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
+    NSString *const classKeyPattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S+)\\%@(\\S*)\\s*$", classOpenDelimiter, classCloseDelimiter];
     classKeyExpression = [NSRegularExpression regularExpressionWithPattern:classKeyPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -76,7 +76,7 @@ static NSRegularExpression *simpleMappingExpression;
     /*
      * And hence only one wildcard value
      */
-    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*:(\\S*)\\%@:(\\S*)\\s*$", wildcard];
+    NSString *const wildcardValuePattern = [NSString stringWithFormat:@"^\\s*(\\S*)\\%@(\\S*)\\s*$", wildcard];
     wildcardValueExpression = [NSRegularExpression regularExpressionWithPattern:wildcardValuePattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];

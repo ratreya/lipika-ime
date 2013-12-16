@@ -7,17 +7,17 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJParseTrieNode.h"
-#import <SenTestingKit/SenTestingKit.h>
+#import "DJTrieNode.h"
+#import <XCTest/XCTest.h>
 #import "DJGoogleSchemeFactory.h"
 
 @interface DJGoogleForwardMapping (Test)
 
--(NSDictionary *)parseTrie;
+-(DJReadWriteTrie *)parseTrie;
 
 @end
 
-@interface DJGoogleSchemeTest : SenTestCase {
+@interface DJGoogleSchemeTest : XCTestCase {
     DJGoogleInputScheme *scheme;
 }
 
@@ -31,34 +31,34 @@
 }
 
 - (void)testHeaderParsing {
-    STAssertTrue([@"1.0" isEqualTo:[scheme version]], @"Version numbers don't match");
-    STAssertTrue([@"Barahavat" isEqualTo:[scheme name]], @"Names don't match");
-    STAssertTrue([@"\\" isEqualTo:[scheme stopChar]], @"Stop Characters dos't match");
-    STAssertTrue([scheme usingClasses], @"Using Classes don't match");
-    STAssertTrue([@"{" isEqualToString:[scheme classOpenDelimiter]], @"Class open delimiters don't match");
-    STAssertTrue([@"}" isEqualToString:[scheme classCloseDelimiter]], @"Class close delimiters don't match");
-    STAssertTrue([@"*" isEqualToString:[scheme wildcard]], @"Wildcards don't match");
+    XCTAssertTrue([@"1.0" isEqualTo:[scheme version]], @"Version numbers don't match");
+    XCTAssertTrue([@"Barahavat" isEqualTo:[scheme name]], @"Names don't match");
+    XCTAssertTrue([@"\\" isEqualTo:[scheme stopChar]], @"Stop Characters dos't match");
+    XCTAssertTrue([scheme usingClasses], @"Using Classes don't match");
+    XCTAssertEqualObjects(@"{", [scheme classOpenDelimiter], @"Class open delimiters don't match");
+    XCTAssertEqualObjects(@"}", [scheme classCloseDelimiter], @"Class close delimiters don't match");
+    XCTAssertEqualObjects(@"*", [scheme wildcard], @"Wildcards don't match");
 }
 
 - (void)testClassParsing {
-    STAssertTrue([@"VowelSigns" isEqualToString:[scheme.forwardMappings classNameForInput:@"A"]], @"Unexpected class name");
-    STAssertTrue([[scheme.forwardMappings classForName:@"VowelSigns"] count] == 12, @"Unexpected count of mappings: %d", [[scheme.forwardMappings classForName:@"VowelSigns"] count]);
+    XCTAssertEqualObjects(@"VowelSigns", [scheme.forwardMappings classNameForInput:@"A"], @"Unexpected class name");
+    XCTAssertTrue([[scheme.forwardMappings classForName:@"VowelSigns"].trieHead.next count] == 12, @"Unexpected count of mappings: %lu", (unsigned long)[[scheme.forwardMappings classForName:@"VowelSigns"].trieHead.next count]);
 }
 
 - (void)testMappingParsing {
-    NSString* output = [[[[[scheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] output];
-    STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
-    output = [[[[[[[scheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"j"] next] objectForKey:@"I"] output];
-    STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
+    NSString* output = [scheme.forwardMappings.parseTrie nodeForKey:@"~j"].value;
+    XCTAssertEqualObjects(output,  @"ञ्", @"Unexpected output");
+    output = [scheme.forwardMappings.parseTrie nodeForKey:@"~jI"].value;
+    XCTAssertEqualObjects(output,  @"ञी", @"Unexpected output: %@", output);
 }
 
 -(void)testNonDefaultHeaders {
     DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/Tests/Google/Schemes/TestITRANS.scm"];
-    STAssertTrue([@"VowelSigns" isEqualToString:[myScheme.forwardMappings classNameForInput:@"u"]], @"Unexpected output");
-    NSString* output = [[[[[myScheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"n"] output];
-    STAssertTrue([output isEqualToString: @"ञ्"], @"Unexpected output");
-    output = [[[[[[[myScheme.forwardMappings parseTrie] objectForKey:@"~"] next] objectForKey:@"n"] next] objectForKey:@"I"] output];
-    STAssertTrue([output isEqualToString: @"ञी"], @"Unexpected output: %@", output);
+    XCTAssertEqualObjects(@"VowelSigns", [myScheme.forwardMappings classNameForInput:@"u"], @"Unexpected output");
+    NSString* output = [scheme.forwardMappings.parseTrie nodeForKey:@"~j"].value;
+    XCTAssertEqualObjects(output,  @"ञ्", @"Unexpected output");
+    output = [scheme.forwardMappings.parseTrie nodeForKey:@"~jI"].value;
+    XCTAssertEqualObjects(output,  @"ञी", @"Unexpected output: %@", output);
 }
 
 @end
