@@ -57,11 +57,13 @@ enum DJReferenceType {
 static NSRegularExpression *twoColumnTSVExpression;
 static NSRegularExpression *specificValueExpression;
 static NSRegularExpression *mapStringSubExpression;
+static NSRegularExpression *addendumSubExpression;
 
 +(void)initialize {
     NSString *const twoColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+(.+)\\s*$";
     NSString *const specificValuePattern = @"^\\s*(.+)\\s*/\\s*(.+)\\s*$";
     NSString *const mapStringSubPattern = @"(\\[[^\\]]+?\\]|\\{[^\\}]+?\\})";
+    NSString *const addendumSubPattern = @"%@";
 
     NSError *error;
     twoColumnTSVExpression = [NSRegularExpression regularExpressionWithPattern:twoColumnTSVPattern options:0 error:&error];
@@ -76,6 +78,10 @@ static NSRegularExpression *mapStringSubExpression;
     if (error != nil) {
         [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
+    addendumSubExpression = [NSRegularExpression regularExpressionWithPattern:addendumSubPattern options:0 error:&error];
+    if (error != nil) {
+        [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
+    }
 }
 
 -(id)initWithSchemeTable:(NSDictionary *)theSchemeTable scriptTable:(NSDictionary *)theScriptTable imeLines:(NSArray *)imeLines {
@@ -87,6 +93,7 @@ static NSRegularExpression *mapStringSubExpression;
     scriptTable = theScriptTable;
     forwardMapping = [[DJSimpleForwardMapping alloc] init];
     reverseMapping = [[DJSimpleReverseMapping alloc] init];
+    addMapping = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
     // Figure out the common set of valid keys between the two tables and only use this set
     validKeys = [NSMutableDictionary dictionaryWithCapacity:MAX(schemeTable.count, scriptTable.count)];
     NSMutableSet *commonClasses = [NSMutableSet setWithArray:[schemeTable allKeys]];
@@ -103,6 +110,10 @@ static NSRegularExpression *mapStringSubExpression;
         if ([twoColumnTSVExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
             NSString *preMap = [twoColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
             NSString *postMap = [twoColumnTSVExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$2"];
+            unsigned long numFormatSpecs = [addendumSubExpression numberOfMatchesInString:postMap options:0 range:NSMakeRange(0, postMap.length)];
+            if (numFormatSpecs > 1) {
+                [NSException raise:@"Invalid IME line" format:@"IME addendum line \"%@\": number of format specififers (%lu) is more than one.", line, numFormatSpecs];
+            }
             logDebug(@"Parsing preMap: %@", preMap);
             NSString *batchId = startBatch();
             NSArray *preValues = [self parseMapString:preMap];
@@ -111,8 +122,21 @@ static NSRegularExpression *mapStringSubExpression;
             batchId = startBatch();
             NSArray *postValues = [self parseMapString:postMap];
             endBatch(batchId);
+            // Process addendum lines
+            if (numFormatSpecs > 0) {
+                if (postValues.count > 1 || [postValues[0] count] > 1) {
+                    [NSException raise:@"Invalid IME line" format:@"IME addendum line \"%@\": post value produces the following values when only one was expected: %@", line, postValues];
+                }
+                for (NSArray *preValueList in preValues) {
+                    for (NSString *preValue in preValueList) {
+                        [addMapping addValue:postValues[0][0] forKey:preValue];
+                    }
+                }
+                continue;
+            }
+            // Process non-addendum IME lines
             if (preValues.count != postValues.count) {
-                [NSException raise:@"Invalid IME line" format:@"For IME line %@: count of mappings from left column :(%ld) does not match that from the right :(%ld)", line, preValues.count, postValues.count];
+                [NSException raise:@"Invalid IME line" format:@"For IME line \"%@\": count of mappings from left column :(%ld) does not match that from the right :(%ld)", line, preValues.count, postValues.count];
             }
             for (int i=0; i<preValues.count; i++) {
                 NSArray *preValueList = [preValues objectAtIndex:i];
@@ -124,14 +148,18 @@ static NSRegularExpression *mapStringSubExpression;
             }
         }
         else {
-            [NSException raise:@"Invalid TSV line" format:@"Must be two column TSV; Ignoring bad line: %@", line];
+            [NSException raise:@"Invalid TSV line" format:@"Must be two column TSV; Ignoring bad line: \"%@\"", line];
         }
     }
     return self;
 }
 
 -(void)postProcessResult:(DJParseOutput *)result withPreviousResult:(DJParseOutput *)previousResult {
-    
+    NSString *input = [previousResult.input stringByAppendingString:result.input];
+    DJTrieNode *addNode = [addMapping nodeForKey:input];
+    if (addNode) {
+        result.output = [NSString stringWithFormat:addNode.value, result.output];
+    }
 }
 
 -(NSArray *)parseMapString:(NSString *)mapString {

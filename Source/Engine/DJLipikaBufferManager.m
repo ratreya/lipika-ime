@@ -138,16 +138,16 @@ static NSRegularExpression *whiteSpace;
     for (DJParseOutput *result in results) {
         if ([result isPreviousFinal]) {
             finalizedIndex = [uncommittedOutput count];
-            // Post-process the last two inputs
-            if (uncommittedOutput.count > 2) {
-                [engine.scheme postProcessResult:[uncommittedOutput lastObject] withPreviousResult:uncommittedOutput[uncommittedOutput.count - 2]];
-            }
         }
         else {
             // If there is a replacement then remove unfinalized
             if ([result output] != nil) {
                 [self removeUnfinalized];
             }
+        }
+        // Post-process the last two inputs
+        if (uncommittedOutput.count > 0) {
+            [engine.scheme postProcessResult:result withPreviousResult:[uncommittedOutput lastObject]];
         }
         if ([result output] != nil) {
             [uncommittedOutput addObject:result];

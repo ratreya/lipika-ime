@@ -24,12 +24,6 @@
 
 @end
 
-@interface DJSimpleForwardMapping (Test)
-
--(NSDictionary *)parseTrie;
-
-@end
-
 @interface DJLipikaSchemeFactoryTest : XCTestCase
 
 @end
@@ -75,37 +69,6 @@
             XCTAssertEqualObjects(output, reversedOutput, @"Fuzz test failed for input: %@", fuzzInput);
         }
     }
-}
-
--(void)XXXtestBacktracking {
-    [DJLipikaSchemeFactory setSchemesDirectory:@"/Users/ratreya/workspace/Lipika_IME/Tests/Lipika/Schemes"];
-    DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"UsingBacktrack" scheme:@"UsingBacktrack"];
-    DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
-    DJLipikaBufferManager *manager = [[DJLipikaBufferManager alloc] initWithEngine:engine];
-    [manager outputForInput:@"k"];
-    XCTAssertEqualObjects([manager output], @"क", @"Invalid output");
-    [manager flush];
-    [manager outputForInput:@"ka"];
-    XCTAssertEqualObjects([manager output], @"क", @"Invalid output");
-    [manager flush];
-    [manager outputForInput:@"kk"];
-    XCTAssertEqualObjects([manager output], @"क्क", @"Invalid output");
-    [manager flush];
-    [manager outputForInput:@"kka"];
-    XCTAssertEqualObjects([manager output], @"क्क", @"Invalid output");
-    [manager flush];
-    [manager outputForInput:@"kkk"];
-    XCTAssertEqualObjects([manager output], @"क्क्क", @"Invalid output");
-    [manager flush];
-    [manager outputForInput:@"kkka"];
-    XCTAssertEqualObjects([manager output], @"क्क्क", @"Invalid output");
-    [manager flush];
-    [manager outputForInput:@"kakki"];
-    XCTAssertEqualObjects([manager output], @"कक्कि", @"Invalid output");
-    [manager flush];
-    [manager outputForInput:@"kkhg"];
-    XCTAssertEqualObjects([manager output], @"क्ख्ग", @"Invalid output");
-    [manager flush];
 }
 
 @end
