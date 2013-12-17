@@ -26,7 +26,7 @@
 -(void)testHapyCase {
     DJParseOutput *result = [scheme.reverseMappings inputForOutput:@"ञी"];
     XCTAssertEqualObjects(result.output,  @"ञी", @"Unexpected output %@", result.output);
-    XCTAssertEqualObjects(result.input, @"~jI", @"Unexpected output %@", result.input);
+    XCTAssertEqualObjects(result.input, @"~jee", @"Unexpected output %@", result.input);
 }
 
 -(void)testCompletelyReversed {
