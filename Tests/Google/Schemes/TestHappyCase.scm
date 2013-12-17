@@ -150,8 +150,8 @@ C{VowelSigns} छ*
 j{VowelSigns} ज*
 jh{VowelSigns} झ*
 J{VowelSigns} झ*
-~J{VowelSigns} ञ*
 ~j{VowelSigns} ञ*
+~J{VowelSigns} ञ*
 T{VowelSigns} ट*
 Th{VowelSigns} ठ*
 D{VowelSigns} ड*
