@@ -15,6 +15,7 @@
 @interface DJLipikaInputScheme : NSObject<DJInputMethodScheme> {
     DJSimpleForwardMapping *forwardMapping;
     DJSimpleReverseMapping *reverseMapping;
+    DJReadWriteTrie *addMapping;
     NSDictionary *schemeTable;
     NSDictionary *scriptTable;
     NSMutableDictionary *validKeys;
