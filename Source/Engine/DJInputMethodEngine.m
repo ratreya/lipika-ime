@@ -36,6 +36,20 @@
         return aggregate;
     }
     DJParseOutput *result = [DJParseOutput alloc];
+    // First handle stop character
+    if ([input isEqualToString:scheme.stopChar]) {
+        // Only include the stop character if it does nothing to the engine
+        if ([self isAtRoot]) {
+            result = [DJParseOutput sameInputOutput:input];
+        }
+        else {
+            result = [DJParseOutput sameInputOutput:[[self inputsSinceLastOutput] componentsJoinedByString:@""]];
+        }
+        result.isPreviousFinal = YES;
+        result.isFinal = YES;
+        [self reset];
+        return [NSArray arrayWithObject:result];
+    }
     if (currentNode == nil) {
         // Look for mapping at root of trie
         currentNode = [self nextNodeFromNode:nil forInput:input];

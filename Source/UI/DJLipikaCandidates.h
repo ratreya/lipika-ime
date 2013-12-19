@@ -8,17 +8,16 @@
  */
 
 #import <InputMethodKit/InputMethodKit.h>
-
-@class DJLipikaInputController;
+#import <InputMethodKit/InputMethodKit.h>
 
 @interface DJLipikaCandidates : NSObject {
-    DJLipikaInputController *controller;
+    id<IMKTextInput> client;
     NSArray *currentCandidates;
 }
 
--(id)initWithController:(DJLipikaInputController *)controller;
--(void)showCandidateWithInput:(NSString *)input output:(NSString *)output replacement:(NSString *)replacement;
--(NSArray *)candidates:(id)sender;
+-(id)initWithClient:(id<IMKTextInput>)theClient;
+-(void)showCandidateWithInput:(NSString *)input output:(NSString *)output replacementLength:(unsigned long)replacementLength;
+-(NSArray *)candidates;
 -(void)hide;
 
 @end

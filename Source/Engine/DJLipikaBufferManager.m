@@ -78,12 +78,6 @@ static NSRegularExpression *whiteSpace;
             }
             return aggregate.count ? [aggregate componentsJoinedByString:@""] : nil;
         }
-        // Don't use previous text if stop character or whitespace
-        BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
-        BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
-        if (isStopChar || isWhiteSpace || !previousText) {
-            return [self outputForInput:string];
-        }
         DJParseOutput *previousResult = [engine.scheme.reverseMappings inputForOutput:previousText];
         NSString *currentResult;
         if (previousResult) {
@@ -110,23 +104,10 @@ static NSRegularExpression *whiteSpace;
             return aggregate.count ? [aggregate componentsJoinedByString:@""] : nil;
         }
         // Fush if stop character or whitespace
-        BOOL isStopChar = [string isEqualToString:[[engine scheme] stopChar]];
         BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
         if (isWhiteSpace) {
             [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];
             return [self flush];
-        }
-        if (isStopChar) {
-            // Only include the stop character if it does nothing to the engine
-            if ([engine isAtRoot]) {
-                [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];
-            }
-            else {
-                [uncommittedOutput addObject:[DJParseOutput sameInputOutput:[[engine inputsSinceLastOutput] componentsJoinedByString:@""]]];
-            }
-            finalizedIndex = [uncommittedOutput count];
-            [engine reset];
-            return nil;
         }
         NSArray *results = [engine executeWithInput:string];
         [self handleResults:results];
@@ -232,7 +213,7 @@ static NSRegularExpression *whiteSpace;
     }
     NSMutableString *word = [[NSMutableString alloc] init];
     for (DJParseOutput *bundle in uncommittedOutput) {
-        [word appendString:[bundle output]];
+        if (bundle.output) [word appendString:bundle.output];
     }
     return word;
 }
