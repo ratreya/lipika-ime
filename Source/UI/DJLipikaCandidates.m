@@ -16,16 +16,16 @@ extern IMKCandidates *candidates;
 
 @implementation DJLipikaCandidates
 
--(id)initWithController:(DJLipikaInputController *)myController {
+-(id)initWithClient:(id<IMKTextInput>)theClient {
     self = [super init];
     if (self == nil) {
         return self;
     }
-    controller = myController;
+    client = theClient;
     return self;
 }
 
--(void)showCandidateWithInput:(NSString *)input output:(NSString *)output replacement:(NSString *)replacement {
+-(void)showCandidateWithInput:(NSString *)input output:(NSString *)output replacementLength:(unsigned long)replacementLength {
     NSString *inputString;
     NSString *outputString;
     if (input && [DJLipikaUserSettings isShowInput]) {
@@ -39,7 +39,7 @@ extern IMKCandidates *candidates;
     // Get the attributes of the client
     NSDictionary *attributes;
     NSRect rect = NSMakeRect(0, 0, 0, 0);
-    attributes = [[controller client] attributesForCharacterIndex:0 lineHeightRectangle:&rect];
+    attributes = [client attributesForCharacterIndex:0 lineHeightRectangle:&rect];
 
     if ([DJLipikaUserSettings isOutputInCandidate]) {
         forCandidate = outputString;
@@ -51,15 +51,10 @@ extern IMKCandidates *candidates;
     }
 
     if (forClient) {
-        NSRange replacementRange = [[controller client] selectedRange];
-        if (replacement) {
-            replacementRange.location -= [replacement length];
-            replacementRange.length += [replacement length];
-            [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:replacementRange];
-        }
-        else {
-            [[controller client] setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:replacementRange];
-        }
+        NSRange replacementRange = [client selectedRange];
+        replacementRange.location -= replacementLength;
+        replacementRange.length += replacementLength;
+        [client setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:replacementRange];
     }
     if (forCandidate) {
         if ([DJLipikaUserSettings isOverrideCandidateAttributes]) {
@@ -73,12 +68,12 @@ extern IMKCandidates *candidates;
     }
 }
 
--(NSArray *)candidates:(id)sender {
+-(NSArray *)candidates {
     return currentCandidates;
 }
 
 -(void)hide {
-    [[controller client] setMarkedText:@"" selectionRange:NSMakeRange(0, 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [client setMarkedText:@"" selectionRange:NSMakeRange(0, 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     [candidates hide];
 }
 

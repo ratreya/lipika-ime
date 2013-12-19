@@ -163,6 +163,8 @@
     XCTAssertFalse([result[0] isFinal], @"Unexpected output");
     XCTAssertFalse([result[0] isPreviousFinal], @"Unexpected output");
     result = [engine executeWithInput:@"\\"];
+    XCTAssertEqualObjects(@"", [result[0] output], @"Unexpected output: %@", [result[0] output]);
+    result = [engine executeWithInput:@"\\"];
     XCTAssertEqualObjects(@"\\", [result[0] output], @"Unexpected output: %@", [result[0] output]);
 }
 

@@ -24,7 +24,6 @@
 -(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
 -(NSArray *)executeWithInput:(NSString *)input;
 -(NSArray *)inputsSinceLastOutput;
--(BOOL)isAtRoot;
 -(BOOL)hasDeletable;
 -(void)reset;
 
