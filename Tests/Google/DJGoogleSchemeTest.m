@@ -27,7 +27,7 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/Tests/Google/Schemes/TestHappyCase.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./Tests/Google/Schemes/TestHappyCase.scm"];
 }
 
 - (void)testHeaderParsing {
@@ -53,7 +53,7 @@
 }
 
 -(void)testNonDefaultHeaders {
-    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"/Users/ratreya/workspace/Lipika_IME/Tests/Google/Schemes/TestITRANS.scm"];
+    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./Tests/Google/Schemes/TestITRANS.scm"];
     XCTAssertEqualObjects(@"VowelSigns", [myScheme.forwardMappings classNameForInput:@"u"], @"Unexpected output");
     NSString* output = [scheme.forwardMappings.parseTrie nodeForKey:@"~j"].value;
     XCTAssertEqualObjects(output,  @"ञ्", @"Unexpected output");

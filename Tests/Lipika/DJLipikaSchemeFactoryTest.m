@@ -32,7 +32,7 @@
 
 -(void)setUp {
     [super setUp];
-    [DJLipikaSchemeFactory setSchemesDirectory:@"/Users/ratreya/workspace/Lipika_IME/Schemes"];
+    [DJLipikaSchemeFactory setSchemesDirectory:@"./Schemes"];
 }
 
 -(void)testHappyCase {
