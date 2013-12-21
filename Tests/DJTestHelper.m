@@ -20,4 +20,9 @@
     return randomString;
 }
 
++(void)setupUserSettings {
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:@"./Resources/UserSettings.plist"];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+}
+
 @end

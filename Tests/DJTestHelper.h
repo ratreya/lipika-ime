@@ -12,5 +12,6 @@
 @interface DJTestHelper : NSObject
 
 +(NSString*)genRandStringLength:(int)len;
++(void)setupUserSettings;
 
 @end

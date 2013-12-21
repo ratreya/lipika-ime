@@ -66,18 +66,7 @@ static NSRegularExpression *whiteSpace;
 
 -(NSString *)outputForInput:(NSString *)string previousText:(NSString *)previousText {
     @synchronized(self) {
-        // Handle non-character strings
-        if (string.length > 1) {
-            NSMutableArray *aggregate = [[NSMutableArray alloc] initWithCapacity:0];
-            NSArray *characters = charactersForString(string);
-            NSString *output = [self outputForInput:characters[0] previousText:previousText];
-            if (output) [aggregate addObject:output];
-            for (int i = 1; i < [output length]; i++) {
-                NSString *output = [self outputForInput:characters[i]];
-                if (output) [aggregate addObject:output];
-            }
-            return aggregate.count ? [aggregate componentsJoinedByString:@""] : nil;
-        }
+        if (!previousText) return [self outputForInput:string];
         DJParseOutput *previousResult = [engine.scheme.reverseMappings inputForOutput:previousText];
         NSString *currentResult;
         if (previousResult) {

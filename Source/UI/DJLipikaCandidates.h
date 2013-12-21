@@ -8,7 +8,6 @@
  */
 
 #import <InputMethodKit/InputMethodKit.h>
-#import <InputMethodKit/InputMethodKit.h>
 
 @interface DJLipikaCandidates : NSObject {
     id<IMKTextInput> client;
