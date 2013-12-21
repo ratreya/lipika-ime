@@ -193,6 +193,7 @@
 		A5C6BB2016B5A5F100B02E1B /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LipikaIcon.png; path = Resources/LipikaIcon.png; sourceTree = "<group>"; };
 		A5DC40FE185AE5B300B22A87 /* DJSimpleForwardMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJSimpleForwardMapping.m; path = Source/Engine/Scheme/DJSimpleForwardMapping.m; sourceTree = "<group>"; };
+		A5F6023C1864E9770091CB19 /* HindiHarvard-Kyoto.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; name = "HindiHarvard-Kyoto.tlr"; path = "Schemes/Transliteration/Overrides/HindiHarvard-Kyoto.tlr"; sourceTree = "<group>"; };
 		A5F8EF8F1853F40B0036E31A /* DJTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJTestHelper.h; path = Tests/DJTestHelper.h; sourceTree = SOURCE_ROOT; };
 		A5F8EF901853F40B0036E31A /* DJTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJTestHelper.m; path = Tests/DJTestHelper.m; sourceTree = SOURCE_ROOT; };
 		A5F8EF921854005F0036E31A /* DJSchemeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJSchemeHelper.h; path = Source/Engine/Scheme/DJSchemeHelper.h; sourceTree = "<group>"; };
@@ -268,6 +269,7 @@
 		29B97314FDCFA39411CA2CEA /* NumberInput */ = {
 			isa = PBXGroup;
 			children = (
+				A5F6023C1864E9770091CB19 /* HindiHarvard-Kyoto.tlr */,
 				A5AC075417D7FAA900E5BD06 /* Source */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
