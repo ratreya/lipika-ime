@@ -157,7 +157,7 @@ static NSRegularExpression *addendumSubExpression;
 -(void)postProcessResult:(DJParseOutput *)result withPreviousResult:(DJParseOutput *)previousResult {
     NSString *input = [previousResult.input stringByAppendingString:result.input];
     DJTrieNode *addNode = [addMapping nodeForKey:input];
-    if (addNode) {
+    if (addNode && addNode.value) {
         result.output = [NSString stringWithFormat:addNode.value, result.output];
     }
 }

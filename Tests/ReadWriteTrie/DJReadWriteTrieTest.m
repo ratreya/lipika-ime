@@ -58,7 +58,7 @@
     [self assertTestTrie:clone];
 }
 
--(void)testTrieMerging {
+-(void)testTrieMergingRootAtRoot {
     DJReadWriteTrie *trie1 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
     [trie1 addValue:@"1" forKey:@"a"];
     [trie1 addValue:@"2" forKey:@"ab"];
@@ -74,6 +74,92 @@
     [trie1 mergeTrieWithHead:trie2.trieHead intoNode:trie1.trieHead];
     [trie1 mergeTrieWithHead:trie3.trieHead intoNode:trie1.trieHead];
     [self assertTestTrie:trie1];
+}
+
+-(void)testTrieMergingRootAtNonRoot {
+    DJReadWriteTrie *trie1 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie1 addValue:@"1" forKey:@"a"];
+    [trie1 addValue:@"2" forKey:@"ab"];
+    [trie1 addValue:@"3" forKey:@"abc"];
+    DJReadWriteTrie *trie2 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie2 addValue:@"4" forKey:@"ap"];
+    [trie2 addValue:@"5" forKey:@"apq"];
+    [trie2 addValue:@"6" forKey:@"apr"];
+    DJReadWriteTrie *trie3 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie3 addValue:@"7" forKey:@"ax"];
+    [trie3 addValue:@"8" forKey:@"axy"];
+    [trie3 addValue:@"9" forKey:@"axz"];
+    DJTrieNode *atNode2 = [trie2 nodeForKey:@"ap"];
+    [trie2 mergeTrieWithHead:trie3.trieHead intoNode:atNode2];
+    DJTrieNode *atNode1 = [trie1 nodeForKey:@"ab"];
+    [trie1 mergeTrieWithHead:trie2.trieHead intoNode:atNode1];
+    XCTAssertEqualObjects(@"7", [trie1 nodeForKey:@"abapax"].value);
+}
+
+-(void)testTrieMergingNonRootAtRoot {
+    DJReadWriteTrie *trie1 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie1 addValue:@"1" forKey:@"a"];
+    [trie1 addValue:@"2" forKey:@"ab"];
+    [trie1 addValue:@"3" forKey:@"abc"];
+    DJReadWriteTrie *trie2 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie2 addValue:@"4" forKey:@"ap"];
+    [trie2 addValue:@"5" forKey:@"apq"];
+    [trie2 addValue:@"6" forKey:@"apr"];
+    DJReadWriteTrie *trie3 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie3 addValue:@"7" forKey:@"ax"];
+    [trie3 addValue:@"8" forKey:@"axy"];
+    [trie3 addValue:@"9" forKey:@"axz"];
+    DJTrieNode *atNode2 = [trie2 nodeForKey:@"ap"];
+    [trie1 mergeTrieWithHead:atNode2 intoNode:trie1.trieHead];
+    XCTAssertNil([trie1 nodeForKey:@"ap"].value);
+    XCTAssertNil([trie1 nodeForKey:@"apq"].value);
+    // The following is expected but obviosly wrong
+    XCTAssertEqualObjects(@"apq", [trie1 nodeForKey:@"q"].key);
+    XCTAssertEqualObjects(@"apr", [trie1 nodeForKey:@"r"].key);
+    XCTAssertEqualObjects(@"5", [trie1 nodeForKey:@"q"].value);
+    XCTAssertEqualObjects(@"6", [trie1 nodeForKey:@"r"].value);
+}
+
+-(void)testTrieMergingNonRootAtNonRoot {
+    DJReadWriteTrie *trie1 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie1 addValue:@"1" forKey:@"a"];
+    [trie1 addValue:@"2" forKey:@"ab"];
+    [trie1 addValue:@"3" forKey:@"abc"];
+    DJReadWriteTrie *trie2 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie2 addValue:@"4" forKey:@"ap"];
+    [trie2 addValue:@"5" forKey:@"apq"];
+    [trie2 addValue:@"6" forKey:@"apr"];
+    DJReadWriteTrie *trie3 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie3 addValue:@"7" forKey:@"ax"];
+    [trie3 addValue:@"8" forKey:@"axy"];
+    [trie3 addValue:@"9" forKey:@"axz"];
+    DJTrieNode *atNode2 = [trie2 nodeForKey:@"ap"];
+    [trie2 mergeTrieWithHead:trie3.trieHead intoNode:atNode2];
+    DJTrieNode *atNode1 = [trie1 nodeForKey:@"ab"];
+    [trie1 mergeTrieWithHead:trie2.trieHead intoNode:atNode1];
+    XCTAssertEqualObjects(@"7", [trie1 nodeForKey:@"abapax"].value);
+}
+
+-(void)testNoOverwriteAddValue {
+    DJReadWriteTrie *trie1 = [[DJReadWriteTrie alloc] initWithIsOverwrite:NO];
+    [trie1 addValue:@"1" forKey:@"a"];
+    [trie1 addValue:@"2" forKey:@"ab"];
+    [trie1 addValue:@"3" forKey:@"abc"];
+    [trie1 addValue:@"4" forKey:@"abc"];
+    XCTAssertEqualObjects(@"3", [trie1 nodeForKey:@"abc"].value);
+}
+
+-(void)testNoOverwriteMergeTrie {
+    DJReadWriteTrie *trie1 = [[DJReadWriteTrie alloc] initWithIsOverwrite:NO];
+    [trie1 addValue:@"1" forKey:@"a"];
+    [trie1 addValue:@"2" forKey:@"ab"];
+    [trie1 addValue:@"3" forKey:@"abc"];
+    DJReadWriteTrie *trie2 = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [trie2 addValue:@"5" forKey:@"a"];
+    [trie2 addValue:@"6" forKey:@"ab"];
+    [trie2 addValue:@"7" forKey:@"abc"];
+    [trie1 mergeTrieWithHead:trie2.trieHead intoNode:trie1.trieHead];
+    XCTAssertEqualObjects(@"3", [trie1 nodeForKey:@"abc"].value);
 }
 
 @end

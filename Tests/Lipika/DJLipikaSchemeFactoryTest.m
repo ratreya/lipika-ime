@@ -55,18 +55,21 @@
     XCTAssertEqualObjects(output,  @"ञी", @"Unexpected output: %@", output);
 }
 
--(void)XXXtestLoadingCurrentIMEs {
+-(void)testLoadingCurrentIMEs {
     for (NSString *schemeName in [DJLipikaSchemeFactory availableSchemes]) {
         for (NSString *scriptName in [DJLipikaSchemeFactory availableScripts]) {
             DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:scriptName scheme:schemeName];
             XCTAssertNotNil(scheme, @"Unexpected result");
             DJLipikaBufferManager *manager = [[DJLipikaBufferManager alloc] initWithEngine:[[DJInputMethodEngine alloc] initWithScheme:scheme]];
-            NSString *fuzzInput = [[DJTestHelper genRandStringLength:10] stringByAppendingString:@" "];
+            NSString *fuzzInput = [DJTestHelper genRandStringLength:10];
             NSString *output = [manager outputForInput:fuzzInput];
+            output = [manager flush];
             DJParseOutput *reverse = [scheme.reverseMappings inputForOutput:output];
             NSString *reversedInput = [reverse input];
             NSString *reversedOutput = [manager outputForInput:reversedInput];
-            XCTAssertEqualObjects(output, reversedOutput, @"Fuzz test failed for input: %@", fuzzInput);
+            reversedOutput = [manager flush];
+            if (!reversedOutput) continue;
+            XCTAssertEqualObjects([output substringFromIndex:output.length - reversedOutput.length], reversedOutput, @"Fuzz test failed for input: %@", fuzzInput);
         }
     }
 }
