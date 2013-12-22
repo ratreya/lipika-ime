@@ -69,7 +69,7 @@ static long numCompositionCommits = 0;
                     return NO;
                 }
                 // Because we left out the previous char, the following statement will remove it
-                [candidateManager showCandidateWithInput:[bufferManager input] output:[bufferManager output] replacementLength:previousText.length+1];
+                [candidateManager showCandidateWithInput:bufferManager.input output:bufferManager.output replacementLength:bufferManager.replacement.length + 1];
                 return YES;
             }
         }
@@ -163,7 +163,7 @@ static long numCompositionCommits = 0;
         [bufferManager flush];
     }
     if ([bufferManager hasOutput]) {
-        [candidateManager showCandidateWithInput:[bufferManager input] output:[bufferManager output] replacementLength:[bufferManager replacement].length];
+        [candidateManager showCandidateWithInput:bufferManager.input output:bufferManager.output replacementLength:bufferManager.replacement.length];
     }
     else {
         [candidateManager hide];

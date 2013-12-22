@@ -22,6 +22,7 @@ extern IMKCandidates *candidates;
         return self;
     }
     client = theClient;
+    currentCandidates = [NSArray array];
     return self;
 }
 
@@ -75,6 +76,7 @@ extern IMKCandidates *candidates;
 -(void)hide {
     [client setMarkedText:@"" selectionRange:NSMakeRange(0, 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     [candidates hide];
+    currentCandidates = [NSArray array];
 }
 
 @end
