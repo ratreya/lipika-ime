@@ -20,6 +20,7 @@
     self = [super init];
     if (!self) return self;
     committedString = theString;
+    markedString = theString;
     selectedRange = NSMakeRange(theString.length, 0);
     attributes = [NSDictionary dictionary];
     return self;
@@ -35,7 +36,7 @@
 -(void)setMarkedText:(id)string selectionRange:(NSRange)selectionRange replacementRange:(NSRange)replacementRange {
     if ([string isKindOfClass:[NSAttributedString class]]) string = [string string];
     if (replacementRange.location == NSNotFound) replacementRange = selectedRange;
-    markedString = [markedString stringByReplacingCharactersInRange:replacementRange withString:string];
+    markedString = [committedString stringByReplacingCharactersInRange:replacementRange withString:string];
 }
 
 -(NSRange)selectedRange {
@@ -48,6 +49,11 @@
 
 -(NSDictionary*)attributesForCharacterIndex:(NSUInteger)index lineHeightRectangle:(NSRect*)lineRect {
     return attributes;
+}
+
+-(void)handleBackspace {
+    committedString = [committedString substringToIndex:committedString.length - 1];
+    selectedRange = NSMakeRange(committedString.length, 0);
 }
 
 @end

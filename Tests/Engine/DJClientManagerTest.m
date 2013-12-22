@@ -19,7 +19,10 @@
 
 @end
 
-@interface DJClientManagerTest : XCTestCase
+@interface DJClientManagerTest : XCTestCase {
+    DJTestClient *client;
+    DJLipikaClientManager *manager;
+}
 
 @end
 
@@ -29,14 +32,92 @@
     [super setUp];
     [DJLipikaSchemeFactory setSchemesDirectory:@"./Schemes"];
     [DJTestHelper setupUserSettings];
+    client = [[DJTestClient alloc] initWithCommittedString:@""];
+    manager = [[DJLipikaClientManager alloc] initWithClient:client];
+    [manager changeToSchemeWithName:@"Barahavat" forScript:@"Devanagari" type:DJ_LIPIKA];
 }
 
 -(void)testHappyCase {
-    DJTestClient *client = [[DJTestClient alloc] initWithCommittedString:@""];
-    DJLipikaClientManager *manager = [[DJLipikaClientManager alloc] initWithClient:client];
-    [manager changeToSchemeWithName:@"Barahavat" forScript:@"Devanagari" type:DJ_LIPIKA];
     [manager inputText:@"namonamaH "];
     XCTAssertEqualObjects(client.committedString, @"नमोनमः ");
+}
+
+-(void)testUncommittedString {
+    [manager inputText:@"namonamaH"];
+    XCTAssertEqualObjects(client.committedString, @"");
+    XCTAssertEqualObjects(client.markedString, @"namonamaH");
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नमोनमः");
+}
+
+-(void)testActiveStopChar {
+    [manager inputText:@"ma\\itri "];
+    XCTAssertEqualObjects(client.committedString, @"मइत्रि ");
+}
+
+-(void)testInactiveStopChar {
+    [manager inputText:@"ma\\\\itri "];
+    XCTAssertEqualObjects(client.committedString, @"म\\इत्रि ");
+}
+
+-(void)testCommittedDelete {
+    [manager inputText:@"namonamaH "];
+    XCTAssertEqualObjects(client.committedString, @"नमोनमः ");
+    BOOL isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(client.markedString, @"नमोनमH");
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"ः");
+}
+
+-(void)testUncommittedDelete {
+    [manager inputText:@"namonamaH"];
+    XCTAssertEqualObjects(client.committedString, @"");
+    XCTAssertEqualObjects(client.markedString, @"namonamaH");
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नमोनमः");
+    BOOL isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(client.committedString, @"");
+    XCTAssertEqualObjects(client.markedString, @"namonama");
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नमोनम");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नमोनम्");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नमोन");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नमोन्");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नमो");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"नम्");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"न");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"न्");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(client.committedString, @"");
+    XCTAssertEqualObjects(client.markedString, @"");
+    XCTAssertTrue(manager.candidateManager.candidates.count == 0);
+}
+
+-(void)testMultipleSpaceDelete {
+    [manager inputText:@"namonamaH  "];
+    XCTAssertEqualObjects(client.committedString, @"नमोनमः  ");
+    BOOL isHandled = [manager handleBackspace];
+    XCTAssertFalse(isHandled);
+    // Client will delete one character
+    [client handleBackspace];
+    XCTAssertEqualObjects(client.committedString, @"नमोनमः ");
+    isHandled = [manager handleBackspace];
+    XCTAssertTrue(isHandled);
+    XCTAssertEqualObjects(client.markedString, @"नमोनमH");
+    XCTAssertEqualObjects(manager.candidateManager.candidates[0], @"ः");
 }
 
 @end

@@ -23,5 +23,6 @@
 @property NSDictionary *attributes;
 
 -(id)initWithCommittedString:(NSString *)theString;
+-(void)handleBackspace;
 
 @end
