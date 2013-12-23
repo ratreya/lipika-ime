@@ -13,15 +13,13 @@
 @implementation DJTestClient
 
 @synthesize committedString;
-@synthesize markedString;
 @synthesize attributes;
 
 -(id)initWithCommittedString:(NSString *)theString {
     self = [super init];
     if (!self) return self;
     committedString = theString;
-    markedString = theString;
-    selectedRange = NSMakeRange(theString.length, 0);
+    markedString = @"";
     attributes = [NSDictionary dictionary];
     return self;
 }
@@ -29,31 +27,38 @@
 -(void)insertText:(id)string replacementRange:(NSRange)replacementRange {
     if ([string isKindOfClass:[NSAttributedString class]]) string = [string string];
     committedString = [committedString stringByReplacingCharactersInRange:replacementRange withString:string];
-    markedString = committedString;
-    selectedRange = NSMakeRange(committedString.length, 0);
+    markedString = @"";
 }
 
 -(void)setMarkedText:(id)string selectionRange:(NSRange)selectionRange replacementRange:(NSRange)replacementRange {
     if ([string isKindOfClass:[NSAttributedString class]]) string = [string string];
-    if (replacementRange.location == NSNotFound) replacementRange = selectedRange;
-    markedString = [committedString stringByReplacingCharactersInRange:replacementRange withString:string];
+    if (replacementRange.location == NSNotFound) replacementRange = NSMakeRange(committedString.length, 0);
+    else committedString = [committedString stringByReplacingCharactersInRange:replacementRange withString:@""];
+    markedString = string;
 }
 
 -(NSRange)selectedRange {
-    return selectedRange;
+    return NSMakeRange(committedString.length, 0);
+}
+
+-(NSString *)markedString {
+    return [committedString stringByAppendingString:markedString];
+}
+
+-(void)setMarkedString:(NSString *)theMarkedString {
+    markedString = theMarkedString;
 }
 
 -(NSAttributedString*)attributedSubstringFromRange:(NSRange)range {
     return [[NSAttributedString alloc] initWithString:[committedString substringWithRange:range]];
 }
 
--(NSDictionary*)attributesForCharacterIndex:(NSUInteger)index lineHeightRectangle:(NSRect*)lineRect {
+-(NSDictionary *)attributesForCharacterIndex:(NSUInteger)index lineHeightRectangle:(NSRect*)lineRect {
     return attributes;
 }
 
 -(void)handleBackspace {
     committedString = [committedString substringToIndex:committedString.length - 1];
-    selectedRange = NSMakeRange(committedString.length, 0);
 }
 
 @end
