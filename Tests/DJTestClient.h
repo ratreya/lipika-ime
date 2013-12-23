@@ -13,8 +13,6 @@
 @interface DJTestClient : NSObject<IMKTextInput> {
     NSString *committedString;
     NSString *markedString;
-    NSRange selectedRange;
-    NSRange markedRange;
     NSDictionary *attributes;
 }
 
