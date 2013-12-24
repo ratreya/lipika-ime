@@ -34,8 +34,8 @@ static long numCompositionCommits = 0;
 
 -(BOOL)inputText:(NSString *)string {
     NSString *previousText;
-    // If this is the first character and combine with previous glyph is enabled
-    if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && ![bufferManager hasDeletable]) {
+    // If this is the first character and combine with previous glyph is enabled and client supports TSMDocumentAccess protocol
+    if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && [self isAccessSupported] && ![bufferManager hasDeletable]) {
         previousText = [self previousTextWithOffset:0];
     }
     NSString *commitString = [bufferManager outputForInput:string previousText:previousText];
@@ -51,7 +51,8 @@ static long numCompositionCommits = 0;
         return NO;
     }
     BOOL hasDeletable = [bufferManager hasDeletable];
-    if (![DJLipikaUserSettings isCombineWithPreviousGlyph]) {
+    // Don't combine with previous character if user setting is off or if the client does not support TSMDocumentAccess protocol
+    if (![DJLipikaUserSettings isCombineWithPreviousGlyph] || ![self isAccessSupported]) {
         [bufferManager delete];
         [self updateCandidates];
         return hasDeletable;
@@ -181,6 +182,10 @@ static long numCompositionCommits = 0;
 -(void)revert {
     NSString *previous = [bufferManager revert];
     if (previous) [client insertText:previous replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+}
+
+-(BOOL)isAccessSupported {
+    return [client selectedRange].location != NSNotFound;
 }
 
 @end
