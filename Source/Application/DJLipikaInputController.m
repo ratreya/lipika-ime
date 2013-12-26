@@ -22,7 +22,7 @@
     if (self == nil) {
         return self;
     }
-    manager = [[DJLipikaClientManager alloc] initWithClient:inputClient];
+    manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:inputClient]];
     return self;
 }
 

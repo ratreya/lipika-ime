@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "DJLipikaSchemeFactory.h"
 #import "DJLipikaClientManager.h"
+#import "DJLipikaClientDelegate.h"
 #import "DJTestHelper.h"
 #import "DJTestClient.h"
 
@@ -33,7 +34,7 @@
     [DJLipikaSchemeFactory setSchemesDirectory:@"./Schemes"];
     [DJTestHelper setupUserSettings];
     client = [[DJTestClient alloc] initWithCommittedString:@""];
-    manager = [[DJLipikaClientManager alloc] initWithClient:client];
+    manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:client]];
     [manager changeToSchemeWithName:@"Barahavat" forScript:@"Devanagari" type:DJ_LIPIKA];
 }
 

@@ -92,7 +92,7 @@ static NSRegularExpression *whiteSpace;
             }
             return aggregate.count ? [aggregate componentsJoinedByString:@""] : nil;
         }
-        // Fush if stop character or whitespace
+        // Fush if whitespace
         BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
         if (isWhiteSpace) {
             [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];

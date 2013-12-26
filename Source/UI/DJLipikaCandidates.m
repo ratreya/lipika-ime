@@ -16,7 +16,7 @@ extern IMKCandidates *candidates;
 
 @implementation DJLipikaCandidates
 
--(id)initWithClient:(id<IMKTextInput>)theClient {
+-(id)initWithClient:(DJLipikaClientDelegate *)theClient {
     self = [super init];
     if (self == nil) {
         return self;
@@ -38,9 +38,7 @@ extern IMKCandidates *candidates;
     NSString *forCandidate;
     NSAttributedString *forClient;
     // Get the attributes of the client
-    NSDictionary *attributes;
-    NSRect rect = NSMakeRect(0, 0, 0, 0);
-    attributes = [client attributesForCharacterIndex:0 lineHeightRectangle:&rect];
+    NSDictionary *attributes = [client textAttributesAtCurrentPosition];
 
     if ([DJLipikaUserSettings isOutputInCandidate]) {
         forCandidate = outputString;
@@ -52,10 +50,7 @@ extern IMKCandidates *candidates;
     }
 
     if (forClient) {
-        NSRange replacementRange = [client selectedRange];
-        replacementRange.location -= replacementLength;
-        replacementRange.length += replacementLength;
-        [client setMarkedText:forClient selectionRange:NSMakeRange([forClient length], 0) replacementRange:replacementRange];
+        [client setMarkedText:forClient withReplacementOffset:replacementLength];
     }
     if (forCandidate) {
         if ([DJLipikaUserSettings isOverrideCandidateAttributes]) {
@@ -74,7 +69,7 @@ extern IMKCandidates *candidates;
 }
 
 -(void)hide {
-    [client setMarkedText:@"" selectionRange:NSMakeRange(0, 0) replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [client clearMarkedText];
     [candidates hide];
     currentCandidates = [NSArray array];
 }
