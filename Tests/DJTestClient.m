@@ -57,6 +57,14 @@
     return attributes;
 }
 
+-(BOOL)supportsProperty:(TSMDocumentPropertyTag)property {
+    return YES;
+}
+
+-(NSString *)bundleIdentifier {
+    return @"this.app.does.not.exist";
+}
+
 -(void)handleBackspace {
     committedString = [committedString substringToIndex:committedString.length - 1];
 }

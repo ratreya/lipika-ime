@@ -18,7 +18,7 @@ static long numCompositionCommits = 0;
 
 @implementation DJLipikaClientManager
 
--(id)initWithClient:(id<IMKTextInput>)theClient {
+-(id)initWithClient:(DJLipikaClientDelegate *)theClient {
     self = [super init];
     if (!self) return self;
     numMyCompositionCommits = 0;
@@ -35,11 +35,11 @@ static long numCompositionCommits = 0;
 -(BOOL)inputText:(NSString *)string {
     NSString *previousText;
     // If this is the first character and combine with previous glyph is enabled and client supports TSMDocumentAccess protocol
-    if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && [self isAccessSupported] && ![bufferManager hasDeletable]) {
-        previousText = [self previousTextWithOffset:0];
+    if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && [client isDocumentAccessSupported] && ![bufferManager hasDeletable]) {
+        previousText = [client previousTextOfLength:[bufferManager maxOutputLength] withOffset:0];
     }
     NSString *commitString = [bufferManager outputForInput:string previousText:previousText];
-    if (commitString) [client insertText:commitString replacementRange:[client selectedRange]];
+    if (commitString) [client replaceTextAtCurrentSelection:commitString];
     [self updateCandidates];
     return YES;
 }
@@ -52,19 +52,19 @@ static long numCompositionCommits = 0;
     }
     BOOL hasDeletable = [bufferManager hasDeletable];
     // Don't combine with previous character if user setting is off or if the client does not support TSMDocumentAccess protocol
-    if (![DJLipikaUserSettings isCombineWithPreviousGlyph] || ![self isAccessSupported]) {
+    if (![DJLipikaUserSettings isCombineWithPreviousGlyph] || ![client isDocumentAccessSupported]) {
         [bufferManager delete];
         [self updateCandidates];
         return hasDeletable;
     }
     // The following logic is to combine with previous glyph
     if (!hasDeletable) {
-        NSString *previousText = [self previousTextWithOffset:0];
+        NSString *previousText = [client previousTextOfLength:[bufferManager maxOutputLength] withOffset:0];
         if (previousText) {
             if ([bufferManager outputForInput:@"" previousText:previousText]) {
                 // This means that the previous character is either whitespace, stop character or non-reverse-mappable
                 // Leave out one character and try the remaining
-                previousText = [self previousTextWithOffset:1];
+                previousText = [client previousTextOfLength:[bufferManager maxOutputLength] withOffset:1];
                 if ([bufferManager outputForInput:@"" previousText:previousText]) {
                     // This means that the previous two characters are either whitespace, stop character or non-reverse-mappable
                     return NO;
@@ -83,7 +83,7 @@ static long numCompositionCommits = 0;
     [self updateCandidates];
     // If there are no more deletables then pre-parse previous text
     if (![bufferManager hasDeletable]) {
-        NSString *previousText = [self previousTextWithOffset:0];
+        NSString *previousText = [client previousTextOfLength:[bufferManager maxOutputLength] withOffset:0];
         if (previousText) {
             [bufferManager outputForInput:@"" previousText:previousText];
             [self updateCandidates];
@@ -135,7 +135,7 @@ static long numCompositionCommits = 0;
 }
 
 -(void)onCandidateSelected:(NSString *)candidateString {
-    [client insertText:candidateString replacementRange:[client selectedRange]];
+    [client replaceTextAtCurrentSelection:candidateString];
     [bufferManager flush];
     [candidateManager hide];
 }
@@ -143,19 +143,6 @@ static long numCompositionCommits = 0;
 -(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName type:(enum DJSchemeType)type {
     [self commit];
     [bufferManager changeToSchemeWithName:schemeName forScript:scriptName type:type];
-}
-
--(NSString *)previousTextWithOffset:(int)offset {
-    NSString *previousText = nil;
-    NSRange currentPosition = [client selectedRange];
-    if (currentPosition.location != NSNotFound) {
-        currentPosition.location -= offset;
-        if (currentPosition.location > 0) {
-            unsigned long length = MIN(currentPosition.location, [bufferManager maxOutputLength]);
-            previousText = [[client attributedSubstringFromRange:NSMakeRange(currentPosition.location - length, length)] string];
-        }
-    }
-    return previousText;
 }
 
 -(void)updateCandidates {
@@ -173,19 +160,14 @@ static long numCompositionCommits = 0;
 
 -(void)commit {
     NSString *commitString = [bufferManager flush];
-    if (commitString) {
-        [client insertText:commitString replacementRange:[client selectedRange]];
-    }
+    if (commitString) [client replaceTextAtCurrentSelection:commitString];
     [candidateManager hide];
 }
 
 -(void)revert {
+    [candidateManager hide];
     NSString *previous = [bufferManager revert];
-    if (previous) [client insertText:previous replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
-}
-
--(BOOL)isAccessSupported {
-    return [client selectedRange].location != NSNotFound;
+    if (previous) [client insertTextAtCurrentPosition:previous];
 }
 
 @end

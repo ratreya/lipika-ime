@@ -172,7 +172,6 @@ static NSRegularExpression *addendumSubExpression;
         logDebug(@"Parsing token: %@", token);
         // Store replacement range
         reference.replacement = range;
-        logDebug(@"Replacement range: %@", NSStringFromRange(range));
         // Parse the token
         if ([[token substringToIndex:1] isEqualToString:@"["]) {
             reference.type = SCRIPT;

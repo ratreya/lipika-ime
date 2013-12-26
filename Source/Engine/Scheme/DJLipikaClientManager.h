@@ -13,12 +13,12 @@
 
 @interface DJLipikaClientManager : NSObject {
     long numMyCompositionCommits;
-    id<IMKTextInput> client;
+    DJLipikaClientDelegate *client;
     DJLipikaBufferManager *bufferManager;
     DJLipikaCandidates *candidateManager;
 }
 
--(id)initWithClient:(id<IMKTextInput>)theClient;
+-(id)initWithClient:(DJLipikaClientDelegate *)theClient;
 -(DJLipikaCandidates *)candidateManager;
 -(BOOL)inputText:(NSString *)string;
 -(BOOL)handleBackspace;
