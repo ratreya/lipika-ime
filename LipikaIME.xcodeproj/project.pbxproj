@@ -31,9 +31,6 @@
 		A500ED381849765200A6945D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A500ED341849765200A6945D /* LICENSE */; };
 		A500ED391849765200A6945D /* README in Resources */ = {isa = PBXBuildFile; fileRef = A500ED351849765200A6945D /* README */; };
 		A53672FD1708C96D00B5C1E6 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A53672FC1708C96D00B5C1E6 /* icon.icns */; };
-		A5526A0D1857BD96001C8F5E /* Hindi-Hindi.ime in Resources */ = {isa = PBXBuildFile; fileRef = A5526A0C1857BD96001C8F5E /* Hindi-Hindi.ime */; };
-		A5526A0F1857BDA0001C8F5E /* Hindi.map in Resources */ = {isa = PBXBuildFile; fileRef = A5526A0E1857BDA0001C8F5E /* Hindi.map */; };
-		A5526A111857BDA6001C8F5E /* Hindi.tlr in Resources */ = {isa = PBXBuildFile; fileRef = A5526A101857BDA6001C8F5E /* Hindi.tlr */; };
 		A56EF7A51866532E00DE6419 /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F8EF901853F40B0036E31A /* DJTestHelper.m */; };
 		A56EF7A61866532E00DE6419 /* DJTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A56EF7A3186631E000DE6419 /* DJTestClient.m */; };
 		A56EF7A71866533E00DE6419 /* DJGoogleEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5999A9518497778002EE8AE /* DJGoogleEngineTest.m */; };
@@ -173,6 +170,7 @@
 		A5BA7D59181D912100461B2F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5BA7D65181D91A000461B2F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		A5BA7D67181DA28100461B2F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Installer/Source/main.m; sourceTree = SOURCE_ROOT; };
+		A5BC29B9186E38530083EB32 /* TestKsharanam.scm */ = {isa = PBXFileReference; lastKnownFileType = text; name = TestKsharanam.scm; path = Tests/Google/Schemes/TestKsharanam.scm; sourceTree = SOURCE_ROOT; };
 		A5C54E0316BA20C1007F631D /* LipikaIMETest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaIMETest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C6BB2016B5A5F100B02E1B /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5CD9F0616EBFF4E0024A20A /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LipikaIcon.png; path = Resources/LipikaIcon.png; sourceTree = "<group>"; };
@@ -317,6 +315,7 @@
 		A506B92B16BDE8F000EA49C0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5BC29B9186E38530083EB32 /* TestKsharanam.scm */,
 				A500ED451849771600A6945D /* TestHappyCase.scm */,
 				A500ED461849771600A6945D /* TestITRANS.scm */,
 				A500ED471849771600A6945D /* TestMultipleReplay.scm */,
@@ -638,16 +637,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5526A0D1857BD96001C8F5E /* Hindi-Hindi.ime in Resources */,
 				A5999AB418498171002EE8AE /* MainMenu.nib in Resources */,
 				A5999AB318498171002EE8AE /* InfoPlist.strings in Resources */,
 				A5999AB618498195002EE8AE /* UserSettings.plist in Resources */,
 				A500ED391849765200A6945D /* README in Resources */,
-				A5526A111857BDA6001C8F5E /* Hindi.tlr in Resources */,
 				A500ED381849765200A6945D /* LICENSE in Resources */,
 				A5C6BB2116B5A5F100B02E1B /* Schemes in Resources */,
 				A5999AB518498171002EE8AE /* Preferences.xib in Resources */,
-				A5526A0F1857BDA0001C8F5E /* Hindi.map in Resources */,
 				A5CD9F0716EBFF4E0024A20A /* LipikaIcon.png in Resources */,
 				A53672FD1708C96D00B5C1E6 /* icon.icns in Resources */,
 			);

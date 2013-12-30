@@ -43,7 +43,7 @@
     }
     DJParseOutput *result = [[DJParseOutput alloc] init];
     result.input = nextNode.value;
-    result.output = nextNode.key;
+    result.output = reverseStringForString(nextNode.key);
     return result;
 }
 
@@ -58,11 +58,7 @@
 }
 
 +(DJTrieNode *)createReverseMappingForTrie:(DJReadWriteTrie *)trie withInput:(NSString *)input output:(NSString *)output {
-    NSMutableArray *reversedOutputArray = [NSMutableArray arrayWithCapacity:output.length];
-    [charactersForString(output) enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [reversedOutputArray addObject:obj];
-    }];
-    return [trie addValue:input forKey:[reversedOutputArray componentsJoinedByString:@""]];
+    return [trie addValue:input forKey:reverseStringForString(output)];
 }
 
 @end

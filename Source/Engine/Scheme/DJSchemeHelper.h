@@ -14,5 +14,6 @@
 extern NSMutableArray *charactersForString(NSString *string);
 extern NSArray *csvToArrayForString(NSString *csvLine);
 extern NSString *stringForUnicode(NSString *unicodeString);
+extern NSString *reverseStringForString(NSString *inputString);
 
 @end

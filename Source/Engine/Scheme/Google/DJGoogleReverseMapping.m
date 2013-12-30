@@ -9,6 +9,7 @@
 
 #import "DJGoogleReverseMapping.h"
 #import "DJGoogleInputScheme.h"
+#import "DJSchemeHelper.h"
 #import "DJLogger.h"
 
 @interface DJSimpleReverseMapping (Google)
@@ -62,8 +63,8 @@
     }
 }
 
--(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
-    [self createClassMappingForTrie:parseTrie preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    [self createClassMappingForTrie:parseTrie preInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     // Update maximum size
     NSNumber *classSize = [maxOutputSizesPerClass objectForKey:className];
     if (!classSize) {
@@ -75,12 +76,12 @@
     }
 }
 
--(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+-(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
     DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:containerClass])) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", containerClass];
     }
-    [self createClassMappingForTrie:currentClass preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+    [self createClassMappingForTrie:currentClass preInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     // Update the maximum size of value per class
     NSNumber *classSize = [maxOutputSizesPerClass objectForKey:className];
     if (!classSize) {
@@ -96,30 +97,31 @@
     }
 }
 
--(void)createClassMappingForTrie:(DJReadWriteTrie *)trie preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
-    DJTrieNode *currentNode = trie.trieHead;
-    // Merge in all the post values
-    if (postOutput && postOutput.length > 0) {
-        currentNode = [DJSimpleReverseMapping createReverseMappingForTrie:trie withInput:nil output:postOutput];
+-(void)createClassMappingForTrie:(DJReadWriteTrie *)trie preInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    // Create postOutput node if any
+    DJTrieNode *atNode = trie.trieHead;
+    if (isWildcard && postOutput.length > 0) {
+        atNode = [DJSimpleReverseMapping createReverseMappingForTrie:trie withInput:nil output:postOutput];
     }
-    // Merge in the class hop
+    // Clone the class trie and add preOutput paths
     DJReadWriteTrie *classTrie = [classes objectForKey:className];
-    if (!classTrie) {
+    if (classTrie == nil) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    NSArray *leafNodes = [trie mergeTrieWithHead:classTrie.trieHead intoNode:currentNode];
-    // Merge in the pre values
-    for (DJTrieNode *leafNode in leafNodes) {
-        NSString *input = [preInput stringByAppendingString:leafNode.value];
-        NSString *output = [NSString stringWithFormat:@"%@%@%@", preOutput, leafNode.key, postOutput];
-        if (preOutput && preOutput.length > 0) {
-            [parseTrie addValue:input forKey:output atNode:leafNode withPath:preOutput];
+    DJReadWriteTrie *clonedClassTrie = [classTrie cloneTrieUsingBlock:^DJTrieNode *(DJReadWriteTrie *clonedTrie, DJTrieNode *original) {
+        DJTrieNode *clonedNode = [[DJTrieNode alloc] init];
+        NSString *reversePostOutput = reverseStringForString(postOutput);
+        if (original.key) clonedNode.key = isWildcard ? [reversePostOutput stringByAppendingString:original.key] : reversePostOutput;
+        if (original.value) {
+            NSString *reversePreOutput = reverseStringForString(preOutput);
+            NSString *fullKey = isWildcard ? [clonedNode.key stringByAppendingString:reversePreOutput] : reversePreOutput;
+            NSString *fullValue = [NSString stringWithFormat:@"%@%@%@", preInput, original.value, postInput];
+            [clonedTrie addValue: fullValue forKey:fullKey atNode:clonedNode withPath:reversePreOutput];
         }
-        else {
-            leafNode.key = output;
-            leafNode.value = input;
-        }
-    }
+        return clonedNode;
+    }];
+    // Merge the cloned trie at the postOutput node
+    [trie mergeTrieWithHead:clonedClassTrie.trieHead intoNode:atNode];
 }
 
 @end

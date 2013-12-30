@@ -55,10 +55,20 @@
 -(void)testNonDefaultHeaders {
     DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./Tests/Google/Schemes/TestITRANS.scm"];
     XCTAssertEqualObjects(@"VowelSigns", [myScheme.forwardMappings classNameForInput:@"u"], @"Unexpected output");
-    NSString* output = [scheme.forwardMappings.parseTrie nodeForKey:@"~j"].value;
+    NSString* output = [myScheme.forwardMappings.parseTrie nodeForKey:@"~n"].value;
     XCTAssertEqualObjects(output,  @"ञ्", @"Unexpected output");
-    output = [scheme.forwardMappings.parseTrie nodeForKey:@"~jI"].value;
+    output = [myScheme.forwardMappings.parseTrie nodeForKey:@"~nI"].value;
     XCTAssertEqualObjects(output,  @"ञी", @"Unexpected output: %@", output);
+}
+
+-(void)testPostInputMapping {
+    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./Tests/Google/Schemes/TestKsharanam.scm"];
+    NSString* output = [myScheme.forwardMappings.parseTrie nodeForKey:@"nj"].value;
+    XCTAssertEqualObjects(output,  @"ञ्", @"Unexpected output");
+    output = [myScheme.forwardMappings.parseTrie nodeForKey:@"njI"].value;
+    XCTAssertEqualObjects(output,  @"ञी", @"Unexpected output: %@", output);
+    output = [myScheme.forwardMappings.parseTrie nodeForKey:@"krrw"].value;
+    XCTAssertEqualObjects(output,  @"क्रृ", @"Unexpected output: %@", output);
 }
 
 @end

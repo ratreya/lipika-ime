@@ -73,23 +73,24 @@ static NSString *schemesDirectory;
 }
 
 +(NSArray *)availableScripts {
-    return [DJLipikaSchemeFactory fileInSubdirectory:SCRIPTSUBDIR withExternsion:[NSString stringWithFormat:@".%@", SCRIPTEXTENSION]];
+    return [DJLipikaSchemeFactory fileInSubdirectory:SCRIPTSUBDIR withExtension:[NSString stringWithFormat:@".%@", SCRIPTEXTENSION]];
 }
 
 +(NSArray *)availableSchemes {
-    return [DJLipikaSchemeFactory fileInSubdirectory:SCHEMESUBDIR withExternsion:[NSString stringWithFormat:@".%@", SCHEMEEXTENSION]];
+    return [DJLipikaSchemeFactory fileInSubdirectory:SCHEMESUBDIR withExtension:[NSString stringWithFormat:@".%@", SCHEMEEXTENSION]];
 }
 
 -(id<DJInputMethodScheme>)scheme {
     return scheme;
 }
 
-+(NSArray *)fileInSubdirectory:(NSString *)subDirectory withExternsion:(NSString *)extension {
++(NSArray *)fileInSubdirectory:(NSString *)subDirectory withExtension:(NSString *)extension {
     NSError *error;
     NSString *path = subDirectory? [schemesDirectory stringByAppendingPathComponent:subDirectory] : schemesDirectory;
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
     if (error != nil) {
-        [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
+        logWarning(@"Cannot access schemes directory: %@", [error localizedDescription]);
+        return [NSArray array];
     }
     NSArray *files = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self ENDSWITH '%@'", extension]]];
     NSMutableArray *names = [[NSMutableArray alloc] initWithCapacity:0];
