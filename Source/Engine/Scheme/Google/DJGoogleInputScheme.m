@@ -95,10 +95,7 @@ static NSRegularExpression *simpleMappingExpression;
             NSString *preClass = [classKeyExpression stringByReplacingMatchesInString:input options:0 range:NSMakeRange(0, [input length]) withTemplate:@"$1"];
             NSString *className = [classKeyExpression stringByReplacingMatchesInString:input options:0 range:NSMakeRange(0, [input length]) withTemplate:@"$2"];
             NSString *postClass = [classKeyExpression stringByReplacingMatchesInString:input options:0 range:NSMakeRange(0, [input length]) withTemplate:@"$3"];
-            logDebug(@"Parsed input with pre-class: %@; class: %@", preClass, className);
-            if ([postClass length]) {
-                [NSException raise:@"Class mapping not suffix" format:@"Class mapping: %@ has invalid suffix: %@ at line: %d", className, postClass, currentLineNumber];
-            }
+            logDebug(@"Parsed input with pre-class: %@; class: %@ post-class:%@", preClass, className, postClass);
             BOOL isWildcard = NO;
             NSString *preWildcard;
             NSString *postWildcard;
@@ -109,7 +106,11 @@ static NSRegularExpression *simpleMappingExpression;
                 postWildcard = [wildcardValueExpression stringByReplacingMatchesInString:output options:0 range:NSMakeRange(0, [output length]) withTemplate:@"$2"];
                 logDebug(@"Parsed output with pre-wildcard: %@; post-wildcard: %@", preWildcard, postWildcard);
             }
-            [self createClassMappingWithPreInput:preClass className:className isWildcard:isWildcard preOutput:preWildcard postOutput:postWildcard];
+            else {
+                preWildcard = output;
+                postWildcard = @"";
+            }
+            [self createClassMappingWithPreInput:preClass className:className postInput:postClass isWildcard:isWildcard preOutput:preWildcard postOutput:postWildcard];
         }
         else {
             [self createSimpleMappingWithInput:input output:output];
@@ -144,14 +145,14 @@ static NSRegularExpression *simpleMappingExpression;
     }
 }
 
--(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className postInput:postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
     if (isProcessingClassDefinition) {
-        [forwardMappings createClassMappingForClass:currentClassName preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
-        [reverseMappings createClassMappingForClass:currentClassName preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+        [forwardMappings createClassMappingForClass:currentClassName preInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+        [reverseMappings createClassMappingForClass:currentClassName preInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     }
     else {
-        [forwardMappings createClassMappingWithPreInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
-        [reverseMappings createClassMappingWithPreInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+        [forwardMappings createClassMappingWithPreInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+        [reverseMappings createClassMappingWithPreInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
     }
 }
 

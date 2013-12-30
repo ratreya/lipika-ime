@@ -110,7 +110,7 @@
     BOOL isSchemeItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJSchemeSubMenu];
     BOOL isScriptItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJScriptSubMenu];
     if (isGoogleItem) {
-        [self clearAllOnStates:[NSApp mainMenu]];
+        [self clearAllOnStates:[[menuItem parentItem] menu]];
     }
     else if (isScriptItem || isSchemeItem) {
         // Clear state of all sub-menus under "Input scheme" or "Output script" menu item

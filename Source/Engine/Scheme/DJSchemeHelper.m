@@ -38,4 +38,12 @@ extern NSString *stringForUnicode(NSString *unicodeString) {
     return [[NSString alloc] initWithBytes:&unicode length:4 encoding:NSUTF32LittleEndianStringEncoding];
 }
 
+extern NSString *reverseStringForString(NSString *inputString) {
+    NSMutableArray *reversedOutputArray = [NSMutableArray arrayWithCapacity:inputString.length];
+    [charactersForString(inputString) enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [reversedOutputArray addObject:obj];
+    }];
+    return [reversedOutputArray componentsJoinedByString:@""];
+}
+
 @end

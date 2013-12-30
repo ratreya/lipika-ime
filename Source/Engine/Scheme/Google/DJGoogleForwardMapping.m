@@ -12,6 +12,12 @@
 #import "DJTrieNode.h"
 #import "DJLogger.h"
 
+@interface DJReadWriteTrie (Google)
+
+-(DJTrieNode *)addValue:(NSString *)value forKey:(NSString *)key atNode:(DJTrieNode *)atNode withPath:(NSString *)path;
+
+@end
+
 @implementation DJGoogleForwardMapping
 
 -(id)initWithScheme:(DJGoogleInputScheme *)parentScheme {
@@ -43,43 +49,39 @@
     [currentClass addValue:output forKey:input];
 }
 
--(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
-    [self createClassMappingForTrie:parseTrie preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+    [self createClassMappingForTrie:parseTrie preInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
 }
 
--(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+-(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
     DJReadWriteTrie *currentClass;
     if (!(currentClass = [classes objectForKey:containerClass])) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", containerClass];
     }
-    [self createClassMappingForTrie:currentClass preInput:preInput className:className isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
+    [self createClassMappingForTrie:currentClass preInput:preInput className:className postInput:postInput isWildcard:isWildcard preOutput:preOutput postOutput:postOutput];
 }
 
--(void)createClassMappingForTrie:(DJReadWriteTrie *)trie preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
+-(void)createClassMappingForTrie:(DJReadWriteTrie *)trie preInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput {
     DJReadWriteTrie *classTrie = [classes objectForKey:className];
     if (classTrie == nil) {
         [NSException raise:@"Unknown class" format:@"Unknown class name: %@", className];
     }
-    // Clone the class trie and format it if needed
-    DJTrieNode *nextNode;
-    if (isWildcard) {
-        // Output is nil and format is applied to all outputs of its subtrie
-        NSString *format = [NSString stringWithFormat:@"%@%%@%@", preOutput, postOutput];
-        // Set the formated output trie as this node's subtrie
-        DJReadWriteTrie *clonedClassTrie = [classTrie cloneTrieUsingBlock:^DJTrieNode *(DJTrieNode *original) {
-            DJTrieNode *clonedNode = [[DJTrieNode alloc] init];
-            clonedNode.key = original.key;
-            clonedNode.value = original.value? [NSString stringWithFormat:format, original.value] : nil;
-            return clonedNode;
-        }];
-        nextNode = clonedClassTrie.trieHead;
-    }
-    else {
-        // Append the named parse trie as-is since there is no wildcard formatting
-        nextNode = classTrie.trieHead;
-    }
-    DJTrieNode *atNode = [trie addValue:nil forKey:preInput];
-    [trie mergeTrieWithHead:nextNode intoNode:atNode];
+    // Clone the class trie and add postInput paths
+    DJReadWriteTrie *clonedClassTrie = [classTrie cloneTrieUsingBlock:^DJTrieNode *(DJReadWriteTrie *clonedTrie, DJTrieNode *original) {
+        DJTrieNode *clonedNode = [[DJTrieNode alloc] init];
+        if (original.key) clonedNode.key = [preInput stringByAppendingString:original.key];
+        if (original.value) {
+            NSString *postKey = [clonedNode.key stringByAppendingString:postInput];
+            NSString *postValue = isWildcard ? [NSString stringWithFormat:@"%@%@%@", preOutput, original.value, postOutput] : preOutput;
+            [clonedTrie addValue: postValue forKey:postKey atNode:clonedNode withPath:postInput];
+        }
+        return clonedNode;
+    }];
+    // Merge the cloned trie at the preInput node
+    DJTrieNode *atNode;
+    if (preInput && preInput.length) atNode = [trie addValue:nil forKey:preInput];
+    else atNode = trie.trieHead;
+    [trie mergeTrieWithHead:clonedClassTrie.trieHead intoNode:atNode];
 }
 
 -(NSString *)classNameForInput:(NSString *)input {

@@ -88,20 +88,20 @@
     }
 }
 
--(DJReadWriteTrie *)cloneTrieUsingBlock:(DJTrieNode*(^)(DJTrieNode *original))cloneNode {
-    DJReadWriteTrie *newTrie = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
-    [self cloneToTrieNode:newTrie.trieHead fromNode:trieHead usingBlock:cloneNode];
-    return newTrie;
+-(DJReadWriteTrie *)cloneTrieUsingBlock:(DJTrieNode*(^)(DJReadWriteTrie *clonedTrie, DJTrieNode *original))cloneNode {
+    DJReadWriteTrie *clonedTrie = [[DJReadWriteTrie alloc] initWithIsOverwrite:YES];
+    [self cloneToTrieNode:clonedTrie.trieHead forTrie:clonedTrie fromNode:trieHead usingBlock:cloneNode];
+    return clonedTrie;
 }
 
--(void)cloneToTrieNode:(DJTrieNode *)toNode fromNode:(DJTrieNode *)fromNode usingBlock:(DJTrieNode*(^)(DJTrieNode *original))cloneNode {
+-(void)cloneToTrieNode:(DJTrieNode *)toNode forTrie:(DJReadWriteTrie *)clonedTrie fromNode:(DJTrieNode *)fromNode usingBlock:(DJTrieNode*(^)(DJReadWriteTrie *clonedTrie, DJTrieNode *original))cloneNode {
     for (NSString *key in [fromNode.next keyEnumerator]) {
         DJTrieNode *node = [fromNode.next objectForKey:key];
         if (node) {
-            DJTrieNode *clonedNode = cloneNode(node);
+            DJTrieNode *clonedNode = cloneNode(clonedTrie, node);
             if (!toNode.next) toNode.next = [NSMutableDictionary dictionaryWithCapacity:1];
             [toNode.next setObject:clonedNode forKey:key];
-            [self cloneToTrieNode:clonedNode fromNode:node usingBlock:cloneNode];
+            [self cloneToTrieNode:clonedNode forTrie:clonedTrie fromNode:node usingBlock:cloneNode];
         }
     }
 }

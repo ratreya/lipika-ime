@@ -18,7 +18,7 @@
 -(void)createClassWithName:(NSString *)className;
 -(void)createSimpleMappingWithInput:(NSString *)input output:(NSString *)output;
 -(void)createSimpleMappingForClass:(NSString *)className input:(NSString *)input output:(NSString *)output;
--(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput;
--(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput;
+-(void)createClassMappingWithPreInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput;
+-(void)createClassMappingForClass:(NSString *)containerClass preInput:(NSString *)preInput className:(NSString *)className postInput:(NSString*)postInput isWildcard:(BOOL)isWildcard preOutput:(NSString *)preOutput postOutput:(NSString *)postOutput;
 
 @end

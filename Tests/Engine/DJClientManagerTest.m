@@ -33,6 +33,7 @@
     [super setUp];
     [DJLipikaSchemeFactory setSchemesDirectory:@"./Schemes"];
     [DJTestHelper setupUserSettings];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"CombineWithPreviousGlyph"];
     client = [[DJTestClient alloc] initWithCommittedString:@""];
     manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:client]];
     [manager changeToSchemeWithName:@"Barahavat" forScript:@"Devanagari" type:DJ_LIPIKA];

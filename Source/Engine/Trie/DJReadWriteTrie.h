@@ -18,6 +18,6 @@
 -(id)initWithIsOverwrite:(BOOL)theIsOverwrite;
 -(DJTrieNode *)addValue:(NSString *)value forKey:(NSString *)key;
 -(NSArray *)mergeTrieWithHead:(DJTrieNode *)trieHead intoNode:(DJTrieNode *)atNode;
--(DJReadWriteTrie *)cloneTrieUsingBlock:(DJTrieNode*(^)(DJTrieNode *original))cloneNode;
+-(DJReadWriteTrie *)cloneTrieUsingBlock:(DJTrieNode*(^)(DJReadWriteTrie *clonedTrie, DJTrieNode *original))cloneNode;
 
 @end

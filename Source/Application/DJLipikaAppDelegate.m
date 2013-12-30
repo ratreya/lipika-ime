@@ -27,42 +27,46 @@
     NSMenuItem *convertFile = [[NSMenuItem alloc] initWithTitle:@"Convert file..." action:@selector(showPreferences:) keyEquivalent:@""];
     [convertFile setTag:++runningTagId];
     [mainMenu addItem:convertFile];
-    // Add Scheme item to the mainMenu
-    NSMenuItem *schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input scheme" action:NULL keyEquivalent:@""];
-    [schemeSelectionItem setTag:++runningTagId];
-    [mainMenu addItem:schemeSelectionItem];
-    // Create a schemes submenu
-    NSMenu *schemeSubMenu = [[NSMenu alloc] initWithTitle:DJSchemeSubMenu];
-    NSArray *schemeNames = [DJInputSchemeUberFactory availableSchemesForType:DJ_LIPIKA];
-    NSString *defaultSchemeName = [DJLipikaUserSettings schemeName];
     enum DJSchemeType type = [DJLipikaUserSettings schemeType];
-    for (NSString *schemeName in schemeNames) {
-        // Add add the schemes to the sub menu
-        NSMenuItem *schemeItem = [[NSMenuItem alloc] initWithTitle:schemeName action:@selector(showPreferences:) keyEquivalent:@""];
-        [schemeItem setTag:++runningTagId];
-        if (type == DJ_LIPIKA && [defaultSchemeName isEqualToString:schemeName]) {
-            [schemeItem setState:NSOnState];
-        }
-        [schemeSubMenu addItem:schemeItem];
-    }
-    [schemeSelectionItem setSubmenu:schemeSubMenu];
-    // Add Script item to the mainMenu
-    NSMenuItem *scriptSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Output script" action:NULL keyEquivalent:@""];
-    [scriptSelectionItem setTag:++runningTagId];
-    [mainMenu addItem:scriptSelectionItem];
-    // Create a scripts submenu
-    NSMenu *scriptSubMenu = [[NSMenu alloc] initWithTitle:DJScriptSubMenu];
+    NSString *defaultSchemeName = [DJLipikaUserSettings schemeName];
+    // Add Scheme item to the mainMenu
+    NSArray *schemeNames = [DJInputSchemeUberFactory availableSchemesForType:DJ_LIPIKA];
     NSArray *scriptNames = [DJInputSchemeUberFactory availableScriptsForType:DJ_LIPIKA];
-    NSString *defaultScriptName = [DJLipikaUserSettings scriptName];
-    for (NSString *scriptName in scriptNames) {
-        NSMenuItem *scriptItem = [[NSMenuItem alloc] initWithTitle:scriptName action:@selector(showPreferences:) keyEquivalent:@""];
-        [scriptItem setTag:++runningTagId];
-        if (type == DJ_LIPIKA && [defaultScriptName isEqualToString:scriptName]) {
-            [scriptItem setState:NSOnState];
+    if (schemeNames.count > 0 && scriptNames.count > 0) {
+        NSMenuItem *schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input scheme" action:NULL keyEquivalent:@""];
+        [schemeSelectionItem setTag:++runningTagId];
+        [mainMenu addItem:schemeSelectionItem];
+        // Create a schemes submenu
+        NSMenu *schemeSubMenu = [[NSMenu alloc] initWithTitle:DJSchemeSubMenu];
+        for (NSString *schemeName in schemeNames) {
+            // Add add the schemes to the sub menu
+            NSMenuItem *schemeItem = [[NSMenuItem alloc] initWithTitle:schemeName action:@selector(showPreferences:) keyEquivalent:@""];
+            [schemeItem setTag:++runningTagId];
+            if (type == DJ_LIPIKA && [defaultSchemeName isEqualToString:schemeName]) {
+                [schemeItem setState:NSOnState];
+            }
+            [schemeSubMenu addItem:schemeItem];
         }
-        [scriptSubMenu addItem:scriptItem];
+        [schemeSelectionItem setSubmenu:schemeSubMenu];
     }
-    [scriptSelectionItem setSubmenu:scriptSubMenu];
+    // Add Script item to the mainMenu
+    if (schemeNames.count > 0 && scriptNames.count > 0) {
+        NSMenuItem *scriptSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Output script" action:NULL keyEquivalent:@""];
+        [scriptSelectionItem setTag:++runningTagId];
+        [mainMenu addItem:scriptSelectionItem];
+        // Create a scripts submenu
+        NSMenu *scriptSubMenu = [[NSMenu alloc] initWithTitle:DJScriptSubMenu];
+        NSString *defaultScriptName = [DJLipikaUserSettings scriptName];
+        for (NSString *scriptName in scriptNames) {
+            NSMenuItem *scriptItem = [[NSMenuItem alloc] initWithTitle:scriptName action:@selector(showPreferences:) keyEquivalent:@""];
+            [scriptItem setTag:++runningTagId];
+            if (type == DJ_LIPIKA && [defaultScriptName isEqualToString:scriptName]) {
+                [scriptItem setState:NSOnState];
+            }
+            [scriptSubMenu addItem:scriptItem];
+        }
+        [scriptSelectionItem setSubmenu:scriptSubMenu];
+    }
     // Create a custom schemes submenu if needed
     NSArray *googleSchemes = [DJInputSchemeUberFactory availableSchemesForType:DJ_GOOGLE];
     if (googleSchemes && googleSchemes.count > 0) {
