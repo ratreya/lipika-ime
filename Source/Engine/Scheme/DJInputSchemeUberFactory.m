@@ -18,13 +18,10 @@
     switch (type) {
         case DJ_LIPIKA:
             return [DJLipikaSchemeFactory inputSchemeForScript:script scheme:scheme];
-            break;
         case DJ_GOOGLE:
             return [DJGoogleSchemeFactory inputSchemeForScheme:scheme];
-            break;
         default:
             return nil;
-            break;
     }
 }
 
@@ -32,10 +29,8 @@
     switch (type) {
         case DJ_LIPIKA:
             return [DJLipikaSchemeFactory availableScripts];
-            break;
         default:
             return nil;
-            break;
     }
 }
 
@@ -43,13 +38,10 @@
     switch (type) {
         case DJ_LIPIKA:
             return [DJLipikaSchemeFactory availableSchemes];
-            break;
         case DJ_GOOGLE:
             return [DJGoogleSchemeFactory availableSchemes];
-            break;
         default:
             return nil;
-            break;
     }
 }
 
