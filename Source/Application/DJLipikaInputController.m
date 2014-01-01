@@ -22,7 +22,13 @@
     if (self == nil) {
         return self;
     }
-    manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:inputClient]];
+    @try {
+        manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:inputClient]];
+    }
+    @catch (NSException *exception) {
+        NSBeep();
+        return nil;
+    }
     return self;
 }
 
@@ -109,6 +115,23 @@
     BOOL isGoogleItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJGoogleSubMenu];
     BOOL isSchemeItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJSchemeSubMenu];
     BOOL isScriptItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJScriptSubMenu];
+    // Try to change to specified script and scheme
+    NSString *name = [menuItem title];
+    @try {
+        if (isSchemeItem) {
+            [manager changeToSchemeWithName:name forScript:[DJInputEngineFactory currentScriptName] type:DJ_LIPIKA];
+        }
+        else if (isScriptItem) {
+            [manager changeToSchemeWithName:[DJInputEngineFactory currentSchemeName] forScript:name type:DJ_LIPIKA];
+        }
+        else if (isGoogleItem) {
+            [manager changeToSchemeWithName:name forScript:nil type:DJ_GOOGLE];
+        }
+    }
+    @catch (NSException *exception) {
+        NSBeep();
+        return;
+    }
     if (isGoogleItem) {
         [self clearAllOnStates:[[menuItem parentItem] menu]];
     }
@@ -121,16 +144,6 @@
     }
     // Turn on state for the script and scheme
     [menuItem setState:NSOnState];
-    NSString *name = [menuItem title];
-    if (isSchemeItem) {
-        [manager changeToSchemeWithName:name forScript:[DJInputEngineFactory currentScriptName] type:DJ_LIPIKA];
-    }
-    else if (isScriptItem) {
-        [manager changeToSchemeWithName:[DJInputEngineFactory currentSchemeName] forScript:name type:DJ_LIPIKA];
-    }
-    else if (isGoogleItem) {
-        [manager changeToSchemeWithName:name forScript:nil type:DJ_GOOGLE];
-    }
 }
 
 -(void)showPreferenceImplimentation:(NSMenuItem *)menuItem {

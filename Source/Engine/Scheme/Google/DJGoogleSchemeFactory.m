@@ -108,23 +108,25 @@ static NSRegularExpression *classesDelimiterExpression;
     NSString *data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
     linesOfScheme = [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
     
+    NSString *batchId = startBatch();
     @try {
-        NSString *batchId = startBatch();
         logDebug(@"Parsing Headers");
         [self parseHeaders];
         endBatch(batchId);
     }
     @catch (NSException *exception) {
+        endBatch(batchId);
         logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
+    batchId = startBatch();
     @try {
-        NSString *batchId = startBatch();
         logDebug(@"Parsing Mappings");
         [self parseMappings];
         endBatch(batchId);
     }
     @catch (NSException *exception) {
+        endBatch(batchId);
         logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
@@ -145,19 +147,19 @@ static NSRegularExpression *classesDelimiterExpression;
             NSString *key = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$1"];
             NSString *value = [headerExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, [line length]) withTemplate:@"$2"];
             logDebug(@"Parsed header. Key: %@; Value: %@", key, value);
-            if ([key isEqualToString:VERSION]) {
+            if ([key caseInsensitiveCompare:VERSION]) {
                 scheme.version = value;
             }
-            else if ([key isEqualToString:NAME]) {
+            else if ([key caseInsensitiveCompare:NAME]) {
                 scheme.name = value;
             }
-            else if ([key isEqualToString:STOP_CHAR]) {
+            else if ([key caseInsensitiveCompare:STOP_CHAR]) {
                 scheme.stopChar = value;
             }
-            else if ([key isEqualToString:WILDCARD]) {
+            else if ([key caseInsensitiveCompare:WILDCARD]) {
                 scheme.wildcard = value;
             }
-            else if ([key isEqualToString:CLASS_DELIMITERS]) {
+            else if ([key caseInsensitiveCompare:CLASS_DELIMITERS]) {
                 if (![classesDelimiterExpression numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])]) {
                     [NSException raise:@"Invalid class delimiter value" format:@"Invalid value: %@ at line %d", value, currentLineNumber + 1];
                 }
