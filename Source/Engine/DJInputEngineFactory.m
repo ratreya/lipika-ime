@@ -41,8 +41,8 @@ static DJInputEngineFactory *singletonFactory = nil;
 }
 
 +(void)setCurrentSchemeWithName:(NSString *)schemeName scriptName:(NSString *)scriptName type:(enum DJSchemeType)type; {
-    singletonFactory.scriptName = scriptName;
-    singletonFactory.schemeName = schemeName;
+    if (scriptName) singletonFactory.scriptName = scriptName;
+    if (schemeName) singletonFactory.schemeName = schemeName;
     singletonFactory.schemeType = type;
 }
 

@@ -9,7 +9,6 @@
 
 #import "DJLipikaInputController.h"
 #import "DJPreferenceController.h"
-#import "DJInputEngineFactory.h"
 #import "DJLipikaFileConvertor.h"
 #import "Constants.h"
 
@@ -119,10 +118,10 @@
     NSString *name = [menuItem title];
     @try {
         if (isSchemeItem) {
-            [manager changeToSchemeWithName:name forScript:[DJInputEngineFactory currentScriptName] type:DJ_LIPIKA];
+            [manager changeToSchemeWithName:name forScript:nil type:DJ_LIPIKA];
         }
         else if (isScriptItem) {
-            [manager changeToSchemeWithName:[DJInputEngineFactory currentSchemeName] forScript:name type:DJ_LIPIKA];
+            [manager changeToSchemeWithName:nil forScript:name type:DJ_LIPIKA];
         }
         else if (isGoogleItem) {
             [manager changeToSchemeWithName:name forScript:nil type:DJ_GOOGLE];

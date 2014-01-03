@@ -143,6 +143,10 @@ static long numCompositionCommits = 0;
 -(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName type:(enum DJSchemeType)type {
     [self commit];
     [bufferManager changeToSchemeWithName:schemeName forScript:scriptName type:type];
+    // If no exceptions then change the user settings
+    [DJLipikaUserSettings setScriptName:scriptName];
+    [DJLipikaUserSettings setSchemeName:schemeName];
+    [DJLipikaUserSettings setSchemeType:type];
 }
 
 -(void)updateCandidates {
