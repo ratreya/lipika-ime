@@ -163,7 +163,7 @@ static NSString *schemesDirectory;
 }
 
 -(NSMutableDictionary *)tsvToDictionaryForFile:(NSString *)filePath dictionary:(NSMutableDictionary *)outerTable {
-    NSArray *linesOfScheme = [self linesOfFile:filePath];
+    NSArray *linesOfScheme = linesOfFile(filePath);
     if (!outerTable) outerTable = [NSMutableDictionary dictionaryWithCapacity:0];
     for (NSString *line in linesOfScheme) {
         logDebug(@"Parsing line %@", line);
@@ -197,7 +197,7 @@ static NSString *schemesDirectory;
         [NSException raise:@"IME referrences depth greater than five" format:@"Terminating IME parsing at %@", filePath];
     }
     logDebug(@"Parsing IME file: %@", filePath);
-    NSArray *lines = [self linesOfFile:filePath];
+    NSArray *lines = linesOfFile(filePath);
     NSMutableArray *imeLines = [NSMutableArray arrayWithCapacity:0];
     for (NSString *line in lines) {
         if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
@@ -236,16 +236,6 @@ static NSString *schemesDirectory;
         }
     }
     return imeLines;
-}
-
--(NSArray *)linesOfFile:(NSString *)filePath {
-    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
-    if (handle == nil) {
-        [NSException raise:@"Unable to read file" format:@"Failed to open file %@ for reading", filePath];
-    }
-    NSData *dataBuffer = [handle readDataToEndOfFile];
-    NSString *data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
-    return [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
 }
 
 @end

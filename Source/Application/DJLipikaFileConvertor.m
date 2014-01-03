@@ -32,12 +32,13 @@
         logDebug(@"Chosen input file: %@", fileURL);
         // Read file contents
         NSError *error;
-        NSString *contents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:&error];
+        NSStringEncoding *encoding;
+        NSString *data = [NSString stringWithContentsOfURL:fileURL usedEncoding:encoding error:&error];
         if (error != nil) {
             [NSAlert alertWithError:error];
             return;
         }
-        NSArray *lines = [contents componentsSeparatedByString:@"\r"];
+        NSArray *lines = [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
         // Open output file and convert
         NSString *outputFileName = [[fileURL path] stringByAppendingPathExtension:@"out"];
         logDebug(@"Ouput file: %@", outputFileName);

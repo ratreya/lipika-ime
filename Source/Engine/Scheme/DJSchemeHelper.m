@@ -46,4 +46,15 @@ extern NSString *reverseStringForString(NSString *inputString) {
     return [reversedOutputArray componentsJoinedByString:@""];
 }
 
+extern NSArray *linesOfFile(NSString *filePath) {
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    NSError *error;
+    NSString *data = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:&error];
+    if (error != nil) {
+        [NSException raise:@"IO Error" format:@"Unable to read file \"%@\" due to: %@", filePath, [error description]];
+    }
+    return [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
+}
+
+
 @end

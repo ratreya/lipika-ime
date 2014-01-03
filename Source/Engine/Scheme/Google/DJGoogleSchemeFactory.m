@@ -8,6 +8,7 @@
  */
 
 #import "DJGoogleSchemeFactory.h"
+#import "DJSchemeHelper.h"
 #import "DJLogger.h"
 
 @implementation DJGoogleSchemeFactory
@@ -99,15 +100,8 @@ static NSRegularExpression *classesDelimiterExpression;
     // Read contents of the Scheme file
     logDebug(@"Parsing scheme file: %@", filePath);
     scheme.schemeFilePath = filePath;
-    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
-    if (handle == nil) {
-        logFatal(@"Failed to open file %@ for reading", filePath);
-        return nil;
-    }
-    NSData *dataBuffer = [handle readDataToEndOfFile];
-    NSString *data = [[NSString alloc] initWithData:dataBuffer encoding:NSUTF8StringEncoding];
-    linesOfScheme = [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
-    
+    linesOfScheme = linesOfFile(filePath);
+
     NSString *batchId = startBatch();
     @try {
         logDebug(@"Parsing Headers");
