@@ -58,10 +58,6 @@ static NSRegularExpression *whiteSpace;
     @synchronized (self) {
         [DJInputEngineFactory setCurrentSchemeWithName:schemeName scriptName:scriptName type:type];
         engine = [DJInputEngineFactory inputEngine];
-        // Update settings later so that exceptions fly by
-        [DJLipikaUserSettings setScriptName:scriptName];
-        [DJLipikaUserSettings setSchemeName:schemeName];
-        [DJLipikaUserSettings setSchemeType:type];
     }
 }
 
