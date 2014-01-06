@@ -5,4 +5,4 @@ xcuserdata
 *.lock
 profile
 *~.nib
-build
+/build
