@@ -3,9 +3,13 @@ rm -rf ./LipikaIME.app
 rm ./com.daivajnanam.inputmethod.LipikaIME.pkg
 rm ./LipikaIME.pkg
 rm ./Scripts/postinstall
+if [ "$1" == "clean" ]; then 
+exit 0
+fi
 xcodebuild -project ../LipikaIME.xcodeproj -target LipikaIME -configuration Release clean build
 cp -r ../build/Release/LipikaIME.app .
 xcodebuild -project ../LipikaIME.xcodeproj -target LipikaIMEInstaller -configuration Release clean build
 cp ../build/Release/LipikaIMEInstaller ./Scripts/postinstall
 pkgbuild --component LipikaIME.app --scripts ./Scripts --install-location /Library/Input\ Methods com.daivajnanam.inputmethod.LipikaIME.pkg
 productbuild --distribution ./Distribution --package-path ./ --resources ./Resources --sign "3rd Party Mac Developer Installer: Ranganath Atreya" LipikaIME.pkg
+exit 0
