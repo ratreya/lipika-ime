@@ -32,7 +32,7 @@
 
 -(void)setUp {
     [super setUp];
-    [DJLipikaSchemeFactory setSchemesDirectory:@"./Schemes"];
+    [DJLipikaSchemeFactory setSchemesDirectory:@"./Common/Resources/Schemes"];
 }
 
 -(void)testHappyCase {

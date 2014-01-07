@@ -49,7 +49,7 @@
 
 -(void)testTrieCloning {
     DJReadWriteTrie *original = [self testTrie];
-    DJReadWriteTrie *clone = [original cloneTrieUsingBlock:^DJTrieNode *(DJTrieNode *original) {
+    DJReadWriteTrie *clone = [original cloneTrieUsingBlock:^DJTrieNode *(DJReadWriteTrie *clonedTrie, DJTrieNode *original) {
         DJTrieNode *clone = [[DJTrieNode alloc] init];
         clone.key = original.key;
         clone.value = original.value;

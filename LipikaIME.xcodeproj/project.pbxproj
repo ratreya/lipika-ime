@@ -54,6 +54,18 @@
 		A5883E8A187B5C5800FFE7F6 /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D73187B201800EB6C46 /* DJTestHelper.m */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A5CAE3F3187B927A00A1549A /* DJLipikaAddendumTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */; };
+		A5CAE3F4187B927A00A1549A /* DJLipikaSchemeFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB7187B201800EB6C46 /* DJLipikaSchemeFactoryTest.m */; };
+		A5CAE3F5187B927A00A1549A /* DJLipikaSchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB8187B201800EB6C46 /* DJLipikaSchemeTest.m */; };
+		A5CAE3F6187B927A00A1549A /* DJReadWriteTrieTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DC0187B201800EB6C46 /* DJReadWriteTrieTest.m */; };
+		A5CAE3F7187B92DE00A1549A /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D73187B201800EB6C46 /* DJTestHelper.m */; };
+		A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = A5848DC5187B201800EB6C46 /* MainMenu.nib */; };
+		A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5848DC7187B201800EB6C46 /* Preferences.xib */; };
+		A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5848DCA187B201800EB6C46 /* LipikaIcon.png */; };
+		A5CAE3FE187B94ED00A1549A /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A5848D38187B201800EB6C46 /* icon.icns */; };
+		A5CAE3FF187B94ED00A1549A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A5848D3A187B201800EB6C46 /* LICENSE */; };
+		A5CAE400187B94ED00A1549A /* README in Resources */ = {isa = PBXBuildFile; fileRef = A5848D3B187B201800EB6C46 /* README */; };
+		A5CAE402187B951F00A1549A /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
 		A5D635051877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A5D635191877435B0048DAE5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
@@ -81,53 +93,10 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		8D1107320486CEB800E47090 /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A577D863185F5E58001C8942 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		A5848D34187B201800EB6C46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A5848D38187B201800EB6C46 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		A5848D39187B201800EB6C46 /* icon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = icon.iconset; sourceTree = "<group>"; };
 		A5848D3A187B201800EB6C46 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A5848D3B187B201800EB6C46 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		A5848D3D187B201800EB6C46 /* Bengali-Baraha.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Bengali-Baraha.ime"; sourceTree = "<group>"; };
-		A5848D3E187B201800EB6C46 /* Bengali-Barahavat.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Bengali-Barahavat.ime"; sourceTree = "<group>"; };
-		A5848D3F187B201800EB6C46 /* Bengali-Harvard-Kyoto.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Bengali-Harvard-Kyoto.ime"; sourceTree = "<group>"; };
-		A5848D40187B201800EB6C46 /* Bengali-ITRANS.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Bengali-ITRANS.ime"; sourceTree = "<group>"; };
-		A5848D41187B201800EB6C46 /* Default.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = Default.ime; sourceTree = "<group>"; };
-		A5848D42187B201800EB6C46 /* Devanagari-Baraha.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Devanagari-Baraha.ime"; sourceTree = "<group>"; };
-		A5848D43187B201800EB6C46 /* Devanagari-Barahavat.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Devanagari-Barahavat.ime"; sourceTree = "<group>"; };
-		A5848D44187B201800EB6C46 /* Devanagari-Harvard-Kyoto.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Devanagari-Harvard-Kyoto.ime"; sourceTree = "<group>"; };
-		A5848D45187B201800EB6C46 /* Devanagari-ITRANS.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Devanagari-ITRANS.ime"; sourceTree = "<group>"; };
-		A5848D47187B201800EB6C46 /* Gurmukhi-Baraha.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Gurmukhi-Baraha.ime"; sourceTree = "<group>"; };
-		A5848D48187B201800EB6C46 /* Gurmukhi-Barahavat.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Gurmukhi-Barahavat.ime"; sourceTree = "<group>"; };
-		A5848D49187B201800EB6C46 /* Gurmukhi-Harvard-Kyoto.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Gurmukhi-Harvard-Kyoto.ime"; sourceTree = "<group>"; };
-		A5848D4A187B201800EB6C46 /* Gurmukhi-ITRANS.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Gurmukhi-ITRANS.ime"; sourceTree = "<group>"; };
-		A5848D4B187B201800EB6C46 /* Hindi-Baraha.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Hindi-Baraha.ime"; sourceTree = "<group>"; };
-		A5848D4C187B201800EB6C46 /* Hindi-Barahavat.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Hindi-Barahavat.ime"; sourceTree = "<group>"; };
-		A5848D4D187B201800EB6C46 /* Hindi-Harvard-Kyoto.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Hindi-Harvard-Kyoto.ime"; sourceTree = "<group>"; };
-		A5848D4E187B201800EB6C46 /* Hindi-ITRANS.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Hindi-ITRANS.ime"; sourceTree = "<group>"; };
-		A5848D4F187B201800EB6C46 /* Hindi.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hindi.ime; sourceTree = "<group>"; };
-		A5848D50187B201800EB6C46 /* Oriya-Baraha.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Oriya-Baraha.ime"; sourceTree = "<group>"; };
-		A5848D51187B201800EB6C46 /* Oriya-Barahavat.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Oriya-Barahavat.ime"; sourceTree = "<group>"; };
-		A5848D52187B201800EB6C46 /* Oriya-Harvard-Kyoto.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Oriya-Harvard-Kyoto.ime"; sourceTree = "<group>"; };
-		A5848D53187B201800EB6C46 /* Oriya-ITRANS.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Oriya-ITRANS.ime"; sourceTree = "<group>"; };
-		A5848D55187B201800EB6C46 /* Bengali.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bengali.map; sourceTree = "<group>"; };
-		A5848D56187B201800EB6C46 /* Devanagari.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Devanagari.map; sourceTree = "<group>"; };
-		A5848D57187B201800EB6C46 /* Gujarati.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gujarati.map; sourceTree = "<group>"; };
-		A5848D58187B201800EB6C46 /* Gurmukhi.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gurmukhi.map; sourceTree = "<group>"; };
-		A5848D59187B201800EB6C46 /* Hindi.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hindi.map; sourceTree = "<group>"; };
-		A5848D5A187B201800EB6C46 /* Kannada.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Kannada.map; sourceTree = "<group>"; };
-		A5848D5B187B201800EB6C46 /* Malayalam.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Malayalam.map; sourceTree = "<group>"; };
-		A5848D5C187B201800EB6C46 /* Oriya.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Oriya.map; sourceTree = "<group>"; };
-		A5848D5D187B201800EB6C46 /* Tamil.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tamil.map; sourceTree = "<group>"; };
-		A5848D5E187B201800EB6C46 /* Telugu.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Telugu.map; sourceTree = "<group>"; };
-		A5848D60187B201800EB6C46 /* Baraha.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = Baraha.tlr; sourceTree = "<group>"; };
-		A5848D61187B201800EB6C46 /* Barahavat.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = Barahavat.tlr; sourceTree = "<group>"; };
-		A5848D62187B201800EB6C46 /* Harvard-Kyoto.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Harvard-Kyoto.tlr"; sourceTree = "<group>"; };
-		A5848D63187B201800EB6C46 /* ITRANS.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = ITRANS.tlr; sourceTree = "<group>"; };
-		A5848D65187B201800EB6C46 /* DirghaE.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = DirghaE.tlr; sourceTree = "<group>"; };
-		A5848D66187B201800EB6C46 /* Gurmukhi.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gurmukhi.tlr; sourceTree = "<group>"; };
-		A5848D67187B201800EB6C46 /* GurmukhiBaraha.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = GurmukhiBaraha.tlr; sourceTree = "<group>"; };
-		A5848D68187B201800EB6C46 /* Hindi.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hindi.tlr; sourceTree = "<group>"; };
-		A5848D69187B201800EB6C46 /* HindiBaraha.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = HindiBaraha.tlr; sourceTree = "<group>"; };
-		A5848D6A187B201800EB6C46 /* HindiHarvard-Kyoto.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = "HindiHarvard-Kyoto.tlr"; sourceTree = "<group>"; };
 		A5848D6C187B201800EB6C46 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		A5848D6D187B201800EB6C46 /* DJLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLogger.h; sourceTree = "<group>"; };
 		A5848D6E187B201800EB6C46 /* DJLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLogger.m; sourceTree = "<group>"; };
@@ -199,7 +168,6 @@
 		A5848DC8187B201800EB6C46 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		A5848DC9187B201800EB6C46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5848DCA187B201800EB6C46 /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LipikaIcon.png; sourceTree = "<group>"; };
-		A5848DCB187B201800EB6C46 /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
 		A5848DCE187B201800EB6C46 /* DJLipikaAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaAppDelegate.h; sourceTree = "<group>"; };
 		A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaAppDelegate.m; sourceTree = "<group>"; };
 		A5848DD0187B201800EB6C46 /* DJLipikaClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaClientDelegate.h; sourceTree = "<group>"; };
@@ -225,6 +193,8 @@
 		A5BA7D59181D912100461B2F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5BA7D65181D91A000461B2F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		A5C54E0316BA20C1007F631D /* InputSourceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InputSourceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5CAE3F8187B947E00A1549A /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
+		A5CAE401187B950D00A1549A /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5D635031877435B0048DAE5 /* EngineFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EngineFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D635041877435B0048DAE5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A5D635071877435B0048DAE5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -338,6 +308,7 @@
 		A5848D32187B201800EB6C46 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5CAE3F8187B947E00A1549A /* UserSettings.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -345,7 +316,6 @@
 		A5848D33187B201800EB6C46 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A5848D34187B201800EB6C46 /* main.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -374,90 +344,9 @@
 				A5848D39187B201800EB6C46 /* icon.iconset */,
 				A5848D3A187B201800EB6C46 /* LICENSE */,
 				A5848D3B187B201800EB6C46 /* README */,
-				A5848D3C187B201800EB6C46 /* Schemes */,
+				A5CAE401187B950D00A1549A /* Schemes */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		A5848D3C187B201800EB6C46 /* Schemes */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D3D187B201800EB6C46 /* Bengali-Baraha.ime */,
-				A5848D3E187B201800EB6C46 /* Bengali-Barahavat.ime */,
-				A5848D3F187B201800EB6C46 /* Bengali-Harvard-Kyoto.ime */,
-				A5848D40187B201800EB6C46 /* Bengali-ITRANS.ime */,
-				A5848D41187B201800EB6C46 /* Default.ime */,
-				A5848D42187B201800EB6C46 /* Devanagari-Baraha.ime */,
-				A5848D43187B201800EB6C46 /* Devanagari-Barahavat.ime */,
-				A5848D44187B201800EB6C46 /* Devanagari-Harvard-Kyoto.ime */,
-				A5848D45187B201800EB6C46 /* Devanagari-ITRANS.ime */,
-				A5848D46187B201800EB6C46 /* Google */,
-				A5848D47187B201800EB6C46 /* Gurmukhi-Baraha.ime */,
-				A5848D48187B201800EB6C46 /* Gurmukhi-Barahavat.ime */,
-				A5848D49187B201800EB6C46 /* Gurmukhi-Harvard-Kyoto.ime */,
-				A5848D4A187B201800EB6C46 /* Gurmukhi-ITRANS.ime */,
-				A5848D4B187B201800EB6C46 /* Hindi-Baraha.ime */,
-				A5848D4C187B201800EB6C46 /* Hindi-Barahavat.ime */,
-				A5848D4D187B201800EB6C46 /* Hindi-Harvard-Kyoto.ime */,
-				A5848D4E187B201800EB6C46 /* Hindi-ITRANS.ime */,
-				A5848D4F187B201800EB6C46 /* Hindi.ime */,
-				A5848D50187B201800EB6C46 /* Oriya-Baraha.ime */,
-				A5848D51187B201800EB6C46 /* Oriya-Barahavat.ime */,
-				A5848D52187B201800EB6C46 /* Oriya-Harvard-Kyoto.ime */,
-				A5848D53187B201800EB6C46 /* Oriya-ITRANS.ime */,
-				A5848D54187B201800EB6C46 /* Script */,
-				A5848D5F187B201800EB6C46 /* Transliteration */,
-			);
-			path = Schemes;
-			sourceTree = "<group>";
-		};
-		A5848D46187B201800EB6C46 /* Google */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Google;
-			sourceTree = "<group>";
-		};
-		A5848D54187B201800EB6C46 /* Script */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D55187B201800EB6C46 /* Bengali.map */,
-				A5848D56187B201800EB6C46 /* Devanagari.map */,
-				A5848D57187B201800EB6C46 /* Gujarati.map */,
-				A5848D58187B201800EB6C46 /* Gurmukhi.map */,
-				A5848D59187B201800EB6C46 /* Hindi.map */,
-				A5848D5A187B201800EB6C46 /* Kannada.map */,
-				A5848D5B187B201800EB6C46 /* Malayalam.map */,
-				A5848D5C187B201800EB6C46 /* Oriya.map */,
-				A5848D5D187B201800EB6C46 /* Tamil.map */,
-				A5848D5E187B201800EB6C46 /* Telugu.map */,
-			);
-			path = Script;
-			sourceTree = "<group>";
-		};
-		A5848D5F187B201800EB6C46 /* Transliteration */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D60187B201800EB6C46 /* Baraha.tlr */,
-				A5848D61187B201800EB6C46 /* Barahavat.tlr */,
-				A5848D62187B201800EB6C46 /* Harvard-Kyoto.tlr */,
-				A5848D63187B201800EB6C46 /* ITRANS.tlr */,
-				A5848D64187B201800EB6C46 /* Overrides */,
-			);
-			path = Transliteration;
-			sourceTree = "<group>";
-		};
-		A5848D64187B201800EB6C46 /* Overrides */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D65187B201800EB6C46 /* DirghaE.tlr */,
-				A5848D66187B201800EB6C46 /* Gurmukhi.tlr */,
-				A5848D67187B201800EB6C46 /* GurmukhiBaraha.tlr */,
-				A5848D68187B201800EB6C46 /* Hindi.tlr */,
-				A5848D69187B201800EB6C46 /* HindiBaraha.tlr */,
-				A5848D6A187B201800EB6C46 /* HindiHarvard-Kyoto.tlr */,
-			);
-			path = Overrides;
 			sourceTree = "<group>";
 		};
 		A5848D6B187B201800EB6C46 /* Sources */ = {
@@ -689,7 +578,6 @@
 				A5848DC7187B201800EB6C46 /* Preferences.xib */,
 				A5848DC9187B201800EB6C46 /* Info.plist */,
 				A5848DCA187B201800EB6C46 /* LipikaIcon.png */,
-				A5848DCB187B201800EB6C46 /* UserSettings.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -892,6 +780,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5CAE402187B951F00A1549A /* Schemes in Resources */,
+				A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */,
+				A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */,
+				A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */,
+				A5CAE3FE187B94ED00A1549A /* icon.icns in Resources */,
+				A5CAE3FF187B94ED00A1549A /* LICENSE in Resources */,
+				A5CAE400187B94ED00A1549A /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,6 +884,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5CAE3F7187B92DE00A1549A /* DJTestHelper.m in Sources */,
+				A5CAE3F3187B927A00A1549A /* DJLipikaAddendumTest.m in Sources */,
+				A5CAE3F4187B927A00A1549A /* DJLipikaSchemeFactoryTest.m in Sources */,
+				A5CAE3F5187B927A00A1549A /* DJLipikaSchemeTest.m in Sources */,
+				A5CAE3F6187B927A00A1549A /* DJReadWriteTrieTest.m in Sources */,
 				A5883E7C187B566100FFE7F6 /* DJBufferManagerTest.m in Sources */,
 				A5883E7D187B566100FFE7F6 /* DJBufferReplayTest.m in Sources */,
 				A5883E7E187B566100FFE7F6 /* DJGoogleEngineTest.m in Sources */,

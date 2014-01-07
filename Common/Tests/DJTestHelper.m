@@ -21,7 +21,7 @@
 }
 
 +(void)setupUserSettings {
-    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:@"./Resources/UserSettings.plist"];
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:@"./Application/Resources/UserSettings.plist"];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 

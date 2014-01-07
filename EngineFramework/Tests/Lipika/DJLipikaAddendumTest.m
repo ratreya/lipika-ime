@@ -31,7 +31,7 @@
 
 -(void)setUp {
     [super setUp];
-    [DJLipikaSchemeFactory setSchemesDirectory:@"./Tests/Lipika/Schemes"];
+    [DJLipikaSchemeFactory setSchemesDirectory:@"./EngineFramework/Tests/Lipika/Schemes"];
 }
 
 -(void)testHappyCase {
