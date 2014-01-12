@@ -8,10 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A517EED5187C87FA00323900 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A517EED4187C87E900323900 /* UserSettings.plist */; };
+		A517EED6187C883600323900 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A517EED4187C87E900323900 /* UserSettings.plist */; };
 		A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
+		A58281B7187BA93700517F4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
+		A58281D1187BA93700517F4F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
+		A58281D2187BA93700517F4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
+		A58281E6187BAA5400517F4F /* DJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A58281E4187BAA5400517F4F /* DJAppDelegate.m */; };
+		A58281E7187BAA5400517F4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A58281E5187BAA5400517F4F /* main.m */; };
+		A58281EB187BAA6100517F4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A58281E8187BAA6100517F4F /* Images.xcassets */; };
+		A58281ED187BAA6100517F4F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58281EA187BAA6100517F4F /* MainMenu.xib */; };
+		A58281F1187BAA8A00517F4F /* LipikaIMETests.m in Sources */ = {isa = PBXBuildFile; fileRef = A58281EF187BAA8A00517F4F /* LipikaIMETests.m */; };
 		A5848DE2187B22C400EB6C46 /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D78187B201800EB6C46 /* DJInputEngineFactory.m */; };
 		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
-		A5848DE4187B22C400EB6C46 /* DJLipikaBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7C187B201800EB6C46 /* DJLipikaBufferManager.m */; };
+		A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */; };
 		A5848DE5187B22C400EB6C46 /* DJInputSchemeUberFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D81187B201800EB6C46 /* DJInputSchemeUberFactory.m */; };
 		A5848DE7187B22C400EB6C46 /* DJParseOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D85187B201800EB6C46 /* DJParseOutput.m */; };
 		A5848DE8187B22C400EB6C46 /* DJSchemeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D88187B201800EB6C46 /* DJSchemeHelper.m */; };
@@ -28,7 +38,7 @@
 		A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A5883E69187B530A00FFE7F6 /* DJLipikaUserSettings.m */; };
 		A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D6E187B201800EB6C46 /* DJLogger.m */; };
 		A5883E6E187B543700FFE7F6 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */; };
-		A5883E6F187B545D00FFE7F6 /* DJLipikaBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A5848D7B187B201800EB6C46 /* DJLipikaBufferManager.h */; };
+		A5883E6F187B545D00FFE7F6 /* DJActiveBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */; };
 		A5883E72187B551C00FFE7F6 /* DJLipikaClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5883E2F187B394800FFE7F6 /* DJLipikaClientManager.m */; };
 		A5883E73187B551C00FFE7F6 /* DJLipikaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */; };
 		A5883E74187B551C00FFE7F6 /* DJLipikaClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD1187B201800EB6C46 /* DJLipikaClientDelegate.m */; };
@@ -37,7 +47,6 @@
 		A5883E77187B551C00FFE7F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD9187B201800EB6C46 /* main.m */; };
 		A5883E78187B551C00FFE7F6 /* DJLipikaCandidates.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DDC187B201800EB6C46 /* DJLipikaCandidates.m */; };
 		A5883E79187B551C00FFE7F6 /* DJPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DDE187B201800EB6C46 /* DJPreferenceController.m */; };
-		A5883E7A187B55A000FFE7F6 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
 		A5883E7B187B55C600FFE7F6 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */; };
 		A5883E7C187B566100FFE7F6 /* DJBufferManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA4187B201800EB6C46 /* DJBufferManagerTest.m */; };
 		A5883E7D187B566100FFE7F6 /* DJBufferReplayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA5187B201800EB6C46 /* DJBufferReplayTest.m */; };
@@ -52,8 +61,13 @@
 		A5883E88187B5C1A00FFE7F6 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
 		A5883E89187B5C4500FFE7F6 /* DJTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D71187B201800EB6C46 /* DJTestClient.m */; };
 		A5883E8A187B5C5800FFE7F6 /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D73187B201800EB6C46 /* DJTestHelper.m */; };
+		A5A047BF187F4F1100ED7613 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
+		A5A047C0187F4F2000ED7613 /* EngineFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
+		A5A047C4187F4F7900ED7613 /* EngineFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A5CAD2DB187E05B300E98D5F /* DJCombinedBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CAD2DA187E05B300E98D5F /* DJCombinedBufferManager.m */; };
+		A5CAD2DC187E363D00E98D5F /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
 		A5CAE3F3187B927A00A1549A /* DJLipikaAddendumTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */; };
 		A5CAE3F4187B927A00A1549A /* DJLipikaSchemeFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB7187B201800EB6C46 /* DJLipikaSchemeFactoryTest.m */; };
 		A5CAE3F5187B927A00A1549A /* DJLipikaSchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB8187B201800EB6C46 /* DJLipikaSchemeTest.m */; };
@@ -70,15 +84,38 @@
 		A5D635191877435B0048DAE5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A5D6351D1877435B0048DAE5 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
+		A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */; };
+		A5EDA4E3187F202700B58B8D /* DJStringBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A58281D3187BA93700517F4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A58281B5187BA93700517F4F;
+			remoteInfo = LipikaIME;
+		};
 		A5999AB718498387002EE8AE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = LipikaIME;
+		};
+		A5A047C1187F4F2900ED7613 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5D635021877435B0048DAE5;
+			remoteInfo = EngineFramework;
+		};
+		A5A047C5187F4F8000ED7613 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5D635021877435B0048DAE5;
+			remoteInfo = EngineFramework;
 		};
 		A5D6351B1877435B0048DAE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -89,10 +126,44 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A5A047BC187F4CD000ED7613 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A5A047C0187F4F2000ED7613 /* EngineFramework.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5A047C3187F4F6700ED7613 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A5A047C4187F4F7900ED7613 /* EngineFramework.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		8D1107320486CEB800E47090 /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A517EED4187C87E900323900 /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
 		A577D863185F5E58001C8942 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A58281B6187BA93700517F4F /* LipikaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A58281D0187BA93700517F4F /* ApplicationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApplicationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A58281E3187BAA5400517F4F /* DJAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJAppDelegate.h; sourceTree = "<group>"; };
+		A58281E4187BAA5400517F4F /* DJAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJAppDelegate.m; sourceTree = "<group>"; };
+		A58281E5187BAA5400517F4F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A58281E8187BAA6100517F4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A58281E9187BAA6100517F4F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A58281EA187BAA6100517F4F /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		A58281EE187BAA8A00517F4F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A58281EF187BAA8A00517F4F /* LipikaIMETests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMETests.m; sourceTree = "<group>"; };
 		A5848D38187B201800EB6C46 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		A5848D39187B201800EB6C46 /* icon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = icon.iconset; sourceTree = "<group>"; };
 		A5848D3A187B201800EB6C46 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -108,8 +179,8 @@
 		A5848D78187B201800EB6C46 /* DJInputEngineFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputEngineFactory.m; sourceTree = "<group>"; };
 		A5848D79187B201800EB6C46 /* DJInputMethodEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputMethodEngine.h; sourceTree = "<group>"; };
 		A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputMethodEngine.m; sourceTree = "<group>"; };
-		A5848D7B187B201800EB6C46 /* DJLipikaBufferManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaBufferManager.h; sourceTree = "<group>"; };
-		A5848D7C187B201800EB6C46 /* DJLipikaBufferManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaBufferManager.m; sourceTree = "<group>"; };
+		A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJActiveBufferManager.h; sourceTree = "<group>"; };
+		A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJActiveBufferManager.m; sourceTree = "<group>"; };
 		A5848D7E187B201800EB6C46 /* DJForwardMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJForwardMapping.h; sourceTree = "<group>"; };
 		A5848D7F187B201800EB6C46 /* DJInputMethodScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputMethodScheme.h; sourceTree = "<group>"; };
 		A5848D80187B201800EB6C46 /* DJInputSchemeUberFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputSchemeUberFactory.h; sourceTree = "<group>"; };
@@ -193,7 +264,8 @@
 		A5BA7D59181D912100461B2F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5BA7D65181D91A000461B2F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		A5C54E0316BA20C1007F631D /* InputSourceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InputSourceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5CAE3F8187B947E00A1549A /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
+		A5CAD2D9187E05B300E98D5F /* DJCombinedBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJCombinedBufferManager.h; path = Engine/DJCombinedBufferManager.h; sourceTree = "<group>"; };
+		A5CAD2DA187E05B300E98D5F /* DJCombinedBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJCombinedBufferManager.m; path = Engine/DJCombinedBufferManager.m; sourceTree = "<group>"; };
 		A5CAE401187B950D00A1549A /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5D635031877435B0048DAE5 /* EngineFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EngineFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D635041877435B0048DAE5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -201,6 +273,8 @@
 		A5D635081877435B0048DAE5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A5D635091877435B0048DAE5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		A5D635181877435B0048DAE5 /* EngineFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngineFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJStringBufferManager.m; sourceTree = "<group>"; };
+		A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJStringBufferManager.h; sourceTree = "<group>"; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -209,9 +283,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5883E7A187B55A000FFE7F6 /* EngineFramework.framework in Frameworks */,
-				A5883E7B187B55C600FFE7F6 /* InputMethodKit.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				A5883E7B187B55C600FFE7F6 /* InputMethodKit.framework in Frameworks */,
+				A5A047BF187F4F1100ED7613 /* EngineFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A58281B3187BA93700517F4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A58281B7187BA93700517F4F /* Cocoa.framework in Frameworks */,
+				A5CAD2DC187E363D00E98D5F /* EngineFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A58281CD187BA93700517F4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A58281D2187BA93700517F4F /* Cocoa.framework in Frameworks */,
+				A58281D1187BA93700517F4F /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +356,8 @@
 				A5C54E0316BA20C1007F631D /* InputSourceTest.xctest */,
 				A5D635031877435B0048DAE5 /* EngineFramework.framework */,
 				A5D635181877435B0048DAE5 /* EngineFrameworkTests.xctest */,
+				A58281B6187BA93700517F4F /* LipikaApp.app */,
+				A58281D0187BA93700517F4F /* ApplicationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,7 +402,9 @@
 		A5848D32187B201800EB6C46 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A5CAE3F8187B947E00A1549A /* UserSettings.plist */,
+				A58281E8187BAA6100517F4F /* Images.xcassets */,
+				A58281E9187BAA6100517F4F /* Info.plist */,
+				A58281EA187BAA6100517F4F /* MainMenu.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -316,6 +412,10 @@
 		A5848D33187B201800EB6C46 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A58281E3187BAA5400517F4F /* DJAppDelegate.h */,
+				A58281E4187BAA5400517F4F /* DJAppDelegate.m */,
+				A58281E5187BAA5400517F4F /* main.m */,
+				A5CAD2D4187DECC500E98D5F /* Engine */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -323,6 +423,8 @@
 		A5848D35187B201800EB6C46 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A58281EE187BAA8A00517F4F /* Info.plist */,
+				A58281EF187BAA8A00517F4F /* LipikaIMETests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -340,6 +442,7 @@
 		A5848D37187B201800EB6C46 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A517EED4187C87E900323900 /* UserSettings.plist */,
 				A5848D38187B201800EB6C46 /* icon.icns */,
 				A5848D39187B201800EB6C46 /* icon.iconset */,
 				A5848D3A187B201800EB6C46 /* LICENSE */,
@@ -352,8 +455,8 @@
 		A5848D6B187B201800EB6C46 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A5883E69187B530A00FFE7F6 /* DJLipikaUserSettings.m */,
 				A5883E6A187B530A00FFE7F6 /* DJLipikaUserSettings.h */,
+				A5883E69187B530A00FFE7F6 /* DJLipikaUserSettings.m */,
 				A5848D6C187B201800EB6C46 /* Constants.h */,
 				A5848D6D187B201800EB6C46 /* DJLogger.h */,
 				A5848D6E187B201800EB6C46 /* DJLogger.m */,
@@ -393,8 +496,10 @@
 		A5848D76187B201800EB6C46 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A5848D7B187B201800EB6C46 /* DJLipikaBufferManager.h */,
-				A5848D7C187B201800EB6C46 /* DJLipikaBufferManager.m */,
+				A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */,
+				A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */,
+				A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */,
+				A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */,
 				A5848D77187B201800EB6C46 /* DJInputEngineFactory.h */,
 				A5848D78187B201800EB6C46 /* DJInputEngineFactory.m */,
 				A5848D79187B201800EB6C46 /* DJInputMethodEngine.h */,
@@ -637,6 +742,15 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		A5CAD2D4187DECC500E98D5F /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				A5CAD2D9187E05B300E98D5F /* DJCombinedBufferManager.h */,
+				A5CAD2DA187E05B300E98D5F /* DJCombinedBufferManager.m */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
 		A5D635061877435B0048DAE5 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,7 +768,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5883E6F187B545D00FFE7F6 /* DJLipikaBufferManager.h in Headers */,
+				A5883E6F187B545D00FFE7F6 /* DJActiveBufferManager.h in Headers */,
+				A5EDA4E3187F202700B58B8D /* DJStringBufferManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,19 +780,58 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "InputSource" */;
 			buildPhases = (
-				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				8D1107290486CEB800E47090 /* Resources */,
+				A5A047BC187F4CD000ED7613 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A5A047C2187F4F2900ED7613 /* PBXTargetDependency */,
 			);
 			name = InputSource;
 			productInstallPath = "$(HOME)/Applications";
 			productName = NumberInput;
 			productReference = 8D1107320486CEB800E47090 /* LipikaIME.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A58281B5187BA93700517F4F /* Application */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A58281E1187BA93800517F4F /* Build configuration list for PBXNativeTarget "Application" */;
+			buildPhases = (
+				A58281B2187BA93700517F4F /* Sources */,
+				A58281B3187BA93700517F4F /* Frameworks */,
+				A58281B4187BA93700517F4F /* Resources */,
+				A5A047C3187F4F6700ED7613 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A5A047C6187F4F8000ED7613 /* PBXTargetDependency */,
+			);
+			name = Application;
+			productName = LipikaIME;
+			productReference = A58281B6187BA93700517F4F /* LipikaApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A58281CF187BA93700517F4F /* ApplicationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A58281E2187BA93800517F4F /* Build configuration list for PBXNativeTarget "ApplicationTests" */;
+			buildPhases = (
+				A58281CC187BA93700517F4F /* Sources */,
+				A58281CD187BA93700517F4F /* Frameworks */,
+				A58281CE187BA93700517F4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A58281D4187BA93700517F4F /* PBXTargetDependency */,
+			);
+			name = ApplicationTests;
+			productName = LipikaIMETests;
+			productReference = A58281D0187BA93700517F4F /* ApplicationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A5C54E0216BA20C1007F631D /* InputSourceTest */ = {
 			isa = PBXNativeTarget;
@@ -747,6 +901,9 @@
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = 7JZ87Y4JWT;
 					};
+					A58281CF187BA93700517F4F = {
+						TestTargetID = 8D1107260486CEB800E47090;
+					};
 					A5C54E0216BA20C1007F631D = {
 						TestTargetID = 8D1107260486CEB800E47090;
 					};
@@ -762,6 +919,7 @@
 			knownRegions = (
 				en,
 				English,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NumberInput */;
 			projectDirPath = "";
@@ -771,6 +929,8 @@
 				A5C54E0216BA20C1007F631D /* InputSourceTest */,
 				A5D635021877435B0048DAE5 /* EngineFramework */,
 				A5D635171877435B0048DAE5 /* EngineFrameworkTests */,
+				A58281B5187BA93700517F4F /* Application */,
+				A58281CF187BA93700517F4F /* ApplicationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -780,6 +940,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A517EED6187C883600323900 /* UserSettings.plist in Resources */,
 				A5CAE402187B951F00A1549A /* Schemes in Resources */,
 				A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */,
 				A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */,
@@ -787,6 +948,23 @@
 				A5CAE3FE187B94ED00A1549A /* icon.icns in Resources */,
 				A5CAE3FF187B94ED00A1549A /* LICENSE in Resources */,
 				A5CAE400187B94ED00A1549A /* README in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A58281B4187BA93700517F4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A517EED5187C87FA00323900 /* UserSettings.plist in Resources */,
+				A58281EB187BAA6100517F4F /* Images.xcassets in Resources */,
+				A58281ED187BAA6100517F4F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A58281CE187BA93700517F4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,6 +1023,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A58281B2187BA93700517F4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A58281E7187BAA5400517F4F /* main.m in Sources */,
+				A5CAD2DB187E05B300E98D5F /* DJCombinedBufferManager.m in Sources */,
+				A58281E6187BAA5400517F4F /* DJAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A58281CC187BA93700517F4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A58281F1187BAA8A00517F4F /* LipikaIMETests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5C54DFE16BA20C1007F631D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -863,7 +1059,8 @@
 				A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */,
 				A5848DE2187B22C400EB6C46 /* DJInputEngineFactory.m in Sources */,
 				A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */,
-				A5848DE4187B22C400EB6C46 /* DJLipikaBufferManager.m in Sources */,
+				A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */,
+				A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */,
 				A5848DE5187B22C400EB6C46 /* DJInputSchemeUberFactory.m in Sources */,
 				A5848DE7187B22C400EB6C46 /* DJParseOutput.m in Sources */,
 				A5848DE8187B22C400EB6C46 /* DJSchemeHelper.m in Sources */,
@@ -904,10 +1101,25 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A58281D4187BA93700517F4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A58281B5187BA93700517F4F /* Application */;
+			targetProxy = A58281D3187BA93700517F4F /* PBXContainerItemProxy */;
+		};
 		A5999AB818498387002EE8AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* InputSource */;
 			targetProxy = A5999AB718498387002EE8AE /* PBXContainerItemProxy */;
+		};
+		A5A047C2187F4F2900ED7613 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5D635021877435B0048DAE5 /* EngineFramework */;
+			targetProxy = A5A047C1187F4F2900ED7613 /* PBXContainerItemProxy */;
+		};
+		A5A047C6187F4F8000ED7613 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5D635021877435B0048DAE5 /* EngineFramework */;
+			targetProxy = A5A047C5187F4F8000ED7613 /* PBXContainerItemProxy */;
 		};
 		A5D6351C1877435B0048DAE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -944,6 +1156,174 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A58281DD187BA93800517F4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = Application/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = LipikaApp;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A58281DE187BA93800517F4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = Application/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = LipikaApp;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		A58281DF187BA93800517F4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LipikaApp.app/Contents/MacOS/LipikaApp";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = Application/Tests/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		A58281E0187BA93800517F4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LipikaApp.app/Contents/MacOS/LipikaApp";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = Application/Tests/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		A5C54E1416BA20C1007F631D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1042,6 +1422,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = EngineFramework/Resources/Info.plist;
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1081,6 +1462,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = EngineFramework/Resources/Info.plist;
+				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1092,7 +1474,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EngineFramework.framework/Versions/A/EngineFramework";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LipikaIME.app/Contents/MacOS/LipikaIME";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1130,7 +1512,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "${BUNDLE_LOADER}";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1139,7 +1521,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EngineFramework.framework/Versions/A/EngineFramework";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LipikaIME.app/Contents/MacOS/LipikaIME";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1172,7 +1554,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "${BUNDLE_LOADER}";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -1236,6 +1618,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A58281E1187BA93800517F4F /* Build configuration list for PBXNativeTarget "Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A58281DD187BA93800517F4F /* Debug */,
+				A58281DE187BA93800517F4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A58281E2187BA93800517F4F /* Build configuration list for PBXNativeTarget "ApplicationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A58281DF187BA93800517F4F /* Debug */,
+				A58281E0187BA93800517F4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A5C54E1316BA20C1007F631D /* Build configuration list for PBXNativeTarget "InputSourceTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

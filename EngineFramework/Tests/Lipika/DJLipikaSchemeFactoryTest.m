@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 #import "DJLipikaSchemeFactory.h"
-#import "DJLipikaBufferManager.h"
+#import "DJStringBufferManager.h"
 #import "DJTestHelper.h"
 
 @interface DJLipikaSchemeFactory (Test)
@@ -18,7 +18,7 @@
 
 @end
 
-@interface DJLipikaBufferManager (Test)
+@interface DJStringBufferManager (Test)
 
 -(id)initWithEngine:(DJInputMethodEngine *)myEngine;
 
@@ -60,7 +60,7 @@
         for (NSString *scriptName in [DJLipikaSchemeFactory availableScripts]) {
             DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:scriptName scheme:schemeName];
             XCTAssertNotNil(scheme, @"Unexpected result");
-            DJLipikaBufferManager *manager = [[DJLipikaBufferManager alloc] initWithEngine:[[DJInputMethodEngine alloc] initWithScheme:scheme]];
+            DJStringBufferManager *manager = [[DJStringBufferManager alloc] initWithEngine:[[DJInputMethodEngine alloc] initWithScheme:scheme]];
             NSString *fuzzInput = [DJTestHelper genRandStringLength:10];
             NSString *output = [manager outputForInput:fuzzInput];
             output = [manager flush];

@@ -26,7 +26,8 @@
 
 -(void)insertText:(id)string replacementRange:(NSRange)replacementRange {
     if ([string isKindOfClass:[NSAttributedString class]]) string = [string string];
-    committedString = [committedString stringByReplacingCharactersInRange:replacementRange withString:string];
+    if (replacementRange.location == NSNotFound) committedString = [committedString stringByAppendingString:string];
+    else committedString = [committedString stringByReplacingCharactersInRange:replacementRange withString:string];
     markedString = @"";
 }
 

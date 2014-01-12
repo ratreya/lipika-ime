@@ -9,7 +9,7 @@
 
 #import <XCTest/XCTest.h>
 #import "DJLipikaSchemeFactory.h"
-#import "DJLipikaBufferManager.h"
+#import "DJStringBufferManager.h"
 
 @interface DJLipikaSchemeFactory (Test)
 
@@ -17,7 +17,7 @@
 
 @end
 
-@interface DJLipikaBufferManager (Test)
+@interface DJStringBufferManager (Test)
 
 -(id)initWithEngine:(DJInputMethodEngine *)myEngine;
 
@@ -37,7 +37,7 @@
 -(void)testHappyCase {
     DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"Hindi" scheme:@"Hindi"];
     DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
-    DJLipikaBufferManager *manager = [[DJLipikaBufferManager alloc] initWithEngine:engine];
+    DJStringBufferManager *manager = [[DJStringBufferManager alloc] initWithEngine:engine];
     [manager outputForInput:@"k"];
     XCTAssertEqualObjects([manager output], @"क", @"Invalid output");
     [manager flush];

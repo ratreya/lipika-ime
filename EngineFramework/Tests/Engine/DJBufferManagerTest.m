@@ -8,17 +8,17 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "DJLipikaBufferManager.h"
+#import "DJStringBufferManager.h"
 #import "DJLipikaUserSettings.h"
 #import "DJGoogleSchemeFactory.h"
 
 @interface DJGoogleBufferManagerTest : XCTestCase {
-    DJLipikaBufferManager* manager;
+    DJStringBufferManager* manager;
 }
 
 @end
 
-@interface DJLipikaBufferManager (Test)
+@interface DJStringBufferManager (Test)
 
 -(id)initWithEngine:(DJInputMethodEngine *)myEngine;
 
@@ -30,7 +30,7 @@
     [super setUp];
     DJGoogleInputScheme* scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestHappyCase.scm"];
     DJInputMethodEngine* engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
-    manager = [[DJLipikaBufferManager alloc] initWithEngine:engine];
+    manager = [[DJStringBufferManager alloc] initWithEngine:engine];
 }
 
 -(void)tearDown {

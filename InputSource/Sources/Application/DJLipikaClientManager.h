@@ -9,12 +9,12 @@
 
 #import <Foundation/Foundation.h>
 #import "DJLipikaCandidates.h"
-#import "DJLipikaBufferManager.h"
+#import "DJStringBufferManager.h"
 
 @interface DJLipikaClientManager : NSObject {
     long numMyCompositionCommits;
     DJLipikaClientDelegate *client;
-    DJLipikaBufferManager *bufferManager;
+    DJStringBufferManager *bufferManager;
     DJLipikaCandidates *candidateManager;
 }
 

@@ -7,19 +7,19 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJLipikaBufferManager.h"
+#import "DJActiveBufferManager.h"
 #import "DJInputEngineFactory.h"
 #import "DJLipikaUserSettings.h"
 #import "DJSchemeHelper.h"
 #import "DJLogger.h"
 
-@implementation DJLipikaBufferManager
+@implementation DJActiveBufferManager
 
 static NSRegularExpression *whiteSpace;
 
 +(void)initialize {
     NSError *error;
-    whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"\\s+" options:0 error:&error];
+    whiteSpace = [NSRegularExpression regularExpressionWithPattern:@"^\\s+$" options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid whitespace regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
     }
@@ -50,8 +50,12 @@ static NSRegularExpression *whiteSpace;
 }
 
 -(void)commonInit {
-    uncommittedOutput = [[NSMutableArray alloc] initWithCapacity:0];
+    uncommittedOutput = [NSMutableArray arrayWithCapacity:0];
     finalizedIndex = 0;
+}
+
+-(id<DJReverseMapping>)reverseMappings {
+    return engine.scheme.reverseMappings;
 }
 
 -(void)changeToSchemeWithName:(NSString *)schemeName forScript:(NSString *)scriptName type:(enum DJSchemeType)type {
@@ -61,33 +65,17 @@ static NSRegularExpression *whiteSpace;
     }
 }
 
--(NSString *)outputForInput:(NSString *)string previousText:(NSString *)previousText {
+-(NSArray *)outputForInput:(NSString *)string {
     @synchronized(self) {
-        if (!previousText) return [self outputForInput:string];
-        DJParseOutput *previousResult = [engine.scheme.reverseMappings inputForOutput:previousText];
-        NSString *currentResult;
-        if (previousResult) {
-            replacement = previousResult.output;
-            currentResult = [self outputForInput:[previousResult.input stringByAppendingString:string]];
-        }
-        else {
-            currentResult = [self outputForInput:string];
-        }
-        return currentResult;
-    }
-}
-
--(NSString *)outputForInput:(NSString *)string {
-    @synchronized(self) {
-        if (string.length < 1) return string;
+        if (string.length < 1) return nil;
         // Handle non-character strings
         if (string.length > 1) {
             NSMutableArray *aggregate = [[NSMutableArray alloc] initWithCapacity:0];
             for (NSString *singleInput in charactersForString(string)) {
-                NSString *output = [self outputForInput:singleInput];
-                if (output) [aggregate addObject:output];
+                NSArray *output = [self outputForInput:singleInput];
+                if (output) [aggregate addObjectsFromArray:output];
             }
-            return aggregate.count ? [aggregate componentsJoinedByString:@""] : nil;
+            return aggregate.count ? aggregate : nil;
         }
         // Fush if whitespace
         BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
@@ -182,70 +170,30 @@ static NSRegularExpression *whiteSpace;
                 logError(@"Unrecognized backspace behavior");
             }
         }
-        // If there are no more glyphs then reset the replacement string
-        if (![self hasDeletable]) {
-            replacement = nil;
-        }
     }
 }
 
--(BOOL)hasOutput {
-    return [uncommittedOutput count] > 0;
-}
-
--(NSString *)output {
-    if ([uncommittedOutput count] <= 0) {
-        return nil;
-    }
-    NSMutableString *word = [[NSMutableString alloc] init];
-    for (DJParseOutput *bundle in uncommittedOutput) {
-        if (bundle.output) [word appendString:bundle.output];
-    }
-    return word;
-}
-
--(NSString *)input {
-    if ([uncommittedOutput count] <= 0) {
-        return nil;
-    }
-    NSMutableString *word = [[NSMutableString alloc] init];
-    for (DJParseOutput *bundle in uncommittedOutput) {
-        [word appendString:[bundle input]];
-    }
-    // Add in the inputs that have yet to generate an output
-    [word appendString:[[engine inputsSinceLastOutput] componentsJoinedByString:@""]];
-    return word;
-}
-
--(int)maxOutputLength {
-    return [engine.scheme.reverseMappings maxOutputSize];
-}
-
--(NSString *)replacement {
-    return replacement;
-}
-
--(NSString *)flush {
+-(NSArray *)flush {
     @synchronized(self) {
         [engine reset];
-        NSString *result = [self output];
+        NSArray *result = uncommittedOutput;
         [self reset];
         return result;
     }
 }
 
--(NSString *)revert {
-    @synchronized(self) {
-        NSString *previous = replacement;
-        [self flush];
-        return previous;
-    }
+-(NSArray *)uncommitted {
+    NSMutableArray *results = [uncommittedOutput mutableCopy];
+    // Add in the inputs that have gone into the engine which are yet to produce an output
+    DJParseOutput *latestInput = [[DJParseOutput alloc] init];
+    latestInput.input = [[engine inputsSinceLastOutput] componentsJoinedByString:@""];
+    if (latestInput.input.length > 0) [results addObject:latestInput];
+    return results;
 }
 
 -(void)reset {
     @synchronized(self) {
-        [uncommittedOutput removeAllObjects];
-        replacement = nil;
+        uncommittedOutput = [NSMutableArray arrayWithCapacity:0];
         finalizedIndex = 0;
     }
 }

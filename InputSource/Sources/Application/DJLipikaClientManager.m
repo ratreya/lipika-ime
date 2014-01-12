@@ -24,7 +24,7 @@ static long numCompositionCommits = 0;
     numMyCompositionCommits = 0;
     client = theClient;
     candidateManager = [[DJLipikaCandidates alloc] initWithClient:client];
-    bufferManager = [[DJLipikaBufferManager alloc] init];
+    bufferManager = [[DJStringBufferManager alloc] init];
     return self;
 }
 
@@ -61,18 +61,20 @@ static long numCompositionCommits = 0;
     if (!hasDeletable) {
         NSString *previousText = [client previousTextOfLength:[bufferManager maxOutputLength] withOffset:0];
         if (previousText) {
-            if ([bufferManager outputForInput:@"" previousText:previousText]) {
-                // This means that the previous character is either whitespace, stop character or non-reverse-mappable
+            if (![bufferManager.reverseMappings inputForOutput:previousText]) {
                 // Leave out one character and try the remaining
                 previousText = [client previousTextOfLength:[bufferManager maxOutputLength] withOffset:1];
-                if ([bufferManager outputForInput:@"" previousText:previousText]) {
+                if (![bufferManager.reverseMappings inputForOutput:previousText]) {
                     // This means that the previous two characters are either whitespace, stop character or non-reverse-mappable
                     return NO;
                 }
+                [bufferManager outputForInput:@"" previousText:previousText];
                 // Because we left out the previous char, the following statement will remove it
                 [candidateManager showCandidateWithInput:bufferManager.input output:bufferManager.output replacementLength:bufferManager.replacement.length + 1];
                 return YES;
             }
+            // If previous is reverse mappable then prime the buffer with it and proceed as if you have deletable
+            [bufferManager outputForInput:@"" previousText:previousText];
         }
         else {
             return NO;

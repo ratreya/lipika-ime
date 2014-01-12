@@ -8,21 +8,14 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "DJInputMethodEngine.h"
-#import "Constants.h"
+#import "DJActiveBufferManager.h"
 
-@interface DJLipikaBufferManager : NSObject {
-    // One instance of the engine per connection
-    DJInputMethodEngine *engine;
-    // Holds NSString outputs that need to be handed off to the client
-    NSMutableArray *uncommittedOutput;
-    // New output from the engine will replace all output after this index
-    unsigned long finalizedIndex;
+@interface DJStringBufferManager : NSObject {
+    DJActiveBufferManager *delegate;
     // The string in the client that is being replaced
     NSString *replacement;
 }
 
--(id)init;
 -(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName type:(enum DJSchemeType)type;
 -(NSString *)outputForInput:(NSString *)string;
 -(NSString *)outputForInput:(NSString *)string previousText:(NSString *)previousText;
@@ -35,5 +28,6 @@
 -(NSString *)revert;
 -(int)maxOutputLength;
 -(NSString *)replacement;
+-(id<DJReverseMapping>)reverseMappings;
 
 @end
