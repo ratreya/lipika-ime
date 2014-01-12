@@ -8,7 +8,7 @@
  */
 
 #import "DJLipikaFileConvertor.h"
-#import "DJLipikaBufferManager.h"
+#import "DJStringBufferManager.h"
 #import "DJLipikaUserSettings.h"
 #import "DJLogger.h"
 #import <Cocoa/Cocoa.h>
@@ -49,7 +49,7 @@
             return;
         }
         NSFileHandle *outputFile = [NSFileHandle fileHandleForWritingAtPath:outputFileName];
-        DJLipikaBufferManager *engine = [[DJLipikaBufferManager alloc] init];
+        DJStringBufferManager *engine = [[DJStringBufferManager alloc] init];
         for (NSString *line in lines) {
             NSString *output = [engine outputForInput:line];
             [outputFile writeData:[output dataUsingEncoding:NSUTF8StringEncoding]];
