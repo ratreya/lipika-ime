@@ -9,7 +9,7 @@
 
 #import <InputMethodKit/InputMethodKit.h>
 #import "DJLipikaAppDelegate.h"
-#import "DJInputSchemeUberFactory.h"
+#import "DJInputSchemeFactory.h"
 #import "DJLipikaUserSettings.h"
 
 @implementation DJLipikaAppDelegate
@@ -30,8 +30,8 @@
     enum DJSchemeType type = [DJLipikaUserSettings schemeType];
     NSString *defaultSchemeName = [DJLipikaUserSettings schemeName];
     // Add Scheme item to the mainMenu
-    NSArray *schemeNames = [DJInputSchemeUberFactory availableSchemesForType:DJ_LIPIKA];
-    NSArray *scriptNames = [DJInputSchemeUberFactory availableScriptsForType:DJ_LIPIKA];
+    NSArray *schemeNames = [DJInputSchemeFactory availableSchemesForType:DJ_LIPIKA];
+    NSArray *scriptNames = [DJInputSchemeFactory availableScriptsForType:DJ_LIPIKA];
     if (schemeNames.count > 0 && scriptNames.count > 0) {
         NSMenuItem *schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input scheme" action:NULL keyEquivalent:@""];
         [schemeSelectionItem setTag:++runningTagId];
@@ -68,7 +68,7 @@
         [scriptSelectionItem setSubmenu:scriptSubMenu];
     }
     // Create a custom schemes submenu if needed
-    NSArray *googleSchemes = [DJInputSchemeUberFactory availableSchemesForType:DJ_GOOGLE];
+    NSArray *googleSchemes = [DJInputSchemeFactory availableSchemesForType:DJ_GOOGLE];
     if (googleSchemes && googleSchemes.count > 0) {
         NSMenuItem *googleSchemeItem = [[NSMenuItem alloc] initWithTitle:@"Custom schemes" action:NULL keyEquivalent:@""];
         [googleSchemeItem setTag:++runningTagId];

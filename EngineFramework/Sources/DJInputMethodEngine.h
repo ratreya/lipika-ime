@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "DJInputMethodScheme.h"
 #import "DJTrieNode.h"
-#import "DJParseOutput.h"
+#import "Constants.h"
 
 @interface DJInputMethodEngine : NSObject {
     id<DJInputMethodScheme> scheme;
@@ -21,7 +21,8 @@
 
 @property id<DJInputMethodScheme> scheme;
 
--(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
++(DJInputMethodEngine *)inputEngineForScheme:(NSString *)schemeName scriptName:(NSString *)scriptName type:(enum DJSchemeType)type;
+
 -(NSArray *)executeWithInput:(NSString *)input;
 -(NSArray *)inputsSinceLastOutput;
 -(BOOL)hasDeletable;

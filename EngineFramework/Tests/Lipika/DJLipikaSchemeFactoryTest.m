@@ -24,6 +24,12 @@
 
 @end
 
+@interface DJInputMethodEngine (Test)
+
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
+
+@end
+
 @interface DJLipikaSchemeFactoryTest : XCTestCase
 
 @end

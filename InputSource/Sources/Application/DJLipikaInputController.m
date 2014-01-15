@@ -11,6 +11,7 @@
 #import "DJPreferenceController.h"
 #import "DJLipikaFileConvertor.h"
 #import "Constants.h"
+#import "DJLogger.h"
 
 @implementation DJLipikaInputController
 
@@ -21,13 +22,7 @@
     if (self == nil) {
         return self;
     }
-    @try {
-        manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:inputClient]];
-    }
-    @catch (NSException *exception) {
-        NSBeep();
-        return nil;
-    }
+    manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:inputClient]];
     return self;
 }
 
@@ -129,6 +124,7 @@
     }
     @catch (NSException *exception) {
         NSBeep();
+        logFatal(@"Error initializing scheme. %@", [exception description]);
         return;
     }
     if (isGoogleItem) {

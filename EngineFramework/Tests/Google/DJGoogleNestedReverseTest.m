@@ -9,7 +9,13 @@
 
 #import <XCTest/XCTest.h>
 #import "DJGoogleSchemeFactory.h"
-#import "DJInputEngineFactory.h"
+#import "DJInputMethodEngine.h"
+
+@interface DJInputMethodEngine (Test)
+
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
+
+@end
 
 @interface DJGoogleNestedReverseTest : XCTestCase {
     DJGoogleInputScheme* scheme;

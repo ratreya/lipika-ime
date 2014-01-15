@@ -19,6 +19,12 @@
 
 @end
 
+@interface DJInputMethodEngine (Test)
+
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
+
+@end
+
 @implementation DJGoogleEngineTest
 
 - (void)setUp {

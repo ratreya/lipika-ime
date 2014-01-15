@@ -5,29 +5,29 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
+	<string>LipikaApp</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>Common/Resources/icon.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>Daivajnanam.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.daivajnanam.inputmethod.LipikaApp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>LipikaApp</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>DJLI</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2014 Ranganath Atreya. All rights reserved.</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014 com.daivajnanam. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

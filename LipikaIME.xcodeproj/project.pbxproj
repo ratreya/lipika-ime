@@ -19,10 +19,9 @@
 		A58281EB187BAA6100517F4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A58281E8187BAA6100517F4F /* Images.xcassets */; };
 		A58281ED187BAA6100517F4F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58281EA187BAA6100517F4F /* MainMenu.xib */; };
 		A58281F1187BAA8A00517F4F /* LipikaIMETests.m in Sources */ = {isa = PBXBuildFile; fileRef = A58281EF187BAA8A00517F4F /* LipikaIMETests.m */; };
-		A5848DE2187B22C400EB6C46 /* DJInputEngineFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D78187B201800EB6C46 /* DJInputEngineFactory.m */; };
 		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
 		A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */; };
-		A5848DE5187B22C400EB6C46 /* DJInputSchemeUberFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D81187B201800EB6C46 /* DJInputSchemeUberFactory.m */; };
+		A5848DE5187B22C400EB6C46 /* DJInputSchemeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D81187B201800EB6C46 /* DJInputSchemeFactory.m */; };
 		A5848DE7187B22C400EB6C46 /* DJParseOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D85187B201800EB6C46 /* DJParseOutput.m */; };
 		A5848DE8187B22C400EB6C46 /* DJSchemeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D88187B201800EB6C46 /* DJSchemeHelper.m */; };
 		A5848DE9187B22C400EB6C46 /* DJSimpleForwardMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D8A187B201800EB6C46 /* DJSimpleForwardMapping.m */; };
@@ -175,16 +174,14 @@
 		A5848D71187B201800EB6C46 /* DJTestClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJTestClient.m; sourceTree = "<group>"; };
 		A5848D72187B201800EB6C46 /* DJTestHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJTestHelper.h; sourceTree = "<group>"; };
 		A5848D73187B201800EB6C46 /* DJTestHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJTestHelper.m; sourceTree = "<group>"; };
-		A5848D77187B201800EB6C46 /* DJInputEngineFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputEngineFactory.h; sourceTree = "<group>"; };
-		A5848D78187B201800EB6C46 /* DJInputEngineFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputEngineFactory.m; sourceTree = "<group>"; };
 		A5848D79187B201800EB6C46 /* DJInputMethodEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputMethodEngine.h; sourceTree = "<group>"; };
 		A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputMethodEngine.m; sourceTree = "<group>"; };
 		A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJActiveBufferManager.h; sourceTree = "<group>"; };
 		A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJActiveBufferManager.m; sourceTree = "<group>"; };
 		A5848D7E187B201800EB6C46 /* DJForwardMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJForwardMapping.h; sourceTree = "<group>"; };
 		A5848D7F187B201800EB6C46 /* DJInputMethodScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputMethodScheme.h; sourceTree = "<group>"; };
-		A5848D80187B201800EB6C46 /* DJInputSchemeUberFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputSchemeUberFactory.h; sourceTree = "<group>"; };
-		A5848D81187B201800EB6C46 /* DJInputSchemeUberFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputSchemeUberFactory.m; sourceTree = "<group>"; };
+		A5848D80187B201800EB6C46 /* DJInputSchemeFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputSchemeFactory.h; sourceTree = "<group>"; };
+		A5848D81187B201800EB6C46 /* DJInputSchemeFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputSchemeFactory.m; sourceTree = "<group>"; };
 		A5848D84187B201800EB6C46 /* DJParseOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJParseOutput.h; sourceTree = "<group>"; };
 		A5848D85187B201800EB6C46 /* DJParseOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJParseOutput.m; sourceTree = "<group>"; };
 		A5848D86187B201800EB6C46 /* DJReverseMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJReverseMapping.h; sourceTree = "<group>"; };
@@ -500,8 +497,6 @@
 				A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */,
 				A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */,
 				A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */,
-				A5848D77187B201800EB6C46 /* DJInputEngineFactory.h */,
-				A5848D78187B201800EB6C46 /* DJInputEngineFactory.m */,
 				A5848D79187B201800EB6C46 /* DJInputMethodEngine.h */,
 				A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */,
 				A5848D9C187B201800EB6C46 /* Trie */,
@@ -515,8 +510,8 @@
 			children = (
 				A5848D7E187B201800EB6C46 /* DJForwardMapping.h */,
 				A5848D7F187B201800EB6C46 /* DJInputMethodScheme.h */,
-				A5848D80187B201800EB6C46 /* DJInputSchemeUberFactory.h */,
-				A5848D81187B201800EB6C46 /* DJInputSchemeUberFactory.m */,
+				A5848D80187B201800EB6C46 /* DJInputSchemeFactory.h */,
+				A5848D81187B201800EB6C46 /* DJInputSchemeFactory.m */,
 				A5848D84187B201800EB6C46 /* DJParseOutput.h */,
 				A5848D85187B201800EB6C46 /* DJParseOutput.m */,
 				A5848D86187B201800EB6C46 /* DJReverseMapping.h */,
@@ -1057,11 +1052,10 @@
 			files = (
 				A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */,
 				A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */,
-				A5848DE2187B22C400EB6C46 /* DJInputEngineFactory.m in Sources */,
 				A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */,
 				A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */,
 				A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */,
-				A5848DE5187B22C400EB6C46 /* DJInputSchemeUberFactory.m in Sources */,
+				A5848DE5187B22C400EB6C46 /* DJInputSchemeFactory.m in Sources */,
 				A5848DE7187B22C400EB6C46 /* DJParseOutput.m in Sources */,
 				A5848DE8187B22C400EB6C46 /* DJSchemeHelper.m in Sources */,
 				A5848DE9187B22C400EB6C46 /* DJSimpleForwardMapping.m in Sources */,

@@ -24,6 +24,12 @@
 
 @end
 
+@interface DJInputMethodEngine (Test)
+
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
+
+@end
+
 @implementation DJGoogleBufferManagerTest
 
 -(void)setUp {

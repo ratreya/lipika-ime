@@ -23,6 +23,12 @@
 
 @end
 
+@interface DJInputMethodEngine (Test)
+
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
+
+@end
+
 @implementation DJGoogleInputStringText
 
 -(void)setUp {

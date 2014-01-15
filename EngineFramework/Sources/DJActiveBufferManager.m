@@ -8,7 +8,6 @@
  */
 
 #import "DJActiveBufferManager.h"
-#import "DJInputEngineFactory.h"
 #import "DJLipikaUserSettings.h"
 #import "DJSchemeHelper.h"
 #import "DJLogger.h"
@@ -30,7 +29,7 @@ static NSRegularExpression *whiteSpace;
     if (self == nil) {
         return self;
     }
-    engine = [DJInputEngineFactory inputEngine];
+    engine = [DJInputMethodEngine inputEngineForScheme:[DJLipikaUserSettings schemeName] scriptName:[DJLipikaUserSettings scriptName] type:[DJLipikaUserSettings schemeType]];
     if (engine == nil) {
         return nil;
     }
@@ -60,8 +59,7 @@ static NSRegularExpression *whiteSpace;
 
 -(void)changeToSchemeWithName:(NSString *)schemeName forScript:(NSString *)scriptName type:(enum DJSchemeType)type {
     @synchronized (self) {
-        [DJInputEngineFactory setCurrentSchemeWithName:schemeName scriptName:scriptName type:type];
-        engine = [DJInputEngineFactory inputEngine];
+        engine = [DJInputMethodEngine inputEngineForScheme:schemeName scriptName:scriptName type:type];
     }
 }
 
