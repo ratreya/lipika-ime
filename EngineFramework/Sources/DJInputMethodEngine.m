@@ -8,12 +8,42 @@
  */
 
 #import "DJInputMethodEngine.h"
+#import "DJInputSchemeFactory.h"
 #import "DJSchemeHelper.h"
 #include <AppKit/AppKit.h>
 
 @implementation DJInputMethodEngine
 
 @synthesize scheme;
+
+static NSMutableDictionary *schemesCache;
+
++(void)initialize {
+    static BOOL initialized = NO;
+    if(!initialized) {
+        initialized = YES;
+        schemesCache = [NSMutableDictionary dictionaryWithCapacity:0];
+    }
+}
+
++(DJInputMethodEngine *)inputEngineForScheme:(NSString *)schemeName scriptName:(NSString *)scriptName type:(enum DJSchemeType)type {
+    // Initialize with the given scheme file
+    id<DJInputMethodScheme> scheme;
+    @synchronized(schemesCache) {
+        NSString *key = [NSString stringWithFormat:@"%@-%@-%u", scriptName, schemeName, type];
+        scheme = [schemesCache objectForKey:key];
+        if (scheme == nil) {
+            scheme = [DJInputSchemeFactory inputSchemeForScript:scriptName scheme:schemeName type:type];
+            if (scheme == nil) {
+                [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, type];
+            }
+            else {
+                [schemesCache setObject:scheme forKey:key];
+            }
+        }
+    }
+    return [[DJInputMethodEngine alloc] initWithScheme:scheme];
+}
 
 -(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme {
     self = [super init];

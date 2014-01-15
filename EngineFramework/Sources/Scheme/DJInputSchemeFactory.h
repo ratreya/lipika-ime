@@ -11,7 +11,7 @@
 #import "DJInputMethodScheme.h"
 #import "Constants.h"
 
-@interface DJInputSchemeUberFactory : NSObject
+@interface DJInputSchemeFactory : NSObject
 
 +(id<DJInputMethodScheme>)inputSchemeForScript:(NSString *)script scheme:(NSString *)scheme type:(enum DJSchemeType)type;
 +(NSArray *)availableScriptsForType:(enum DJSchemeType)type;

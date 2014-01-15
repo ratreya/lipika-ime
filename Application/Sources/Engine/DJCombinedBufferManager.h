@@ -12,11 +12,6 @@
 
 @interface DJCombinedBufferManager : NSObject {
     DJActiveBufferManager *manager;
-    unsigned long currentPosition;
 }
-
--(unsigned long)currentPosition;
--(void)setCurrentPosition:(unsigned long)thePosition;
-
 
 @end

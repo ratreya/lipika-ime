@@ -7,12 +7,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import "DJInputSchemeUberFactory.h"
+#import "DJInputSchemeFactory.h"
 #import "DJInputMethodScheme.h"
 #import "DJGoogleSchemeFactory.h"
 #import "DJLipikaSchemeFactory.h"
 
-@implementation DJInputSchemeUberFactory
+@implementation DJInputSchemeFactory
 
 +(id<DJInputMethodScheme>)inputSchemeForScript:(NSString *)script scheme:(NSString *)scheme type:(enum DJSchemeType)type {
     switch (type) {

@@ -9,6 +9,7 @@
 
 #import "DJLipikaClientManager.h"
 #import "DJLipikaUserSettings.h"
+#import "DJLogger.h"
 
 /*
  * Using this technique because for some unknown reason notifications don't work.
@@ -24,7 +25,13 @@ static long numCompositionCommits = 0;
     numMyCompositionCommits = 0;
     client = theClient;
     candidateManager = [[DJLipikaCandidates alloc] initWithClient:client];
-    bufferManager = [[DJStringBufferManager alloc] init];
+    @try {
+        bufferManager = [[DJStringBufferManager alloc] init];
+    }
+    @catch (NSException *exception) {
+        logFatal(@"Error initializing. %@", [exception description]);
+        NSBeep();
+    }
     return self;
 }
 
@@ -33,6 +40,7 @@ static long numCompositionCommits = 0;
 }
 
 -(BOOL)inputText:(NSString *)string {
+    if (!bufferManager) return NO;
     NSString *previousText;
     // If this is the first character and combine with previous glyph is enabled and client supports TSMDocumentAccess protocol
     if ([DJLipikaUserSettings isCombineWithPreviousGlyph] && [client isDocumentAccessSupported] && ![bufferManager hasDeletable]) {
@@ -45,6 +53,7 @@ static long numCompositionCommits = 0;
 }
 
 -(BOOL)handleBackspace {
+    if (!bufferManager) return NO;
     // If delete output or if more than one letter is selected then commit the string and let the client delete
     if ([DJLipikaUserSettings backspaceBehavior] == DJ_DELETE_OUTPUT || [client selectedRange].length > 0) {
         [self commit];
@@ -95,6 +104,7 @@ static long numCompositionCommits = 0;
 }
 
 -(BOOL)handleCancel {
+    if (!bufferManager) return NO;
     [self revert];
     [candidateManager hide];
     return YES;
@@ -144,6 +154,8 @@ static long numCompositionCommits = 0;
 
 -(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName type:(enum DJSchemeType)type {
     [self commit];
+    if (!schemeName) schemeName = [DJLipikaUserSettings schemeName];
+    if (!scriptName) scriptName = [DJLipikaUserSettings scriptName];
     [bufferManager changeToSchemeWithName:schemeName forScript:scriptName type:type];
     // If no exceptions then change the user settings
     [DJLipikaUserSettings setScriptName:scriptName];

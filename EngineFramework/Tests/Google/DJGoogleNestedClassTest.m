@@ -20,6 +20,12 @@
 
 @end
 
+@interface DJInputMethodEngine (Test)
+
+-(id)initWithScheme:(id<DJInputMethodScheme>)inputScheme;
+
+@end
+
 @implementation DJGoogleNestedClassTest
 
 - (void)setUp {
