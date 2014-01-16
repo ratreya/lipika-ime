@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>LipikaApp</string>
-	<key>CFBundleIconFile</key>
-	<string>Common/Resources/icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.daivajnanam.inputmethod.LipikaApp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -20,14 +18,14 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>DJLI</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014 Ranganath Atreya. All rights reserved.</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2014 Ranganath Atreya. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

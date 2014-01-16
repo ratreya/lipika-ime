@@ -6,8 +6,6 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>LipikaIME</string>
-	<key>CFBundleIconFile</key>
-	<string>Common/Resources/icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.daivajnanam.inputmethod.LipikaIME</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -20,8 +18,6 @@
 	<string>1.4.0</string>
 	<key>CFBundleSignature</key>
 	<string>DJLI</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014 Ranganath Atreya. All rights reserved.</string>
 	<key>CFBundleVersion</key>
 	<string>7</string>
 	<key>InputMethodConnectionName</key>
@@ -34,6 +30,8 @@
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2014 Ranganath Atreya. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

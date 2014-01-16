@@ -7,11 +7,21 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import "DJActiveBufferManager.h"
 
 @interface DJCombinedBufferManager : NSObject {
     DJActiveBufferManager *manager;
+    
+    IBOutlet NSPopUpButton *scriptPopup;
+    IBOutlet NSPopUpButton *schemePopup;
+    IBOutlet NSTextView *originalTextView;
+    IBOutlet NSTextView *composedTextView;
 }
+
+@property IBOutlet NSPopUpButton *scriptPopup;
+@property IBOutlet NSPopUpButton *schemePopup;
+@property IBOutlet NSTextView *originalTextView;
+@property IBOutlet NSTextView *composedTextView;
 
 @end
