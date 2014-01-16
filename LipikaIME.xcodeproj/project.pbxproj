@@ -16,7 +16,6 @@
 		A58281D2187BA93700517F4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A58281E6187BAA5400517F4F /* DJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A58281E4187BAA5400517F4F /* DJAppDelegate.m */; };
 		A58281E7187BAA5400517F4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A58281E5187BAA5400517F4F /* main.m */; };
-		A58281EB187BAA6100517F4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A58281E8187BAA6100517F4F /* Images.xcassets */; };
 		A58281ED187BAA6100517F4F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58281EA187BAA6100517F4F /* MainMenu.xib */; };
 		A58281F1187BAA8A00517F4F /* LipikaIMETests.m in Sources */ = {isa = PBXBuildFile; fileRef = A58281EF187BAA8A00517F4F /* LipikaIMETests.m */; };
 		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
@@ -65,6 +64,12 @@
 		A5A047C4187F4F7900ED7613 /* EngineFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A5C2A1BF1888761F0085DE01 /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5C2A1BE188872E70085DE01 /* Icon.xcassets */; };
+		A5C2A1C0188876500085DE01 /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5C2A1BE188872E70085DE01 /* Icon.xcassets */; };
+		A5C2A1C1188876F80085DE01 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
+		A5C2A1C218887D460085DE01 /* DJLipikaUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A5883E69187B530A00FFE7F6 /* DJLipikaUserSettings.m */; };
+		A5C2A1C318887D550085DE01 /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D6E187B201800EB6C46 /* DJLogger.m */; };
+		A5C2A1C418887EB50085DE01 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */; };
 		A5CAD2DB187E05B300E98D5F /* DJCombinedBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CAD2DA187E05B300E98D5F /* DJCombinedBufferManager.m */; };
 		A5CAD2DC187E363D00E98D5F /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
 		A5CAE3F3187B927A00A1549A /* DJLipikaAddendumTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */; };
@@ -75,7 +80,6 @@
 		A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = A5848DC5187B201800EB6C46 /* MainMenu.nib */; };
 		A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5848DC7187B201800EB6C46 /* Preferences.xib */; };
 		A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5848DCA187B201800EB6C46 /* LipikaIcon.png */; };
-		A5CAE3FE187B94ED00A1549A /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A5848D38187B201800EB6C46 /* icon.icns */; };
 		A5CAE3FF187B94ED00A1549A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A5848D3A187B201800EB6C46 /* LICENSE */; };
 		A5CAE400187B94ED00A1549A /* README in Resources */ = {isa = PBXBuildFile; fileRef = A5848D3B187B201800EB6C46 /* README */; };
 		A5CAE402187B951F00A1549A /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
@@ -158,13 +162,10 @@
 		A58281E3187BAA5400517F4F /* DJAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJAppDelegate.h; sourceTree = "<group>"; };
 		A58281E4187BAA5400517F4F /* DJAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJAppDelegate.m; sourceTree = "<group>"; };
 		A58281E5187BAA5400517F4F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A58281E8187BAA6100517F4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A58281E9187BAA6100517F4F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A58281EA187BAA6100517F4F /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		A58281EE187BAA8A00517F4F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A58281EF187BAA8A00517F4F /* LipikaIMETests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LipikaIMETests.m; sourceTree = "<group>"; };
-		A5848D38187B201800EB6C46 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
-		A5848D39187B201800EB6C46 /* icon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = icon.iconset; sourceTree = "<group>"; };
 		A5848D3A187B201800EB6C46 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A5848D3B187B201800EB6C46 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		A5848D6C187B201800EB6C46 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -260,6 +261,7 @@
 		A5883E87187B5BC800FFE7F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5BA7D59181D912100461B2F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5BA7D65181D91A000461B2F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		A5C2A1BE188872E70085DE01 /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
 		A5C54E0316BA20C1007F631D /* InputSourceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InputSourceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5CAD2D9187E05B300E98D5F /* DJCombinedBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJCombinedBufferManager.h; path = Engine/DJCombinedBufferManager.h; sourceTree = "<group>"; };
 		A5CAD2DA187E05B300E98D5F /* DJCombinedBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJCombinedBufferManager.m; path = Engine/DJCombinedBufferManager.m; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A58281B7187BA93700517F4F /* Cocoa.framework in Frameworks */,
+				A5C2A1C418887EB50085DE01 /* InputMethodKit.framework in Frameworks */,
 				A5CAD2DC187E363D00E98D5F /* EngineFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,7 +402,6 @@
 		A5848D32187B201800EB6C46 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A58281E8187BAA6100517F4F /* Images.xcassets */,
 				A58281E9187BAA6100517F4F /* Info.plist */,
 				A58281EA187BAA6100517F4F /* MainMenu.xib */,
 			);
@@ -440,8 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				A517EED4187C87E900323900 /* UserSettings.plist */,
-				A5848D38187B201800EB6C46 /* icon.icns */,
-				A5848D39187B201800EB6C46 /* icon.iconset */,
+				A5C2A1BE188872E70085DE01 /* Icon.xcassets */,
 				A5848D3A187B201800EB6C46 /* LICENSE */,
 				A5848D3B187B201800EB6C46 /* README */,
 				A5CAE401187B950D00A1549A /* Schemes */,
@@ -940,7 +941,7 @@
 				A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */,
 				A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */,
 				A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */,
-				A5CAE3FE187B94ED00A1549A /* icon.icns in Resources */,
+				A5C2A1BF1888761F0085DE01 /* Icon.xcassets in Resources */,
 				A5CAE3FF187B94ED00A1549A /* LICENSE in Resources */,
 				A5CAE400187B94ED00A1549A /* README in Resources */,
 			);
@@ -951,8 +952,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A517EED5187C87FA00323900 /* UserSettings.plist in Resources */,
-				A58281EB187BAA6100517F4F /* Images.xcassets in Resources */,
+				A5C2A1C1188876F80085DE01 /* Schemes in Resources */,
 				A58281ED187BAA6100517F4F /* MainMenu.xib in Resources */,
+				A5C2A1C0188876500085DE01 /* Icon.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1025,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A58281E7187BAA5400517F4F /* main.m in Sources */,
+				A5C2A1C218887D460085DE01 /* DJLipikaUserSettings.m in Sources */,
+				A5C2A1C318887D550085DE01 /* DJLogger.m in Sources */,
 				A5CAD2DB187E05B300E98D5F /* DJCombinedBufferManager.m in Sources */,
 				A58281E6187BAA5400517F4F /* DJAppDelegate.m in Sources */,
 			);
@@ -1556,6 +1560,7 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
@@ -1577,6 +1582,7 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
