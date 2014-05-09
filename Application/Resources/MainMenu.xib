@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -650,7 +650,7 @@
         <window title="LipikaApp" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <rect key="contentRect" x="950" y="475" width="751" height="481"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="751" height="481"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -677,17 +677,17 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="334" height="337"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <clipView key="contentView" id="AOJ-KO-n7v">
-                                                                <rect key="frame" x="1" y="1" width="317" height="335"/>
+                                                                <rect key="frame" x="1" y="1" width="332" height="335"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textView importsGraphics="NO" findStyle="panel" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="9nt-s3-18s" userLabel="Original TextView">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="327" height="335"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="342" height="335"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <size key="minSize" width="317" height="335"/>
+                                                                        <size key="minSize" width="332" height="335"/>
                                                                         <size key="maxSize" width="463" height="10000000"/>
                                                                         <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <size key="minSize" width="317" height="335"/>
+                                                                        <size key="minSize" width="332" height="335"/>
                                                                         <size key="maxSize" width="463" height="10000000"/>
                                                                         <allowedInputSourceLocales>
                                                                             <string>NSAllRomanInputSourcesLocaleIdentifier</string>
@@ -704,7 +704,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="4rc-3w-lvw">
-                                                                <rect key="frame" x="318" y="1" width="15" height="335"/>
+                                                                <rect key="frame" x="317" y="1" width="16" height="335"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>
@@ -724,17 +724,17 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="328" height="337"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <clipView key="contentView" id="lfY-nf-fZz">
-                                                                <rect key="frame" x="1" y="1" width="311" height="335"/>
+                                                                <rect key="frame" x="1" y="1" width="326" height="335"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textView importsGraphics="NO" findStyle="panel" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="VJv-wV-eIJ" userLabel="Composed TextView">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="311" height="335"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="326" height="335"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <size key="minSize" width="311" height="335"/>
+                                                                        <size key="minSize" width="326" height="335"/>
                                                                         <size key="maxSize" width="463" height="10000000"/>
                                                                         <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <size key="minSize" width="311" height="335"/>
+                                                                        <size key="minSize" width="326" height="335"/>
                                                                         <size key="maxSize" width="463" height="10000000"/>
                                                                         <connections>
                                                                             <outlet property="delegate" destination="0Xm-FA-WbT" id="iu7-Yg-ong"/>
@@ -748,7 +748,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="C5L-yJ-XbB">
-                                                                <rect key="frame" x="312" y="1" width="15" height="335"/>
+                                                                <rect key="frame" x="311" y="1" width="16" height="335"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>
@@ -780,7 +780,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="RKR-3U-KKv">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="74O-z1-coA"/>
                                             </popUpButtonCell>
                                         </popUpButton>
@@ -798,7 +798,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Ggy-kE-fvj">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="nra-k1-Yo2"/>
                                             </popUpButtonCell>
                                         </popUpButton>

@@ -11,8 +11,7 @@
 #import "DJActiveBufferManager.h"
 
 @interface DJCombinedBufferManager : NSObject {
-    DJActiveBufferManager *manager;
-    
+    NSMutableArray *buffer;
     IBOutlet NSPopUpButton *scriptPopup;
     IBOutlet NSPopUpButton *schemePopup;
     IBOutlet NSTextView *originalTextView;

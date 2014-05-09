@@ -11,6 +11,7 @@
 #import "DJLipikaUserSettings.h"
 #import "DJSchemeHelper.h"
 #import "DJLogger.h"
+#import "DJLipikaHelper.h"
 
 @implementation DJActiveBufferManager
 
@@ -76,8 +77,7 @@ static NSRegularExpression *whiteSpace;
             return aggregate.count ? aggregate : nil;
         }
         // Fush if whitespace
-        BOOL isWhiteSpace = [whiteSpace numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])];
-        if (isWhiteSpace) {
+        if (isWhitespace(string)) {
             [uncommittedOutput addObject:[DJParseOutput sameInputOutput:string]];
             return [self flush];
         }

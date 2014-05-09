@@ -10,6 +10,7 @@
 #import "DJLipikaSchemeFactory.h"
 #import "DJSchemeHelper.h"
 #import "DJLogger.h"
+#import "DJLipikaHelper.h"
 
 @implementation DJLipikaSchemeFactory
 
@@ -21,7 +22,6 @@ static NSString *const SCHEMESUBDIR = @"Transliteration";
 static NSString *const SCRIPTSUBDIR = @"Script";
 
 // These regular expressions don't have dynamic elements
-static NSRegularExpression *whitespaceExpression;
 static NSRegularExpression *threeColumnTSVExpression;
 static NSRegularExpression *scriptOverrideExpression;
 static NSRegularExpression *schemeOverrideExpression;
@@ -30,17 +30,12 @@ static NSString *schemesDirectory;
 
 +(void)initialize {
     schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
-    NSString *const whitespacePattern = @"^\\s+$";
     NSString *const threeColumnTSVPattern = @"^\\s*([^\\t]+?)\\t+([^\\t]+?)\\t+(.*)\\s*$";
     NSString *const scriptOverridePattern = @"^\\s*Script\\s*:\\s*(.+)\\s*$";
     NSString *const schemeOverridePattern = @"^\\s*Transliteration\\s*:\\s*(.+)\\s*$";
     NSString *const imeOverridePattern = @"^\\s*IME\\s*:\\s*(.+)\\s*$";
 
     NSError *error;
-    whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
     threeColumnTSVExpression = [NSRegularExpression regularExpressionWithPattern:threeColumnTSVPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -167,7 +162,7 @@ static NSString *schemesDirectory;
     if (!outerTable) outerTable = [NSMutableDictionary dictionaryWithCapacity:0];
     for (NSString *line in linesOfScheme) {
         logDebug(@"Parsing line %@", line);
-        if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+        if([line length] <=0 || isWhitespace(line)) {
             continue;
         }
         else if ([threeColumnTSVExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
@@ -200,7 +195,7 @@ static NSString *schemesDirectory;
     NSArray *lines = linesOfFile(filePath);
     NSMutableArray *imeLines = [NSMutableArray arrayWithCapacity:0];
     for (NSString *line in lines) {
-        if([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
+        if([line length] <=0 || isWhitespace(line)) {
             continue;
         }
         logDebug(@"Parsing line %@", line);
