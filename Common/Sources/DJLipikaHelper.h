@@ -9,8 +9,4 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DJLipikaHelper : NSObject
-
-BOOL isWhitespace(NSString *string);
-
-@end
+extern BOOL isWhitespace(NSString *string);
