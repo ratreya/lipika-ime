@@ -83,12 +83,14 @@
 		A5CAE3FF187B94ED00A1549A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A5848D3A187B201800EB6C46 /* LICENSE */; };
 		A5CAE400187B94ED00A1549A /* README in Resources */ = {isa = PBXBuildFile; fileRef = A5848D3B187B201800EB6C46 /* README */; };
 		A5CAE402187B951F00A1549A /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
+		A5CF5951188F4B690093F016 /* DJLipikaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CF5950188F4B690093F016 /* DJLipikaHelper.m */; };
 		A5D635051877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A5D635191877435B0048DAE5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A5D6351D1877435B0048DAE5 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
 		A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */; };
 		A5EDA4E3187F202700B58B8D /* DJStringBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */; };
+		A5F19397188F4D1100EBF6B3 /* DJLipikaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CF5950188F4B690093F016 /* DJLipikaHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,6 +268,8 @@
 		A5CAD2D9187E05B300E98D5F /* DJCombinedBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DJCombinedBufferManager.h; path = Engine/DJCombinedBufferManager.h; sourceTree = "<group>"; };
 		A5CAD2DA187E05B300E98D5F /* DJCombinedBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJCombinedBufferManager.m; path = Engine/DJCombinedBufferManager.m; sourceTree = "<group>"; };
 		A5CAE401187B950D00A1549A /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
+		A5CF594F188F4B690093F016 /* DJLipikaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaHelper.h; sourceTree = "<group>"; };
+		A5CF5950188F4B690093F016 /* DJLipikaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLipikaHelper.m; sourceTree = "<group>"; };
 		A5D635031877435B0048DAE5 /* EngineFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EngineFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D635041877435B0048DAE5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A5D635071877435B0048DAE5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -458,6 +462,8 @@
 				A5848D6C187B201800EB6C46 /* Constants.h */,
 				A5848D6D187B201800EB6C46 /* DJLogger.h */,
 				A5848D6E187B201800EB6C46 /* DJLogger.m */,
+				A5CF594F188F4B690093F016 /* DJLipikaHelper.h */,
+				A5CF5950188F4B690093F016 /* DJLipikaHelper.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1009,6 +1015,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5CF5951188F4B690093F016 /* DJLipikaHelper.m in Sources */,
 				A5883E72187B551C00FFE7F6 /* DJLipikaClientManager.m in Sources */,
 				A5883E73187B551C00FFE7F6 /* DJLipikaAppDelegate.m in Sources */,
 				A5883E74187B551C00FFE7F6 /* DJLipikaClientDelegate.m in Sources */,
@@ -1054,8 +1061,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */,
+				A5F19397188F4D1100EBF6B3 /* DJLipikaHelper.m in Sources */,
 				A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */,
+				A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */,
 				A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */,
 				A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */,
 				A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */,

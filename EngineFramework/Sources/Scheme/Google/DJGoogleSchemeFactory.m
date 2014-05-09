@@ -10,6 +10,7 @@
 #import "DJGoogleSchemeFactory.h"
 #import "DJSchemeHelper.h"
 #import "DJLogger.h"
+#import "DJLipikaHelper.h"
 
 @implementation DJGoogleSchemeFactory
 
@@ -22,22 +23,16 @@ static NSString *const SCHEMESPATH = @"%@/Contents/Resources/Schemes/Google";
 static NSString *const EXTENSION = @"scm";
 
 // These regular expressions don't have dynamic elements
-static NSRegularExpression *whitespaceExpression;
 static NSRegularExpression *headerExpression;
 static NSRegularExpression *usingClassesExpression;
 static NSRegularExpression *classesDelimiterExpression;
 
 +(void)initialize {
-    NSString *const whitespacePattern = @"^\\s+$";
     NSString *const headerPattern = @"^\\s*(.*\\S)\\s*:\\s*(.*\\S)\\s*$";
     NSString *const usingClassesPattern = @"^\\s*using\\s+classes\\s*$";
     NSString *const classesDelimiterPattern = @"^\\s*(\\S)\\s*(\\S)\\s*$";
     
     NSError *error;
-    whitespaceExpression = [NSRegularExpression regularExpressionWithPattern:whitespacePattern options:0 error:&error];
-    if (error != nil) {
-        [NSException raise:@"Invalid class key regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
-    }
     headerExpression = [NSRegularExpression regularExpressionWithPattern:headerPattern options:0 error:&error];
     if (error != nil) {
         [NSException raise:@"Invalid header regular expression" format:@"Regular expression error: %@", [error localizedDescription]];
@@ -132,7 +127,7 @@ static NSRegularExpression *classesDelimiterExpression;
     // Parse out the headers
     for (NSString *line in linesOfScheme) {
         // For empty lines move on
-        if ([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) {
+        if ([line length] <=0 || isWhitespace(line)) {
             currentLineNumber++;
             continue;
         }
@@ -182,7 +177,7 @@ static NSRegularExpression *classesDelimiterExpression;
     for (; currentLineNumber<[linesOfScheme count]; currentLineNumber++) {
         NSString *line = linesOfScheme[currentLineNumber];
         // For empty lines move on
-        if ([line length] <=0 || [whitespaceExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, [line length])]) continue;
+        if ([line length] <=0 || isWhitespace(line)) continue;
         logDebug(@"Parsing line: %@", line);
         [scheme createMappingWithLine:line lineNumber:currentLineNumber];
     }
