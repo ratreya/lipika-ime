@@ -1,12 +1,26 @@
-LipikaIME is a user-configurable, phonetic, Input Method Engine for Mac OS X.
+_LipikaIME_, a user-configurable, phonetic, Input Method Engine for Mac OS X.
 
-Copyright (C) 2013 Ranganath Atreya
+> Copyright (C) 2013 Ranganath Atreya
+
+```
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU 
+General Public License as published by the Free Software Foundation; either version 3 of the License, 
+or (at your option) any later version.
 
 This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
+```
 
-### Release Notes ###
+Lipika IME is a many-to-many, user configurable, phonetic, input method engine. Originally, designed to type Sanskrit using Devanagari on a Mac. It can be configured to work with any other Indo-European language of similar structure.
 
-#### TBD: RELEASE NOTES FOR VERSION 1.4 ####
+Installation
+------------
+To install LipikaIME, download and run the [Installer](https://s3.amazonaws.com/atreya/LipikaIME.pkg).
+
+Lipika IME understands Google IME cannonical scheme format: http://www.google.com/inputtools/windows/canonical.html
+Schemes are in `/Library/Input Methods/LipikaIME/Contents/Resources/Schemes` directory.
+
+
+#### 05/09/2014: RELEASE NOTES FOR VERSION 1.4 ####
 * Highly maintainable proprietary scheme format
 * Schemes standerdized for applicability to all Indian languages
   * ITRANS, Baraha, Harvard Kyoto and Barahavat
