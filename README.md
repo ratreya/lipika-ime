@@ -1,4 +1,4 @@
-_LipikaIME_, a user-configurable, phonetic, Input Method Engine for Mac OS X.
+__LipikaIME__ a user-configurable, phonetic, Input Method Engine for Mac OS X with built-in support for Bengali, Devanagari, Gujarati, Gurmukhi, Hindi, Kannada, Malayalam, Oriya, Tamil and Telugu.
 
 > Copyright (C) 2013 Ranganath Atreya
 
@@ -14,7 +14,7 @@ Lipika IME is a many-to-many, user configurable, phonetic, input method engine. 
 
 Installation
 ------------
-To install LipikaIME, download and run the [Installer](https://s3.amazonaws.com/atreya/LipikaIME.pkg).
+To install LipikaIME, download and run the **[LipikaIME Installer](https://s3.amazonaws.com/sanskrit/LipikaIME.pkg)**.
 
 Lipika IME understands Google IME cannonical scheme format: http://www.google.com/inputtools/windows/canonical.html
 Schemes are in `/Library/Input Methods/LipikaIME/Contents/Resources/Schemes` directory.
