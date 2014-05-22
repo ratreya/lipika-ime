@@ -3,6 +3,8 @@ xcuserdata
 *.xccheckout
 *.swp
 *.lock
+*.app
+*.pkg
 profile
 *~.nib
 /build
