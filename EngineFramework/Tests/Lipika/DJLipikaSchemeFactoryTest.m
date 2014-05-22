@@ -61,6 +61,16 @@
     XCTAssertEqualObjects(output,  @"ञी", @"Unexpected output: %@", output);
 }
 
+-(void)testLoadingMappingOverrides {
+    DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"Gurmukhi" scheme:@"Barahavat"];
+    XCTAssertNotNil(scheme, @"Unexpected result");
+    DJSimpleForwardMapping *forwardMappings = scheme.forwardMappings;
+    NSString *output = [forwardMappings.parseTrie nodeForKey:@".n"].value;
+    XCTAssertEqualObjects(output,  @"ੰ", @"Unexpected output");
+    output = [forwardMappings.parseTrie nodeForKey:@".m"].value;
+    XCTAssertEqualObjects(output,  @"ਁ", @"Unexpected output: %@", output);
+}
+
 -(void)testLoadingCurrentIMEs {
     for (NSString *schemeName in [DJLipikaSchemeFactory availableSchemes]) {
         for (NSString *scriptName in [DJLipikaSchemeFactory availableScripts]) {
