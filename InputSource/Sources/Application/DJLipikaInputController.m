@@ -9,7 +9,7 @@
 
 #import "DJLipikaInputController.h"
 #import "DJPreferenceController.h"
-#import "DJLipikaFileConvertor.h"
+#import "DJConversionController.h"
 #import "Constants.h"
 #import "DJLogger.h"
 
@@ -82,10 +82,10 @@
  */
     NSMenuItem *menuItem = [sender objectForKey:kIMKCommandMenuItemName];
     if ([menuItem tag] == 1) {     // Preferrence
-        [self showPreferenceImplimentation:menuItem];
+        [self showPreferenceImpl:menuItem];
     }
     else if ([menuItem tag] == 2) { // Convert file
-        [DJLipikaFileConvertor convert];
+        [self showFileConversionImpl:menuItem];
     }
     else if ([menuItem tag] > 2) { // Input Schemes
         [self changeInputScheme:menuItem];
@@ -141,10 +141,20 @@
     [menuItem setState:NSOnState];
 }
 
--(void)showPreferenceImplimentation:(NSMenuItem *)menuItem {
+-(void)showPreferenceImpl:(NSMenuItem *)menuItem {
     static DJPreferenceController *preference;
     if (!preference) {
         preference = [[DJPreferenceController alloc] initWithWindowNibName:@"Preferences"];
+    }
+    [NSApp activateIgnoringOtherApps:YES];
+    [[preference window] makeKeyAndOrderFront:self];
+    [preference showWindow:self];
+}
+
+-(void)showFileConversionImpl:(NSMenuItem *)menuItem {
+    static DJConversionController *preference;
+    if (!preference) {
+        preference = [[DJConversionController alloc] initWithWindowNibName:@"FileConversion"];
     }
     [NSApp activateIgnoringOtherApps:YES];
     [[preference window] makeKeyAndOrderFront:self];

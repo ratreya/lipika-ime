@@ -10,7 +10,11 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A5174B13191DDF92001001F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A5174B12191DDF7F001001F3 /* LICENSE */; };
 		A517EED6187C883600323900 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A517EED4187C87E900323900 /* UserSettings.plist */; };
+		A53013FC1955E1990012E017 /* DJFileConversionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A53013FB1955E1990012E017 /* DJFileConversionTest.m */; };
+		A53013FE195614810012E017 /* Control in Resources */ = {isa = PBXBuildFile; fileRef = A53013FD195614810012E017 /* Control */; };
+		A531FE85195370AA00A714C2 /* DJConversionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A531FE84195370AA00A714C2 /* DJConversionController.m */; };
 		A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
+		A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */ = {isa = PBXBuildFile; fileRef = A583F15C19525D8100A80B88 /* FileConversion.xib */; };
 		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
 		A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */; };
 		A5848DE5187B22C400EB6C46 /* DJInputSchemeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D81187B201800EB6C46 /* DJInputSchemeFactory.m */; };
@@ -33,7 +37,6 @@
 		A5883E72187B551C00FFE7F6 /* DJLipikaClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5883E2F187B394800FFE7F6 /* DJLipikaClientManager.m */; };
 		A5883E73187B551C00FFE7F6 /* DJLipikaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */; };
 		A5883E74187B551C00FFE7F6 /* DJLipikaClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD1187B201800EB6C46 /* DJLipikaClientDelegate.m */; };
-		A5883E75187B551C00FFE7F6 /* DJLipikaFileConvertor.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD3187B201800EB6C46 /* DJLipikaFileConvertor.m */; };
 		A5883E76187B551C00FFE7F6 /* DJLipikaInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD5187B201800EB6C46 /* DJLipikaInputController.m */; };
 		A5883E77187B551C00FFE7F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD9187B201800EB6C46 /* main.m */; };
 		A5883E78187B551C00FFE7F6 /* DJLipikaCandidates.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DDC187B201800EB6C46 /* DJLipikaCandidates.m */; };
@@ -121,7 +124,12 @@
 		A5174B12191DDF7F001001F3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		A5174B14191DDFB5001001F3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 		A517EED4187C87E900323900 /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
+		A53013FB1955E1990012E017 /* DJFileConversionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJFileConversionTest.m; sourceTree = "<group>"; };
+		A53013FD195614810012E017 /* Control */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Control; sourceTree = "<group>"; };
+		A531FE83195370AA00A714C2 /* DJConversionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJConversionController.h; sourceTree = "<group>"; };
+		A531FE84195370AA00A714C2 /* DJConversionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJConversionController.m; sourceTree = "<group>"; };
 		A577D863185F5E58001C8942 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A583F15C19525D8100A80B88 /* FileConversion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileConversion.xib; sourceTree = "<group>"; };
 		A5848D6C187B201800EB6C46 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		A5848D6D187B201800EB6C46 /* DJLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLogger.h; sourceTree = "<group>"; };
 		A5848D6E187B201800EB6C46 /* DJLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLogger.m; sourceTree = "<group>"; };
@@ -195,8 +203,6 @@
 		A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaAppDelegate.m; sourceTree = "<group>"; };
 		A5848DD0187B201800EB6C46 /* DJLipikaClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaClientDelegate.h; sourceTree = "<group>"; };
 		A5848DD1187B201800EB6C46 /* DJLipikaClientDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaClientDelegate.m; sourceTree = "<group>"; };
-		A5848DD2187B201800EB6C46 /* DJLipikaFileConvertor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaFileConvertor.h; sourceTree = "<group>"; };
-		A5848DD3187B201800EB6C46 /* DJLipikaFileConvertor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaFileConvertor.m; sourceTree = "<group>"; };
 		A5848DD4187B201800EB6C46 /* DJLipikaInputController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaInputController.h; sourceTree = "<group>"; };
 		A5848DD5187B201800EB6C46 /* DJLipikaInputController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaInputController.m; sourceTree = "<group>"; };
 		A5848DD9187B201800EB6C46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -577,6 +583,7 @@
 				A5848DC3187B201800EB6C46 /* InfoPlist.strings */,
 				A5848DC5187B201800EB6C46 /* MainMenu.nib */,
 				A5848DC7187B201800EB6C46 /* Preferences.xib */,
+				A583F15C19525D8100A80B88 /* FileConversion.xib */,
 				A5848DC9187B201800EB6C46 /* Info.plist */,
 				A5848DCA187B201800EB6C46 /* LipikaIcon.png */,
 			);
@@ -603,8 +610,6 @@
 				A5848DD1187B201800EB6C46 /* DJLipikaClientDelegate.m */,
 				A5848DCE187B201800EB6C46 /* DJLipikaAppDelegate.h */,
 				A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */,
-				A5848DD2187B201800EB6C46 /* DJLipikaFileConvertor.h */,
-				A5848DD3187B201800EB6C46 /* DJLipikaFileConvertor.m */,
 				A5848DD4187B201800EB6C46 /* DJLipikaInputController.h */,
 				A5848DD5187B201800EB6C46 /* DJLipikaInputController.m */,
 			);
@@ -626,6 +631,8 @@
 				A5848DDC187B201800EB6C46 /* DJLipikaCandidates.m */,
 				A5848DDD187B201800EB6C46 /* DJPreferenceController.h */,
 				A5848DDE187B201800EB6C46 /* DJPreferenceController.m */,
+				A531FE83195370AA00A714C2 /* DJConversionController.h */,
+				A531FE84195370AA00A714C2 /* DJConversionController.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -633,8 +640,10 @@
 		A5848DDF187B201800EB6C46 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A53013FD195614810012E017 /* Control */,
 				A5883E87187B5BC800FFE7F6 /* Info.plist */,
 				A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */,
+				A53013FB1955E1990012E017 /* DJFileConversionTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -815,6 +824,8 @@
 			files = (
 				A517EED6187C883600323900 /* UserSettings.plist in Resources */,
 				A5CAE402187B951F00A1549A /* Schemes in Resources */,
+				A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */,
+				A53013FE195614810012E017 /* Control in Resources */,
 				A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */,
 				A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */,
 				A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */,
@@ -871,7 +882,7 @@
 				A5883E72187B551C00FFE7F6 /* DJLipikaClientManager.m in Sources */,
 				A5883E73187B551C00FFE7F6 /* DJLipikaAppDelegate.m in Sources */,
 				A5883E74187B551C00FFE7F6 /* DJLipikaClientDelegate.m in Sources */,
-				A5883E75187B551C00FFE7F6 /* DJLipikaFileConvertor.m in Sources */,
+				A531FE85195370AA00A714C2 /* DJConversionController.m in Sources */,
 				A5883E76187B551C00FFE7F6 /* DJLipikaInputController.m in Sources */,
 				A5883E77187B551C00FFE7F6 /* main.m in Sources */,
 				A5883E78187B551C00FFE7F6 /* DJLipikaCandidates.m in Sources */,
@@ -884,6 +895,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5883E8A187B5C5800FFE7F6 /* DJTestHelper.m in Sources */,
+				A53013FC1955E1990012E017 /* DJFileConversionTest.m in Sources */,
 				A5883E89187B5C4500FFE7F6 /* DJTestClient.m in Sources */,
 				A5883E85187B567100FFE7F6 /* DJClientManagerTest.m in Sources */,
 			);
