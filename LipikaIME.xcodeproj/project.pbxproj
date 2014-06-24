@@ -128,6 +128,7 @@
 		A53013FD195614810012E017 /* Control */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Control; sourceTree = "<group>"; };
 		A531FE83195370AA00A714C2 /* DJConversionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJConversionController.h; sourceTree = "<group>"; };
 		A531FE84195370AA00A714C2 /* DJConversionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJConversionController.m; sourceTree = "<group>"; };
+		A544A30F1958D86400A987E8 /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A577D863185F5E58001C8942 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A583F15C19525D8100A80B88 /* FileConversion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileConversion.xib; sourceTree = "<group>"; };
 		A5848D6C187B201800EB6C46 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -640,6 +641,7 @@
 		A5848DDF187B201800EB6C46 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A544A30F1958D86400A987E8 /* Schemes */,
 				A53013FD195614810012E017 /* Control */,
 				A5883E87187B5BC800FFE7F6 /* Info.plist */,
 				A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */,
