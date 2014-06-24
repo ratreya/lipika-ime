@@ -77,7 +77,9 @@
             toNode = [[DJTrieNode alloc] init];
             [toTrieNode.next setObject:toNode forKey:fromKey];
         }
-        toNode.key = fromNode.key;
+        if (fromNode.key) {
+            toNode.key = fromNode.key;
+        }
         [self setValue:fromNode.value toNode:toNode];
         if (fromNode.next && [fromNode.next count]) {
             [self mergeTrieFromNode:fromNode intoTrieNode:toNode leafNodes:leafNodes];

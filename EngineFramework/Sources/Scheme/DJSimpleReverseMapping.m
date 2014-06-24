@@ -39,7 +39,14 @@
     }
     if (index > 0) {
         DJParseOutput *nextResult = [self inputForOutput:outputs index:index-1 node:nextNode];
-        if (nextResult) return nextResult;
+        if (nextResult) {
+            return nextResult;
+        }
+        else {
+            if (!nextNode.key) {
+                return nil; // We are an intermediate node, so skip over us
+            }
+        }
     }
     DJParseOutput *result = [[DJParseOutput alloc] init];
     result.input = nextNode.value;
