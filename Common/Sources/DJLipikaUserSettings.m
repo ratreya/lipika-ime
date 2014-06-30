@@ -31,6 +31,14 @@ static NSDictionary *candidateStringAttributeCache = nil;
     [[NSUserDefaults standardUserDefaults] setObject:scriptName forKey:@"ScriptName"];
 }
 
++(NSString *)customSchemeName {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"CustomSchemeName"];
+}
+
++(void)setCustomSchemeName:(NSString *)schemeName {
+    [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:@"CustomSchemeName"];
+}
+
 +(NSString *)schemeName {
     return [[NSUserDefaults standardUserDefaults] stringForKey:@"SchemeName"];
 }

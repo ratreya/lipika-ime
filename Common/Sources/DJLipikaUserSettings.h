@@ -16,6 +16,8 @@
 +(void)setScriptName:(NSString *)scriptName;
 +(NSString *)schemeName;
 +(void)setSchemeName:(NSString *)schemeName;
++(NSString *)customSchemeName;
++(void)setCustomSchemeName:(NSString *)schemeName;
 +(enum DJSchemeType)schemeType;
 +(void)setSchemeType:(enum DJSchemeType)schemeType;
 +(NSString *)lipikaSchemeStopChar;
