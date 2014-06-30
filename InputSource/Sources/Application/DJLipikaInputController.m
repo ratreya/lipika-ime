@@ -10,6 +10,7 @@
 #import "DJLipikaInputController.h"
 #import "DJPreferenceController.h"
 #import "DJConversionController.h"
+#import "DJLipikaUserSettings.h"
 #import "Constants.h"
 #import "DJLogger.h"
 
@@ -127,18 +128,15 @@
         logFatal(@"Error initializing scheme. %@", [exception description]);
         return;
     }
+    [self clearAllOnStates:[[menuItem parentItem] menu]];
+    // Turn on state for the script and scheme
     if (isGoogleItem) {
-        [self clearAllOnStates:[[menuItem parentItem] menu]];
-    }
-    else if (isScriptItem || isSchemeItem) {
-        // Clear state of all sub-menus under "Input scheme" or "Output script" menu item
-        [self clearAllOnStates:[menuItem menu]];
+        [menuItem setState:NSOnState];
     }
     else {
-        [NSException raise:@"Unknown menu item" format:@"Menu parent title %@ not recognized", [[[menuItem parentItem] submenu] title]];
+        [[[[[[NSApp delegate] mainMenu] itemWithTitle:DJInputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
+        [[[[[[NSApp delegate] mainMenu] itemWithTitle:DJOutputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings scriptName]] setState:NSOnState];
     }
-    // Turn on state for the script and scheme
-    [menuItem setState:NSOnState];
 }
 
 -(void)showPreferenceImpl:(NSMenuItem *)menuItem {

@@ -158,8 +158,13 @@ static long numCompositionCommits = 0;
     if (!scriptName) scriptName = [DJLipikaUserSettings scriptName];
     [bufferManager changeToSchemeWithName:schemeName forScript:scriptName type:type];
     // If no exceptions then change the user settings
-    [DJLipikaUserSettings setScriptName:scriptName];
-    [DJLipikaUserSettings setSchemeName:schemeName];
+    if (type == DJ_GOOGLE) {
+        [DJLipikaUserSettings setCustomSchemeName:schemeName];
+    }
+    else {
+        [DJLipikaUserSettings setScriptName:scriptName];
+        [DJLipikaUserSettings setSchemeName:schemeName];
+    }
     [DJLipikaUserSettings setSchemeType:type];
 }
 

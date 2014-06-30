@@ -8,6 +8,8 @@
 	<string>Devanagari</string>
 	<key>SchemeName</key>
 	<string>ITRANS</string>
+	<key>CustomSchemeName</key>
+	<string></string>
 	<key>SchemeType</key>
 	<integer>1</integer>
 	<key>LipikaSchemeStopChar</key>

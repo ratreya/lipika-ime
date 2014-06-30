@@ -11,7 +11,6 @@
 		A5174B13191DDF92001001F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A5174B12191DDF7F001001F3 /* LICENSE */; };
 		A517EED6187C883600323900 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A517EED4187C87E900323900 /* UserSettings.plist */; };
 		A53013FC1955E1990012E017 /* DJFileConversionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A53013FB1955E1990012E017 /* DJFileConversionTest.m */; };
-		A53013FE195614810012E017 /* Control in Resources */ = {isa = PBXBuildFile; fileRef = A53013FD195614810012E017 /* Control */; };
 		A531FE85195370AA00A714C2 /* DJConversionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A531FE84195370AA00A714C2 /* DJConversionController.m */; };
 		A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */ = {isa = PBXBuildFile; fileRef = A583F15C19525D8100A80B88 /* FileConversion.xib */; };
@@ -827,7 +826,6 @@
 				A517EED6187C883600323900 /* UserSettings.plist in Resources */,
 				A5CAE402187B951F00A1549A /* Schemes in Resources */,
 				A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */,
-				A53013FE195614810012E017 /* Control in Resources */,
 				A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */,
 				A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */,
 				A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */,

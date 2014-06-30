@@ -11,12 +11,19 @@
 #import "DJLipikaAppDelegate.h"
 #import "DJInputSchemeFactory.h"
 #import "DJLipikaUserSettings.h"
+#import "DJSchemeHelper.h"
+#import "DJLogger.h"
 
 @implementation DJLipikaAppDelegate
 
 @synthesize mainMenu;
 
 -(void)awakeFromNib {
+    [self configureMenu];
+    [self configureCandiates];
+}
+
+-(void)configureMenu {
     int runningTagId = 0;
     // Set selector for preferrence
     NSMenuItem *preferrence = [mainMenu itemWithTag:++runningTagId];
@@ -33,7 +40,7 @@
     NSArray *schemeNames = [DJInputSchemeFactory availableSchemesForType:DJ_LIPIKA];
     NSArray *scriptNames = [DJInputSchemeFactory availableScriptsForType:DJ_LIPIKA];
     if (schemeNames.count > 0 && scriptNames.count > 0) {
-        NSMenuItem *schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Input scheme" action:NULL keyEquivalent:@""];
+        NSMenuItem *schemeSelectionItem = [[NSMenuItem alloc] initWithTitle:DJInputMenuItemTitle action:NULL keyEquivalent:@""];
         [schemeSelectionItem setTag:++runningTagId];
         [mainMenu addItem:schemeSelectionItem];
         // Create a schemes submenu
@@ -51,7 +58,7 @@
     }
     // Add Script item to the mainMenu
     if (schemeNames.count > 0 && scriptNames.count > 0) {
-        NSMenuItem *scriptSelectionItem = [[NSMenuItem alloc] initWithTitle:@"Output script" action:NULL keyEquivalent:@""];
+        NSMenuItem *scriptSelectionItem = [[NSMenuItem alloc] initWithTitle:DJOutputMenuItemTitle action:NULL keyEquivalent:@""];
         [scriptSelectionItem setTag:++runningTagId];
         [mainMenu addItem:scriptSelectionItem];
         // Create a scripts submenu
@@ -69,6 +76,7 @@
     }
     // Create a custom schemes submenu if needed
     NSArray *googleSchemes = [DJInputSchemeFactory availableSchemesForType:DJ_GOOGLE];
+    defaultSchemeName = [DJLipikaUserSettings customSchemeName];
     if (googleSchemes && googleSchemes.count > 0) {
         NSMenuItem *googleSchemeItem = [[NSMenuItem alloc] initWithTitle:@"Custom schemes" action:NULL keyEquivalent:@""];
         [googleSchemeItem setTag:++runningTagId];
@@ -85,7 +93,6 @@
         }
         [googleSchemeItem setSubmenu:googleSubMenu];
     }
-    [self configureCandiates];
 }
 
 -(void)configureCandiates {
