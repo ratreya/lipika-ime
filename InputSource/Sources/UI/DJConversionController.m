@@ -150,24 +150,24 @@
     else {
         [engine changeToSchemeWithName:scm forScript:nil type:DJ_GOOGLE];
     }
-    [self convertFileFromPath:fromPath toPath:toPath withEngine:engine isReverseMapping:isReverseMapping];
-    [self performSelectorOnMainThread:@selector(convertComplete) withObject:self waitUntilDone:NO];
+    if ([self convertFileFromPath:fromPath toPath:toPath withEngine:engine isReverseMapping:isReverseMapping])
+        [self performSelectorOnMainThread:@selector(convertComplete) withObject:self waitUntilDone:NO];
 }
 
--(void)convertFileFromPath:(NSString *)fromPath toPath:(NSString *)toPath withEngine:(DJStringBufferManager *)engine isReverseMapping:(BOOL)isReverseMapping {
+-(BOOL)convertFileFromPath:(NSString *)fromPath toPath:(NSString *)toPath withEngine:(DJStringBufferManager *)engine isReverseMapping:(BOOL)isReverseMapping {
     // Read file contents
     NSError *error;
     NSString *data = [NSString stringWithContentsOfFile:fromPath encoding:NSUTF8StringEncoding error:&error];
-    if (error != nil) {
-        [NSAlert alertWithError:error];
-        return;
+    if (error) {
+        [[NSAlert alertWithError:error] performSelectorOnMainThread:@selector(runModal) withObject:nil waitUntilDone:NO];
+        return false;
     }
     NSArray *lines = [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
     // Open output file and convert
     if (![[NSFileManager defaultManager] createFileAtPath:toPath contents:nil attributes:nil]) {
         NSError *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:EIO userInfo:nil];
-        [NSAlert alertWithError:error];
-        return;
+        [[NSAlert alertWithError:error] performSelectorOnMainThread:@selector(runModal) withObject:nil waitUntilDone:NO];
+        return false;
     }
     NSFileHandle *outputFile = [NSFileHandle fileHandleForWritingAtPath:toPath];
     for (NSString *line in lines) {
@@ -184,7 +184,7 @@
         [outputFile writeData:[@"\r" dataUsingEncoding:NSUTF8StringEncoding]];
     }
     [outputFile closeFile];
-
+    return true;
 }
 
 -(NSString *)reverseMap:(NSString *)line withMapper:(id<DJReverseMapping>)mapper {
