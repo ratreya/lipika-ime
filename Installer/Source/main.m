@@ -19,12 +19,14 @@ int main(int argc, const char * argv[]) {
         NSArray *arguments = [[NSProcessInfo processInfo] arguments];
         // Defaults
         BOOL remove = NO;
+        BOOL regist = NO;
         BOOL enable = NO;
         BOOL select = NO;
         if ([arguments count] != 1) {
             if ([arguments[1] isEqualToString:@"--remove"]) remove = YES;
-            else if ([arguments[1] isEqualToString:@"--enable"]) enable = YES;
-            else if ([arguments[1] isEqualToString:@"--select"]) select = YES;
+            else if ([arguments[1] isEqualToString:@"--register"]) regist = YES;
+            else if ([arguments[1] isEqualToString:@"--enable"]) regist = enable = YES;
+            else if ([arguments[1] isEqualToString:@"--select"]) regist = enable = select = YES;
             else {
                 printf("[ERROR] Unrecognized argument: %s\n", [arguments[1] UTF8String]);
                 return -1;
@@ -36,7 +38,7 @@ int main(int argc, const char * argv[]) {
         }
 
         OSStatus status;
-        if (enable) {
+        if (regist) {
             BOOL isDirectory;
             NSURL *location = [[NSURL alloc] initFileURLWithPath:path isDirectory:isDirectory];
             status = TISRegisterInputSource((__bridge CFURLRef)(location));

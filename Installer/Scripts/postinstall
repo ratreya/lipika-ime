@@ -1,5 +1,5 @@
 #!/bin/sh
 open /Library/Input\ Methods/LipikaIME.app
 sleep 1
-./installer --enable
+./installer --register
 exit 0
