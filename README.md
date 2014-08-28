@@ -14,7 +14,7 @@ Lipika IME is a many-to-many, user configurable, phonetic, input method engine. 
 
 Installation
 ------------
-To install LipikaIME, download and run the **[LipikaIME Installer](https://s3.amazonaws.com/sanskrit/LipikaIME.pkg)**.
+To install LipikaIME, follow the **[Installation Instructions](https://github.com/ratreya/Lipika_IME/wiki)**.
 
 Lipika IME understands Google IME cannonical scheme format: http://www.google.com/inputtools/windows/canonical.html.
 Schemes are in `/Library/Input Methods/LipikaIME/Contents/Resources/Schemes` directory.
