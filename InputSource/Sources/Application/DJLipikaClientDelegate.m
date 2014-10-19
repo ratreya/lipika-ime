@@ -22,7 +22,9 @@ enum {NS32BitNotFound = 0x7fffffff};
     // Assume client is 64-bit but try to determine if 32-bit
     is32BitApplication = NO;
     NSRunningApplication *clientProcess;
-    NSArray *potentialClients = [NSRunningApplication runningApplicationsWithBundleIdentifier:[client bundleIdentifier]];
+    NSString *bundleId = [client bundleIdentifier];
+    if (!bundleId) return self;
+    NSArray *potentialClients = [NSRunningApplication runningApplicationsWithBundleIdentifier:bundleId];
     if (potentialClients.count >= 1) {
         // Assuming all processes from the bundle will be of the same architecture
         clientProcess = potentialClients[0];
