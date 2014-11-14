@@ -32,7 +32,7 @@
 }
 
 -(NSMenu *)menu {
-	return [[NSApp delegate] mainMenu];
+	return [NSApp mainMenu];
 }
 
 #pragma mark - IMKServerInput and IMKStateSetting protocol methods
@@ -134,8 +134,8 @@
         [menuItem setState:NSOnState];
     }
     else {
-        [[[[[[NSApp delegate] mainMenu] itemWithTitle:DJInputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
-        [[[[[[NSApp delegate] mainMenu] itemWithTitle:DJOutputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings scriptName]] setState:NSOnState];
+        [[[[[NSApp mainMenu] itemWithTitle:DJInputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
+        [[[[[NSApp mainMenu] itemWithTitle:DJOutputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings scriptName]] setState:NSOnState];
     }
 }
 
