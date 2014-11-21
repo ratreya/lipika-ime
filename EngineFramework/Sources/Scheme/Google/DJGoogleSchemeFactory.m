@@ -69,11 +69,12 @@ static NSRegularExpression *classesDelimiterExpression;
     NSError *error;
     NSString *schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
     NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:schemesDirectory error:&error];
+    NSMutableArray *names = [[NSMutableArray alloc] initWithCapacity:0];
     if (error != nil) {
-        [NSException raise:@"Error accessing schemes directory" format:@"Error accessing schemes directory: %@", [error localizedDescription]];
+        logError(@"Error accessing schemes directory: %@", [error localizedDescription]);
+        return names;
     }
     NSArray *files = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self ENDSWITH '.%@'", EXTENSION]]];
-    NSMutableArray *names = [[NSMutableArray alloc] initWithCapacity:0];
     [files enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
         [names addObject:[obj stringByDeletingPathExtension]];
     }];
