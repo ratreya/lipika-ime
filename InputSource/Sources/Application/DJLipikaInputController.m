@@ -11,6 +11,7 @@
 #import "DJPreferenceController.h"
 #import "DJConversionController.h"
 #import "DJLipikaUserSettings.h"
+#import "DJLipikaAppDelegate.h"
 #import "Constants.h"
 #import "DJLogger.h"
 
@@ -32,7 +33,7 @@
 }
 
 -(NSMenu *)menu {
-	return [NSApp mainMenu];
+	return [(DJLipikaAppDelegate *)[NSApp delegate] mainMenu];
 }
 
 #pragma mark - IMKServerInput and IMKStateSetting protocol methods
@@ -134,8 +135,8 @@
         [menuItem setState:NSOnState];
     }
     else {
-        [[[[[NSApp mainMenu] itemWithTitle:DJInputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
-        [[[[[NSApp mainMenu] itemWithTitle:DJOutputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings scriptName]] setState:NSOnState];
+        [[[[[(DJLipikaAppDelegate *)[NSApp delegate] mainMenu] itemWithTitle:DJInputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
+        [[[[[(DJLipikaAppDelegate *)[NSApp delegate] mainMenu] itemWithTitle:DJOutputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings scriptName]] setState:NSOnState];
     }
 }
 
