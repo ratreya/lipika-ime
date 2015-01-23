@@ -16,8 +16,7 @@ Installation
 ------------
 To install LipikaIME, follow the **[Installation Instructions](https://github.com/ratreya/Lipika_IME/wiki)**.
 
-Lipika IME understands Google IME cannonical scheme format: http://www.google.com/inputtools/windows/canonical.html.
-Schemes are in `/Library/Input Methods/LipikaIME/Contents/Resources/Schemes` directory.
+Lipika IME understands [Google IME cannonical scheme format](http://www.google.com/inputtools/windows/canonical.html). You can edit any of the schemes [from here](https://github.com/ratreya/google-ime-scm) and copy them into `/Library/Input\ Methods/LipikaIME.app/Contents/Resources/Schemes/Google` directory.
 
 
 #### 05/09/2014: RELEASE NOTES FOR VERSION 1.4 ####
