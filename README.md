@@ -10,7 +10,7 @@ or (at your option) any later version.
 This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 ```
 
-Lipika IME is a many-to-many, user configurable, phonetic, input method engine. Originally, designed to type Sanskrit using Devanagari on a Mac. It can be configured to work with any other Indo-European language of similar structure.
+Lipika IME is a many-to-many, user configurable, phonetic, input method engine. Originally, designed to type Sanskrit using Devanagari on a Mac. It can be configured to work with any other Indic language of similar structure.
 
 Installation
 ------------
