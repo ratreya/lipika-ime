@@ -102,29 +102,23 @@ static NSString *schemesDirectory;
     }
     // 1. parse script file
     NSMutableDictionary *scriptMap;
-    NSString *batchId = startBatch();
     @try {
         NSString *scriptFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCRIPTSUBDIR] stringByAppendingPathComponent:scriptName] stringByAppendingPathExtension:SCRIPTEXTENSION];
         logDebug(@"Parsing script file: %@", scriptFilePath);
         scriptMap = [self tsvToDictionaryForFile:scriptFilePath dictionary:nil];
-        endBatch(batchId);
     }
     @catch (NSException *exception) {
-        endBatch(batchId);
         logFatal(@"Error parsing script file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
         return nil;
     }
     // 2. parse scheme file
     NSMutableDictionary *schemeMap;
-    batchId = startBatch();
     @try {
         NSString *schemeFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCHEMESUBDIR] stringByAppendingPathComponent:schemeName] stringByAppendingPathExtension:SCHEMEEXTENSION];
         logDebug(@"Parsing scheme file: %@", schemeFilePath);
         schemeMap = [self tsvToDictionaryForFile:schemeFilePath dictionary:nil];
-        endBatch(batchId);
     }
     @catch (NSException *exception) {
-        endBatch(batchId);
         logFatal(@"Error parsing scheme file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
         return nil;
     }
@@ -142,15 +136,12 @@ static NSString *schemesDirectory;
         [NSException raise:@"Default IME not found in Schemes directory" format:@"Not found: %@", defaultImeFilePath];
     }
     // 4. expand out any referrences in ime
-    batchId = startBatch();
     @try {
         logDebug(@"Parsing IME file: %@", imeFilePath);
         NSArray *imeLines = [self linesOfImeFile:imeFilePath schemeTable:schemeMap scriptTable:scriptMap depth:1];
         scheme = [[DJLipikaInputScheme alloc] initWithSchemeTable:schemeMap scriptTable:scriptMap imeLines:imeLines];
-        endBatch(batchId);
     }
     @catch (NSException *exception) {
-        endBatch(batchId);
         logFatal(@"Error parsing IME file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
         return nil;
     }

@@ -11,5 +11,5 @@ cp -r ../build/Release/LipikaIME.app .
 xcodebuild -project ../LipikaIME.xcodeproj -target installer -configuration Release clean build
 cp ../build/Release/installer ./Scripts/installer
 pkgbuild --component LipikaIME.app --scripts ./Scripts --install-location /Library/Input\ Methods com.daivajnanam.inputmethod.LipikaIME.pkg
-productbuild --distribution ./Distribution --package-path ./ --resources ./Resources --sign "Developer ID Installer: Ranganath Atreya (7JZ87Y4JWT)" LipikaIME.pkg
+productbuild --distribution ./Distribution --package-path ./ --resources ./Resources --sign "3rd Party Mac Developer Installer: Ranganath Atreya (7JZ87Y4JWT)" LipikaIME.pkg
 exit 0
