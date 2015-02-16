@@ -13,6 +13,7 @@
 
 extern NSMutableArray *charactersForString(NSString *string);
 extern NSArray *csvToArrayForString(NSString *csvLine);
+extern NSString *stringForUnicodes(NSString *unicodeCSV);
 extern NSString *stringForUnicode(NSString *unicodeString);
 extern NSString *reverseStringForString(NSString *inputString);
 extern NSArray *linesOfFile(NSString *filePath);

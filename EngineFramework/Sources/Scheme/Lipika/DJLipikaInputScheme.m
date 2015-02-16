@@ -256,7 +256,7 @@ static NSRegularExpression *addendumSubExpression;
     if (!substituant) {
         [NSException raise:@"Unknown class/key" format:@"Could not find key %@ in class name %@ for Script(1)/Scheme(2): %u", reference.valueKey, reference.class, reference.type];
     }
-    if (reference.type == SCRIPT) return [NSArray arrayWithObject:stringForUnicode(substituant)];
+    if (reference.type == SCRIPT) return [NSArray arrayWithObject:stringForUnicodes(substituant)];
     else return csvToArrayForString(substituant);
 }
 
