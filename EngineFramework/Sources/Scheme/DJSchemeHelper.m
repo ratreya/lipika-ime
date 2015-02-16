@@ -31,6 +31,15 @@ extern NSArray *csvToArrayForString(NSString *csvLine) {
     return result;
 }
 
+extern NSString *stringForUnicodes(NSString *unicodeCSV) {
+    NSArray *unicodes = csvToArrayForString(unicodeCSV);
+    NSMutableArray *result = [NSMutableArray array];
+    for (NSString *unicode in unicodes) {
+        [result addObject:stringForUnicode(unicode)];
+    }
+    return [result componentsJoinedByString:@""];
+}
+
 extern NSString *stringForUnicode(NSString *unicodeString) {
     NSScanner *scanner = [NSScanner scannerWithString:unicodeString];
     unsigned unicode = 0;
