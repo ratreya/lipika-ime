@@ -70,4 +70,13 @@
     [manager flush];
 }
 
+-(void)testUnicodeCSV {
+    DJLipikaInputScheme *scheme = [DJLipikaSchemeFactory inputSchemeForScript:@"Hindi" scheme:@"Hindi"];
+    DJInputMethodEngine *engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
+    DJStringBufferManager *manager = [[DJStringBufferManager alloc] initWithEngine:engine];
+    [manager outputForInput:@"x"];
+    XCTAssertEqualObjects([manager output], @"क्ष", @"Invalid output");
+    [manager flush];
+}
+
 @end
