@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>LipikaIME</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.daivajnanam.inputmethod.LipikaIME</string>
+	<string>com.daivajnanam.inputmethod.LipikaIME.InputSource</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
