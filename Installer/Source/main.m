@@ -13,7 +13,7 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSString *path = @"/Library/Input Methods/LipikaIME.app";
-        NSString *bundleId = @"com.daivajnanam.inputmethod.LipikaIME";
+        NSString *bundleId = @"com.daivajnanam.inputmethod.LipikaIME.InputSource";
         
         // Process command line arguments
         NSArray *arguments = [[NSProcessInfo processInfo] arguments];

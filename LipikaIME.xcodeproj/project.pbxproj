@@ -1083,8 +1083,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1110,7 +1110,7 @@
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1131,8 +1131,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1153,7 +1153,7 @@
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1326,8 +1326,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1337,7 +1337,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = LipikaIME;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1348,15 +1348,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = InputSource/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = LipikaIME;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
