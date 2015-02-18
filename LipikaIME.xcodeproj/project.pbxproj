@@ -1110,7 +1110,7 @@
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1153,7 +1153,7 @@
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1337,7 +1337,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = LipikaIME;
-				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1356,7 +1356,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = LipikaIME;
-				PROVISIONING_PROFILE = "e13ac28f-9174-4eee-b7d8-b455c2883efd";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
