@@ -98,25 +98,19 @@ static NSRegularExpression *classesDelimiterExpression;
     scheme.schemeFilePath = filePath;
     linesOfScheme = linesOfFile(filePath);
 
-    NSString *batchId = startBatch();
     @try {
         logDebug(@"Parsing Headers");
         [self parseHeaders];
-        endBatch(batchId);
     }
     @catch (NSException *exception) {
-        endBatch(batchId);
         logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }
-    batchId = startBatch();
     @try {
         logDebug(@"Parsing Mappings");
         [self parseMappings];
-        endBatch(batchId);
     }
     @catch (NSException *exception) {
-        endBatch(batchId);
         logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
         return nil;
     }

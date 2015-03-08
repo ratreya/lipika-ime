@@ -51,11 +51,11 @@
 		A5883E83187B566100FFE7F6 /* DJGoogleSchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DAC187B201800EB6C46 /* DJGoogleSchemeTest.m */; };
 		A5883E84187B566100FFE7F6 /* DJGoogleSpecialCharsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DAD187B201800EB6C46 /* DJGoogleSpecialCharsTest.m */; };
 		A5883E85187B567100FFE7F6 /* DJClientManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */; };
-		A5883E88187B5C1A00FFE7F6 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
+		A5883E88187B5C1A00FFE7F6 /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; };
 		A5883E89187B5C4500FFE7F6 /* DJTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D71187B201800EB6C46 /* DJTestClient.m */; };
 		A5883E8A187B5C5800FFE7F6 /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D73187B201800EB6C46 /* DJTestHelper.m */; };
-		A5A047BF187F4F1100ED7613 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
-		A5A047C0187F4F2000ED7613 /* EngineFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A5A047BF187F4F1100ED7613 /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; };
+		A5A047C0187F4F2000ED7613 /* Engine.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A5C2A1BF1888761F0085DE01 /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5C2A1BE188872E70085DE01 /* Icon.xcassets */; };
@@ -72,7 +72,7 @@
 		A5D635051877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A5D635191877435B0048DAE5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
-		A5D6351D1877435B0048DAE5 /* EngineFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* EngineFramework.framework */; };
+		A5D6351D1877435B0048DAE5 /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; };
 		A5E087741947B8EB003BAE10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5E087731947B8EB003BAE10 /* Foundation.framework */; };
 		A5E0877F1947C637003BAE10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E0876D1947B6E9003BAE10 /* main.m */; };
 		A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */; };
@@ -111,7 +111,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A5A047C0187F4F2000ED7613 /* EngineFramework.framework in CopyFiles */,
+				A5A047C0187F4F2000ED7613 /* Engine.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,13 +224,13 @@
 		A5CAE401187B950D00A1549A /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
 		A5CF594F188F4B690093F016 /* DJLipikaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaHelper.h; sourceTree = "<group>"; };
 		A5CF5950188F4B690093F016 /* DJLipikaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLipikaHelper.m; sourceTree = "<group>"; };
-		A5D635031877435B0048DAE5 /* EngineFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EngineFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5D635031877435B0048DAE5 /* Engine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Engine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D635041877435B0048DAE5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A5D635071877435B0048DAE5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5D635091877435B0048DAE5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		A5D635181877435B0048DAE5 /* EngineFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngineFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5D635181877435B0048DAE5 /* EngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E0876D1947B6E9003BAE10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Installer/Source/main.m; sourceTree = SOURCE_ROOT; };
-		A5E087721947B8EB003BAE10 /* installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = installer; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5E087721947B8EB003BAE10 /* Installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Installer; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E087731947B8EB003BAE10 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJStringBufferManager.m; sourceTree = "<group>"; };
 		A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJStringBufferManager.h; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				A5883E7B187B55C600FFE7F6 /* InputMethodKit.framework in Frameworks */,
-				A5A047BF187F4F1100ED7613 /* EngineFramework.framework in Frameworks */,
+				A5A047BF187F4F1100ED7613 /* Engine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5883E88187B5C1A00FFE7F6 /* EngineFramework.framework in Frameworks */,
+				A5883E88187B5C1A00FFE7F6 /* Engine.framework in Frameworks */,
 				A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */,
 				A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */,
 				A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */,
@@ -274,7 +274,7 @@
 			files = (
 				A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */,
 				A5D635191877435B0048DAE5 /* XCTest.framework in Frameworks */,
-				A5D6351D1877435B0048DAE5 /* EngineFramework.framework in Frameworks */,
+				A5D6351D1877435B0048DAE5 /* Engine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,9 +303,9 @@
 			children = (
 				8D1107320486CEB800E47090 /* LipikaIME.app */,
 				A5C54E0316BA20C1007F631D /* InputSourceTest.xctest */,
-				A5D635031877435B0048DAE5 /* EngineFramework.framework */,
-				A5D635181877435B0048DAE5 /* EngineFrameworkTests.xctest */,
-				A5E087721947B8EB003BAE10 /* installer */,
+				A5D635031877435B0048DAE5 /* Engine.framework */,
+				A5D635181877435B0048DAE5 /* EngineTests.xctest */,
+				A5E087721947B8EB003BAE10 /* Installer */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -723,9 +723,9 @@
 			productReference = A5C54E0316BA20C1007F631D /* InputSourceTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A5D635021877435B0048DAE5 /* EngineFramework */ = {
+		A5D635021877435B0048DAE5 /* Engine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A5D635261877435B0048DAE5 /* Build configuration list for PBXNativeTarget "EngineFramework" */;
+			buildConfigurationList = A5D635261877435B0048DAE5 /* Build configuration list for PBXNativeTarget "Engine" */;
 			buildPhases = (
 				A5D634FE1877435B0048DAE5 /* Sources */,
 				A5D634FF1877435B0048DAE5 /* Frameworks */,
@@ -736,14 +736,14 @@
 			);
 			dependencies = (
 			);
-			name = EngineFramework;
+			name = Engine;
 			productName = LipikaEngine;
-			productReference = A5D635031877435B0048DAE5 /* EngineFramework.framework */;
+			productReference = A5D635031877435B0048DAE5 /* Engine.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A5D635171877435B0048DAE5 /* EngineFrameworkTests */ = {
+		A5D635171877435B0048DAE5 /* EngineTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A5D635291877435B0048DAE5 /* Build configuration list for PBXNativeTarget "EngineFrameworkTests" */;
+			buildConfigurationList = A5D635291877435B0048DAE5 /* Build configuration list for PBXNativeTarget "EngineTests" */;
 			buildPhases = (
 				A5D635141877435B0048DAE5 /* Sources */,
 				A5D635151877435B0048DAE5 /* Frameworks */,
@@ -754,14 +754,14 @@
 			dependencies = (
 				A5D6351C1877435B0048DAE5 /* PBXTargetDependency */,
 			);
-			name = EngineFrameworkTests;
+			name = EngineTests;
 			productName = LipikaEngineTests;
-			productReference = A5D635181877435B0048DAE5 /* EngineFrameworkTests.xctest */;
+			productReference = A5D635181877435B0048DAE5 /* EngineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A5E087711947B8EB003BAE10 /* installer */ = {
+		A5E087711947B8EB003BAE10 /* Installer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A5E0877C1947B8EC003BAE10 /* Build configuration list for PBXNativeTarget "installer" */;
+			buildConfigurationList = A5E0877C1947B8EC003BAE10 /* Build configuration list for PBXNativeTarget "Installer" */;
 			buildPhases = (
 				A5E0876E1947B8EB003BAE10 /* Sources */,
 				A5E0876F1947B8EB003BAE10 /* Frameworks */,
@@ -770,9 +770,9 @@
 			);
 			dependencies = (
 			);
-			name = installer;
+			name = Installer;
 			productName = installer;
-			productReference = A5E087721947B8EB003BAE10 /* installer */;
+			productReference = A5E087721947B8EB003BAE10 /* Installer */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -790,6 +790,9 @@
 					};
 					A5C54E0216BA20C1007F631D = {
 						TestTargetID = 8D1107260486CEB800E47090;
+					};
+					A5D635021877435B0048DAE5 = {
+						DevelopmentTeam = 7JZ87Y4JWT;
 					};
 					A5D635171877435B0048DAE5 = {
 						TestTargetID = 8D1107260486CEB800E47090;
@@ -811,9 +814,9 @@
 			targets = (
 				8D1107260486CEB800E47090 /* InputSource */,
 				A5C54E0216BA20C1007F631D /* InputSourceTest */,
-				A5D635021877435B0048DAE5 /* EngineFramework */,
-				A5D635171877435B0048DAE5 /* EngineFrameworkTests */,
-				A5E087711947B8EB003BAE10 /* installer */,
+				A5D635021877435B0048DAE5 /* Engine */,
+				A5D635171877435B0048DAE5 /* EngineTests */,
+				A5E087711947B8EB003BAE10 /* Installer */,
 			);
 		};
 /* End PBXProject section */
@@ -966,12 +969,12 @@
 		};
 		A5A047C2187F4F2900ED7613 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A5D635021877435B0048DAE5 /* EngineFramework */;
+			target = A5D635021877435B0048DAE5 /* Engine */;
 			targetProxy = A5A047C1187F4F2900ED7613 /* PBXContainerItemProxy */;
 		};
 		A5D6351C1877435B0048DAE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A5D635021877435B0048DAE5 /* EngineFramework */;
+			target = A5D635021877435B0048DAE5 /* Engine */;
 			targetProxy = A5D6351B1877435B0048DAE5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1080,6 +1083,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1105,6 +1110,7 @@
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1126,6 +1132,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1146,6 +1153,7 @@
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1318,7 +1326,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1339,7 +1348,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Ranganath Atreya (7JZ87Y4JWT)";
+				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = InputSource/Resources/Info.plist;
@@ -1381,7 +1391,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A5D635261877435B0048DAE5 /* Build configuration list for PBXNativeTarget "EngineFramework" */ = {
+		A5D635261877435B0048DAE5 /* Build configuration list for PBXNativeTarget "Engine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A5D635271877435B0048DAE5 /* Debug */,
@@ -1390,7 +1400,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A5D635291877435B0048DAE5 /* Build configuration list for PBXNativeTarget "EngineFrameworkTests" */ = {
+		A5D635291877435B0048DAE5 /* Build configuration list for PBXNativeTarget "EngineTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A5D6352A1877435B0048DAE5 /* Debug */,
@@ -1399,7 +1409,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A5E0877C1947B8EC003BAE10 /* Build configuration list for PBXNativeTarget "installer" */ = {
+		A5E0877C1947B8EC003BAE10 /* Build configuration list for PBXNativeTarget "Installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A5E0877D1947B8EC003BAE10 /* Debug */,
