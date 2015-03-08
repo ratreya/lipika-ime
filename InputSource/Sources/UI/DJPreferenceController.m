@@ -42,7 +42,7 @@
         NSDictionary *attributes = [[candidateTextFormat attributedString] attributesAtIndex:0 effectiveRange:&range];
         [DJLipikaUserSettings setCandidateStringAttributes:attributes];
     }
-    [NSApp configureCandiates];
+    [(DJLipikaAppDelegate *)[NSApp delegate] configureCandiates];
     [self close];
 }
 

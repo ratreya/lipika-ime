@@ -8,7 +8,7 @@ exit 0
 fi
 xcodebuild -project ../LipikaIME.xcodeproj -target InputSource -configuration Release clean build
 cp -r ../build/Release/LipikaIME.app .
-xcodebuild -project ../LipikaIME.xcodeproj -target installer -configuration Release clean build
+xcodebuild -project ../LipikaIME.xcodeproj -target Installer -configuration Release clean build
 cp ../build/Release/installer ./Scripts/installer
 pkgbuild --component LipikaIME.app --scripts ./Scripts --install-location /Library/Input\ Methods com.daivajnanam.inputmethod.LipikaIME.pkg
 productbuild --distribution ./Distribution --package-path ./ --resources ./Resources --sign "Developer ID Installer: Ranganath Atreya (7JZ87Y4JWT)" LipikaIME.pkg

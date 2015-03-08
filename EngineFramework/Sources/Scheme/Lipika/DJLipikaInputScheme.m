@@ -115,13 +115,9 @@ static NSRegularExpression *addendumSubExpression;
                 [NSException raise:@"Invalid IME line" format:@"IME addendum line \"%@\": number of format specififers (%lu) is more than one.", line, numFormatSpecs];
             }
             logDebug(@"Parsing preMap: %@", preMap);
-            NSString *batchId = startBatch();
             NSArray *preValues = [self parseMapString:preMap];
-            endBatch(batchId);
             logDebug(@"Parsing postMap: %@", postMap);
-            batchId = startBatch();
             NSArray *postValues = [self parseMapString:postMap];
-            endBatch(batchId);
             // Process addendum lines
             if (numFormatSpecs > 0) {
                 if (postValues.count > 1 || [postValues[0] count] > 1) {
