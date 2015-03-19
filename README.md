@@ -1,4 +1,4 @@
-__LipikaIME__ a user-configurable, phonetic, Input Method Engine for Mac OS X with built-in support for Bengali, Devanagari, Gujarati, Gurmukhi, Hindi, Kannada, Malayalam, Oriya, Tamil and Telugu using ITRANS, Baraha, Harvard Kyoto, Barahavat and Ksharanam transliteration schemes.
+__LipikaIME__ a user-configurable, phonetic, Input Method Engine for Mac OS X with built-in support for [ISO-15919](http://en.wikipedia.org/wiki/ISO_15919), Bengali, Devanagari, Gujarati, Gurmukhi, Hindi, Kannada, Malayalam, Oriya, Tamil and Telugu using [ITRANS](http://www.aczoom.com/itrans/#onlinedocs), [Baraha](http://www.baraha.com/help/Keyboards/phonetic_keyboard.htm), [Harvard Kyoto](http://en.wikipedia.org/wiki/Harvard-Kyoto), [Barahavat](http://daivajnanam.blogspot.com/p/barahavat.html) and [Ksharanam](http://blog.ambari.sh/2014/03/a-custom-keymap-for-indian-languages.html) transliteration schemes.
 
 > Copyright (C) 2013 Ranganath Atreya
 
@@ -10,7 +10,7 @@ or (at your option) any later version.
 This program comes with ABSOLUTELY NO WARRANTY; see LICENSE file.
 ```
 
-Lipika IME is a many-to-many, user configurable, phonetic, input method engine. Originally, designed to type Sanskrit using Devanagari on a Mac. It can be configured to work with any other Indic script of similar structure.
+Lipika IME is a multi-codepoint, user configurable, phonetic, input method engine. Originally, designed to type Sanskrit using Devanagari on a Mac. It can be configured to work with any other Indic script of similar structure.
 
 Installation
 ------------
