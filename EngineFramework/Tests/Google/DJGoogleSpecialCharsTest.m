@@ -24,10 +24,7 @@
     scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestSpecialChars.scm"];
 }
 
-// Ignoring for now; @ symbol does not work; Issue: #1
-- (void)XXXtestSpecialCharacterParsing {
-    // Removed @ @ from TestSpecialChars.scm for the sake of running other tests
-    // Add it back in after this bug is fixed
+- (void)testSpecialCharacterParsing {
     XCTAssertTrue(scheme != nil, @"Unable to parse special characters");
 }
 
