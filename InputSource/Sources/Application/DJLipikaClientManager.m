@@ -118,6 +118,9 @@ static long numCompositionCommits = 0;
         // IMK needs to do its thing on the current run-loop
         [self performSelector:@selector(updateCandidates) withObject:self afterDelay:0];
     }
+    // Do this in case the user changed the scheme or script on the other window
+    // This is super cheap because schemes are globally cached
+    [self changeToSchemeWithName:[DJLipikaUserSettings schemeName] forScript:[DJLipikaUserSettings scriptName] type:[DJLipikaUserSettings schemeType]];
 }
 
 -(void)onUnFocus {

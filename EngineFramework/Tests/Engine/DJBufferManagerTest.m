@@ -244,4 +244,15 @@
     XCTAssertEqualObjects([manager output], @"गुणव्R", @"Unexpected output: %@", [manager output]);
 }
 
+-(void)testDeleteWithNonMapCharacter {
+    [[NSUserDefaults standardUserDefaults] setObject:@"Input character" forKey:@"BackspaceDeletes"];
+    NSString* result = [manager outputForInput:@"Qi"];
+    XCTAssertNil(result, @"Unexpected output: %@", result);
+    XCTAssertEqualObjects([manager output], @"Qइ", @"Unexpected output: %@", [manager output]);
+    [manager delete];
+    result = [manager outputForInput:@"a"];
+    XCTAssertNil(result, @"Unexpected output: %@", result);
+    XCTAssertEqualObjects([manager output], @"Qअ", @"Unexpected output: %@", [manager output]);
+}
+
 @end

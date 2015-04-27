@@ -159,9 +159,12 @@ static NSRegularExpression *whiteSpace;
                     }
                 }
                 else if ([uncommittedOutput count] > 0) {
-                    if (finalizedIndex == [uncommittedOutput count]) --finalizedIndex;
+                    // Reinitialize the engine to the state that existed before the deleted mapping
                     lastBundle = [uncommittedOutput lastObject];
-                    if (lastBundle) [engine executeWithInput:lastBundle.input];
+                    if (lastBundle && !lastBundle.isFinal) {
+                        if (finalizedIndex == [uncommittedOutput count]) --finalizedIndex;
+                        [engine executeWithInput:lastBundle.input];
+                    }
                 }
             }
             else {
