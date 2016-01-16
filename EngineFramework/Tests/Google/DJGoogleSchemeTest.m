@@ -27,7 +27,8 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestHappyCase.scm"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"GoogleSchemes/TestHappyCase.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
 }
 
 - (void)testHeaderParsing {
@@ -53,7 +54,8 @@
 }
 
 -(void)testNonDefaultHeaders {
-    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestITRANS.scm"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"GoogleSchemes/TestITRANS.scm"];
+    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
     XCTAssertEqualObjects(@"VowelSigns", [myScheme.forwardMappings classNameForInput:@"u"], @"Unexpected output");
     NSString* output = [myScheme.forwardMappings.parseTrie nodeForKey:@"~n"].value;
     XCTAssertEqualObjects(output,  @"ञ्", @"Unexpected output");
@@ -62,7 +64,8 @@
 }
 
 -(void)testPostInputMapping {
-    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestKsharanam.scm"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"GoogleSchemes/TestKsharanam.scm"];
+    DJGoogleInputScheme *myScheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
     NSString* output = [myScheme.forwardMappings.parseTrie nodeForKey:@"nj"].value;
     XCTAssertEqualObjects(output,  @"ञ्", @"Unexpected output");
     output = [myScheme.forwardMappings.parseTrie nodeForKey:@"njI"].value;

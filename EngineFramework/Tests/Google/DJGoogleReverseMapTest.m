@@ -20,7 +20,8 @@
 
 -(void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestHappyCase.scm"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"GoogleSchemes/TestHappyCase.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
 }
 
 -(void)testHapyCase {

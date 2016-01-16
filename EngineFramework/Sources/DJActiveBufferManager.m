@@ -30,7 +30,12 @@ static NSRegularExpression *whiteSpace;
     if (self == nil) {
         return self;
     }
-    engine = [DJInputMethodEngine inputEngineForScheme:[DJLipikaUserSettings schemeName] scriptName:[DJLipikaUserSettings scriptName] type:[DJLipikaUserSettings schemeType]];
+    if ([DJLipikaUserSettings schemeType] == DJ_GOOGLE) {
+        engine = [DJInputMethodEngine inputEngineForScheme:[DJLipikaUserSettings customSchemeName] scriptName:nil type:DJ_GOOGLE];
+    }
+    else {
+        engine = [DJInputMethodEngine inputEngineForScheme:[DJLipikaUserSettings schemeName] scriptName:[DJLipikaUserSettings scriptName] type:DJ_LIPIKA];
+    }
     if (engine == nil) {
         return nil;
     }
