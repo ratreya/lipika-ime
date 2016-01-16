@@ -16,7 +16,8 @@ Installation
 ------------
 To install LipikaIME, follow the **[Installation Instructions](https://github.com/ratreya/Lipika_IME/wiki)**.
 
-
+Release notes have been moved to the [Release Section](https://github.com/ratreya/Lipika_IME/releases).
+The following are notes for older releases:
 #### 05/09/2014: RELEASE NOTES FOR VERSION 1.4 ####
 * Highly maintainable proprietary scheme format
 * Schemes standerdized for applicability to all Indian languages
