@@ -120,7 +120,12 @@ static long numCompositionCommits = 0;
     }
     // Do this in case the user changed the scheme or script on the other window
     // This is super cheap because schemes are globally cached
-    [self changeToSchemeWithName:[DJLipikaUserSettings schemeName] forScript:[DJLipikaUserSettings scriptName] type:[DJLipikaUserSettings schemeType]];
+    if ([DJLipikaUserSettings schemeType] == DJ_GOOGLE) {
+        [self changeToCustomSchemeWithName:[DJLipikaUserSettings customSchemeName]];
+    }
+    else {
+        [self changeToSchemeWithName:[DJLipikaUserSettings schemeName] forScript:[DJLipikaUserSettings scriptName]];
+    }
 }
 
 -(void)onUnFocus {
@@ -155,10 +160,25 @@ static long numCompositionCommits = 0;
     [candidateManager hide];
 }
 
--(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName type:(enum DJSchemeType)type {
-    [self commit];
+-(void)changeToCustomSchemeWithName:(NSString *)schemeName {
+    if (!schemeName) {
+        [NSException raise:@"Scheme name is nil" format:@"Scheme name is nil"];
+    }
+    [self changeToSchemeWithName:schemeName type:DJ_GOOGLE forScript:nil];
+}
+
+-(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName {
+    if (!schemeName && !scriptName) {
+        [NSException raise:@"Both scheme and script names are nil" format:@"Both scheme and script names are nil"];
+    }
     if (!schemeName) schemeName = [DJLipikaUserSettings schemeName];
     if (!scriptName) scriptName = [DJLipikaUserSettings scriptName];
+    [self changeToSchemeWithName:schemeName type:DJ_LIPIKA forScript:scriptName];
+}
+
+-(void)changeToSchemeWithName:(NSString *)schemeName type:(enum DJSchemeType)type forScript:scriptName {
+    [self commit];
+    logDebug(@"Changing to Scheme: %@ withType: %u forScript: %@", schemeName, type, scriptName);
     [bufferManager changeToSchemeWithName:schemeName forScript:scriptName type:type];
     // If no exceptions then change the user settings
     if (type == DJ_GOOGLE) {
