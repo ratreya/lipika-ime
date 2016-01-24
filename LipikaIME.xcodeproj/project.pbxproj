@@ -12,12 +12,12 @@
 		A517EED6187C883600323900 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A517EED4187C87E900323900 /* UserSettings.plist */; };
 		A53013FC1955E1990012E017 /* DJFileConversionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A53013FB1955E1990012E017 /* DJFileConversionTest.m */; };
 		A531FE85195370AA00A714C2 /* DJConversionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A531FE84195370AA00A714C2 /* DJConversionController.m */; };
-		A54323511C4AC3E300AC2129 /* GoogleSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323501C4AC3E300AC2129 /* GoogleSchemes */; settings = {ASSET_TAGS = (); }; };
-		A54323531C4AC3F600AC2129 /* LipikaSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323521C4AC3F600AC2129 /* LipikaSchemes */; settings = {ASSET_TAGS = (); }; };
+		A54323511C4AC3E300AC2129 /* GoogleSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323501C4AC3E300AC2129 /* GoogleSchemes */; };
+		A54323531C4AC3F600AC2129 /* LipikaSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323521C4AC3F600AC2129 /* LipikaSchemes */; };
 		A54323541C4AC71000AC2129 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
 		A54323551C4AC79C00AC2129 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
 		A54323561C4AC93A00AC2129 /* Control in Resources */ = {isa = PBXBuildFile; fileRef = A53013FD195614810012E017 /* Control */; };
-		A54323591C4ACABA00AC2129 /* CustomSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323581C4ACABA00AC2129 /* CustomSchemes */; settings = {ASSET_TAGS = (); }; };
+		A54323591C4ACABA00AC2129 /* CustomSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323581C4ACABA00AC2129 /* CustomSchemes */; };
 		A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */ = {isa = PBXBuildFile; fileRef = A583F15C19525D8100A80B88 /* FileConversion.xib */; };
 		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
