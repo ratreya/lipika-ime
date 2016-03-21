@@ -7,7 +7,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <Cocoa/Cocoa.h>
 #import "DJReverseMapping.h"
 #import "DJReadWriteTrie.h"
 
