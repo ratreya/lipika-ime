@@ -7,6 +7,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+@import Foundation;
+
 static NSString *const DJGoogleSubMenu = @"GoogleSubMenu";
 static NSString *const DJSchemeSubMenu = @"SchemeSubMenu";
 static NSString *const DJScriptSubMenu = @"ScriptSubMenu";

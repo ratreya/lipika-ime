@@ -8,7 +8,6 @@
  */
 
 #import "DJLipikaUserSettings.h"
-#import <InputMethodKit/InputMethodKit.h>
 
 @implementation DJLipikaUserSettings
 
@@ -68,15 +67,19 @@ static NSDictionary *candidateStringAttributeCache = nil;
 }
 
 +(NSDictionary *)candidateWindowAttributes {
+#ifdef TARGET_OS_IPHONE
+    return nil;
+#else
     NSMutableDictionary *windowAttributes = [[NSMutableDictionary alloc] initWithCapacity:2];
     [windowAttributes setObject:[NSNumber numberWithFloat:[DJLipikaUserSettings opacity]] forKey:(NSString *)IMKCandidatesOpacityAttributeName];
     [windowAttributes setObject:[NSNumber numberWithBool:YES] forKey:(NSString *)IMKCandidatesSendServerKeyEventFirst];
     return windowAttributes;
+#endif
 }
 
 +(void)setCandidateStringAttributes:(NSDictionary *)attributes {
     candidateStringAttributeCache = attributes;
-    NSData *outputData = [NSArchiver archivedDataWithRootObject:attributes];
+    NSData *outputData = [NSKeyedArchiver archivedDataWithRootObject:attributes];
     [[NSUserDefaults standardUserDefaults] setObject:outputData forKey:@"CandidatesStringAttributes"];
 }
 
@@ -84,7 +87,7 @@ static NSDictionary *candidateStringAttributeCache = nil;
     if (candidateStringAttributeCache) return candidateStringAttributeCache;
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"CandidatesStringAttributes"];
     if (data) {
-        candidateStringAttributeCache = [NSUnarchiver unarchiveObjectWithData:data];
+        candidateStringAttributeCache = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
     return candidateStringAttributeCache;
 }

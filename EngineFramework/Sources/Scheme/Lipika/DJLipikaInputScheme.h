@@ -7,7 +7,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <Cocoa/Cocoa.h>
 #import "DJInputMethodScheme.h"
 #import "DJSimpleForwardMapping.h"
 #import "DJSimpleReverseMapping.h"
