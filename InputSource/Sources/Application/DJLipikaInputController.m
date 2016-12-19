@@ -108,20 +108,24 @@
 }
 
 -(void)changeInputScheme:(NSMenuItem *)menuItem {
-    BOOL isGoogleItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJGoogleSubMenu];
-    BOOL isSchemeItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJSchemeSubMenu];
-    BOOL isScriptItem = [[[[menuItem parentItem] submenu] title] isEqualToString:DJScriptSubMenu];
-    // Try to change to specified script and scheme
     NSString *name = [menuItem title];
+    NSString *subMenuTitle = [[[menuItem parentItem] submenu] title];
+    BOOL isGoogleItem = [subMenuTitle isEqualToString:DJGoogleSubMenu];
+    BOOL isSchemeItem = [subMenuTitle isEqualToString:DJSchemeSubMenu];
+    BOOL isScriptItem = [subMenuTitle isEqualToString:DJScriptSubMenu];
+    // Try to change to specified script and scheme
     @try {
         if (isSchemeItem) {
-            [manager changeToSchemeWithName:name forScript:nil type:DJ_LIPIKA];
+            [manager changeToSchemeWithName:name forScript:nil];
         }
         else if (isScriptItem) {
-            [manager changeToSchemeWithName:nil forScript:name type:DJ_LIPIKA];
+            [manager changeToSchemeWithName:nil forScript:name];
         }
         else if (isGoogleItem) {
-            [manager changeToSchemeWithName:name forScript:nil type:DJ_GOOGLE];
+            [manager changeToCustomSchemeWithName:name];
+        }
+        else {
+            [NSException raise:@"Unknown sub-menu title" format:@"Unknown sub-menu title: %@", subMenuTitle];
         }
     }
     @catch (NSException *exception) {

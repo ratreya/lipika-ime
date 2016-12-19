@@ -15,9 +15,7 @@
 #import "DJTestClient.h"
 
 @interface DJLipikaSchemeFactory (Test)
-
 +(void)setSchemesDirectory:(NSString *)directory;
-
 @end
 
 @interface DJClientManagerTest : XCTestCase {
@@ -31,12 +29,13 @@
 
 -(void)setUp {
     [super setUp];
-    [DJLipikaSchemeFactory setSchemesDirectory:@"./Common/Resources/Schemes"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Schemes"];
+    [DJLipikaSchemeFactory setSchemesDirectory:filePath];
     [DJTestHelper setupUserSettings];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"CombineWithPreviousGlyph"];
     client = [[DJTestClient alloc] initWithCommittedString:@""];
     manager = [[DJLipikaClientManager alloc] initWithClient:[[DJLipikaClientDelegate alloc] initWithClient:client]];
-    [manager changeToSchemeWithName:@"Barahavat" forScript:@"Devanagari" type:DJ_LIPIKA];
+    [manager changeToSchemeWithName:@"Barahavat" forScript:@"Devanagari"];
 }
 
 -(void)testHappyCase {

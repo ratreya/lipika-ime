@@ -27,7 +27,8 @@
 -(void)onUnFocus;
 -(void)onEndSession;
 -(void)onCandidateSelected:(NSString *)candidateString;
--(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName type:(enum DJSchemeType)type;
+-(void)changeToCustomSchemeWithName:(NSString *)schemeName;
+-(void)changeToSchemeWithName:(NSString *)schemeName forScript:scriptName;
 -(void)commit;
 
 @end
