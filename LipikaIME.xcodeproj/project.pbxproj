@@ -12,6 +12,12 @@
 		A517EED6187C883600323900 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A517EED4187C87E900323900 /* UserSettings.plist */; };
 		A53013FC1955E1990012E017 /* DJFileConversionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A53013FB1955E1990012E017 /* DJFileConversionTest.m */; };
 		A531FE85195370AA00A714C2 /* DJConversionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A531FE84195370AA00A714C2 /* DJConversionController.m */; };
+		A54323511C4AC3E300AC2129 /* GoogleSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323501C4AC3E300AC2129 /* GoogleSchemes */; };
+		A54323531C4AC3F600AC2129 /* LipikaSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323521C4AC3F600AC2129 /* LipikaSchemes */; };
+		A54323541C4AC71000AC2129 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
+		A54323551C4AC79C00AC2129 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
+		A54323561C4AC93A00AC2129 /* Control in Resources */ = {isa = PBXBuildFile; fileRef = A53013FD195614810012E017 /* Control */; };
+		A54323591C4ACABA00AC2129 /* CustomSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323581C4ACABA00AC2129 /* CustomSchemes */; };
 		A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */ = {isa = PBXBuildFile; fileRef = A583F15C19525D8100A80B88 /* FileConversion.xib */; };
 		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
@@ -127,7 +133,9 @@
 		A53013FD195614810012E017 /* Control */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Control; sourceTree = "<group>"; };
 		A531FE83195370AA00A714C2 /* DJConversionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJConversionController.h; sourceTree = "<group>"; };
 		A531FE84195370AA00A714C2 /* DJConversionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJConversionController.m; sourceTree = "<group>"; };
-		A544A30F1958D86400A987E8 /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
+		A54323501C4AC3E300AC2129 /* GoogleSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GoogleSchemes; sourceTree = "<group>"; };
+		A54323521C4AC3F600AC2129 /* LipikaSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LipikaSchemes; sourceTree = "<group>"; };
+		A54323581C4ACABA00AC2129 /* CustomSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CustomSchemes; sourceTree = "<group>"; };
 		A577D863185F5E58001C8942 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A583F15C19525D8100A80B88 /* FileConversion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileConversion.xib; sourceTree = "<group>"; };
 		A5848D6C187B201800EB6C46 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -181,18 +189,9 @@
 		A5848DAB187B201800EB6C46 /* DJGoogleReverseMapTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleReverseMapTest.m; sourceTree = "<group>"; };
 		A5848DAC187B201800EB6C46 /* DJGoogleSchemeTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleSchemeTest.m; sourceTree = "<group>"; };
 		A5848DAD187B201800EB6C46 /* DJGoogleSpecialCharsTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleSpecialCharsTest.m; sourceTree = "<group>"; };
-		A5848DAF187B201800EB6C46 /* TestHappyCase.scm */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestHappyCase.scm; sourceTree = "<group>"; };
-		A5848DB0187B201800EB6C46 /* TestITRANS.scm */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestITRANS.scm; sourceTree = "<group>"; };
-		A5848DB1187B201800EB6C46 /* TestKsharanam.scm */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestKsharanam.scm; sourceTree = "<group>"; };
-		A5848DB2187B201800EB6C46 /* TestMultipleReplay.scm */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestMultipleReplay.scm; sourceTree = "<group>"; };
-		A5848DB3187B201800EB6C46 /* TestNestedClass.scm */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestNestedClass.scm; sourceTree = "<group>"; };
-		A5848DB4187B201800EB6C46 /* TestSpecialChars.scm */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestSpecialChars.scm; sourceTree = "<group>"; };
 		A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaAddendumTest.m; sourceTree = "<group>"; };
 		A5848DB7187B201800EB6C46 /* DJLipikaSchemeFactoryTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaSchemeFactoryTest.m; sourceTree = "<group>"; };
 		A5848DB8187B201800EB6C46 /* DJLipikaSchemeTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaSchemeTest.m; sourceTree = "<group>"; };
-		A5848DBA187B201800EB6C46 /* Hindi-Hindi.ime */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Hindi-Hindi.ime"; sourceTree = "<group>"; };
-		A5848DBC187B201800EB6C46 /* Hindi.map */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hindi.map; sourceTree = "<group>"; };
-		A5848DBE187B201800EB6C46 /* Hindi.tlr */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hindi.tlr; sourceTree = "<group>"; };
 		A5848DC0187B201800EB6C46 /* DJReadWriteTrieTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJReadWriteTrieTest.m; sourceTree = "<group>"; };
 		A5848DC4187B201800EB6C46 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A5848DC6187B201800EB6C46 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -504,22 +503,9 @@
 				A5848DAB187B201800EB6C46 /* DJGoogleReverseMapTest.m */,
 				A5848DAC187B201800EB6C46 /* DJGoogleSchemeTest.m */,
 				A5848DAD187B201800EB6C46 /* DJGoogleSpecialCharsTest.m */,
-				A5848DAE187B201800EB6C46 /* Schemes */,
+				A54323501C4AC3E300AC2129 /* GoogleSchemes */,
 			);
 			path = Google;
-			sourceTree = "<group>";
-		};
-		A5848DAE187B201800EB6C46 /* Schemes */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DAF187B201800EB6C46 /* TestHappyCase.scm */,
-				A5848DB0187B201800EB6C46 /* TestITRANS.scm */,
-				A5848DB1187B201800EB6C46 /* TestKsharanam.scm */,
-				A5848DB2187B201800EB6C46 /* TestMultipleReplay.scm */,
-				A5848DB3187B201800EB6C46 /* TestNestedClass.scm */,
-				A5848DB4187B201800EB6C46 /* TestSpecialChars.scm */,
-			);
-			path = Schemes;
 			sourceTree = "<group>";
 		};
 		A5848DB5187B201800EB6C46 /* Lipika */ = {
@@ -528,35 +514,9 @@
 				A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */,
 				A5848DB7187B201800EB6C46 /* DJLipikaSchemeFactoryTest.m */,
 				A5848DB8187B201800EB6C46 /* DJLipikaSchemeTest.m */,
-				A5848DB9187B201800EB6C46 /* Schemes */,
+				A54323521C4AC3F600AC2129 /* LipikaSchemes */,
 			);
 			path = Lipika;
-			sourceTree = "<group>";
-		};
-		A5848DB9187B201800EB6C46 /* Schemes */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DBA187B201800EB6C46 /* Hindi-Hindi.ime */,
-				A5848DBB187B201800EB6C46 /* Script */,
-				A5848DBD187B201800EB6C46 /* Transliteration */,
-			);
-			path = Schemes;
-			sourceTree = "<group>";
-		};
-		A5848DBB187B201800EB6C46 /* Script */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DBC187B201800EB6C46 /* Hindi.map */,
-			);
-			path = Script;
-			sourceTree = "<group>";
-		};
-		A5848DBD187B201800EB6C46 /* Transliteration */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DBE187B201800EB6C46 /* Hindi.tlr */,
-			);
-			path = Transliteration;
 			sourceTree = "<group>";
 		};
 		A5848DBF187B201800EB6C46 /* ReadWriteTrie */ = {
@@ -640,7 +600,7 @@
 		A5848DDF187B201800EB6C46 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A544A30F1958D86400A987E8 /* Schemes */,
+				A54323581C4ACABA00AC2129 /* CustomSchemes */,
 				A53013FD195614810012E017 /* Control */,
 				A5883E87187B5BC800FFE7F6 /* Info.plist */,
 				A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */,
@@ -782,7 +742,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = DJ;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = com.daivajnanam;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
@@ -841,6 +801,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A54323551C4AC79C00AC2129 /* Schemes in Resources */,
+				A54323561C4AC93A00AC2129 /* Control in Resources */,
+				A54323591C4ACABA00AC2129 /* CustomSchemes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,6 +818,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A54323541C4AC71000AC2129 /* Schemes in Resources */,
+				A54323511C4AC3E300AC2129 /* GoogleSchemes in Resources */,
+				A54323531C4AC3F600AC2129 /* LipikaSchemes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1035,6 +1001,7 @@
 				INFOPLIST_FILE = InputSource/Tests/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1062,6 +1029,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = InputSource/Tests/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1109,6 +1077,7 @@
 				INFOPLIST_FILE = EngineFramework/Resources/Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -1152,6 +1121,7 @@
 				INFOPLIST_FILE = EngineFramework/Resources/Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -1199,6 +1169,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = EngineFramework/Tests/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Engine.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1241,6 +1212,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = EngineFramework/Tests/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Engine.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1336,6 +1308,7 @@
 				INFOPLIST_FILE = InputSource/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource;
 				PRODUCT_NAME = LipikaIME;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -1355,6 +1328,7 @@
 				INFOPLIST_FILE = InputSource/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource;
 				PRODUCT_NAME = LipikaIME;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -1365,6 +1339,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;

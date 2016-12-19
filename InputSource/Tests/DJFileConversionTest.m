@@ -9,7 +9,12 @@
 
 #import <XCTest/XCTest.h>
 #import "DJConversionController.h"
+#import "DJLipikaSchemeFactory.h"
 #import "DJGoogleSchemeFactory.h"
+
+@interface DJLipikaSchemeFactory (Test)
++(void)setSchemesDirectory:(NSString *)directory;
+@end
 
 @interface DJConversionController (test)
 -(void)convertFileFromPath:(NSString *)fromPath toPath:(NSString *)toPath withEngine:(DJStringBufferManager *)engine isReverseMapping:(BOOL)isReverseMapping;
@@ -29,12 +34,19 @@
 
 @implementation DJFileConversionTest
 
+-(void)setUp {
+    [super setUp];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Schemes"];
+    [DJLipikaSchemeFactory setSchemesDirectory:filePath];
+}
+
 - (void)testLipikaForwardConversion {
     NSString *outputFile = @"/tmp/DhatupaaTaSvara.itrans.out";
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] init];
     [engine changeToSchemeWithName:@"ITRANS" forScript:@"Devanagari" type:DJ_LIPIKA];
     DJConversionController *controller = [[DJConversionController alloc] init];
-    [controller convertFileFromPath:@"./InputSource/Tests/Control/DhatupaaTaSvara.itrans" toPath:outputFile withEngine:engine isReverseMapping:NO];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Control/DhatupaaTaSvara.itrans"];
+    [controller convertFileFromPath:filePath toPath:outputFile withEngine:engine isReverseMapping:NO];
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:outputFile isDirectory:NO]);
     NSString *contents = [NSString stringWithContentsOfFile:outputFile encoding:NSUTF8StringEncoding error:nil];
     NSArray *lines = [contents componentsSeparatedByString:@"\r"];
@@ -47,7 +59,8 @@
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] init];
     [engine changeToSchemeWithName:@"ITRANS" forScript:@"Devanagari" type:DJ_LIPIKA];
     DJConversionController *controller = [[DJConversionController alloc] init];
-    [controller convertFileFromPath:@"./InputSource/Tests/Control/DhatupaaTaSvara.txt" toPath:outputFile withEngine:engine isReverseMapping:YES];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Control/DhatupaaTaSvara.txt"];
+    [controller convertFileFromPath:filePath toPath:outputFile withEngine:engine isReverseMapping:YES];
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:outputFile isDirectory:NO]);
     NSString *contents = [NSString stringWithContentsOfFile:outputFile encoding:NSUTF8StringEncoding error:nil];
     NSArray *lines = [contents componentsSeparatedByString:@"\r"];
@@ -56,11 +69,13 @@
 }
 
 -(void)testGoogleForwardConversion {
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"CustomSchemes/SA_ITRANS.scm"];
     NSString *outputFile = @"/tmp/DhatupaaTaSvara.itrans.out";
-    DJGoogleInputScheme *scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./InputSource/Tests/Schemes/SA_ITRANS.scm"];
+    DJGoogleInputScheme *scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] initWithEngine:[[DJInputMethodEngine alloc] initWithScheme:scheme]];
     DJConversionController *controller = [[DJConversionController alloc] init];
-    [controller convertFileFromPath:@"./InputSource/Tests/Control/DhatupaaTaSvara.itrans" toPath:outputFile withEngine:engine isReverseMapping:NO];
+    filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Control/DhatupaaTaSvara.itrans"];
+    [controller convertFileFromPath:filePath toPath:outputFile withEngine:engine isReverseMapping:NO];
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:outputFile isDirectory:NO]);
     NSString *contents = [NSString stringWithContentsOfFile:outputFile encoding:NSUTF8StringEncoding error:nil];
     NSArray *lines = [contents componentsSeparatedByString:@"\r"];
@@ -69,11 +84,13 @@
 }
 
 -(void)testGoogleReverseConversion {
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"CustomSchemes/SA_ITRANS.scm"];
     NSString *outputFile = @"/tmp/DhatupaaTaSvara.itrans";
-    DJGoogleInputScheme *scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./InputSource/Tests/Schemes/SA_ITRANS.scm"];
+    DJGoogleInputScheme *scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] initWithEngine:[[DJInputMethodEngine alloc] initWithScheme:scheme]];
     DJConversionController *controller = [[DJConversionController alloc] init];
-    [controller convertFileFromPath:@"./InputSource/Tests/Control/DhatupaaTaSvara.txt" toPath:outputFile withEngine:engine isReverseMapping:YES];
+    filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Control/DhatupaaTaSvara.txt"];
+    [controller convertFileFromPath:filePath toPath:outputFile withEngine:engine isReverseMapping:YES];
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:outputFile isDirectory:NO]);
     NSString *contents = [NSString stringWithContentsOfFile:outputFile encoding:NSUTF8StringEncoding error:nil];
     NSArray *lines = [contents componentsSeparatedByString:@"\r"];
@@ -82,7 +99,8 @@
 }
 
 -(void)testReverseMappingOverrite {
-    DJGoogleInputScheme *scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./InputSource/Tests/Schemes/SA_ITRANS.scm"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"CustomSchemes/SA_ITRANS.scm"];
+    DJGoogleInputScheme *scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] initWithEngine:[[DJInputMethodEngine alloc] initWithScheme:scheme]];
     DJSimpleReverseMapping *mappings = [engine reverseMappings];
     DJParseOutput *output = [mappings inputForOutput:@"हर्षे"];

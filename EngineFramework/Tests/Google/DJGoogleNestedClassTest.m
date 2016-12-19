@@ -30,7 +30,8 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestNestedClass.scm"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"GoogleSchemes/TestNestedClass.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
     engine = [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }
 

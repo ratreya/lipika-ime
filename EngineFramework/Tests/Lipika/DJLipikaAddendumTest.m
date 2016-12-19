@@ -37,7 +37,8 @@
 
 -(void)setUp {
     [super setUp];
-    [DJLipikaSchemeFactory setSchemesDirectory:@"./EngineFramework/Tests/Lipika/Schemes"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"LipikaSchemes"];
+    [DJLipikaSchemeFactory setSchemesDirectory:filePath];
 }
 
 -(void)testHappyCase {

@@ -21,7 +21,8 @@
 
 - (void)setUp {
     [super setUp];
-    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:@"./EngineFramework/Tests/Google/Schemes/TestSpecialChars.scm"];
+    NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"GoogleSchemes/TestSpecialChars.scm"];
+    scheme = [DJGoogleSchemeFactory inputSchemeForSchemeFile:filePath];
 }
 
 - (void)testSpecialCharacterParsing {
