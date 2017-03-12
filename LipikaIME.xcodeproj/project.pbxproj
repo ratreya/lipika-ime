@@ -18,6 +18,7 @@
 		A54323551C4AC79C00AC2129 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
 		A54323561C4AC93A00AC2129 /* Control in Resources */ = {isa = PBXBuildFile; fileRef = A53013FD195614810012E017 /* Control */; };
 		A54323591C4ACABA00AC2129 /* CustomSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323581C4ACABA00AC2129 /* CustomSchemes */; };
+		A56E75831E74EA090013A6ED /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; };
 		A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A577D863185F5E58001C8942 /* XCTest.framework */; };
 		A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */ = {isa = PBXBuildFile; fileRef = A583F15C19525D8100A80B88 /* FileConversion.xib */; };
 		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
@@ -60,9 +61,7 @@
 		A5883E88187B5C1A00FFE7F6 /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; };
 		A5883E89187B5C4500FFE7F6 /* DJTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D71187B201800EB6C46 /* DJTestClient.m */; };
 		A5883E8A187B5C5800FFE7F6 /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D73187B201800EB6C46 /* DJTestHelper.m */; };
-		A5A047BF187F4F1100ED7613 /* Engine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; };
-		A5A047C0187F4F2000ED7613 /* Engine.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* Engine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
+		A58885641E1ABD95009175E3 /* LipikaBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58885631E1ABD95009175E3 /* LipikaBoard.swift */; };
 		A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A5C2A1BF1888761F0085DE01 /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5C2A1BE188872E70085DE01 /* Icon.xcassets */; };
 		A5C597A51C9CA67800BFB873 /* KeyboardFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = A50D74881C9498C2007B755B /* KeyboardFramework.h */; };
@@ -136,7 +135,14 @@
 			remoteGlobalIDString = A5D635021877435B0048DAE5;
 			remoteInfo = Engine;
 		};
-		A553F1931E1834D800A736A3 /* PBXContainerItemProxy */ = {
+		A56E75841E74EA4E0013A6ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5D635021877435B0048DAE5;
+			remoteInfo = Engine;
+		};
+		A56E75861E74ECC40013A6ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -150,6 +156,13 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = LipikaIME;
 		};
+		A5AE5AEF1E74E16100355D8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
+			remoteInfo = InputSource;
+		};
 		A5CFADE11C9F9A3B00A92637 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -158,19 +171,6 @@
 			remoteInfo = KeyboardFramework;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A5A047BC187F4CD000ED7613 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A5A047C0187F4F2000ED7613 /* Engine.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -290,6 +290,7 @@
 		A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
 		A5883E86187B572700FFE7F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5883E87187B5BC800FFE7F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A58885631E1ABD95009175E3 /* LipikaBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBoard.swift; sourceTree = "<group>"; };
 		A5C2A1BE188872E70085DE01 /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
 		A5C54E0316BA20C1007F631D /* InputSourceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InputSourceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5CAE401187B950D00A1549A /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
@@ -314,9 +315,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56E75831E74EA090013A6ED /* Engine.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				A5883E7B187B55C600FFE7F6 /* InputMethodKit.framework in Frameworks */,
-				A5A047BF187F4F1100ED7613 /* Engine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +334,6 @@
 			files = (
 				A5883E88187B5C1A00FFE7F6 /* Engine.framework in Frameworks */,
 				A577D865185F5F78001C8942 /* XCTest.framework in Frameworks */,
-				A5B11D2D16BC587E003CD7E7 /* InputMethodKit.framework in Frameworks */,
 				A5B11D2E16BC5881003CD7E7 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +436,7 @@
 		A50D74891C9498D6007B755B /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				A58885621E1ABD41009175E3 /* LipikaIME */,
 				A50D748A1C9498D6007B755B /* Catboard.swift */,
 				A50D748B1C9498D6007B755B /* CatboardBanner.swift */,
 				A50D748C1C9498D6007B755B /* DefaultKeyboard.swift */,
@@ -739,6 +740,14 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		A58885621E1ABD41009175E3 /* LipikaIME */ = {
+			isa = PBXGroup;
+			children = (
+				A58885631E1ABD95009175E3 /* LipikaBoard.swift */,
+			);
+			path = LipikaIME;
+			sourceTree = "<group>";
+		};
 		A5D635061877435B0048DAE5 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -791,12 +800,11 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				8D1107290486CEB800E47090 /* Resources */,
-				A5A047BC187F4CD000ED7613 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A553F1941E1834D800A736A3 /* PBXTargetDependency */,
+				A56E75851E74EA4E0013A6ED /* PBXTargetDependency */,
 			);
 			name = InputSource;
 			productInstallPath = "$(HOME)/Applications";
@@ -829,11 +837,11 @@
 				A5C54DFE16BA20C1007F631D /* Sources */,
 				A5C54DFF16BA20C1007F631D /* Frameworks */,
 				A5C54E0016BA20C1007F631D /* Resources */,
-				A5C54E0116BA20C1007F631D /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A56E75871E74ECC40013A6ED /* PBXTargetDependency */,
 				A5999AB818498387002EE8AE /* PBXTargetDependency */,
 			);
 			name = InputSourceTest;
@@ -889,6 +897,7 @@
 			);
 			dependencies = (
 				A553F1921E1834B300A736A3 /* PBXTargetDependency */,
+				A5AE5AF01E74E16100355D8F /* PBXTargetDependency */,
 			);
 			name = EngineTests;
 			productName = LipikaEngineTests;
@@ -924,18 +933,23 @@
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
 						DevelopmentTeam = 7JZ87Y4JWT;
+						ProvisioningStyle = Automatic;
 					};
 					A50D74A21C94995D007B755B = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 7JZ87Y4JWT;
 					};
 					A5C54E0216BA20C1007F631D = {
 						TestTargetID = 8D1107260486CEB800E47090;
 					};
 					A5CFADD81C9F995100A92637 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 7JZ87Y4JWT;
+						LastSwiftMigration = 0820;
 					};
 					A5D635021877435B0048DAE5 = {
 						DevelopmentTeam = 7JZ87Y4JWT;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1024,22 +1038,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		A5C54E0116BA20C1007F631D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1104,6 +1102,7 @@
 				A5CFADE61C9F9A9900A92637 /* DefaultSettings.swift in Sources */,
 				A5CFADE71C9F9A9900A92637 /* DirectionEnum.swift in Sources */,
 				A5CFADE81C9F9A9900A92637 /* ExtraView.swift in Sources */,
+				A58885641E1ABD95009175E3 /* LipikaBoard.swift in Sources */,
 				A5CFADE91C9F9A9900A92637 /* ForwardingView.swift in Sources */,
 				A5CFADEA1C9F9A9900A92637 /* ImageKey.swift in Sources */,
 				A5CFADEB1C9F9A9900A92637 /* KeyboardConnector.swift in Sources */,
@@ -1181,15 +1180,25 @@
 			target = A5D635021877435B0048DAE5 /* Engine */;
 			targetProxy = A553F1911E1834B300A736A3 /* PBXContainerItemProxy */;
 		};
-		A553F1941E1834D800A736A3 /* PBXTargetDependency */ = {
+		A56E75851E74EA4E0013A6ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A5D635021877435B0048DAE5 /* Engine */;
-			targetProxy = A553F1931E1834D800A736A3 /* PBXContainerItemProxy */;
+			targetProxy = A56E75841E74EA4E0013A6ED /* PBXContainerItemProxy */;
+		};
+		A56E75871E74ECC40013A6ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5D635021877435B0048DAE5 /* Engine */;
+			targetProxy = A56E75861E74ECC40013A6ED /* PBXContainerItemProxy */;
 		};
 		A5999AB818498387002EE8AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* InputSource */;
 			targetProxy = A5999AB718498387002EE8AE /* PBXContainerItemProxy */;
+		};
+		A5AE5AF01E74E16100355D8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D1107260486CEB800E47090 /* InputSource */;
+			targetProxy = A5AE5AEF1E74E16100355D8F /* PBXContainerItemProxy */;
 		};
 		A5CFADE21C9F9A3B00A92637 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1248,6 +1257,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1302,6 +1312,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1334,7 +1345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LipikaIME.app/Contents/MacOS/LipikaIME";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1361,7 +1372,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LipikaIME.app/Contents/MacOS/LipikaIME";
 			};
 			name = Debug;
 		};
@@ -1369,7 +1380,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LipikaIME.app/Contents/MacOS/LipikaIME";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1389,7 +1400,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LipikaIME.app/Contents/MacOS/LipikaIME";
 			};
 			name = Release;
 		};
@@ -1414,6 +1425,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1437,6 +1449,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1461,6 +1474,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1478,6 +1492,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1497,8 +1512,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1546,8 +1561,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1741,16 +1756,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = InputSource/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource;
 				PRODUCT_NAME = LipikaIME;
 				PROVISIONING_PROFILE = "";
@@ -1765,13 +1781,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer: Ranganath Atreya (VRQLUEWMY9)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = InputSource/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource;
 				PRODUCT_NAME = LipikaIME;
 				PROVISIONING_PROFILE = "";

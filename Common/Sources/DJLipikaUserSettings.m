@@ -13,6 +13,7 @@
 
 static int SETTINGS_VERSION = 2;
 static NSDictionary *candidateStringAttributeCache = nil;
+static NSDictionary *candidatePanelEnumValues = nil;
 
 +(void)initialize {
     NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UserSettings" ofType:@"plist"]];
@@ -20,6 +21,14 @@ static NSDictionary *candidateStringAttributeCache = nil;
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Version"] != SETTINGS_VERSION) {
         [self reset];
     }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        candidatePanelEnumValues = @{
+                       @"kIMKSingleColumnScrollingCandidatePanel": @1,
+                       @"kIMKScrollingGridCandidatePanel": @2,
+                       @"kIMKSingleRowSteppingCandidatePanel": @3,
+                       };
+    });
 }
 
 +(NSString *)scriptName {
@@ -92,8 +101,8 @@ static NSDictionary *candidateStringAttributeCache = nil;
     return candidateStringAttributeCache;
 }
 
-+(NSString *)candidatePanelType {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"CandidatePanelType"];
++(NSNumber *)candidatePanelType {
+    return [candidatePanelEnumValues valueForKey:[[NSUserDefaults standardUserDefaults] stringForKey:@"CandidatePanelType"]];
 }
 
 +(BOOL)isShowInput {

@@ -26,7 +26,7 @@
 +(NSDictionary *)candidateWindowAttributes;
 +(void)setCandidateStringAttributes:(NSDictionary *)attributes;
 +(NSDictionary *)candidateStringAttributes;
-+(NSString *)candidatePanelType;
++(NSNumber *)candidatePanelType;
 +(BOOL)isCombineWithPreviousGlyph;
 +(BOOL)isShowInput;
 +(BOOL)isShowOutput;

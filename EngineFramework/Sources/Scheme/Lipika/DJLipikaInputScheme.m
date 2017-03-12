@@ -132,7 +132,7 @@ static NSRegularExpression *addendumSubExpression;
             }
             // Process non-addendum IME lines
             if (preValues.count != postValues.count) {
-                [NSException raise:@"Invalid IME line" format:@"For IME line \"%@\": count of mappings from left column :(%ld) does not match that from the right :(%ld)", line, preValues.count, postValues.count];
+                [NSException raise:@"Invalid IME line" format:@"For IME line \"%@\": count of mappings from left column :(%ld) does not match that from the right :(%ld)", line, (unsigned long)preValues.count, (unsigned long)postValues.count];
             }
             for (int i=0; i<preValues.count; i++) {
                 NSArray *preValueList = [preValues objectAtIndex:i];

@@ -50,7 +50,7 @@ extern IMKCandidates *candidates;
     }
 
     if (forClient) {
-        [client setMarkedText:forClient withReplacementOffset:replacementLength];
+        [client setMarkedText:forClient withReplacementOffset:(int)replacementLength];
     }
     if (forCandidate) {
         if ([DJLipikaUserSettings isOverrideCandidateAttributes]) {

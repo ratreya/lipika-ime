@@ -129,7 +129,7 @@
     [alert setMessageText:[NSString stringWithFormat:@"Output file saved at: %@", [outputFilePath stringValue]]];
     if (isLipika) [alert setInformativeText:[NSString stringWithFormat:@"Converted from %@ to %@", inputEncoding, outputEncoding]];
     else [alert setInformativeText:[NSString stringWithFormat:@"Converted using %@", [customMappings stringValue]]];
-    [alert setAlertStyle:NSInformationalAlertStyle];
+    [alert setAlertStyle:NSAlertStyleInformational];
     [alert runModal];
 }
 
@@ -191,7 +191,7 @@
     if ([line length] < 1) return @"";
     NSMutableString *output = [[NSMutableString alloc] init];
     int maxMapped = [mapper maxOutputSize];
-    int index = [line length];
+    int index = (int)[line length];
     do {
         NSString *subOutput = [line substringWithRange:NSMakeRange(MAX(index - maxMapped, 0), MIN(maxMapped, index))];
         DJParseOutput *result = [mapper inputForOutput:subOutput];
