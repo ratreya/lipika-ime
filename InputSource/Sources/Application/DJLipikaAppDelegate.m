@@ -97,7 +97,7 @@
 
 -(void)configureCandiates {
     extern IMKCandidates *candidates;
-    [candidates setPanelType:[DJLipikaUserSettings candidatePanelType]];
+    [candidates setPanelType:[[DJLipikaUserSettings candidatePanelType] intValue]];
     [candidates setDismissesAutomatically:NO];
     [candidates setAttributes:[DJLipikaUserSettings candidateWindowAttributes]];
 }
