@@ -6,5 +6,5 @@ NSHumanReadableCopyright = "Copyright (C) 2013 Ranganath Atreya";
 
 CFBundleName = "LipikaIME";
 CFBundleDisplayName = "LipikaIME";
-CFBundleShortVersionString = "1.4.1";
-CFBundleGetInfoString = "LipikaIME version 1.4.1, Copyright (C) 2013 Ranganath Atreya";
+CFBundleShortVersionString = "1.4.2";
+CFBundleGetInfoString = "LipikaIME version 1.4.2, Copyright (C) 2013 Ranganath Atreya";
