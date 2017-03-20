@@ -14,7 +14,12 @@
 
 @implementation DJLipikaSchemeFactory
 
-static NSString *const SCHEMESPATH = @"%@/Contents/Resources/Schemes";
+#if TARGET_OS_IPHONE
+    static NSString *const SCHEMESPATH = @"%@/Schemes";
+#else
+    static NSString *const SCHEMESPATH = @"%@/Contents/Resources/Schemes";
+#endif
+
 static NSString *const SCHEMEEXTENSION = @"tlr";
 static NSString *const SCRIPTEXTENSION = @"map";
 static NSString *const IMEEXTENSION = @"ime";
