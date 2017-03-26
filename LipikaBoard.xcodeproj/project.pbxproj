@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A5130E081E7F63CE002E049C /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5130E011E7F63CE002E049C /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A51E2A3E1E7F765B00CCAB34 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51E2A381E7F765B00CCAB34 /* Images.xcassets */; };
-		A51E2A401E7F765B00CCAB34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A51E2A3A1E7F765B00CCAB34 /* LaunchScreen.storyboard */; };
-		A51E2A411E7F765B00CCAB34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A51E2A3C1E7F765B00CCAB34 /* Main.storyboard */; };
 		A51E2AE61E7F79CC00CCAB34 /* DJActiveBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2ABC1E7F79CC00CCAB34 /* DJActiveBufferManager.m */; };
 		A51E2AE81E7F79CC00CCAB34 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2ABE1E7F79CC00CCAB34 /* DJInputMethodEngine.m */; };
 		A51E2AEA1E7F79CC00CCAB34 /* DJStringBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2AC01E7F79CC00CCAB34 /* DJStringBufferManager.m */; };
@@ -56,6 +53,9 @@
 		A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */; };
 		A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88251E7F5E1800A70B6F /* ViewController.swift */; };
 		A5D985F51E84CD670052B73C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F41E84CD670052B73C /* UserSettings.plist */; };
+		A5E561D21E876F0700D0365F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D01E876F0700D0365F /* Images.xcassets */; };
+		A5E561DA1E876F5B00D0365F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D41E876F1600D0365F /* LaunchScreen.storyboard */; };
+		A5E561DB1E876F5B00D0365F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D61E876F1600D0365F /* Main.storyboard */; };
 		A5FC194F1E837AC70014F61F /* LipikaBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC194E1E837AC70014F61F /* LipikaBoard.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,10 +103,6 @@
 /* Begin PBXFileReference section */
 		A5130E011E7F63CE002E049C /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5130E051E7F63CE002E049C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A51E2A381E7F765B00CCAB34 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HostingApp/LipikaBoard/Images.xcassets; sourceTree = "<group>"; };
-		A51E2A391E7F765B00CCAB34 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HostingApp/LipikaBoard/Info.plist; sourceTree = "<group>"; };
-		A51E2A3B1E7F765B00CCAB34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = HostingApp/LipikaBoard/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A51E2A3D1E7F765B00CCAB34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = HostingApp/LipikaBoard/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LipikaEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A51E2ABB1E7F79CC00CCAB34 /* DJActiveBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJActiveBufferManager.h; sourceTree = "<group>"; };
 		A51E2ABC1E7F79CC00CCAB34 /* DJActiveBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJActiveBufferManager.m; sourceTree = "<group>"; };
@@ -179,6 +175,10 @@
 		A5CE88251E7F5E1800A70B6F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = HostingApp/LipikaBoard/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		A5D985F41E84CD670052B73C /* UserSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserSettings.plist; path = Common/Resources/UserSettings.plist; sourceTree = SOURCE_ROOT; };
 		A5D985F71E84D0050052B73C /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Schemes; path = Common/Resources/Schemes; sourceTree = SOURCE_ROOT; };
+		A5E561D01E876F0700D0365F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HostingApp/LipikaBoard/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		A5E561D11E876F0700D0365F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HostingApp/LipikaBoard/Info.plist; sourceTree = SOURCE_ROOT; };
+		A5E561D51E876F1600D0365F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = HostingApp/LipikaBoard/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
+		A5E561D71E876F1600D0365F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = HostingApp/LipikaBoard/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		A5FC194E1E837AC70014F61F /* LipikaBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -351,7 +351,7 @@
 		A51F685E1E7F5D260075EC06 /* LipikaBoard */ = {
 			isa = PBXGroup;
 			children = (
-				A5CE880D1E7F5D8900A70B6F /* Reources */,
+				A5E561CF1E876ED900D0365F /* Resources */,
 				A5810BEB1E7F748E00759112 /* Sources */,
 			);
 			path = LipikaBoard;
@@ -389,16 +389,15 @@
 			name = Sources;
 			sourceTree = "<group>";
 		};
-		A5CE880D1E7F5D8900A70B6F /* Reources */ = {
+		A5E561CF1E876ED900D0365F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A51E2A381E7F765B00CCAB34 /* Images.xcassets */,
-				A51E2A391E7F765B00CCAB34 /* Info.plist */,
-				A51E2A3A1E7F765B00CCAB34 /* LaunchScreen.storyboard */,
-				A51E2A3C1E7F765B00CCAB34 /* Main.storyboard */,
+				A5E561D11E876F0700D0365F /* Info.plist */,
+				A5E561D01E876F0700D0365F /* Images.xcassets */,
+				A5E561D41E876F1600D0365F /* LaunchScreen.storyboard */,
+				A5E561D61E876F1600D0365F /* Main.storyboard */,
 			);
-			name = Reources;
-			path = ..;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		A5FC19481E8379BC0014F61F /* Controller */ = {
@@ -597,10 +596,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E561DA1E876F5B00D0365F /* LaunchScreen.storyboard in Resources */,
+				A5E561DB1E876F5B00D0365F /* Main.storyboard in Resources */,
 				A5D985F51E84CD670052B73C /* UserSettings.plist in Resources */,
-				A51E2A401E7F765B00CCAB34 /* LaunchScreen.storyboard in Resources */,
-				A51E2A3E1E7F765B00CCAB34 /* Images.xcassets in Resources */,
-				A51E2A411E7F765B00CCAB34 /* Main.storyboard in Resources */,
+				A5E561D21E876F0700D0365F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,18 +682,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A51E2A3A1E7F765B00CCAB34 /* LaunchScreen.storyboard */ = {
+		A5E561D41E876F1600D0365F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A51E2A3B1E7F765B00CCAB34 /* Base */,
+				A5E561D51E876F1600D0365F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		A51E2A3C1E7F765B00CCAB34 /* Main.storyboard */ = {
+		A5E561D61E876F1600D0365F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A51E2A3D1E7F765B00CCAB34 /* Base */,
+				A5E561D71E876F1600D0365F /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
