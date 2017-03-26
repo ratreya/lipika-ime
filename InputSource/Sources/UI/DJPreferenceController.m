@@ -48,8 +48,10 @@
 
 -(IBAction)resetSetting:(id)sender {
     [DJLipikaUserSettings reset];
+    [[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
     [[NSUserDefaultsController sharedUserDefaultsController] revert:sender];
+    // Revert also resets the scheme section to defaults, so we need to update the menu
+    [(DJLipikaAppDelegate *)[NSApp delegate] updateSchemeSelection];
 }
-
 
 @end

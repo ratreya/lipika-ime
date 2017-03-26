@@ -16,5 +16,6 @@
 @property IBOutlet NSMenu *mainMenu;
 
 -(void)configureCandiates;
+-(void)updateSchemeSelection;
 
 @end

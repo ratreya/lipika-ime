@@ -14,6 +14,7 @@ static NSString *const DJSchemeSubMenu = @"SchemeSubMenu";
 static NSString *const DJScriptSubMenu = @"ScriptSubMenu";
 static NSString *const DJInputMenuItemTitle = @"Input scheme";
 static NSString *const DJOutputMenuItemTitle = @"Output script";
+static NSString *const DJCustomMenuItemTitle = @"Custom schemes";
 
 enum DJLogLevel {
     DJ_DEBUG = 1,

@@ -33,7 +33,7 @@ int main(int argc, const char * argv[]) {
             }
         }
         else {
-            printf("[ERROR] You should specify one of --remove or --enable or --select\n");
+            printf("[ERROR] You should specify one of --register, --remove, --enable or --select\n");
             return -1;
         }
 

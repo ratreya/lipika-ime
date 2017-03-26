@@ -99,14 +99,6 @@
 
 #pragma mark - DJLipikaInputController's instance methods
 
--(void)clearAllOnStates:(NSMenu *)rootMenu {
-    NSArray *peerItems = [rootMenu itemArray];
-    [peerItems enumerateObjectsUsingBlock:^(NSMenuItem *obj, NSUInteger idx, BOOL *stop) {
-        [obj setState:NSOffState];
-        if ([obj hasSubmenu]) [self clearAllOnStates:[obj submenu]];
-    }];
-}
-
 -(void)changeInputScheme:(NSMenuItem *)menuItem {
     NSString *name = [menuItem title];
     NSString *subMenuTitle = [[[menuItem parentItem] submenu] title];
@@ -133,15 +125,7 @@
         logFatal(@"Error initializing scheme. %@", [exception description]);
         return;
     }
-    [self clearAllOnStates:[[menuItem parentItem] menu]];
-    // Turn on state for the script and scheme
-    if (isGoogleItem) {
-        [menuItem setState:NSOnState];
-    }
-    else {
-        [[[[[(DJLipikaAppDelegate *)[NSApp delegate] mainMenu] itemWithTitle:DJInputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
-        [[[[[(DJLipikaAppDelegate *)[NSApp delegate] mainMenu] itemWithTitle:DJOutputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings scriptName]] setState:NSOnState];
-    }
+    [(DJLipikaAppDelegate *)[NSApp delegate] updateSchemeSelection];
 }
 
 -(void)showPreferenceImpl:(NSMenuItem *)menuItem {
