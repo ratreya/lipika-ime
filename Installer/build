@@ -1,15 +1,15 @@
 #!/bin/sh
-rm -rf ./LipikaIME.app
-rm ./com.daivajnanam.inputmethod.LipikaIME.pkg
-rm ./LipikaIME.pkg
+rm -rf ./LipikaInputSource.app
+rm ./com.daivajnanam.inputmethod.LipikaInputSource.pkg
+rm ./LipikaInputSource.pkg
 rm ./Scripts/installer
 if [ "$1" == "clean" ]; then 
 exit 0
 fi
-xcodebuild -project ../LipikaIME.xcodeproj -target InputSource -configuration Release clean build
-cp -r ../build/Release/LipikaIME.app .
-xcodebuild -project ../LipikaIME.xcodeproj -target Installer -configuration Release clean build
-cp ../build/Release/installer ./Scripts/installer
-pkgbuild --component LipikaIME.app --scripts ./Scripts --install-location /Library/Input\ Methods com.daivajnanam.inputmethod.LipikaIME.pkg
-productbuild --distribution ./Distribution --package-path ./ --resources ./Resources --sign "Developer ID Installer: Ranganath Atreya (7JZ87Y4JWT)" LipikaIME.pkg
+xcodebuild -project ../LipikaIME.xcodeproj -scheme InputSource -configuration Release clean build
+cp -r ../build/Products/Release/LipikaInputSource.app .
+xcodebuild -project ../LipikaIME.xcodeproj -scheme PkgInstallTool -configuration Release clean build
+cp ../build/Products/Release/installer ./Scripts/installer
+pkgbuild --component LipikaInputSource.app --scripts ./Scripts --install-location /Library/Input\ Methods com.daivajnanam.inputmethod.LipikaInputSource.pkg
+productbuild --distribution ./Distribution --package-path ./ --resources ./Resources --sign "Developer ID Installer: Ranganath Atreya (7JZ87Y4JWT)" LipikaInputSource.pkg
 exit 0
