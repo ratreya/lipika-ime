@@ -11,36 +11,75 @@ import UIKit
 
 class LipikaBoard: KeyboardViewController {
 
-    var manager: DJStringBufferManager = DJStringBufferManager()
+    var manager = DJStringBufferManager()
     var tempTextLength: String.IndexDistance = 0
 
     override func keyPressed(_ key: Key) {
         let keyInput = key.outputForCase(self.shiftState.uppercase())
-        let preContext = textDocumentProxy.documentContextBeforeInput
-        
-        // Compute previous text if any
-        var previousText: String?
-        if DJLipikaUserSettings.isCombineWithPreviousGlyph(), let context = preContext {
-            let offset = -1 * String.IndexDistance(manager.maxOutputLength())
-            if let index = context.index(context.endIndex, offsetBy: offset, limitedBy: context.startIndex) {
-                previousText = context.substring(from: index)
-            }
-            else {
-                previousText = context
-            }
-        }
-
         clearTempText()
+        var previousText: String?
+        if DJLipikaUserSettings.isCombineWithPreviousGlyph() {
+            previousText = getPreviousText()
+        }
         if let keyOutput = manager.output(forInput: keyInput, previousText: previousText) {
             textDocumentProxy.insertText(keyOutput)
         }
-        else if manager.hasOutput() {
-            let output = manager.output()!
-            textDocumentProxy.insertText(output)
-            tempTextLength = output.distance(from: output.startIndex, to: output.endIndex)
+        else {
+            showTempText()
         }
     }
     
+    override func deleteBackward() {
+        if DJLipikaUserSettings.backspaceBehavior() == DJ_DELETE_OUTPUT {
+            flushTempText()
+            super.deleteBackward()
+            return
+        }
+        if !manager.hasDeletable() {
+            // We have to convert previous text to temp text
+            if let previousText = getPreviousText() {
+                if manager.reverseMappings().input(forOutput: previousText) == nil {
+                    super.deleteBackward()
+                    return
+                }
+                else {
+                    manager.output(forInput: "", previousText: previousText)
+                    tempTextLength = manager.output().utf16.count
+                }
+            }
+            else {
+                super.deleteBackward()
+                return
+            }
+        }
+        // At this point there is always a deletable
+        manager.delete()
+        clearTempText()
+        showTempText()
+    }
+
+    // Compute previous text if any
+    private func getPreviousText() -> String? {
+        if let context = textDocumentProxy.documentContextBeforeInput {
+            let offset = -1 * String.IndexDistance(manager.maxOutputLength())
+            let startIndex = context.index(context.endIndex, offsetBy: offset, limitedBy: context.startIndex)
+            return context.substring(from: startIndex ?? context.startIndex)
+        }
+        return nil
+    }
+
+    private func flushTempText() {
+        manager.flush()
+        tempTextLength = 0
+    }
+
+    private func showTempText() {
+        if manager.hasOutput(), let output = manager.output() {
+            textDocumentProxy.insertText(output)
+            tempTextLength += output.utf16.count
+        }
+    }
+
     private func clearTempText() {
         while tempTextLength > 0 {
             textDocumentProxy.deleteBackward()

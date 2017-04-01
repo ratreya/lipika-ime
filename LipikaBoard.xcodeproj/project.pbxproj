@@ -47,6 +47,7 @@
 		A5810BF11E7F74CC00759112 /* DefaultSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5810BEF1E7F74CC00759112 /* DefaultSettings.xib */; };
 		A5810BF21E7F74CC00759112 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5810BF01E7F74CC00759112 /* Media.xcassets */; };
 		A5810BF51E7F752800759112 /* Catboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5810BF41E7F752800759112 /* Catboard.swift */; };
+		A586EB3E1E902DEB00B40872 /* LipikaBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */; };
 		A58D14641E86F13E00B0A9B9 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F41E84CD670052B73C /* UserSettings.plist */; };
 		A58D14651E86F13E00B0A9B9 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F71E84D0050052B73C /* Schemes */; };
 		A59163451E7F7BA30031ECDD /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
@@ -170,6 +171,7 @@
 		A5810BEF1E7F74CC00759112 /* DefaultSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DefaultSettings.xib; path = TastyImitationKeyboard/Keyboard/DefaultSettings.xib; sourceTree = SOURCE_ROOT; };
 		A5810BF01E7F74CC00759112 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = TastyImitationKeyboard/Keyboard/Media.xcassets; sourceTree = SOURCE_ROOT; };
 		A5810BF41E7F752800759112 /* Catboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Catboard.swift; path = TastyImitationKeyboard/Keyboard/Catboard.swift; sourceTree = SOURCE_ROOT; };
+		A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBanner.swift; sourceTree = "<group>"; };
 		A59163421E7F7AFA0031ECDD /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Common/Sources/Constants.h; sourceTree = SOURCE_ROOT; };
 		A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HostingApp/LipikaBoard/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A5CE88251E7F5E1800A70B6F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = HostingApp/LipikaBoard/ViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -432,6 +434,7 @@
 				A5810BD51E7F747300759112 /* KeyboardKeyBackground.swift */,
 				A5810BD91E7F747300759112 /* Shapes.swift */,
 				A5FC194E1E837AC70014F61F /* LipikaBoard.swift */,
+				A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -531,7 +534,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Daivajnanam;
 				TargetAttributes = {
 					A5130E001E7F63CE002E049C = {
@@ -610,6 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A586EB3E1E902DEB00B40872 /* LipikaBanner.swift in Sources */,
 				A5810BDE1E7F747300759112 /* DirectionEnum.swift in Sources */,
 				A5810BF51E7F752800759112 /* Catboard.swift in Sources */,
 				A5810BDC1E7F747300759112 /* DefaultKeyboard.swift in Sources */,
@@ -738,6 +742,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -755,6 +760,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				DYLIB_COMPATIBILITY_VERSION = 1;
