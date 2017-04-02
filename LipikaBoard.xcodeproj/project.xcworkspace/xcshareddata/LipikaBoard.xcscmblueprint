@@ -4,18 +4,25 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E6041C5B09E1F0AE0DBE0F49EFA66C3F94FB801C" : 9223372036854775807,
     "E40D2BADE4527E7BB263CC1D49B8F886B4F49439" : 9223372036854775807,
-    "E6041C5B09E1F0AE0DBE0F49EFA66C3F94FB801C" : 9223372036854775807
+    "B32017251BF42EE8E91702534228FCE83750636D" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6BC5FF2D-4B08-4CB5-AD4A-E04DEBC3A046",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E6041C5B09E1F0AE0DBE0F49EFA66C3F94FB801C" : "Lipika_IME\/TastyImitationKeyboard\/",
     "E40D2BADE4527E7BB263CC1D49B8F886B4F49439" : "Lipika_IME\/",
-    "E6041C5B09E1F0AE0DBE0F49EFA66C3F94FB801C" : "Lipika_IME\/TastyImitationKeyboard\/"
+    "B32017251BF42EE8E91702534228FCE83750636D" : "Lipika_IME\/AKPickerView\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "LipikaBoard",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "LipikaBoard.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Akkyie\/AKPickerView-Swift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B32017251BF42EE8E91702534228FCE83750636D"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ratreya\/Lipika_IME.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

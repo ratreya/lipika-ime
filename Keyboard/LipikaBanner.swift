@@ -9,16 +9,25 @@
 
 import UIKit
 
-class LipikaBanner: ExtraView {
-    var tempInput: UILabel = UILabel()
+class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
+    var tempInput = UILabel()
+    var languagePicker = AKPickerView()
+    var manager: DJStringBufferManager
+    var languages: Array<String> = DJInputSchemeFactory.availableScripts(for: DJ_LIPIKA)! as! Array<String>
 
-    required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool) {
+    required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool, inputManager: DJStringBufferManager) {
+        manager = inputManager
         super.init(globalColors: globalColors, darkMode: darkMode, solidColorMode: solidColorMode)
-        self.addSubview(self.tempInput)
+        addSubview(tempInput)
+        addSubview(languagePicker)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool) {
+        fatalError("init(globalColors:darkMode:solidColorMode:) has not been implemented")
     }
 
     override func setNeedsLayout() {
@@ -27,12 +36,33 @@ class LipikaBanner: ExtraView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.tempInput.center = self.center
-        self.tempInput.frame.origin.x = self.frame.origin.x + 8
+        tempInput.center = center
+        tempInput.frame.origin.x = frame.origin.x + 8
+        tempInput.lineBreakMode = .byTruncatingHead
+        tempInput.frame.size = CGSize(width: self.frame.width / 2 - 8, height: self.frame.height - 4)
+        
+        let pickerFrame = CGRect(x: tempInput.frame.maxX + 8, y: tempInput.frame.minY, width: self.frame.width / 2 - 8, height: self.frame.height - 4)
+        languagePicker.frame = pickerFrame
+        languagePicker.delegate = self
+        languagePicker.dataSource = self
+        let currentItemIndex = languages.index(of: DJLipikaUserSettings.scriptName())
+        languagePicker.selectItem(currentItemIndex ?? 0)
+        languagePicker.reloadData()
     }
 
     func setTempInput(input: String) {
         tempInput.text = input;
-        tempInput.sizeToFit()
+    }
+    
+    func numberOfItemsInPickerView(_ pickerView: AKPickerView) -> Int {
+        return languages.count
+    }
+    
+    func pickerView(_ pickerView: AKPickerView, titleForItem item: Int) -> String {
+        return languages[item]
+    }
+    
+    func pickerView(_ pickerView: AKPickerView, didSelectItem item: Int) {
+        manager.changeToScheme(withName: DJLipikaUserSettings.schemeName(), forScript: languages[item], type: DJ_LIPIKA)
     }
 }

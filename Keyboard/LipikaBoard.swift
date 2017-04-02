@@ -16,7 +16,7 @@ class LipikaBoard: KeyboardViewController {
     var banner: LipikaBanner?
 
     override func createBanner() -> ExtraView? {
-        banner = LipikaBanner(globalColors: type(of: self).globalColors, darkMode: false, solidColorMode: self.solidColorMode())
+        banner = LipikaBanner(globalColors: type(of: self).globalColors, darkMode: false, solidColorMode: self.solidColorMode(), inputManager: manager)
         return banner
     }
 

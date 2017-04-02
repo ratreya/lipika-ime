@@ -4,3 +4,4 @@
 
 #import "DJStringBufferManager.h"
 #import "DJLipikaUserSettings.h"
+#import "DJInputSchemeFactory.h"

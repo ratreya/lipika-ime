@@ -51,6 +51,7 @@
 		A58D14641E86F13E00B0A9B9 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F41E84CD670052B73C /* UserSettings.plist */; };
 		A58D14651E86F13E00B0A9B9 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F71E84D0050052B73C /* Schemes */; };
 		A59163451E7F7BA30031ECDD /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
+		A5A57E0C1E9154B3000C9203 /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */; };
 		A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */; };
 		A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88251E7F5E1800A70B6F /* ViewController.swift */; };
 		A5D985F51E84CD670052B73C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F41E84CD670052B73C /* UserSettings.plist */; };
@@ -173,6 +174,7 @@
 		A5810BF41E7F752800759112 /* Catboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Catboard.swift; path = TastyImitationKeyboard/Keyboard/Catboard.swift; sourceTree = SOURCE_ROOT; };
 		A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBanner.swift; sourceTree = "<group>"; };
 		A59163421E7F7AFA0031ECDD /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Common/Sources/Constants.h; sourceTree = SOURCE_ROOT; };
+		A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPickerView.swift; path = AKPickerView/AKPickerView/AKPickerView.swift; sourceTree = SOURCE_ROOT; };
 		A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HostingApp/LipikaBoard/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A5CE88251E7F5E1800A70B6F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = HostingApp/LipikaBoard/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		A5D985F41E84CD670052B73C /* UserSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserSettings.plist; path = Common/Resources/UserSettings.plist; sourceTree = SOURCE_ROOT; };
@@ -426,6 +428,7 @@
 		A5FC194A1E8379D00014F61F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */,
 				A5810BCD1E7F747300759112 /* DefaultSettings.swift */,
 				A5810BCF1E7F747300759112 /* ExtraView.swift */,
 				A5810BD11E7F747300759112 /* ImageKey.swift */,
@@ -623,6 +626,7 @@
 				A5FC194F1E837AC70014F61F /* LipikaBoard.swift in Sources */,
 				A5810BE11E7F747300759112 /* ImageKey.swift in Sources */,
 				A5810BEA1E7F747300759112 /* Utilities.swift in Sources */,
+				A5A57E0C1E9154B3000C9203 /* AKPickerView.swift in Sources */,
 				A5810BDF1E7F747300759112 /* ExtraView.swift in Sources */,
 				A5810BDB1E7F747300759112 /* CatboardBanner.swift in Sources */,
 				A5810BE61E7F747300759112 /* KeyboardLayout.swift in Sources */,
