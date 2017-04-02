@@ -14,7 +14,6 @@ class LipikaBanner: ExtraView {
 
     required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool) {
         super.init(globalColors: globalColors, darkMode: darkMode, solidColorMode: solidColorMode)
-        tempInput.text = "test"
         self.addSubview(self.tempInput)
     }
 
@@ -29,9 +28,11 @@ class LipikaBanner: ExtraView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.tempInput.center = self.center
+        self.tempInput.frame.origin.x = self.frame.origin.x + 8
     }
 
     func setTempInput(input: String) {
         tempInput.text = input;
+        tempInput.sizeToFit()
     }
 }

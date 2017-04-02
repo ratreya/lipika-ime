@@ -13,6 +13,12 @@ class LipikaBoard: KeyboardViewController {
 
     var manager = DJStringBufferManager()
     var tempTextLength: String.IndexDistance = 0
+    var banner: LipikaBanner?
+
+    override func createBanner() -> ExtraView? {
+        banner = LipikaBanner(globalColors: type(of: self).globalColors, darkMode: false, solidColorMode: self.solidColorMode())
+        return banner
+    }
 
     override func keyPressed(_ key: Key) {
         let keyInput = key.outputForCase(self.shiftState.uppercase())
@@ -40,6 +46,7 @@ class LipikaBoard: KeyboardViewController {
             if let previousText = getPreviousText() {
                 if manager.reverseMappings().input(forOutput: previousText) == nil {
                     super.deleteBackward()
+                    preloadPreviousText()
                     return
                 }
                 else {
@@ -52,13 +59,22 @@ class LipikaBoard: KeyboardViewController {
                 return
             }
         }
-        // At this point there is always a deletable
+        // At this point it is always deletable
         manager.delete()
         clearTempText()
         showTempText()
+        // Pre-load temporary text if any
+        preloadPreviousText()
+    }
+ 
+    override func textWillChange(_ textInput: UITextInput?) {
+        /*
+         * Usually indicates some user action outside keypress
+         * We will get out of synch and so must flush to be safe
+         */
+        flushTempText()
     }
 
-    // Compute previous text if any
     private func getPreviousText() -> String? {
         if let context = textDocumentProxy.documentContextBeforeInput {
             let offset = -1 * String.IndexDistance(manager.maxOutputLength())
@@ -67,16 +83,29 @@ class LipikaBoard: KeyboardViewController {
         }
         return nil
     }
+    
+    private func preloadPreviousText() {
+        if !manager.hasDeletable(), let previousText = getPreviousText(),
+            (manager.reverseMappings().input(forOutput: previousText) != nil) {
+            manager.output(forInput: "", previousText: previousText)
+            tempTextLength = manager.output().utf16.count
+            banner?.setTempInput(input: manager.input())
+        }
+    }
 
     private func flushTempText() {
         manager.flush()
         tempTextLength = 0
+        banner!.setTempInput(input: "")
     }
 
     private func showTempText() {
         if manager.hasOutput(), let output = manager.output() {
             textDocumentProxy.insertText(output)
             tempTextLength += output.utf16.count
+        }
+        if let input = manager.input() {
+            banner!.setTempInput(input: input)
         }
     }
 
@@ -85,5 +114,6 @@ class LipikaBoard: KeyboardViewController {
             textDocumentProxy.deleteBackward()
             tempTextLength -= 1
         }
+        banner!.setTempInput(input: "")
     }
 }
