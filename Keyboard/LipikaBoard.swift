@@ -50,8 +50,7 @@ class LipikaBoard: KeyboardViewController {
                     return
                 }
                 else {
-                    manager.output(forInput: "", previousText: previousText)
-                    tempTextLength = manager.output().utf16.count
+                    preloadPreviousText()
                 }
             }
             else {
@@ -77,18 +76,16 @@ class LipikaBoard: KeyboardViewController {
 
     private func getPreviousText() -> String? {
         if let context = textDocumentProxy.documentContextBeforeInput {
-            let offset = -1 * String.IndexDistance(manager.maxOutputLength())
-            let startIndex = context.index(context.endIndex, offsetBy: offset, limitedBy: context.startIndex)
-            return context.substring(from: startIndex ?? context.startIndex)
+            return String(context.unicodeScalars.suffix(Int(manager.maxOutputLength())))
         }
         return nil
     }
     
     private func preloadPreviousText() {
         if !manager.hasDeletable(), let previousText = getPreviousText(),
-            (manager.reverseMappings().input(forOutput: previousText) != nil) {
+                (manager.reverseMappings().input(forOutput: previousText) != nil) {
             manager.output(forInput: "", previousText: previousText)
-            tempTextLength = manager.output().utf16.count
+            tempTextLength = manager.output().unicodeScalars.count
             banner?.setTempInput(input: manager.input())
         }
     }
@@ -102,7 +99,7 @@ class LipikaBoard: KeyboardViewController {
     private func showTempText() {
         if manager.hasOutput(), let output = manager.output() {
             textDocumentProxy.insertText(output)
-            tempTextLength += output.utf16.count
+            tempTextLength += output.unicodeScalars.count
         }
         if let input = manager.input() {
             banner!.setTempInput(input: input)
@@ -110,10 +107,40 @@ class LipikaBoard: KeyboardViewController {
     }
 
     private func clearTempText() {
-        while tempTextLength > 0 {
-            textDocumentProxy.deleteBackward()
-            tempTextLength -= 1
-        }
+        deleteLastCodePoints(count: tempTextLength)
+        tempTextLength = 0
         banner!.setTempInput(input: "")
+    }
+
+    private func deleteLastCodePoints(count: Int) {
+        /*
+         * UIKeyInput deleteBackward() can delete more than a Core Point based on
+         * the implementation within which we are operating. So check as you go.
+         * I am assuming deleteBackward() won't delete more than a character.
+         */
+        var toDeleteCount = count
+        while toDeleteCount > 0 {
+            if let context = textDocumentProxy.documentContextBeforeInput {
+                let beforeCount = context.unicodeScalars.count
+                // Assuming at most one character is deleted
+                let before = String(context.characters.suffix(2))
+                textDocumentProxy.deleteBackward()
+                if let context = textDocumentProxy.documentContextBeforeInput {
+                    let afterCount = context.unicodeScalars.count
+                    let deletedCount = beforeCount - afterCount
+                    toDeleteCount -= deletedCount
+                    if toDeleteCount < 0 {
+                        let extraCount = abs(toDeleteCount)
+                        let extra = String(before.unicodeScalars.suffix(deletedCount).prefix(extraCount))
+                        textDocumentProxy.insertText(extra)
+                        break;
+                    }
+                }
+            }
+            else {
+                // Nothing to delete
+                break
+            }
+        }
     }
 }
