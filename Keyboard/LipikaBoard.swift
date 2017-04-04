@@ -36,7 +36,7 @@ class LipikaBoard: KeyboardViewController {
     }
     
     override func deleteBackward() {
-        if DJLipikaUserSettings.backspaceBehavior() == DJ_DELETE_OUTPUT {
+        if !UserDefaults.standard.bool(forKey: kDeleteInput) {
             flushTempText()
             super.deleteBackward()
             return
@@ -70,6 +70,17 @@ class LipikaBoard: KeyboardViewController {
         /*
          * Usually indicates some user action outside keypress
          * We will get out of synch and so must flush to be safe
+         *
+         * There is a known bug in iOS 10.3 where textWillChange
+         * is called spuriously just after the second input
+         */
+        flushTempText()
+    }
+
+    override func selectionWillChange(_ textInput: UITextInput?) {
+        /*
+         * As of iOS 10.3 this is not called at all, but keeping
+         * it here for future proofing
          */
         flushTempText()
     }
@@ -114,9 +125,8 @@ class LipikaBoard: KeyboardViewController {
 
     private func deleteLastCodePoints(count: Int) {
         /*
-         * UIKeyInput deleteBackward() can delete more than a Core Point based on
-         * the implementation within which we are operating. So check as you go.
-         * I am assuming deleteBackward() won't delete more than a character.
+         * UIKeyInput deleteBackward can delete more than a Code Point based on
+         * the implementation within which we are operating. So check as you go
          */
         var toDeleteCount = count
         while toDeleteCount > 0 {
