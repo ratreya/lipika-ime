@@ -70,11 +70,10 @@ class LipikaBoard: KeyboardViewController {
         /*
          * Usually indicates some user action outside keypress
          * We will get out of synch and so must flush to be safe
-         *
-         * There is a known bug in iOS 10.3 where textWillChange
-         * is called spuriously just after the second input
          */
-        flushTempText()
+        if !self.isFirstResponder {
+            flushTempText()
+        }
     }
 
     override func selectionWillChange(_ textInput: UITextInput?) {
@@ -82,7 +81,9 @@ class LipikaBoard: KeyboardViewController {
          * As of iOS 10.3 this is not called at all, but keeping
          * it here for future proofing
          */
-        flushTempText()
+        if !self.isFirstResponder {
+            flushTempText()
+        }
     }
 
     private func getPreviousText() -> String? {

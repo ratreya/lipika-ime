@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A50B31D71E95FB6D004A9F6D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */; };
+		A50B31D81E95FB6D004A9F6D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */; };
 		A5130E081E7F63CE002E049C /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5130E011E7F63CE002E049C /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A51E2AE61E7F79CC00CCAB34 /* DJActiveBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2ABC1E7F79CC00CCAB34 /* DJActiveBufferManager.m */; };
 		A51E2AE81E7F79CC00CCAB34 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2ABE1E7F79CC00CCAB34 /* DJInputMethodEngine.m */; };
@@ -48,13 +50,12 @@
 		A5810BF21E7F74CC00759112 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5810BF01E7F74CC00759112 /* Media.xcassets */; };
 		A5810BF51E7F752800759112 /* Catboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5810BF41E7F752800759112 /* Catboard.swift */; };
 		A586EB3E1E902DEB00B40872 /* LipikaBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */; };
-		A58D14641E86F13E00B0A9B9 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F41E84CD670052B73C /* UserSettings.plist */; };
+		A58CA4D41E949D4900F8897F /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A58CA4D31E949D4900F8897F /* UserSettings.plist */; };
 		A58D14651E86F13E00B0A9B9 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F71E84D0050052B73C /* Schemes */; };
 		A59163451E7F7BA30031ECDD /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
 		A5A57E0C1E9154B3000C9203 /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */; };
 		A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */; };
 		A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88251E7F5E1800A70B6F /* ViewController.swift */; };
-		A5D985F51E84CD670052B73C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F41E84CD670052B73C /* UserSettings.plist */; };
 		A5E561D21E876F0700D0365F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D01E876F0700D0365F /* Images.xcassets */; };
 		A5E561DA1E876F5B00D0365F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D41E876F1600D0365F /* LaunchScreen.storyboard */; };
 		A5E561DB1E876F5B00D0365F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D61E876F1600D0365F /* Main.storyboard */; };
@@ -90,21 +91,14 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A55228B61E7F8B8E00B2E0AA /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		A5130E011E7F63CE002E049C /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5130E051E7F63CE002E049C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A518E2321E94739C0079B246 /* LipikaBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaBoard.entitlements; sourceTree = SOURCE_ROOT; };
+		A518E2331E94742E0079B246 /* Keyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Keyboard.entitlements; sourceTree = "<group>"; };
 		A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LipikaEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A51E2ABB1E7F79CC00CCAB34 /* DJActiveBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJActiveBufferManager.h; sourceTree = "<group>"; };
 		A51E2ABC1E7F79CC00CCAB34 /* DJActiveBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJActiveBufferManager.m; sourceTree = "<group>"; };
@@ -173,11 +167,11 @@
 		A5810BF01E7F74CC00759112 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = TastyImitationKeyboard/Keyboard/Media.xcassets; sourceTree = SOURCE_ROOT; };
 		A5810BF41E7F752800759112 /* Catboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Catboard.swift; path = TastyImitationKeyboard/Keyboard/Catboard.swift; sourceTree = SOURCE_ROOT; };
 		A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBanner.swift; sourceTree = "<group>"; };
+		A58CA4D31E949D4900F8897F /* UserSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserSettings.plist; path = Common/Resources/UserSettings.plist; sourceTree = SOURCE_ROOT; };
 		A59163421E7F7AFA0031ECDD /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Common/Sources/Constants.h; sourceTree = SOURCE_ROOT; };
 		A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPickerView.swift; path = AKPickerView/AKPickerView/AKPickerView.swift; sourceTree = SOURCE_ROOT; };
 		A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HostingApp/LipikaBoard/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A5CE88251E7F5E1800A70B6F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = HostingApp/LipikaBoard/ViewController.swift; sourceTree = SOURCE_ROOT; };
-		A5D985F41E84CD670052B73C /* UserSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserSettings.plist; path = Common/Resources/UserSettings.plist; sourceTree = SOURCE_ROOT; };
 		A5D985F71E84D0050052B73C /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Schemes; path = Common/Resources/Schemes; sourceTree = SOURCE_ROOT; };
 		A5E561D01E876F0700D0365F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HostingApp/LipikaBoard/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		A5E561D11E876F0700D0365F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HostingApp/LipikaBoard/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -215,6 +209,7 @@
 		A5130E021E7F63CE002E049C /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				A518E2331E94742E0079B246 /* Keyboard.entitlements */,
 				A5810BEC1E7F74A300759112 /* Resources */,
 				A5810BF31E7F750300759112 /* Sources */,
 			);
@@ -327,7 +322,6 @@
 			isa = PBXGroup;
 			children = (
 				A51E2B1C1E7F7A5A00CCAB34 /* Info.plist */,
-				A5D985F71E84D0050052B73C /* Schemes */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -355,6 +349,7 @@
 		A51F685E1E7F5D260075EC06 /* LipikaBoard */ = {
 			isa = PBXGroup;
 			children = (
+				A518E2321E94739C0079B246 /* LipikaBoard.entitlements */,
 				A5E561CF1E876ED900D0365F /* Resources */,
 				A5810BEB1E7F748E00759112 /* Sources */,
 			);
@@ -373,8 +368,9 @@
 		A5810BEC1E7F74A300759112 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5D985F71E84D0050052B73C /* Schemes */,
 				A5130E051E7F63CE002E049C /* Info.plist */,
-				A5D985F41E84CD670052B73C /* UserSettings.plist */,
+				A58CA4D31E949D4900F8897F /* UserSettings.plist */,
 				A5810BEF1E7F74CC00759112 /* DefaultSettings.xib */,
 				A5810BF01E7F74CC00759112 /* Media.xcassets */,
 			);
@@ -421,6 +417,7 @@
 				A5810BCC1E7F747300759112 /* DefaultKeyboard.swift */,
 				A5810BCE1E7F747300759112 /* DirectionEnum.swift */,
 				A5810BD71E7F747300759112 /* KeyboardModel.swift */,
+				A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -499,7 +496,6 @@
 				A51E2A421E7F78C500CCAB34 /* Sources */,
 				A51E2A431E7F78C500CCAB34 /* Frameworks */,
 				A51E2A441E7F78C500CCAB34 /* Headers */,
-				A51E2A451E7F78C500CCAB34 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -518,7 +514,6 @@
 				A51F68591E7F5D260075EC06 /* Frameworks */,
 				A51F685A1E7F5D260075EC06 /* Resources */,
 				A5130E0C1E7F63CE002E049C /* Embed App Extensions */,
-				A55228B61E7F8B8E00B2E0AA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -545,6 +540,11 @@
 						DevelopmentTeam = 7JZ87Y4JWT;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					A51E2A461E7F78C500CCAB34 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -556,6 +556,11 @@
 						DevelopmentTeam = 7JZ87Y4JWT;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -584,17 +589,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A58D14641E86F13E00B0A9B9 /* UserSettings.plist in Resources */,
+				A58CA4D41E949D4900F8897F /* UserSettings.plist in Resources */,
 				A58D14651E86F13E00B0A9B9 /* Schemes in Resources */,
 				A5810BF21E7F74CC00759112 /* Media.xcassets in Resources */,
 				A5810BF11E7F74CC00759112 /* DefaultSettings.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A51E2A451E7F78C500CCAB34 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,7 +602,6 @@
 			files = (
 				A5E561DA1E876F5B00D0365F /* LaunchScreen.storyboard in Resources */,
 				A5E561DB1E876F5B00D0365F /* Main.storyboard in Resources */,
-				A5D985F51E84CD670052B73C /* UserSettings.plist in Resources */,
 				A5E561D21E876F0700D0365F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -621,6 +618,7 @@
 				A5810BF51E7F752800759112 /* Catboard.swift in Sources */,
 				A5810BDC1E7F747300759112 /* DefaultKeyboard.swift in Sources */,
 				A5810BE91E7F747300759112 /* Shapes.swift in Sources */,
+				A50B31D81E95FB6D004A9F6D /* UserDefaults.swift in Sources */,
 				A5810BE71E7F747300759112 /* KeyboardModel.swift in Sources */,
 				A5810BE41E7F747300759112 /* KeyboardKey.swift in Sources */,
 				A5FC194F1E837AC70014F61F /* LipikaBoard.swift in Sources */,
@@ -671,6 +669,7 @@
 			files = (
 				A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */,
 				A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */,
+				A50B31D71E95FB6D004A9F6D /* UserDefaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,6 +713,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
@@ -734,6 +734,7 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
@@ -888,6 +889,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LipikaBoard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				INFOPLIST_FILE = "$(SRCROOT)/HostingApp/LipikaBoard/Info.plist";
@@ -907,6 +909,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LipikaBoard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				INFOPLIST_FILE = "$(SRCROOT)/HostingApp/LipikaBoard/Info.plist";

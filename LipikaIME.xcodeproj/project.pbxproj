@@ -861,7 +861,6 @@
 				A5D634FE1877435B0048DAE5 /* Sources */,
 				A5D634FF1877435B0048DAE5 /* Frameworks */,
 				A5D635001877435B0048DAE5 /* Headers */,
-				A5D635011877435B0048DAE5 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1019,13 +1018,6 @@
 				A55E73191E89D840004FF42A /* LipikaInputSource.app in Resources */,
 				A5BD74141E896181003342D0 /* Icon.xcassets in Resources */,
 				A5D26AB91E88B58F0077FB9D /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D635011877435B0048DAE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,9 +13,12 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     var tempInput = UILabel()
     var languagePicker = AKPickerView()
     var manager: DJStringBufferManager
-    var languages: Array<String> = DJInputSchemeFactory.availableScripts(for: DJ_LIPIKA)! as! Array<String>
+    var languages: [String]
 
     required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool, inputManager: DJStringBufferManager) {
+        // Setup User Defaults
+        let langTuples = getLanguages()
+        languages = langTuples.filter({$0.1}).map({$0.0})
         manager = inputManager
         super.init(globalColors: globalColors, darkMode: darkMode, solidColorMode: solidColorMode)
         addSubview(tempInput)

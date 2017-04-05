@@ -11,68 +11,103 @@
 
 @implementation DJLipikaUserSettings
 
+static NSString * const kVersion = @"Version";
+static NSString * const kScriptName = @"ScriptName";
+static NSString * const kCustomSchemeName = @"CustomSchemeName";
+static NSString * const kSchemeName = @"SchemeName";
+static NSString * const kSchemeType = @"SchemeType";
+static NSString * const kLipikaSchemeStopChar = @"LipikaSchemeStopChar";
+static NSString * const kOverrideCandidateFont = @"OverrideCandidateFont";
+static NSString * const kCombineWithPreviousGlyph = @"CombineWithPreviousGlyph";
+static NSString * const kCandidatesStringAttributes = @"CandidatesStringAttributes";
+static NSString * const kCandidatePanelType = @"CandidatePanelType";
+static NSString * const kShowInputString = @"ShowInputString";
+static NSString * const kShowOutputString = @"ShowOutputString";
+static NSString * const kOutputInCandidate = @"OutputInCandidate";
+static NSString * const kIMKCandidatesOpacityAttributeName = @"IMKCandidatesOpacityAttributeName";
+static NSString * const kBackspaceDeletes = @"BackspaceDeletes";
+static NSString * const kOnUnfocusUncommitted = @"OnUnfocusUncommitted";
+static NSString * const kLoggingLevel = @"LoggingLevel";
+static NSString * const kFormatString = @"FormatString";
+static NSString * const kInputCharacter = @"Input character";
+static NSString * const kOutputCharacter = @"Output character";
+static NSString * const kMappingOutput = @"Mapping output";
+static NSString * const kAutomaticallyCommits = @"Automatically commits";
+static NSString * const kRestoresOnFocus = @"Restores on focus";
+static NSString * const kGetsDiscarded = @"Gets discarded";
+static NSString * const kDebug = @"Debug";
+static NSString * const kWarning = @"Warning";
+static NSString * const kError = @"Error";
+static NSString * const kFatal = @"Fatal";
+
 static int SETTINGS_VERSION = 2;
 static NSDictionary *candidateStringAttributeCache = nil;
 static NSDictionary *candidatePanelEnumValues = nil;
+static NSUserDefaults *standardUserDefaults = nil;
 
 +(void)initialize {
-    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UserSettings" ofType:@"plist"]];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Version"] != SETTINGS_VERSION) {
-        [self reset];
-    }
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         candidatePanelEnumValues = @{
-                       @"kIMKSingleColumnScrollingCandidatePanel": @1,
-                       @"kIMKScrollingGridCandidatePanel": @2,
-                       @"kIMKSingleRowSteppingCandidatePanel": @3,
-                       };
+                                     @"kIMKSingleColumnScrollingCandidatePanel": @1,
+                                     @"kIMKScrollingGridCandidatePanel": @2,
+                                     @"kIMKSingleRowSteppingCandidatePanel": @3,
+                                     };
     });
+    NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UserSettings" ofType:@"plist"]];
+#if TARGET_OS_IPHONE
+    standardUserDefaults = [[NSUserDefaults alloc] initWithSuiteName: @"group.LipikaBoard"];
+#else
+    standardUserDefaults = [NSUserDefaults standardUserDefaults];
+#endif
+    [standardUserDefaults registerDefaults:defaults];
+    if ([standardUserDefaults integerForKey:@"Version"] != SETTINGS_VERSION) {
+        [self reset];
+    }
 }
 
 +(NSString *)scriptName {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"ScriptName"];
+    return [standardUserDefaults stringForKey:kScriptName];
 }
 
 +(void)setScriptName:(NSString *)scriptName {
-    [[NSUserDefaults standardUserDefaults] setObject:scriptName forKey:@"ScriptName"];
+    [standardUserDefaults setObject:scriptName forKey:kScriptName];
 }
 
 +(NSString *)customSchemeName {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"CustomSchemeName"];
+    return [standardUserDefaults stringForKey:kCustomSchemeName];
 }
 
 +(void)setCustomSchemeName:(NSString *)schemeName {
-    [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:@"CustomSchemeName"];
+    [standardUserDefaults setObject:schemeName forKey:kCustomSchemeName];
 }
 
 +(NSString *)schemeName {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"SchemeName"];
+    return [standardUserDefaults stringForKey:kSchemeName];
 }
 
 +(void)setSchemeName:(NSString *)schemeName {
-    [[NSUserDefaults standardUserDefaults] setObject:schemeName forKey:@"SchemeName"];
+    [standardUserDefaults setObject:schemeName forKey:kSchemeName];
 }
 
 +(enum DJSchemeType)schemeType {
-    return (unsigned int)[[NSUserDefaults standardUserDefaults] integerForKey:@"SchemeType"];
+    return (unsigned int)[standardUserDefaults integerForKey:kSchemeType];
 }
 
 +(void)setSchemeType:(enum DJSchemeType)schemeType {
-    [[NSUserDefaults standardUserDefaults] setInteger:schemeType forKey:@"SchemeType"];
+    [standardUserDefaults setInteger:schemeType forKey:kSchemeType];
 }
 
 +(NSString *)lipikaSchemeStopChar {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:@"LipikaSchemeStopChar"];
+    return [standardUserDefaults stringForKey:kLipikaSchemeStopChar];
 }
 
 +(BOOL) isOverrideCandidateAttributes {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"OverrideCandidateFont"];
+    return [standardUserDefaults boolForKey:kOverrideCandidateFont];
 }
 
 +(BOOL)isCombineWithPreviousGlyph {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"CombineWithPreviousGlyph"];
+    return [standardUserDefaults boolForKey:kCombineWithPreviousGlyph];
 }
 
 +(NSDictionary *)candidateWindowAttributes {
@@ -89,12 +124,12 @@ static NSDictionary *candidatePanelEnumValues = nil;
 +(void)setCandidateStringAttributes:(NSDictionary *)attributes {
     candidateStringAttributeCache = attributes;
     NSData *outputData = [NSKeyedArchiver archivedDataWithRootObject:attributes];
-    [[NSUserDefaults standardUserDefaults] setObject:outputData forKey:@"CandidatesStringAttributes"];
+    [standardUserDefaults setObject:outputData forKey:kCandidatesStringAttributes];
 }
 
 +(NSDictionary *)candidateStringAttributes {
     if (candidateStringAttributeCache) return candidateStringAttributeCache;
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"CandidatesStringAttributes"];
+    NSData *data = [standardUserDefaults objectForKey:kCandidatesStringAttributes];
     if (data) {
         candidateStringAttributeCache = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
@@ -102,42 +137,42 @@ static NSDictionary *candidatePanelEnumValues = nil;
 }
 
 +(NSNumber *)candidatePanelType {
-    return [candidatePanelEnumValues valueForKey:[[NSUserDefaults standardUserDefaults] stringForKey:@"CandidatePanelType"]];
+    return [candidatePanelEnumValues valueForKey:[standardUserDefaults stringForKey:kCandidatePanelType]];
 }
 
 +(BOOL)isShowInput {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowInputString"];
+    return [standardUserDefaults boolForKey:kShowInputString];
 }
 
 +(BOOL)isShowOutput {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowOutputString"];
+    return [standardUserDefaults boolForKey:kShowOutputString];
 }
 
 +(BOOL) isOutputInCandidate {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"OutputInCandidate"];
+    return [standardUserDefaults integerForKey:kOutputInCandidate];
 }
 
 +(float)opacity {
-    return [[NSUserDefaults standardUserDefaults] floatForKey:@"IMKCandidatesOpacityAttributeName"];
+    return [standardUserDefaults floatForKey:kIMKCandidatesOpacityAttributeName];
 }
 
 +(void)reset {
     [self resetStandardUserDefaults];
-    [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    [[standardUserDefaults dictionaryRepresentation] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [standardUserDefaults removeObjectForKey:key];
     }];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [standardUserDefaults synchronize];
 }
 
 +(enum DJBackspaceBehavior)backspaceBehavior {
-    NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:@"BackspaceDeletes"];
-    if ([string isEqualToString:@"Output character"]) {
+    NSString *string = [standardUserDefaults stringForKey:kBackspaceDeletes];
+    if ([string isEqualToString:kOutputCharacter]) {
         return DJ_DELETE_OUTPUT;
     }
-    else if ([string isEqualToString:@"Mapping output"]) {
+    else if ([string isEqualToString:kMappingOutput]) {
         return DJ_DELETE_MAPPING;
     }
-    else if ([string isEqualToString:@"Input character"]) {
+    else if ([string isEqualToString:kInputCharacter]) {
         return DJ_DELETE_INPUT;
     }
     else {
@@ -146,14 +181,14 @@ static NSDictionary *candidatePanelEnumValues = nil;
 }
 
 +(enum DJOnUnfocusBehavior)unfocusBehavior {
-    NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:@"OnUnfocusUncommitted"];
-    if ([string isEqualToString:@"Gets discarded"]) {
+    NSString *string = [standardUserDefaults stringForKey:kOnUnfocusUncommitted];
+    if ([string isEqualToString:kGetsDiscarded]) {
         return DJ_DISCARD_UNCOMMITTED;
     }
-    else if ([string isEqualToString:@"Restores on focus"]) {
+    else if ([string isEqualToString:kRestoresOnFocus]) {
         return DJ_RESTORE_UNCOMMITTED;
     }
-    else if ([string isEqualToString:@"Automatically commits"]) {
+    else if ([string isEqualToString:kAutomaticallyCommits]) {
         return DJ_COMMIT_UNCOMMITTED;
     }
     else {
@@ -162,23 +197,23 @@ static NSDictionary *candidatePanelEnumValues = nil;
 }
 
 +(enum DJLogLevel)loggingLevel {
-    return [DJLipikaUserSettings logLevelForString:[[NSUserDefaults standardUserDefaults] stringForKey:@"LoggingLevel"]];
+    return [DJLipikaUserSettings logLevelForString:[standardUserDefaults stringForKey:kLoggingLevel]];
 }
 
 +(NSString *)logLevelStringForEnum:(enum DJLogLevel)level {
     NSString *severity;
     switch (level) {
         case DJ_DEBUG:
-            severity = @"Debug";
+            severity = kDebug;
             break;
         case DJ_WARNING:
-            severity = @"Warning";
+            severity = kWarning;
             break;
         case DJ_ERROR:
-            severity = @"Error";
+            severity = kError;
             break;
         case DJ_FATAL:
-            severity = @"Fatal";
+            severity = kFatal;
             break;
         default:
             severity = @"Unknown";
@@ -188,16 +223,16 @@ static NSDictionary *candidatePanelEnumValues = nil;
 }
 
 +(enum DJLogLevel)logLevelForString:(NSString *)level {
-    if ([level isEqualToString:@"Debug"]) {
+    if ([level isEqualToString:kDebug]) {
         return DJ_DEBUG;
     }
-    else if ([level isEqualToString:@"Warning"]) {
+    else if ([level isEqualToString:kWarning]) {
         return DJ_WARNING;
     }
-    else if ([level isEqualToString:@"Error"]) {
+    else if ([level isEqualToString:kError]) {
         return DJ_ERROR;
     }
-    else if ([level isEqualToString:@"Fatal"]) {
+    else if ([level isEqualToString:kFatal]) {
         return DJ_ERROR;
     }
     else {

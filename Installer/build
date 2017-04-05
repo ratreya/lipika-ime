@@ -7,6 +7,7 @@ if [ "$1" == "clean" ]; then
 exit 0
 fi
 xcodebuild -project ../LipikaIME.xcodeproj -scheme Engine -configuration Debug clean build test || exit 1
+killall LipikaInputSource
 xcodebuild -project ../LipikaIME.xcodeproj -scheme InputSource -configuration Debug clean build test || exit 1
 xcodebuild -project ../LipikaIME.xcodeproj -scheme InputSource -configuration Release clean build || exit 1
 cp -r ../build/Products/Release/LipikaInputSource.app .
