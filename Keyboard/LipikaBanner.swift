@@ -17,7 +17,8 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
 
     required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool, inputManager: DJStringBufferManager) {
         // Setup User Defaults
-        let langTuples = getLanguages()
+        LipikaBoardSettings.registerLanguages()
+        let langTuples = LipikaBoardSettings.getLanguages()
         languages = langTuples.filter({$0.1}).map({$0.0})
         manager = inputManager
         super.init(globalColors: globalColors, darkMode: darkMode, solidColorMode: solidColorMode)
@@ -46,6 +47,7 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
         
         let pickerFrame = CGRect(x: tempInput.frame.maxX + 8, y: tempInput.frame.minY, width: self.frame.width / 2 - 8, height: self.frame.height - 4)
         languagePicker.frame = pickerFrame
+        languagePicker.interitemSpacing = 5.0
         languagePicker.delegate = self
         languagePicker.dataSource = self
         let currentItemIndex = languages.index(of: DJLipikaUserSettings.scriptName())
@@ -67,5 +69,6 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     
     func pickerView(_ pickerView: AKPickerView, didSelectItem item: Int) {
         manager.changeToScheme(withName: DJLipikaUserSettings.schemeName(), forScript: languages[item], type: DJ_LIPIKA)
+        DJLipikaUserSettings.setScriptName(languages[item])
     }
 }

@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     override func viewDidLoad() {
         // Setup User Defaults
-        registerLanguages()
+        LipikaBoardSettings.registerLanguages()
 
         super.viewDidLoad()
         tableView.register(SchemeTableViewCell.self, forCellReuseIdentifier: "SchemeSelection")
@@ -78,7 +78,7 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
 
     let margin: CGFloat = 8
     let kSchemeNameKey = "SchemeName"
-    let availableSchemes = ["Baraha", "Barahavat", "Harvard-Kyoto", "ITRANS", "Ksharanam"]
+    let availableSchemes = LipikaBoardSettings.getFullSchemesList()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         longLabel = UITextView()
@@ -89,7 +89,7 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         schemePicker.delegate = self
         schemePicker.dataSource = self
         schemePicker.showsSelectionIndicator = true
-        let currentScheme = UserDefaults(suiteName: kAppGroupName)?.string(forKey: kSchemeNameKey)
+        let currentScheme = UserDefaults(suiteName: LipikaBoardSettings.kAppGroupName)?.string(forKey: kSchemeNameKey)
         let index = availableSchemes.index(of: currentScheme!)
         schemePicker.selectRow(index!, inComponent: 0, animated: false)
         schemePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -126,7 +126,7 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        UserDefaults(suiteName: kAppGroupName)?.set(availableSchemes[row], forKey: kSchemeNameKey)
+        UserDefaults(suiteName: LipikaBoardSettings.kAppGroupName)?.set(availableSchemes[row], forKey: kSchemeNameKey)
     }
 }
 
@@ -134,7 +134,7 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
     var languageList: UITableView
     var longLabel: UITextView
     let margin: CGFloat = 8
-    var languages =  getLanguages()
+    var languages =  LipikaBoardSettings.getLanguages()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         longLabel = UITextView()
@@ -208,7 +208,7 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
                 languages[indexPath.row].1 = true
             }
             tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
-            storeLanguages(languages: languages)
+            LipikaBoardSettings.storeLanguages(languages: languages)
         }
     }
 

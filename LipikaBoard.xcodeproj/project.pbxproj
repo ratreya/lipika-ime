@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A50B31D71E95FB6D004A9F6D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */; };
-		A50B31D81E95FB6D004A9F6D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */; };
+		A50B31D71E95FB6D004A9F6D /* LipikaBoardSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* LipikaBoardSettings.swift */; };
+		A50B31D81E95FB6D004A9F6D /* LipikaBoardSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* LipikaBoardSettings.swift */; };
 		A5130E081E7F63CE002E049C /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5130E011E7F63CE002E049C /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A51E2AE61E7F79CC00CCAB34 /* DJActiveBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2ABC1E7F79CC00CCAB34 /* DJActiveBufferManager.m */; };
 		A51E2AE81E7F79CC00CCAB34 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2ABE1E7F79CC00CCAB34 /* DJInputMethodEngine.m */; };
@@ -94,7 +94,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		A50B31D61E95FB6D004A9F6D /* LipikaBoardSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBoardSettings.swift; sourceTree = "<group>"; };
 		A5130E011E7F63CE002E049C /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5130E051E7F63CE002E049C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A518E2321E94739C0079B246 /* LipikaBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaBoard.entitlements; sourceTree = SOURCE_ROOT; };
@@ -417,7 +417,7 @@
 				A5810BCC1E7F747300759112 /* DefaultKeyboard.swift */,
 				A5810BCE1E7F747300759112 /* DirectionEnum.swift */,
 				A5810BD71E7F747300759112 /* KeyboardModel.swift */,
-				A50B31D61E95FB6D004A9F6D /* UserDefaults.swift */,
+				A50B31D61E95FB6D004A9F6D /* LipikaBoardSettings.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -618,7 +618,7 @@
 				A5810BF51E7F752800759112 /* Catboard.swift in Sources */,
 				A5810BDC1E7F747300759112 /* DefaultKeyboard.swift in Sources */,
 				A5810BE91E7F747300759112 /* Shapes.swift in Sources */,
-				A50B31D81E95FB6D004A9F6D /* UserDefaults.swift in Sources */,
+				A50B31D81E95FB6D004A9F6D /* LipikaBoardSettings.swift in Sources */,
 				A5810BE71E7F747300759112 /* KeyboardModel.swift in Sources */,
 				A5810BE41E7F747300759112 /* KeyboardKey.swift in Sources */,
 				A5FC194F1E837AC70014F61F /* LipikaBoard.swift in Sources */,
@@ -669,7 +669,7 @@
 			files = (
 				A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */,
 				A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */,
-				A50B31D71E95FB6D004A9F6D /* UserDefaults.swift in Sources */,
+				A50B31D71E95FB6D004A9F6D /* LipikaBoardSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
