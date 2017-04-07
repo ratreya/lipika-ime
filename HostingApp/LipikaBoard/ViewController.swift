@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        return 45
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -151,7 +151,7 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
         languageList.translatesAutoresizingMaskIntoConstraints = false
         languageList.register(UITableViewCell.self, forCellReuseIdentifier: "Language")
         self.addSubview(languageList)
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 220))
+        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 220))
         self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
         self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
