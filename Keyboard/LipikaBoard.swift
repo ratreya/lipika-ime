@@ -10,10 +10,10 @@
 import UIKit
 
 class LipikaBoard: KeyboardViewController {
-
     var manager = DJStringBufferManager()
     var tempTextLength: String.IndexDistance = 0
     var banner: LipikaBanner?
+    var edgeCase = false
 
     override func createBanner() -> ExtraView? {
         banner = LipikaBanner(globalColors: type(of: self).globalColors, darkMode: false, solidColorMode: self.solidColorMode(), inputManager: manager)
@@ -22,11 +22,11 @@ class LipikaBoard: KeyboardViewController {
 
     override func keyPressed(_ key: Key) {
         let keyInput = key.outputForCase(self.shiftState.uppercase())
-        clearTempText()
         var previousText: String?
         if DJLipikaUserSettings.isCombineWithPreviousGlyph() {
             previousText = getPreviousText()
         }
+        clearTempText()
         if let keyOutput = manager.output(forInput: keyInput, previousText: previousText) {
             textDocumentProxy.insertText(keyOutput)
         }
@@ -69,19 +69,27 @@ class LipikaBoard: KeyboardViewController {
     override func textWillChange(_ textInput: UITextInput?) {
         /*
          * Usually indicates some user action outside keypress
-         * We will get out of synch and so must flush to be safe
+         *
+         * The whole edgeCase dance is to avoid a bug in iOS 10.3
+         * where a spurious call is made when edgeCase is true
          */
-        if !self.isFirstResponder {
+        if edgeCase {
+            edgeCase = !edgeCase
+        }
+        else {
             flushTempText()
         }
     }
 
     override func selectionWillChange(_ textInput: UITextInput?) {
         /*
-         * As of iOS 10.3 this is not called at all, but keeping
+         * As of iOS 10.3 this is not called at all, but leaving
          * it here for future proofing
          */
-        if !self.isFirstResponder {
+        if edgeCase {
+            edgeCase = !edgeCase
+        }
+        else {
             flushTempText()
         }
     }
@@ -146,6 +154,9 @@ class LipikaBoard: KeyboardViewController {
                         textDocumentProxy.insertText(extra)
                         break;
                     }
+                }
+                else {
+                    edgeCase = true
                 }
             }
             else {
