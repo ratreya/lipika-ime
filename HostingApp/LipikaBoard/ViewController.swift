@@ -49,6 +49,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         default:
             assert(false, "Unexpected section in tableview")
         }
+        return nil
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,6 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         else {
             assert(false, "Unable to dequeue reusable cell from Table View")
         }
+        return UITableViewCell()
     }
 }
 
