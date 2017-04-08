@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.5.0</string>
 	<key>CFBundleVersion</key>
-	<string>2.2</string>
+	<string>2.4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

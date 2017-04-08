@@ -61,7 +61,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: "Introduction")
             let text = NSMutableAttributedString(string: "Go to Settings ⇒ General ⇒ Keyboard ⇒ Keyboards ⇒ Add New Keyboard... and add LipikaBoard\nThen on any keyboard press and hold the globe button to select LipikaBoard.")
+            let attachment = NSTextAttachment()
+            attachment.image = #imageLiteral(resourceName: "Globe")
+            let ratio = attachment.image!.size.width / attachment.image!.size.height
+            attachment.bounds = CGRect(x: attachment.bounds.origin.x, y: attachment.bounds.origin.y - 2, width: ratio * 12, height: 12)
             text.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(6, 64))
+            text.replaceCharacters(in: NSMakeRange(130, 5), with: NSAttributedString(attachment: attachment))
             cell?.textLabel?.attributedText = text
             cell?.textLabel?.numberOfLines = 0
             cell?.textLabel?.font = cell?.textLabel?.font.withSize(12)
