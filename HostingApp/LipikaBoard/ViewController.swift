@@ -55,9 +55,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var cell: UITableViewCell? = nil
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "SchemeSelection") as? SchemeTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "SchemeSelection")
         case 1:
-            cell = tableView.dequeueReusableCell(withIdentifier: "LanguageOrdering") as? LanguageTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "LanguageOrdering")
         default:
             assert(false, "Unexpected index path for table view")
         }
@@ -67,7 +67,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         else {
             assert(false, "Unable to dequeue reusable cell from Table View")
-            return UITableViewCell()
         }
     }
 }
@@ -94,15 +93,17 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         schemePicker.selectRow(index!, inComponent: 0, animated: false)
         schemePicker.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(schemePicker)
-        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
-        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
 
         longLabel.text = "Select the transliteration scheme that you would like to use in the Keyboard. This scheme will apply to all languages."
         longLabel.isScrollEnabled = false
         longLabel.isSelectable = false
         longLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(longLabel)
+
+        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+        
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: schemePicker, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
@@ -151,16 +152,19 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
         languageList.translatesAutoresizingMaskIntoConstraints = false
         languageList.register(UITableViewCell.self, forCellReuseIdentifier: "Language")
         self.addSubview(languageList)
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 220))
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
 
         longLabel.text = "Select the list of languages to show and their ordering."
         longLabel.isScrollEnabled = false
         longLabel.isSelectable = false
         longLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(longLabel)
+
+        languageList.isScrollEnabled = false
+        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: CGFloat(languages.count * 45)))
+        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: languageList, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
