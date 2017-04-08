@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         LipikaBoardSettings.registerLanguages()
 
         super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Introduction")
         tableView.register(SchemeTableViewCell.self, forCellReuseIdentifier: "SchemeSelection")
         tableView.register(LanguageTableViewCell.self, forCellReuseIdentifier: "LanguageOrdering")
         tableView.estimatedRowHeight = 44
@@ -25,7 +26,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,8 +44,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Select Input Scheme"
+            return "Introduction"
         case 1:
+            return "Select Input Scheme"
+        case 2:
             return "Select Language List"
         default:
             assert(false, "Unexpected section in tableview")
@@ -56,8 +59,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var cell: UITableViewCell? = nil
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "SchemeSelection")
+            cell = tableView.dequeueReusableCell(withIdentifier: "Introduction")
+            let text = NSMutableAttributedString(string: "Go to Settings ⇒ General ⇒ Keyboard ⇒ Keyboards ⇒ Add New Keyboard... and add LipikaBoard\nThen on any keyboard press and hold the globe button to select LipikaBoard.")
+            text.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(6, 64))
+            cell?.textLabel?.attributedText = text
+            cell?.textLabel?.numberOfLines = 0
+            cell?.textLabel?.font = cell?.textLabel?.font.withSize(12)
         case 1:
+            cell = tableView.dequeueReusableCell(withIdentifier: "SchemeSelection")
+        case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "LanguageOrdering")
         default:
             assert(false, "Unexpected index path for table view")
