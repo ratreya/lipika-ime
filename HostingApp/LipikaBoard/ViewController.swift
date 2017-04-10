@@ -9,6 +9,9 @@
 
 import UIKit
 
+let margin: CGFloat = 8
+let fontSize: CGFloat = 13
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
 
@@ -17,9 +20,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         LipikaBoardSettings.registerLanguages()
 
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Introduction")
+        tableView.register(SupportCellView.self, forCellReuseIdentifier: "Introduction")
         tableView.register(SchemeTableViewCell.self, forCellReuseIdentifier: "SchemeSelection")
         tableView.register(LanguageTableViewCell.self, forCellReuseIdentifier: "LanguageOrdering")
+        tableView.allowsSelection = false
         tableView.estimatedRowHeight = 44
         tableView.delegate = self
         tableView.dataSource = self
@@ -30,7 +34,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return 3
+        default:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -57,19 +66,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell? = nil
+        
         switch indexPath.section {
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: "Introduction")
-            let text = NSMutableAttributedString(string: "Go to Settings ⇒ General ⇒ Keyboard ⇒ Keyboards ⇒ Add New Keyboard... and add LipikaBoard\nThen on any keyboard press and hold the globe button to select LipikaBoard.")
-            let attachment = NSTextAttachment()
-            attachment.image = #imageLiteral(resourceName: "Globe")
-            let ratio = attachment.image!.size.width / attachment.image!.size.height
-            attachment.bounds = CGRect(x: attachment.bounds.origin.x, y: attachment.bounds.origin.y - 2, width: ratio * 12, height: 12)
-            text.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(6, 64))
-            text.replaceCharacters(in: NSMakeRange(130, 5), with: NSAttributedString(attachment: attachment))
-            cell?.textLabel?.attributedText = text
-            cell?.textLabel?.numberOfLines = 0
-            cell?.textLabel?.font = cell?.textLabel?.font.withSize(12)
+            var text:NSMutableAttributedString? = nil
+            switch indexPath.row {
+            case 0:
+                text = NSMutableAttributedString(string: "Go to Settings ⇒ General ⇒ Keyboard ⇒ Keyboards ⇒ Add New Keyboard... and add LipikaBoard.")
+                text!.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(6, 64))
+            case 1:
+                text = NSMutableAttributedString(string: "Then on any keyboard press and hold the globe button to select LipikaBoard.")
+                let attachment = NSTextAttachment()
+                attachment.image = #imageLiteral(resourceName: "Globe")
+                let ratio = attachment.image!.size.width / attachment.image!.size.height
+                attachment.bounds = CGRect(x: attachment.bounds.origin.x, y: attachment.bounds.origin.y - 2, width: ratio * fontSize, height: fontSize)
+                text!.replaceCharacters(in: NSMakeRange(40, 5), with: NSAttributedString(attachment: attachment))
+            case 2:
+                text = NSMutableAttributedString(string: "For futher assistance post in our User Group.")
+                let appLink = URL(string: "fb://group?id=1816932011905947")!
+                let webLink = URL(string: "https://facebook.com/groups/lipika.ime")!
+                text!.addAttribute(NSLinkAttributeName, value: UIApplication.shared.canOpenURL(appLink) ? appLink: webLink, range: NSMakeRange(34, 10))
+            default:
+                text = NSMutableAttributedString()
+            }
+            (cell as! SupportCellView).setSupportText(text!)
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: "SchemeSelection")
         case 2:
@@ -88,11 +109,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 }
 
+class SupportCellView: UITableViewCell {
+    var textView: UITextView = UITextView()
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        textView.isScrollEnabled = false
+        textView.font = textView.font?.withSize(fontSize)
+        textView.isEditable = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(textView)
+
+        self.addConstraint(NSLayoutConstraint(item: textView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: textView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: textView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    public func setSupportText(_ text: NSMutableAttributedString) {
+        textView.attributedText = text
+    }
+}
+
 class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
     var schemePicker: UIPickerView
     var longLabel: UITextView
 
-    let margin: CGFloat = 8
     let kSchemeNameKey = "SchemeName"
     let availableSchemes = LipikaBoardSettings.getFullSchemesList()
 
@@ -151,7 +196,6 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
 class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     var languageList: UITableView
     var longLabel: UITextView
-    let margin: CGFloat = 8
     var languages =  LipikaBoardSettings.getLanguages()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
