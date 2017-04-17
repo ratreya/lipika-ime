@@ -34,25 +34,30 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
         fatalError("init(globalColors:darkMode:solidColorMode:) has not been implemented")
     }
 
-    override func setNeedsLayout() {
-        super.setNeedsLayout()
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
         tempInput.center = center
         tempInput.frame.origin.x = frame.origin.x + 8
         tempInput.lineBreakMode = .byTruncatingHead
-        tempInput.frame.size = CGSize(width: self.frame.width / 2 - 8, height: self.frame.height - 4)
+        tempInput.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: CGFloat(8.0)))
+        self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.width, multiplier: 0.5, constant: CGFloat(-8.0)))
+        self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: CGFloat(2.0)))
+        self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.height, multiplier: 1, constant: CGFloat(-2.0)))
         
-        let pickerFrame = CGRect(x: tempInput.frame.maxX + 8, y: tempInput.frame.minY, width: self.frame.width / 2 - 8, height: self.frame.height - 4)
-        languagePicker.frame = pickerFrame
         languagePicker.interitemSpacing = 5.0
+        languagePicker.translatesAutoresizingMaskIntoConstraints = false
         languagePicker.delegate = self
         languagePicker.dataSource = self
         let currentItemIndex = languages.index(of: DJLipikaUserSettings.scriptName())
         languagePicker.selectItem(currentItemIndex ?? 0)
         languagePicker.reloadData()
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tempInput, attribute: NSLayoutAttribute.right, multiplier: 1, constant: CGFloat(8.0)))
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.width, multiplier: 0.5, constant: CGFloat(-8.0)))
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: CGFloat(2.0)))
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.height, multiplier: 1, constant: CGFloat(-2.0)))
     }
 
     func setTempInput(input: String) {
