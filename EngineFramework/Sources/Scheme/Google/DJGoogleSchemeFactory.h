@@ -23,6 +23,7 @@
 +(NSArray *)availableSchemes;
 
 -(id)initWithSchemeFile:(NSString *)filePath;
+-(id)initWithSchemeData:(NSString *)data;
 -(id<DJInputMethodScheme>)scheme;
 
 @end

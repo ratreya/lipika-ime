@@ -145,10 +145,10 @@
     BOOL isLipika = [isLipikaMapping state] == NSOnState;
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] init];
     if (isLipika) {
-        [engine changeToSchemeWithName:scheme forScript:script type:DJ_LIPIKA];
+        [engine changeToLipikaSchemeWithName:scheme forScript:script];
     }
     else {
-        [engine changeToSchemeWithName:scm forScript:nil type:DJ_GOOGLE];
+        [engine changeToCustomSchemeWithName:scm];
     }
     if ([self convertFileFromPath:fromPath toPath:toPath withEngine:engine isReverseMapping:isReverseMapping])
         [self performSelectorOnMainThread:@selector(convertComplete) withObject:self waitUntilDone:NO];

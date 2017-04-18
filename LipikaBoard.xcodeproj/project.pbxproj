@@ -29,6 +29,9 @@
 		A51E2B151E7F7A2F00CCAB34 /* DJLipikaUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2B0F1E7F7A2F00CCAB34 /* DJLipikaUserSettings.m */; };
 		A51E2B191E7F7A2F00CCAB34 /* DJLipikaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2B131E7F7A2F00CCAB34 /* DJLipikaHelper.m */; };
 		A51E2B1A1E7F7A2F00CCAB34 /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2B141E7F7A2F00CCAB34 /* DJLogger.m */; };
+		A52B94711EAA9E49008587C6 /* LipikaBoardSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* LipikaBoardSettings.swift */; };
+		A52B94721EAAA4E4008587C6 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A58CA4D31E949D4900F8897F /* UserSettings.plist */; };
+		A52B94731EAAA7A3008587C6 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A58CA4D31E949D4900F8897F /* UserSettings.plist */; };
 		A55228B71E7F8CD100B2E0AA /* LipikaEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = A51E2AC11E7F79CC00CCAB34 /* LipikaEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5810BDB1E7F747300759112 /* CatboardBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5810BCB1E7F747300759112 /* CatboardBanner.swift */; };
 		A5810BDC1E7F747300759112 /* DefaultKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5810BCC1E7F747300759112 /* DefaultKeyboard.swift */; };
@@ -50,15 +53,23 @@
 		A5810BF21E7F74CC00759112 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5810BF01E7F74CC00759112 /* Media.xcassets */; };
 		A5810BF51E7F752800759112 /* Catboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5810BF41E7F752800759112 /* Catboard.swift */; };
 		A586EB3E1E902DEB00B40872 /* LipikaBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */; };
-		A58CA4D41E949D4900F8897F /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A58CA4D31E949D4900F8897F /* UserSettings.plist */; };
 		A58D14651E86F13E00B0A9B9 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F71E84D0050052B73C /* Schemes */; };
 		A59163451E7F7BA30031ECDD /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
 		A5A57E0C1E9154B3000C9203 /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */; };
 		A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */; };
 		A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88251E7F5E1800A70B6F /* ViewController.swift */; };
+		A5D036031EA2D47400BA2F07 /* CustomScheme.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5D035F91EA2D47400BA2F07 /* CustomScheme.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A5E561D21E876F0700D0365F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D01E876F0700D0365F /* Images.xcassets */; };
 		A5E561DA1E876F5B00D0365F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D41E876F1600D0365F /* LaunchScreen.storyboard */; };
 		A5E561DB1E876F5B00D0365F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D61E876F1600D0365F /* Main.storyboard */; };
+		A5F222831EA7132900546604 /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
+		A5F222851EA714F300546604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D01E876F0700D0365F /* Images.xcassets */; };
+		A5F222901EA717D300546604 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5F2228A1EA717D300546604 /* MainInterface.storyboard */; };
+		A5F222921EA717D300546604 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F2228F1EA717D300546604 /* ShareViewController.swift */; };
+		A5F222981EA7180B00546604 /* Lipika-320.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222941EA7180B00546604 /* Lipika-320.png */; };
+		A5F222991EA7180B00546604 /* Lipika-320@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222951EA7180B00546604 /* Lipika-320@2x.png */; };
+		A5F2229A1EA7180B00546604 /* Lipika-64.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222961EA7180B00546604 /* Lipika-64.png */; };
+		A5F2229B1EA7180B00546604 /* Lipika-64@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222971EA7180B00546604 /* Lipika-64@2x.png */; };
 		A5FC194F1E837AC70014F61F /* LipikaBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC194E1E837AC70014F61F /* LipikaBoard.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +88,20 @@
 			remoteGlobalIDString = A51E2A461E7F78C500CCAB34;
 			remoteInfo = LipikaEngine;
 		};
+		A5D036011EA2D47400BA2F07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A51F68541E7F5D260075EC06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5D035F81EA2D47400BA2F07;
+			remoteInfo = CustomScheme;
+		};
+		A5F222811EA7132500546604 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A51F68541E7F5D260075EC06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A51E2A461E7F78C500CCAB34;
+			remoteInfo = LipikaEngine;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,6 +111,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				A5D036031EA2D47400BA2F07 /* CustomScheme.appex in Embed App Extensions */,
 				A5130E081E7F63CE002E049C /* Keyboard.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -146,6 +172,7 @@
 		A51E2B141E7F7A2F00CCAB34 /* DJLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJLogger.m; path = Common/Sources/DJLogger.m; sourceTree = SOURCE_ROOT; };
 		A51E2B1C1E7F7A5A00CCAB34 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EngineFramework/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		A51F685C1E7F5D260075EC06 /* LipikaBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A52B94701EAA6C98008587C6 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "App-Bridging-Header.h"; path = "HostingApp/LipikaBoard/App-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		A55228B81E7F8E0600B2E0AA /* Keyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Keyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		A5810BCB1E7F747300759112 /* CatboardBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CatboardBanner.swift; path = TastyImitationKeyboard/Keyboard/CatboardBanner.swift; sourceTree = SOURCE_ROOT; };
 		A5810BCC1E7F747300759112 /* DefaultKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultKeyboard.swift; path = TastyImitationKeyboard/Keyboard/DefaultKeyboard.swift; sourceTree = SOURCE_ROOT; };
@@ -172,11 +199,21 @@
 		A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPickerView.swift; path = AKPickerView/AKPickerView/AKPickerView.swift; sourceTree = SOURCE_ROOT; };
 		A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HostingApp/LipikaBoard/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		A5CE88251E7F5E1800A70B6F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = HostingApp/LipikaBoard/ViewController.swift; sourceTree = SOURCE_ROOT; };
+		A5D035F91EA2D47400BA2F07 /* CustomScheme.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomScheme.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D985F71E84D0050052B73C /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Schemes; path = Common/Resources/Schemes; sourceTree = SOURCE_ROOT; };
 		A5E561D01E876F0700D0365F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HostingApp/LipikaBoard/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		A5E561D11E876F0700D0365F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HostingApp/LipikaBoard/Info.plist; sourceTree = SOURCE_ROOT; };
 		A5E561D51E876F1600D0365F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = HostingApp/LipikaBoard/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		A5E561D71E876F1600D0365F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = HostingApp/LipikaBoard/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		A5F2228B1EA717D300546604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		A5F2228C1EA717D300546604 /* CustomScheme.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = CustomScheme.entitlements; sourceTree = "<group>"; };
+		A5F2228D1EA717D300546604 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5F2228E1EA717D300546604 /* Scheme-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Scheme-Bridging-Header.h"; sourceTree = "<group>"; };
+		A5F2228F1EA717D300546604 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		A5F222941EA7180B00546604 /* Lipika-320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lipika-320.png"; sourceTree = "<group>"; };
+		A5F222951EA7180B00546604 /* Lipika-320@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lipika-320@2x.png"; sourceTree = "<group>"; };
+		A5F222961EA7180B00546604 /* Lipika-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lipika-64.png"; sourceTree = "<group>"; };
+		A5F222971EA7180B00546604 /* Lipika-64@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lipika-64@2x.png"; sourceTree = "<group>"; };
 		A5FC194E1E837AC70014F61F /* LipikaBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +237,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5D035F61EA2D47400BA2F07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5F222831EA7132900546604 /* LipikaEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +377,7 @@
 				A51F685E1E7F5D260075EC06 /* LipikaBoard */,
 				A5130E021E7F63CE002E049C /* Keyboard */,
 				A51E2A481E7F78C500CCAB34 /* LipikaEngine */,
+				A5F222891EA717D300546604 /* CustomScheme */,
 				A51F685D1E7F5D260075EC06 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -342,6 +388,7 @@
 				A51F685C1E7F5D260075EC06 /* LipikaBoard.app */,
 				A5130E011E7F63CE002E049C /* Keyboard.appex */,
 				A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */,
+				A5D035F91EA2D47400BA2F07 /* CustomScheme.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -361,6 +408,7 @@
 			children = (
 				A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */,
 				A5CE88251E7F5E1800A70B6F /* ViewController.swift */,
+				A52B94701EAA6C98008587C6 /* App-Bridging-Header.h */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -370,7 +418,6 @@
 			children = (
 				A5D985F71E84D0050052B73C /* Schemes */,
 				A5130E051E7F63CE002E049C /* Info.plist */,
-				A58CA4D31E949D4900F8897F /* UserSettings.plist */,
 				A5810BEF1E7F74CC00759112 /* DefaultSettings.xib */,
 				A5810BF01E7F74CC00759112 /* Media.xcassets */,
 			);
@@ -393,12 +440,39 @@
 			isa = PBXGroup;
 			children = (
 				A5E561D11E876F0700D0365F /* Info.plist */,
+				A58CA4D31E949D4900F8897F /* UserSettings.plist */,
 				A5E561D01E876F0700D0365F /* Images.xcassets */,
 				A5E561D41E876F1600D0365F /* LaunchScreen.storyboard */,
 				A5E561D61E876F1600D0365F /* Main.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
+		};
+		A5F222891EA717D300546604 /* CustomScheme */ = {
+			isa = PBXGroup;
+			children = (
+				A5F222931EA7180B00546604 /* DocIcons */,
+				A5F2228A1EA717D300546604 /* MainInterface.storyboard */,
+				A5F2228C1EA717D300546604 /* CustomScheme.entitlements */,
+				A5F2228D1EA717D300546604 /* Info.plist */,
+				A5F2228E1EA717D300546604 /* Scheme-Bridging-Header.h */,
+				A5F2228F1EA717D300546604 /* ShareViewController.swift */,
+			);
+			name = CustomScheme;
+			path = HostingApp/LipikaBoard/CustomScheme;
+			sourceTree = "<group>";
+		};
+		A5F222931EA7180B00546604 /* DocIcons */ = {
+			isa = PBXGroup;
+			children = (
+				A5F222941EA7180B00546604 /* Lipika-320.png */,
+				A5F222951EA7180B00546604 /* Lipika-320@2x.png */,
+				A5F222961EA7180B00546604 /* Lipika-64.png */,
+				A5F222971EA7180B00546604 /* Lipika-64@2x.png */,
+			);
+			name = DocIcons;
+			path = HostingApp/LipikaBoard/DocIcons;
+			sourceTree = SOURCE_ROOT;
 		};
 		A5FC19481E8379BC0014F61F /* Controller */ = {
 			isa = PBXGroup;
@@ -519,11 +593,30 @@
 			);
 			dependencies = (
 				A5130E071E7F63CE002E049C /* PBXTargetDependency */,
+				A5D036021EA2D47400BA2F07 /* PBXTargetDependency */,
 			);
 			name = LipikaBoard;
 			productName = LipikaBoard;
 			productReference = A51F685C1E7F5D260075EC06 /* LipikaBoard.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A5D035F81EA2D47400BA2F07 /* CustomScheme */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5D036061EA2D47400BA2F07 /* Build configuration list for PBXNativeTarget "CustomScheme" */;
+			buildPhases = (
+				A5D035F51EA2D47400BA2F07 /* Sources */,
+				A5D035F61EA2D47400BA2F07 /* Frameworks */,
+				A5D035F71EA2D47400BA2F07 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A5F222821EA7132500546604 /* PBXTargetDependency */,
+			);
+			name = CustomScheme;
+			productName = CustomScheme;
+			productReference = A5D035F91EA2D47400BA2F07 /* CustomScheme.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -531,7 +624,7 @@
 		A51F68541E7F5D260075EC06 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Daivajnanam;
 				TargetAttributes = {
@@ -562,6 +655,17 @@
 							};
 						};
 					};
+					A5D035F81EA2D47400BA2F07 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 7JZ87Y4JWT;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 				};
 			};
 			buildConfigurationList = A51F68571E7F5D260075EC06 /* Build configuration list for PBXProject "LipikaBoard" */;
@@ -580,6 +684,7 @@
 				A51F685B1E7F5D260075EC06 /* LipikaBoard */,
 				A5130E001E7F63CE002E049C /* Keyboard */,
 				A51E2A461E7F78C500CCAB34 /* LipikaEngine */,
+				A5D035F81EA2D47400BA2F07 /* CustomScheme */,
 			);
 		};
 /* End PBXProject section */
@@ -589,7 +694,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A58CA4D41E949D4900F8897F /* UserSettings.plist in Resources */,
+				A52B94731EAAA7A3008587C6 /* UserSettings.plist in Resources */,
 				A58D14651E86F13E00B0A9B9 /* Schemes in Resources */,
 				A5810BF21E7F74CC00759112 /* Media.xcassets in Resources */,
 				A5810BF11E7F74CC00759112 /* DefaultSettings.xib in Resources */,
@@ -600,9 +705,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A52B94721EAAA4E4008587C6 /* UserSettings.plist in Resources */,
 				A5E561DA1E876F5B00D0365F /* LaunchScreen.storyboard in Resources */,
 				A5E561DB1E876F5B00D0365F /* Main.storyboard in Resources */,
 				A5E561D21E876F0700D0365F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5D035F71EA2D47400BA2F07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5F222851EA714F300546604 /* Images.xcassets in Resources */,
+				A5F222981EA7180B00546604 /* Lipika-320.png in Resources */,
+				A5F222991EA7180B00546604 /* Lipika-320@2x.png in Resources */,
+				A5F2229A1EA7180B00546604 /* Lipika-64.png in Resources */,
+				A5F2229B1EA7180B00546604 /* Lipika-64@2x.png in Resources */,
+				A5F222901EA717D300546604 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +792,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5D035F51EA2D47400BA2F07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A52B94711EAA9E49008587C6 /* LipikaBoardSettings.swift in Sources */,
+				A5F222921EA717D300546604 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -685,6 +813,16 @@
 			isa = PBXTargetDependency;
 			target = A51E2A461E7F78C500CCAB34 /* LipikaEngine */;
 			targetProxy = A59163431E7F7B9D0031ECDD /* PBXContainerItemProxy */;
+		};
+		A5D036021EA2D47400BA2F07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5D035F81EA2D47400BA2F07 /* CustomScheme */;
+			targetProxy = A5D036011EA2D47400BA2F07 /* PBXContainerItemProxy */;
+		};
+		A5F222821EA7132500546604 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A51E2A461E7F78C500CCAB34 /* LipikaEngine */;
+			targetProxy = A5F222811EA7132500546604 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -705,6 +843,14 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		A5F2228A1EA717D300546604 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5F2228B1EA717D300546604 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -712,7 +858,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -733,7 +878,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -897,6 +1041,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HostingApp/LipikaBoard/App-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -917,6 +1062,44 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HostingApp/LipikaBoard/App-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		A5D036041EA2D47400BA2F07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HostingApp/LipikaBoard/CustomScheme/CustomScheme.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				INFOPLIST_FILE = HostingApp/LipikaBoard/CustomScheme/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaBoard.CustomScheme;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "HostingApp/LipikaBoard/CustomScheme/Scheme-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A5D036051EA2D47400BA2F07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = HostingApp/LipikaBoard/CustomScheme/CustomScheme.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				INFOPLIST_FILE = HostingApp/LipikaBoard/CustomScheme/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaBoard.CustomScheme;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "HostingApp/LipikaBoard/CustomScheme/Scheme-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -956,6 +1139,15 @@
 			buildConfigurations = (
 				A51F686F1E7F5D260075EC06 /* Debug */,
 				A51F68701E7F5D260075EC06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5D036061EA2D47400BA2F07 /* Build configuration list for PBXNativeTarget "CustomScheme" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5D036041EA2D47400BA2F07 /* Debug */,
+				A5D036051EA2D47400BA2F07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

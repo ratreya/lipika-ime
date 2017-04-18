@@ -13,13 +13,11 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     var tempInput = UILabel()
     var languagePicker = AKPickerView()
     var manager: DJStringBufferManager
-    var languages: [String]
+    var languages: [(String, DJSchemeType)]
 
     required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool, inputManager: DJStringBufferManager) {
-        // Setup User Defaults
-        LipikaBoardSettings.registerLanguages()
         let langTuples = LipikaBoardSettings.getLanguages()
-        languages = langTuples.filter({$0.1}).map({$0.0})
+        languages = langTuples.filter({$0.1}).map({($0.0, $0.2)})
         manager = inputManager
         super.init(globalColors: globalColors, darkMode: darkMode, solidColorMode: solidColorMode)
         addSubview(tempInput)
@@ -50,8 +48,11 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
         languagePicker.translatesAutoresizingMaskIntoConstraints = false
         languagePicker.delegate = self
         languagePicker.dataSource = self
-        let currentItemIndex = languages.index(of: DJLipikaUserSettings.scriptName())
+        let currentItemIndex = languages.index(where: {$0.0 == (DJLipikaUserSettings.schemeType() == DJ_LIPIKA ? DJLipikaUserSettings.scriptName() : DJLipikaUserSettings.customSchemeName())})
         languagePicker.selectItem(currentItemIndex ?? 0)
+        if currentItemIndex == nil {
+            selectLanguage(index: 0)
+        }
         languagePicker.reloadData()
         self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tempInput, attribute: NSLayoutAttribute.right, multiplier: 1, constant: CGFloat(8.0)))
@@ -69,11 +70,21 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: AKPickerView, titleForItem item: Int) -> String {
-        return languages[item]
+        return languages[item].0
     }
     
     func pickerView(_ pickerView: AKPickerView, didSelectItem item: Int) {
-        manager.changeToScheme(withName: DJLipikaUserSettings.schemeName(), forScript: languages[item], type: DJ_LIPIKA)
-        DJLipikaUserSettings.setScriptName(languages[item])
+        selectLanguage(index: item)
+    }
+
+    func selectLanguage(index: Int) {
+        if languages[index].1 == DJ_LIPIKA {
+            manager.changeToLipikaScheme(withName: DJLipikaUserSettings.schemeName(), forScript: languages[index].0)
+        }
+        else {
+            manager.changeToCustomScheme(withName: languages[index].0)
+        }
+        DJLipikaUserSettings.setCustomSchemeName(languages[index].0)
+        DJLipikaUserSettings.setSchemeType(languages[index].1)
     }
 }

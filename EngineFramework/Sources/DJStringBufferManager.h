@@ -16,7 +16,8 @@
     NSString *replacement;
 }
 
--(void)changeToSchemeWithName:(NSString *)schemeName forScript:(NSString *)scriptName type:(enum DJSchemeType)type;
+-(void)changeToLipikaSchemeWithName:(NSString *)schemeName forScript:(NSString *)scriptName;
+-(void)changeToCustomSchemeWithName:(NSString *)schemeName;
 -(NSString *)outputForInput:(NSString *)string;
 -(NSString *)outputForInput:(NSString *)string previousText:(NSString *)previousText;
 -(BOOL)hasDeletable;

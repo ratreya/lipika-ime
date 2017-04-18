@@ -16,9 +16,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
-        // Setup User Defaults
-        LipikaBoardSettings.registerLanguages()
-
         super.viewDidLoad()
         tableView.register(SupportCellView.self, forCellReuseIdentifier: "Introduction")
         tableView.register(SchemeTableViewCell.self, forCellReuseIdentifier: "SchemeSelection")
@@ -137,13 +134,13 @@ class SupportCellView: UITableViewCell {
 class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
     var schemePicker: UIPickerView
     var longLabel: UITextView
-
     let kSchemeNameKey = "SchemeName"
-    let availableSchemes = LipikaBoardSettings.getFullSchemesList()
+    let availableSchemes: [String]
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         longLabel = UITextView()
         schemePicker = UIPickerView()
+        availableSchemes = LipikaBoardSettings.getSchemes()!
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -193,14 +190,30 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     }
 }
 
+extension UIFont {
+    func withTraits(traits:UIFontDescriptorSymbolicTraits) -> UIFont {
+        let descriptor = fontDescriptor.withSymbolicTraits(traits)
+        return UIFont(descriptor: descriptor!, size: 0) //size 0 means keep size as it is
+    }
+    func bold() -> UIFont {
+        return withTraits(traits: .traitBold)
+    }
+    
+    func italic() -> UIFont {
+        return withTraits(traits: .traitItalic)
+    }
+}
+
 class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     var languageList: UITableView
     var longLabel: UITextView
-    var languages =  LipikaBoardSettings.getLanguages()
+    var languages: [(String, Bool, DJSchemeType)]
+    let settings = LipikaBoardSettings()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         longLabel = UITextView()
         languageList = UITableView()
+        languages =  LipikaBoardSettings.getLanguages()
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -230,6 +243,12 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
         self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
+            _ in
+            self.languages = LipikaBoardSettings.getLanguages()
+            self.languageList.reloadData()
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -247,6 +266,10 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Language", for: indexPath)
         cell.textLabel?.text = languages[indexPath.row].0
+        if languages[indexPath.row].2 == DJ_GOOGLE {
+            cell.textLabel?.font = cell.textLabel?.font.italic()
+            cell.textLabel?.textColor = UIColor.purple
+        }
         cell.textLabel?.isEnabled = languages[indexPath.row].1
         cell.showsReorderControl = true
         return cell
@@ -259,6 +282,7 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let element = languages.remove(at: sourceIndexPath.row)
         languages.insert(element, at: destinationIndexPath.row)
+        LipikaBoardSettings.storeLanguages(languages)
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -273,7 +297,7 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
                 languages[indexPath.row].1 = true
             }
             tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
-            LipikaBoardSettings.storeLanguages(languages: languages)
+            LipikaBoardSettings.storeLanguages(languages)
         }
     }
 

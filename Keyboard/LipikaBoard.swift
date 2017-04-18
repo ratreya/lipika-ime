@@ -15,6 +15,16 @@ class LipikaBoard: KeyboardViewController {
     var banner: LipikaBanner?
     var edgeCase = false
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        // Setup User Defaults
+        LipikaBoardSettings.register()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func createBanner() -> ExtraView? {
         banner = LipikaBanner(globalColors: type(of: self).globalColors, darkMode: false, solidColorMode: self.solidColorMode(), inputManager: manager)
         return banner
