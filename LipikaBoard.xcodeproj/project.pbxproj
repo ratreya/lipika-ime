@@ -56,6 +56,11 @@
 		A58D14651E86F13E00B0A9B9 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F71E84D0050052B73C /* Schemes */; };
 		A59163451E7F7BA30031ECDD /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
 		A5A57E0C1E9154B3000C9203 /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */; };
+		A5CA5F1F1EAC662D0056E66A /* Lipika-320.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222941EA7180B00546604 /* Lipika-320.png */; };
+		A5CA5F201EAC662D0056E66A /* Lipika-320@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222951EA7180B00546604 /* Lipika-320@2x.png */; };
+		A5CA5F211EAC662D0056E66A /* Lipika-64.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222961EA7180B00546604 /* Lipika-64.png */; };
+		A5CA5F221EAC662D0056E66A /* Lipika-64@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222971EA7180B00546604 /* Lipika-64@2x.png */; };
+		A5CA5F251EAC6CA10056E66A /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
 		A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */; };
 		A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE88251E7F5E1800A70B6F /* ViewController.swift */; };
 		A5D036031EA2D47400BA2F07 /* CustomScheme.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5D035F91EA2D47400BA2F07 /* CustomScheme.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -66,10 +71,6 @@
 		A5F222851EA714F300546604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D01E876F0700D0365F /* Images.xcassets */; };
 		A5F222901EA717D300546604 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5F2228A1EA717D300546604 /* MainInterface.storyboard */; };
 		A5F222921EA717D300546604 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F2228F1EA717D300546604 /* ShareViewController.swift */; };
-		A5F222981EA7180B00546604 /* Lipika-320.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222941EA7180B00546604 /* Lipika-320.png */; };
-		A5F222991EA7180B00546604 /* Lipika-320@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222951EA7180B00546604 /* Lipika-320@2x.png */; };
-		A5F2229A1EA7180B00546604 /* Lipika-64.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222961EA7180B00546604 /* Lipika-64.png */; };
-		A5F2229B1EA7180B00546604 /* Lipika-64@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5F222971EA7180B00546604 /* Lipika-64@2x.png */; };
 		A5FC194F1E837AC70014F61F /* LipikaBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC194E1E837AC70014F61F /* LipikaBoard.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,13 @@
 			remoteInfo = Keyboard;
 		};
 		A59163431E7F7B9D0031ECDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A51F68541E7F5D260075EC06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A51E2A461E7F78C500CCAB34;
+			remoteInfo = LipikaEngine;
+		};
+		A5CA5F231EAC6C9A0056E66A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A51F68541E7F5D260075EC06 /* Project object */;
 			proxyType = 1;
@@ -237,6 +245,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5CA5F251EAC6CA10056E66A /* LipikaEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +601,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A5CA5F241EAC6C9A0056E66A /* PBXTargetDependency */,
 				A5130E071E7F63CE002E049C /* PBXTargetDependency */,
 				A5D036021EA2D47400BA2F07 /* PBXTargetDependency */,
 			);
@@ -705,6 +715,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5CA5F1F1EAC662D0056E66A /* Lipika-320.png in Resources */,
+				A5CA5F201EAC662D0056E66A /* Lipika-320@2x.png in Resources */,
+				A5CA5F211EAC662D0056E66A /* Lipika-64.png in Resources */,
+				A5CA5F221EAC662D0056E66A /* Lipika-64@2x.png in Resources */,
 				A52B94721EAAA4E4008587C6 /* UserSettings.plist in Resources */,
 				A5E561DA1E876F5B00D0365F /* LaunchScreen.storyboard in Resources */,
 				A5E561DB1E876F5B00D0365F /* Main.storyboard in Resources */,
@@ -717,10 +731,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5F222851EA714F300546604 /* Images.xcassets in Resources */,
-				A5F222981EA7180B00546604 /* Lipika-320.png in Resources */,
-				A5F222991EA7180B00546604 /* Lipika-320@2x.png in Resources */,
-				A5F2229A1EA7180B00546604 /* Lipika-64.png in Resources */,
-				A5F2229B1EA7180B00546604 /* Lipika-64@2x.png in Resources */,
 				A5F222901EA717D300546604 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -813,6 +823,11 @@
 			isa = PBXTargetDependency;
 			target = A51E2A461E7F78C500CCAB34 /* LipikaEngine */;
 			targetProxy = A59163431E7F7B9D0031ECDD /* PBXContainerItemProxy */;
+		};
+		A5CA5F241EAC6C9A0056E66A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A51E2A461E7F78C500CCAB34 /* LipikaEngine */;
+			targetProxy = A5CA5F231EAC6C9A0056E66A /* PBXContainerItemProxy */;
 		};
 		A5D036021EA2D47400BA2F07 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

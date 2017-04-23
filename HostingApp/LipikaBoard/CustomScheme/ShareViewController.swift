@@ -23,12 +23,25 @@ class ShareViewController: SLComposeServiceViewController {
         if provider.hasItemConformingToTypeIdentifier(kUTTypeText as String) {
             DispatchQueue.global().async {
                 provider.loadItem(forTypeIdentifier: kUTTypeText as String, options: nil) {
-                    (txtProvider, error) in
+                    (provider, error) in
                     if let error = error {
                         print("Error loading from provider: \(error.localizedDescription)")
                         return
                     }
-                    self.schemeData = txtProvider as? String
+                    if let txtProvider = provider as? String {
+                        self.schemeData = txtProvider
+                    }
+                    else if let urlProvider = provider as? URL {
+                        do {
+                            try self.schemeData = String(contentsOf: urlProvider, encoding: String.Encoding.utf8)
+                        }
+                        catch let error {
+                            print("Error reading file \(urlProvider) due to \(error)")
+                        }
+                    }
+                    else {
+                        assert(false, "Provider: \(String(describing: provider)) is of unknown type")
+                    }
                     // #2: after loading, callback
                     self.schemeDataDidLoad()
                 }

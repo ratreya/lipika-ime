@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.6.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -74,7 +74,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.plain-text</string>
+				<string>public.text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LipikaBoard Custom Scheme</string>

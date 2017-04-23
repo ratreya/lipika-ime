@@ -14,35 +14,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        // Setup User Defaults
+        LipikaBoardSettings.register()
+        if loadAttachment(url) {
+            // This will make the viewController reload the list and show the latest scheme that we just added
+            NotificationCenter.default.post(Notification(name: Notification.Name.UIApplicationWillEnterForeground))
+        }
+        else {
+            return false
+        }
+        return true
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Setup User Defaults
         LipikaBoardSettings.register()
+        if let url = launchOptions?[.url] as? URL {
+            _ = loadAttachment(url)
+        }
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    private func loadAttachment(_ url: URL) -> Bool {
+        do {
+            let schemeData = try String.init(contentsOf: url)
+            let customScheme = DJGoogleSchemeFactory.init(schemeData: schemeData).scheme() as? DJGoogleInputScheme
+            if customScheme == nil {
+                return false
+            }
+            let customSchemeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: LipikaBoardSettings.kAppGroupName)!
+            let filePath = customSchemeURL.appendingPathComponent(customScheme!.name).appendingPathExtension("scm").path
+            if !FileManager.default.createFile(atPath: filePath, contents: schemeData.data(using: String.Encoding.utf8)) {
+                assert(false, "Unable to write custom file to path \(filePath)")
+                return false
+            }
+            var currentScripts = LipikaBoardSettings.getLanguages()
+            let index = currentScripts.index(where: {$0.0 == customScheme!.name})
+            if index == nil {
+                currentScripts.insert((customScheme!.name, true, DJ_GOOGLE), at: 0)
+                LipikaBoardSettings.storeLanguages(currentScripts)
+            }
+        }
+        catch let error {
+            print("Error loading from provider: \(error.localizedDescription)")
+            return false
+        }
+        return true
     }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-
 }
-

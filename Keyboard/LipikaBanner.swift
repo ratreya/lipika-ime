@@ -48,11 +48,14 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
         languagePicker.translatesAutoresizingMaskIntoConstraints = false
         languagePicker.delegate = self
         languagePicker.dataSource = self
-        let currentItemIndex = languages.index(where: {$0.0 == (DJLipikaUserSettings.schemeType() == DJ_LIPIKA ? DJLipikaUserSettings.scriptName() : DJLipikaUserSettings.customSchemeName())})
-        languagePicker.selectItem(currentItemIndex ?? 0)
+        let currentName = DJLipikaUserSettings.schemeType() == DJ_LIPIKA ? DJLipikaUserSettings.scriptName() : DJLipikaUserSettings.customSchemeName()
+        var currentItemIndex = languages.index(where: {$0.0 == currentName})
         if currentItemIndex == nil {
+            print("Unable to find language: \(currentName ?? "nil") in language list. Defaulting to first language.")
+            currentItemIndex = 0
             selectLanguage(index: 0)
         }
+        languagePicker.selectItem(currentItemIndex!)
         languagePicker.reloadData()
         self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tempInput, attribute: NSLayoutAttribute.right, multiplier: 1, constant: CGFloat(8.0)))
@@ -80,11 +83,12 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     func selectLanguage(index: Int) {
         if languages[index].1 == DJ_LIPIKA {
             manager.changeToLipikaScheme(withName: DJLipikaUserSettings.schemeName(), forScript: languages[index].0)
+            DJLipikaUserSettings.setScriptName(languages[index].0)
         }
         else {
             manager.changeToCustomScheme(withName: languages[index].0)
+            DJLipikaUserSettings.setCustomSchemeName(languages[index].0)
         }
-        DJLipikaUserSettings.setCustomSchemeName(languages[index].0)
         DJLipikaUserSettings.setSchemeType(languages[index].1)
     }
 }
