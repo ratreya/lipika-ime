@@ -4,6 +4,26 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>Lipika-320</string>
+				<string>Lipika-64</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>LipikaBoard Custom Scheme</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.daivajnanam.LipikaBoard.scm</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -49,26 +69,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array>
-				<string>Lipika-320</string>
-				<string>Lipika-64</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>LipikaBoard Custom Scheme</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>com.daivajnanam.LipikaBoard.scm</string>
-			</array>
-		</dict>
-	</array>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -80,6 +80,10 @@
 			<string>LipikaBoard Custom Scheme</string>
 			<key>UTTypeIdentifier</key>
 			<string>com.daivajnanam.LipikaBoard.scm</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>Lipika-320</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>Lipika-64</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

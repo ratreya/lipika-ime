@@ -131,7 +131,6 @@
 		A50B31D61E95FB6D004A9F6D /* LipikaBoardSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBoardSettings.swift; sourceTree = "<group>"; };
 		A5130E011E7F63CE002E049C /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5130E051E7F63CE002E049C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A518E2321E94739C0079B246 /* LipikaBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaBoard.entitlements; sourceTree = SOURCE_ROOT; };
 		A518E2331E94742E0079B246 /* Keyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Keyboard.entitlements; sourceTree = "<group>"; };
 		A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LipikaEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A51E2ABB1E7F79CC00CCAB34 /* DJActiveBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJActiveBufferManager.h; sourceTree = "<group>"; };
@@ -181,6 +180,7 @@
 		A51E2B1C1E7F7A5A00CCAB34 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EngineFramework/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		A51F685C1E7F5D260075EC06 /* LipikaBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A52B94701EAA6C98008587C6 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "App-Bridging-Header.h"; path = "HostingApp/LipikaBoard/App-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		A53130DC1EAFBB29009FD56F /* LipikaBoard.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = LipikaBoard.entitlements; path = HostingApp/LipikaBoard/LipikaBoard.entitlements; sourceTree = SOURCE_ROOT; };
 		A55228B81E7F8E0600B2E0AA /* Keyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Keyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		A5810BCB1E7F747300759112 /* CatboardBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CatboardBanner.swift; path = TastyImitationKeyboard/Keyboard/CatboardBanner.swift; sourceTree = SOURCE_ROOT; };
 		A5810BCC1E7F747300759112 /* DefaultKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultKeyboard.swift; path = TastyImitationKeyboard/Keyboard/DefaultKeyboard.swift; sourceTree = SOURCE_ROOT; };
@@ -405,7 +405,6 @@
 		A51F685E1E7F5D260075EC06 /* LipikaBoard */ = {
 			isa = PBXGroup;
 			children = (
-				A518E2321E94739C0079B246 /* LipikaBoard.entitlements */,
 				A5E561CF1E876ED900D0365F /* Resources */,
 				A5810BEB1E7F748E00759112 /* Sources */,
 			);
@@ -448,6 +447,7 @@
 		A5E561CF1E876ED900D0365F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A53130DC1EAFBB29009FD56F /* LipikaBoard.entitlements */,
 				A5E561D11E876F0700D0365F /* Info.plist */,
 				A58CA4D31E949D4900F8897F /* UserSettings.plist */,
 				A5E561D01E876F0700D0365F /* Images.xcassets */,
@@ -1048,7 +1048,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = LipikaBoard.entitlements;
+				CODE_SIGN_ENTITLEMENTS = HostingApp/LipikaBoard/LipikaBoard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				INFOPLIST_FILE = "$(SRCROOT)/HostingApp/LipikaBoard/Info.plist";
@@ -1069,7 +1069,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = LipikaBoard.entitlements;
+				CODE_SIGN_ENTITLEMENTS = HostingApp/LipikaBoard/LipikaBoard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				INFOPLIST_FILE = "$(SRCROOT)/HostingApp/LipikaBoard/Info.plist";
