@@ -191,16 +191,14 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
 }
 
 extension UIFont {
-    func withTraits(traits:UIFontDescriptorSymbolicTraits) -> UIFont {
-        let descriptor = fontDescriptor.withSymbolicTraits(traits)
+    func italic() -> UIFont {
+        let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic)
         return UIFont(descriptor: descriptor!, size: 0) //size 0 means keep size as it is
     }
-    func bold() -> UIFont {
-        return withTraits(traits: .traitBold)
-    }
-    
-    func italic() -> UIFont {
-        return withTraits(traits: .traitItalic)
+
+    func regular() -> UIFont {
+        let descriptor = fontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits())
+        return UIFont(descriptor: descriptor!, size: 0) //size 0 means keep size as it is
     }
 }
 
@@ -269,6 +267,10 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
         if languages[indexPath.row].2 == DJ_GOOGLE {
             cell.textLabel?.font = cell.textLabel?.font.italic()
             cell.textLabel?.textColor = UIColor.purple
+        }
+        else {
+            cell.textLabel?.font = cell.textLabel?.font.regular()
+            cell.textLabel?.textColor = UIColor.black
         }
         cell.textLabel?.isEnabled = languages[indexPath.row].1
         cell.showsReorderControl = true
