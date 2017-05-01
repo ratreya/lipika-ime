@@ -81,14 +81,17 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     }
 
     func selectLanguage(index: Int) {
-        if languages[index].1 == DJ_LIPIKA {
-            manager.changeToLipikaScheme(withName: DJLipikaUserSettings.schemeName(), forScript: languages[index].0)
-            DJLipikaUserSettings.setScriptName(languages[index].0)
+        let queue = DispatchQueue(label: "com.daivajnanam.LipikaBoard.LanguageDispatch")
+        queue.async {
+            if self.languages[index].1 == DJ_LIPIKA {
+                self.manager.changeToLipikaScheme(withName: DJLipikaUserSettings.schemeName(), forScript: self.languages[index].0)
+                DJLipikaUserSettings.setScriptName(self.languages[index].0)
+            }
+            else {
+                self.manager.changeToCustomScheme(withName: self.languages[index].0)
+                DJLipikaUserSettings.setCustomSchemeName(self.languages[index].0)
+            }
+            DJLipikaUserSettings.setSchemeType(self.languages[index].1)
         }
-        else {
-            manager.changeToCustomScheme(withName: languages[index].0)
-            DJLipikaUserSettings.setCustomSchemeName(languages[index].0)
-        }
-        DJLipikaUserSettings.setSchemeType(languages[index].1)
     }
 }

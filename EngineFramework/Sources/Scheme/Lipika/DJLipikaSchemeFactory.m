@@ -59,7 +59,6 @@ static NSString *schemesDirectory;
     }
 }
 
-// Used for testing only
 +(void)setSchemesDirectory:(NSString *)directory {
     schemesDirectory = directory;
 }

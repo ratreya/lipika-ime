@@ -13,6 +13,7 @@
     DJLipikaInputScheme *scheme;
 }
 
++(void)setSchemesDirectory:(NSString *)directory;
 +(DJLipikaInputScheme *)inputSchemeForScript:script scheme:scheme;
 +(NSArray *)availableScripts;
 +(NSArray *)availableSchemes;

@@ -21,5 +21,8 @@
 }
 
 -(id)initWithSchemeTable:(NSDictionary *)schemeTable scriptTable:(NSDictionary *)scriptTable imeLines:(NSArray *)imeLines;
+-(NSDictionary *)schemeTable;
+-(NSDictionary *)scriptTable;
+-(NSDictionary *)validKeys;
 
 @end

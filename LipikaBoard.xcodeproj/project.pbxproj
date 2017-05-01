@@ -53,6 +53,7 @@
 		A5810BF21E7F74CC00759112 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5810BF01E7F74CC00759112 /* Media.xcassets */; };
 		A5810BF51E7F752800759112 /* Catboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5810BF41E7F752800759112 /* Catboard.swift */; };
 		A586EB3E1E902DEB00B40872 /* LipikaBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */; };
+		A589557F1EB62CC6006E84E9 /* MappingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A589557E1EB62CC6006E84E9 /* MappingsController.swift */; };
 		A58D14651E86F13E00B0A9B9 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5D985F71E84D0050052B73C /* Schemes */; };
 		A59163451E7F7BA30031ECDD /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A51E2A471E7F78C500CCAB34 /* LipikaEngine.framework */; };
 		A5A57E0C1E9154B3000C9203 /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */; };
@@ -202,6 +203,7 @@
 		A5810BF01E7F74CC00759112 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = TastyImitationKeyboard/Keyboard/Media.xcassets; sourceTree = SOURCE_ROOT; };
 		A5810BF41E7F752800759112 /* Catboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Catboard.swift; path = TastyImitationKeyboard/Keyboard/Catboard.swift; sourceTree = SOURCE_ROOT; };
 		A586EB3D1E902DEB00B40872 /* LipikaBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBanner.swift; sourceTree = "<group>"; };
+		A589557E1EB62CC6006E84E9 /* MappingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MappingsController.swift; path = HostingApp/LipikaBoard/MappingsController.swift; sourceTree = SOURCE_ROOT; };
 		A58CA4D31E949D4900F8897F /* UserSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserSettings.plist; path = Common/Resources/UserSettings.plist; sourceTree = SOURCE_ROOT; };
 		A59163421E7F7AFA0031ECDD /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Common/Sources/Constants.h; sourceTree = SOURCE_ROOT; };
 		A5A57E0B1E9154B3000C9203 /* AKPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPickerView.swift; path = AKPickerView/AKPickerView/AKPickerView.swift; sourceTree = SOURCE_ROOT; };
@@ -416,6 +418,7 @@
 			children = (
 				A5CE88241E7F5E1800A70B6F /* AppDelegate.swift */,
 				A5CE88251E7F5E1800A70B6F /* ViewController.swift */,
+				A589557E1EB62CC6006E84E9 /* MappingsController.swift */,
 				A52B94701EAA6C98008587C6 /* App-Bridging-Header.h */,
 			);
 			name = Sources;
@@ -798,6 +801,7 @@
 			files = (
 				A5CE88271E7F5E1800A70B6F /* ViewController.swift in Sources */,
 				A5CE88261E7F5E1800A70B6F /* AppDelegate.swift in Sources */,
+				A589557F1EB62CC6006E84E9 /* MappingsController.swift in Sources */,
 				A50B31D71E95FB6D004A9F6D /* LipikaBoardSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

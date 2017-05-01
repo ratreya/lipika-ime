@@ -4,3 +4,5 @@
 
 #import "Constants.h"
 #import "DJGoogleSchemeFactory.h"
+#import "DJLipikaSchemeFactory.h"
+#import "DJLipikaUserSettings.h"

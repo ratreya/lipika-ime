@@ -150,6 +150,18 @@ static NSRegularExpression *addendumSubExpression;
     return self;
 }
 
+-(NSDictionary *)schemeTable {
+    return schemeTable;
+}
+
+-(NSDictionary *)scriptTable {
+    return scriptTable;
+}
+
+-(NSDictionary *)validKeys {
+    return validKeys;
+}
+
 -(void)postProcessResult:(DJParseOutput *)result withPreviousResult:(DJParseOutput *)previousResult {
     NSString *input = [previousResult.input stringByAppendingString:result.input];
     DJTrieNode *addNode = [addMapping nodeForKey:input];

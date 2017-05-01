@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         tableView.register(SupportCellView.self, forCellReuseIdentifier: "Introduction")
         tableView.register(SchemeTableViewCell.self, forCellReuseIdentifier: "SchemeSelection")
-        tableView.register(LanguageTableViewCell.self, forCellReuseIdentifier: "LanguageOrdering")
+        tableView.register(LanguageSelectionTableViewCell.self, forCellReuseIdentifier: "LanguageOrdering")
         tableView.allowsSelection = false
         tableView.estimatedRowHeight = 44
         tableView.delegate = self
@@ -61,33 +61,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return nil
     }
 
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if section == 2 {
+            if view.subviews.last is UIButton {
+                return
+            }
+            let editButton = UIButton(type: .system)
+            editButton.setTitle("Reorder", for: .normal)
+            editButton.addTarget(self, action: #selector(ViewController.editLanguageView(sender:)), for: UIControlEvents.primaryActionTriggered)
+            view.addSubview(editButton)
+            editButton.translatesAutoresizingMaskIntoConstraints = false
+            editButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+            editButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        }
+    }
+
+    func editLanguageView(sender: UIButton) {
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! LanguageSelectionTableViewCell
+        if cell.isReordering {
+            cell.isReordering = false
+            sender.setTitle("Reorder", for: .normal)
+        }
+        else {
+            cell.isReordering = true
+            sender.setTitle("Done", for: .normal)
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell? = nil
         
         switch indexPath.section {
         case 0:
             cell = tableView.dequeueReusableCell(withIdentifier: "Introduction")
-            var text:NSMutableAttributedString? = nil
-            switch indexPath.row {
-            case 0:
-                text = NSMutableAttributedString(string: "Go to Settings ⇒ General ⇒ Keyboard ⇒ Keyboards ⇒ Add New Keyboard... and add LipikaBoard.")
-                text!.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(6, 64))
-            case 1:
-                text = NSMutableAttributedString(string: "Then on any keyboard press and hold the globe button to select LipikaBoard.")
-                let attachment = NSTextAttachment()
-                attachment.image = #imageLiteral(resourceName: "Globe")
-                let ratio = attachment.image!.size.width / attachment.image!.size.height
-                attachment.bounds = CGRect(x: attachment.bounds.origin.x, y: attachment.bounds.origin.y - 2, width: ratio * fontSize, height: fontSize)
-                text!.replaceCharacters(in: NSMakeRange(40, 5), with: NSAttributedString(attachment: attachment))
-            case 2:
-                text = NSMutableAttributedString(string: "For futher assistance post in our User Group.")
-                let appLink = URL(string: "fb://group?id=1816932011905947")!
-                let webLink = URL(string: "https://facebook.com/groups/lipika.ime")!
-                text!.addAttribute(NSLinkAttributeName, value: UIApplication.shared.canOpenURL(appLink) ? appLink: webLink, range: NSMakeRange(34, 10))
-            default:
-                text = NSMutableAttributedString()
-            }
-            (cell as! SupportCellView).setSupportText(text!)
+            (cell as! SupportCellView).setupSupportText(indexPath.row)
         case 1:
             cell = tableView.dequeueReusableCell(withIdentifier: "SchemeSelection")
         case 2:
@@ -117,37 +124,52 @@ class SupportCellView: UITableViewCell {
         textView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textView)
 
-        self.addConstraint(NSLayoutConstraint(item: textView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: textView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
-        self.addConstraint(NSLayoutConstraint(item: textView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+        self.addConstraint(NSLayoutConstraint(item: textView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: textView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: textView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -margin))
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func setSupportText(_ text: NSMutableAttributedString) {
+    public func setupSupportText(_ row: Int) {
+        var text:NSMutableAttributedString? = nil
+        switch row {
+        case 0:
+            text = NSMutableAttributedString(string: "Go to Settings ⇒ General ⇒ Keyboard ⇒ Keyboards ⇒ Add New Keyboard... and add LipikaBoard.")
+            text!.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSMakeRange(6, 64))
+        case 1:
+            text = NSMutableAttributedString(string: "Then on any keyboard press and hold the globe button to select LipikaBoard.")
+            let attachment = NSTextAttachment()
+            attachment.image = #imageLiteral(resourceName: "Globe")
+            let ratio = attachment.image!.size.width / attachment.image!.size.height
+            attachment.bounds = CGRect(x: attachment.bounds.origin.x, y: attachment.bounds.origin.y - 2, width: ratio * fontSize, height: fontSize)
+            text!.replaceCharacters(in: NSMakeRange(40, 5), with: NSAttributedString(attachment: attachment))
+        case 2:
+            text = NSMutableAttributedString(string: "For futher assistance post in our User Group.")
+            let appLink = URL(string: "fb://group?id=1816932011905947")!
+            let webLink = URL(string: "https://facebook.com/groups/lipika.ime")!
+            text!.addAttribute(NSLinkAttributeName, value: UIApplication.shared.canOpenURL(appLink) ? appLink: webLink, range: NSMakeRange(34, 10))
+        default:
+            text = NSMutableAttributedString()
+        }
         textView.attributedText = text
     }
 }
 
 class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
-    var schemePicker: UIPickerView
-    var longLabel: UITextView
-    let kSchemeNameKey = "SchemeName"
-    let availableSchemes: [String]
+    let schemePicker = UIPickerView()
+    let longLabel = UITextView()
+    let availableSchemes = LipikaBoardSettings.getSchemes()!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        longLabel = UITextView()
-        schemePicker = UIPickerView()
-        availableSchemes = LipikaBoardSettings.getSchemes()!
-
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         schemePicker.delegate = self
         schemePicker.dataSource = self
         schemePicker.showsSelectionIndicator = true
-        let currentScheme = UserDefaults(suiteName: LipikaBoardSettings.kAppGroupName)?.string(forKey: kSchemeNameKey)
+        let currentScheme = DJLipikaUserSettings.schemeName()
         let index = availableSchemes.index(of: currentScheme!)
         schemePicker.selectRow(index!, inComponent: 0, animated: false)
         schemePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -159,14 +181,14 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
         longLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(longLabel)
 
-        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
-        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: schemePicker, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -margin))
         
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: schemePicker, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .top, relatedBy: .equal, toItem: schemePicker, attribute: .bottom, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -margin))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -186,44 +208,35 @@ class SchemeTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        UserDefaults(suiteName: LipikaBoardSettings.kAppGroupName)?.set(availableSchemes[row], forKey: kSchemeNameKey)
+        DJLipikaUserSettings.setSchemeName(availableSchemes[row])
     }
 }
 
-extension UIFont {
-    func italic() -> UIFont {
-        let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic)
-        return UIFont(descriptor: descriptor!, size: 0) //size 0 means keep size as it is
-    }
+class LanguageSelectionTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
+    let languagesView = UITableView()
+    let longLabel = UITextView()
+    var languages = LipikaBoardSettings.getLanguages()
 
-    func regular() -> UIFont {
-        let descriptor = fontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits())
-        return UIFont(descriptor: descriptor!, size: 0) //size 0 means keep size as it is
+    public var isReordering: Bool {
+        get {
+            return languagesView.isEditing
+        }
+        set(value) {
+            languagesView.isEditing = value
+            selectCurrentLanguage()
+        }
     }
-}
-
-class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
-    var languageList: UITableView
-    var longLabel: UITextView
-    var languages: [(String, Bool, DJSchemeType)]
-    let settings = LipikaBoardSettings()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        longLabel = UITextView()
-        languageList = UITableView()
-        languages =  LipikaBoardSettings.getLanguages()
-
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        languageList.estimatedRowHeight = 22
-        languageList.rowHeight = UITableViewAutomaticDimension
-        languageList.allowsSelection = false
-        languageList.dataSource = self
-        languageList.delegate = self
-        languageList.isEditing = true
-        languageList.translatesAutoresizingMaskIntoConstraints = false
-        languageList.register(UITableViewCell.self, forCellReuseIdentifier: "Language")
-        self.addSubview(languageList)
+        languagesView.dataSource = self
+        languagesView.delegate = self
+        languagesView.isScrollEnabled = false
+        languagesView.translatesAutoresizingMaskIntoConstraints = false
+        languagesView.register(UITableViewCell.self, forCellReuseIdentifier: "Language")
+        selectCurrentLanguage()
+        self.addSubview(languagesView)
 
         longLabel.text = "Select the list of languages to show and their ordering."
         longLabel.isScrollEnabled = false
@@ -231,26 +244,33 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
         longLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(longLabel)
 
-        languageList.isScrollEnabled = false
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: CGFloat(languages.count * 45)))
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
-        self.addConstraint(NSLayoutConstraint(item: languageList, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+        self.addConstraint(NSLayoutConstraint(item: languagesView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: CGFloat(languages.count * 45)))
+        self.addConstraint(NSLayoutConstraint(item: languagesView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: languagesView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: languagesView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -margin))
 
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: languageList, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: margin))
-        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: -margin))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .top, relatedBy: .equal, toItem: languagesView, attribute: .bottom, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: margin))
+        self.addConstraint(NSLayoutConstraint(item: longLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -margin))
 
+        // Need this because custom schemes may have been added when we were in the background
         NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
             _ in
             self.languages = LipikaBoardSettings.getLanguages()
-            self.languageList.reloadData()
+            self.languagesView.reloadData()
+            self.selectCurrentLanguage()
         }
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func selectCurrentLanguage() {
+        let currentScriptName = DJLipikaUserSettings.schemeType() == DJ_LIPIKA ? DJLipikaUserSettings.scriptName(): DJLipikaUserSettings.customSchemeName()
+        let currentIndex = languages.index(where: {$0.0 == currentScriptName})
+        languagesView.selectRow(at: IndexPath(row: currentIndex!, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -263,22 +283,22 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Language", for: indexPath)
-        cell.textLabel?.text = languages[indexPath.row].0
-        if languages[indexPath.row].2 == DJ_GOOGLE {
-            cell.textLabel?.font = cell.textLabel?.font.italic()
+        let language = languages[indexPath.row]
+        cell.textLabel?.text = language.0
+        cell.textLabel?.isEnabled = language.1
+        if language.2 == DJ_GOOGLE {
             cell.textLabel?.textColor = UIColor.purple
         }
         else {
-            cell.textLabel?.font = cell.textLabel?.font.regular()
             cell.textLabel?.textColor = UIColor.black
         }
-        cell.textLabel?.isEnabled = languages[indexPath.row].1
-        cell.showsReorderControl = true
-        return cell
-    }
+        let switchView = UISwitch()
+        switchView.isOn = language.1
+        switchView.addTarget(self, action: #selector(LanguageSelectionTableViewCell.languageSelectionChanged(sender:)), for: .valueChanged)
+        switchView.tag = indexPath.row
+        cell.accessoryView = switchView
 
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return cell
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -287,28 +307,37 @@ class LanguageTableViewCell: UITableViewCell, UITableViewDataSource, UITableView
         LipikaBoardSettings.storeLanguages(languages)
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        if editingStyle == UITableViewCellEditingStyle.delete {
-            if (cell?.textLabel?.isEnabled)! {
-                cell?.textLabel?.isEnabled = false
-                languages[indexPath.row].1 = false
-            }
-            else {
-                cell?.textLabel?.isEnabled = true
-                languages[indexPath.row].1 = true
-            }
-            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
-            LipikaBoardSettings.storeLanguages(languages)
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        // Disallow selecting disabled languages
+        if !languages[indexPath.row].1 {
+            return nil
         }
-    }
-
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        if languages[indexPath.row].1 {
-            return "Hide"
+        DJLipikaUserSettings.setSchemeType(languages[indexPath.row].2)
+        if languages[indexPath.row].2 == DJ_LIPIKA {
+            DJLipikaUserSettings.setScriptName(languages[indexPath.row].0)
         }
         else {
-            return "Show"
+            DJLipikaUserSettings.setCustomSchemeName(languages[indexPath.row].0)
         }
+        return indexPath
+    }
+
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+
+    func languageSelectionChanged(sender: UISwitch) {
+        let index = sender.tag
+        languages[index].1 = sender.isOn
+        languagesView.cellForRow(at: IndexPath(row: index, section: 0))?.textLabel?.isEnabled = sender.isOn
+        LipikaBoardSettings.storeLanguages(languages)
     }
 }

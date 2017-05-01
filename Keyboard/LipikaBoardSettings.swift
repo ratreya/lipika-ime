@@ -30,22 +30,6 @@ class LipikaBoardSettings {
         UserDefaults.init(suiteName: kAppGroupName)?.register(defaults: defaults!)
     }
 
-    private class func getKeyboardURL() -> URL? {
-        if Bundle.main.bundleIdentifier == "com.daivajnanam.LipikaBoard" {
-            return Bundle.main.bundleURL.appendingPathComponent("PlugIns/Keyboard.appex")
-        }
-        else if Bundle.main.bundleIdentifier == "com.daivajnanam.LipikaBoard.Keyboard" {
-            return Bundle.main.bundleURL
-        }
-        else if Bundle.main.bundleIdentifier == "com.daivajnanam.LipikaBoard.CustomScheme" {
-            return Bundle.main.bundleURL.deletingLastPathComponent().appendingPathComponent("Keyboard.appex")
-        }
-        else {
-            assert(false, "Unknown bundle identifier \(Bundle.main.bundleIdentifier ?? "unknown")")
-            return nil
-        }
-    }
-
     private class func getParentBundlePath() -> URL? {
         if Bundle.main.bundleIdentifier == "com.daivajnanam.LipikaBoard" {
             return Bundle.main.bundleURL
@@ -62,7 +46,7 @@ class LipikaBoardSettings {
     
     private class func getFullLanguageList() -> [(String, DJSchemeType)]? {
         var lipikaScripts: [String]?
-        let lipikaScriptsPath = getKeyboardURL()!.appendingPathComponent("Schemes/Script").path
+        let lipikaScriptsPath = getSchemesURL()!.appendingPathComponent("Script").path
         do {
             let files = try FileManager.default.contentsOfDirectory(atPath: lipikaScriptsPath)
             lipikaScripts = files.filter({$0.hasSuffix(".map")}).map({($0 as NSString).deletingPathExtension})
@@ -89,6 +73,22 @@ class LipikaBoardSettings {
         return response
     }
 
+    class func getSchemesURL() -> URL? {
+        if Bundle.main.bundleIdentifier == "com.daivajnanam.LipikaBoard" {
+            return Bundle.main.bundleURL.appendingPathComponent("PlugIns/Keyboard.appex/Schemes")
+        }
+        else if Bundle.main.bundleIdentifier == "com.daivajnanam.LipikaBoard.Keyboard" {
+            return Bundle.main.bundleURL.appendingPathComponent("Schemes")
+        }
+        else if Bundle.main.bundleIdentifier == "com.daivajnanam.LipikaBoard.CustomScheme" {
+            return Bundle.main.bundleURL.deletingLastPathComponent().appendingPathComponent("Keyboard.appex/Schemes")
+        }
+        else {
+            assert(false, "Unknown bundle identifier \(Bundle.main.bundleIdentifier ?? "unknown")")
+            return nil
+        }
+    }
+
     class func getLanguages() -> [(String, Bool, DJSchemeType)] {
         let defaults = UserDefaults.init(suiteName: kAppGroupName)
         let enabledList = defaults?.value(forKey: kLanguagesEnabledKey) as! [Bool]
@@ -109,7 +109,7 @@ class LipikaBoardSettings {
     }
 
     class func getSchemes() -> [String]? {
-        let path = getKeyboardURL()!.appendingPathComponent("Schemes/Transliteration").path
+        let path = getSchemesURL()!.appendingPathComponent("Transliteration").path
         do {
             let files = try FileManager.default.contentsOfDirectory(atPath: path)
             return files.filter({$0.hasSuffix(".tlr")}).map({($0 as NSString).deletingPathExtension})

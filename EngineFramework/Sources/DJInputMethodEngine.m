@@ -15,13 +15,14 @@
 
 @synthesize scheme;
 
-static NSMutableDictionary *schemesCache;
+static NSCache *schemesCache;
 
 +(void)initialize {
     static BOOL initialized = NO;
     if(!initialized) {
         initialized = YES;
-        schemesCache = [NSMutableDictionary dictionaryWithCapacity:0];
+        schemesCache = [[NSCache alloc] init];
+        [schemesCache setCountLimit: 3];
     }
 }
 

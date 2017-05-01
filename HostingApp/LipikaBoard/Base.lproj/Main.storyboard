@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AeS-6q-opq">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Introduction-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LipikaBoard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Introduction" id="BYZ-38-t0r" customClass="ViewController" customModule="LipikaBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -23,10 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NCb-Ee-BAd">
-                                <rect key="frame" x="20" y="20" width="374" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="6oA-Db-aAt">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="716"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <sections/>
                                     </tableView>
@@ -35,19 +34,65 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="NCb-Ee-BAd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="FAB-WS-zPI"/>
-                            <constraint firstItem="NCb-Ee-BAd" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="VnN-De-fHc"/>
-                            <constraint firstItem="NCb-Ee-BAd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fNw-jA-pS3"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="NCb-Ee-BAd" secondAttribute="bottom" id="lic-84-E5T"/>
+                            <constraint firstItem="NCb-Ee-BAd" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="VnN-De-fHc"/>
+                            <constraint firstItem="NCb-Ee-BAd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="beE-cg-TR6"/>
+                            <constraint firstItem="NCb-Ee-BAd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="fNw-jA-pS3"/>
+                            <constraint firstItem="NCb-Ee-BAd" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="lic-84-E5T"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Preferences" id="dJX-rL-8IK">
+                        <barButtonItem key="rightBarButtonItem" title="Mappings" id="Aqp-lM-SLT">
+                            <connections>
+                                <segue destination="yZy-Hn-lUf" kind="show" id="Hgw-eM-CVD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="6oA-Db-aAt" id="QXM-xn-He4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24.609375" y="35.13909224011713"/>
+            <point key="canvasLocation" x="866.66666666666674" y="33.423913043478265"/>
+        </scene>
+        <!--Mappings-->
+        <scene sceneID="iya-eI-7Sv">
+            <objects>
+                <tableViewController title="Mappings" id="yZy-Hn-lUf" customClass="MappingsController" customModule="LipikaBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="WQw-cG-suw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="yZy-Hn-lUf" id="PDc-Vb-6b0"/>
+                            <outlet property="delegate" destination="yZy-Hn-lUf" id="dpH-Ha-GnW"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="mappingsView" destination="WQw-cG-suw" id="jTx-F3-dlD"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qwl-D2-beS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="867" y="788"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sgP-86-0kU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AeS-6q-opq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="huc-bl-acZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4dJ-Jq-TRY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6oe-GS-WXo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="23" y="34"/>
         </scene>
     </scenes>
 </document>
