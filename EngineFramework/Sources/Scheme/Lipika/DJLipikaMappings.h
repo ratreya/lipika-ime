@@ -7,6 +7,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+#import "OrderedDictionary.h"
+
 @interface DJMap : NSObject {
     NSString *scheme;
     NSString *script;
@@ -21,8 +23,9 @@
 
 @interface DJLipikaMappings : NSObject {}
 
-+(NSDictionary *) mappingsForScriptName:(NSString *)scriptName schemeName:(NSString *)schemeName;
-+(void)storeMappings:(NSDictionary *)mappings scriptName:(NSString *)scriptName schemeName:(NSString *)schemeName;
++(OrderedDictionary *) mappingsForScriptName:(NSString *)scriptName schemeName:(NSString *)schemeName;
++(void)storeMappings:(OrderedDictionary *)mappings scriptName:(NSString *)scriptName schemeName:(NSString *)schemeName;
++(void)storeMappingsContent:(NSString *)mappings scriptName:(NSString *)scriptName schemeName:(NSString *)schemeName;
 +(double)fingerPrintForScript:(NSString *)scriptName scheme:(NSString *)schemeName;
 
 @end

@@ -87,7 +87,7 @@ static NSRegularExpression *addendumSubExpression;
     }
 }
 
--(id)initWithMappings:(NSDictionary *)aMappings imeLines:(NSArray *)imeLines {
+-(id)initWithMappings:(OrderedDictionary *)aMappings imeLines:(NSArray *)imeLines {
     self = [super init];
     if (self == nil) {
         return self;
@@ -140,7 +140,7 @@ static NSRegularExpression *addendumSubExpression;
     return self;
 }
 
--(NSDictionary *)mappings {
+-(OrderedDictionary *)mappings {
     return mappings;
 }
 

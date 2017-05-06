@@ -10,18 +10,19 @@
 #import "DJInputMethodScheme.h"
 #import "DJSimpleForwardMapping.h"
 #import "DJSimpleReverseMapping.h"
+#import "OrderedDictionary.h"
 
 @interface DJLipikaInputScheme : NSObject<DJInputMethodScheme> {
     DJSimpleForwardMapping *forwardMapping;
     DJSimpleReverseMapping *reverseMapping;
     DJReadWriteTrie *addMapping;
-    NSDictionary *mappings;
+    OrderedDictionary *mappings;
     double fingerprint;
 }
 
 @property double fingerprint;
 
 -(id)initWithMappings:(NSDictionary *)aMappings imeLines:(NSArray *)imeLines;
--(NSDictionary *)mappings;
+-(OrderedDictionary *)mappings;
 
 @end

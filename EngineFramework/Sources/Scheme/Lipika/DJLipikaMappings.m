@@ -55,7 +55,7 @@ static NSString *const kAppGroupName = @"group.LipikaBoard";
     }
 }
 
-+(NSDictionary *) mappingsForScriptName:(NSString *)scriptName schemeName:(NSString *)schemeName {
++(OrderedDictionary *) mappingsForScriptName:(NSString *)scriptName schemeName:(NSString *)schemeName {
     NSString *filePath = [self mappingFilePathForScriptName:scriptName schemeName:schemeName];
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         NSError *error;
@@ -64,16 +64,16 @@ static NSString *const kAppGroupName = @"group.LipikaBoard";
             logError(@"Unable to read mapping file: %@ due to %@", filePath, error.localizedDescription);
             return nil;
         }
-        NSMutableDictionary *mappings = [[NSMutableDictionary alloc] init];
+        OrderedDictionary *mappings = [[OrderedDictionary alloc] initWithCapacity:0];
         [[contents componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSArray *components = [obj componentsSeparatedByString:@"\t"];
             if (components.count != 4) {
                 logWarning(@"Ignoring line %@ as it does not have 4 components", obj);
             }
             else {
-                NSMutableDictionary *class = [mappings objectForKey:components[0]];
+                OrderedDictionary *class = [mappings objectForKey:components[0]];
                 if (!class) {
-                    class = [[NSMutableDictionary alloc] init];
+                    class = [[OrderedDictionary alloc] initWithCapacity:0];
                     [mappings setObject:class forKey:components[0]];
                 }
                 [class setObject: [[DJMap alloc] initWithScript:components[3] scheme:components[2]] forKey:components[1]];
@@ -84,15 +84,19 @@ static NSString *const kAppGroupName = @"group.LipikaBoard";
     return nil;
 }
 
-+(void)storeMappings:(NSDictionary *)mappings scriptName:(NSString *)scriptName schemeName:(NSString *)schemeName {
++(void)storeMappings:(OrderedDictionary *)mappings scriptName:(NSString *)scriptName schemeName:(NSString *)schemeName {
     NSMutableString *content = [[NSMutableString alloc] init];
-    for (NSString *type in mappings.keyEnumerator) {
-        NSDictionary * typeMap = [mappings objectForKey:type];
-        for (NSString *key in typeMap.keyEnumerator) {
+    for (NSString *type in mappings) {
+        OrderedDictionary * typeMap = [mappings objectForKey:type];
+        for (NSString *key in typeMap) {
             DJMap *map = [typeMap objectForKey:key];
             [content appendFormat:@"%@\t%@\t%@\t%@\n", type, key, map.scheme, map.script];
         }
     }
+    [self storeMappingsContent:content scriptName:scriptName schemeName:schemeName];
+}
+
++(void)storeMappingsContent:(NSString *)content scriptName:(NSString *)scriptName schemeName:(NSString *)schemeName {
     NSString *filePath = [self mappingFilePathForScriptName:scriptName schemeName:schemeName];
     NSError *error;
     [content writeToFile:filePath atomically:true encoding:NSUnicodeStringEncoding error:&error];

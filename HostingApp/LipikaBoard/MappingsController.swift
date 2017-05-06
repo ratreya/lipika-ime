@@ -11,12 +11,13 @@ import UIKit
 
 extension DJLipikaInputScheme {
     public func getMappings() -> [[String]]? {
-        let mappings = self.mappings() as! [String: [String:DJMap]]
+        let mappings = self.mappings()!
         var result: [[String]] = [[String]]()
-        for type in mappings.keys {
-            for key in mappings[type]!.keys {
-                if mappings[type]?[key] != nil {
-                    result.append([type, key, mappings[type]![key]!.scheme, mappings[type]![key]!.script])
+        for type in mappings.keyEnumerator() {
+            for key in (mappings.object(forKey: type) as! OrderedDictionary).keyEnumerator() {
+                let value = (mappings.object(forKey: type) as! OrderedDictionary).object(forKey: key) as? DJMap
+                if value != nil {
+                    result.append([type as! String, key as! String, value!.scheme, value!.script])
                 }
             }
         }
@@ -80,17 +81,10 @@ class MappingsController: UITableViewController, UITextViewDelegate {
     public func endEditMode(sender: UIBarButtonItem) {
         if sender.tag == 1 {
             // Save the changes
-            let lipikaMaps = mappings?.reduce([String:[String:DJMap]]()) {initial, delta in
-                var result = initial
-                if result[delta[0]] != nil {
-                    result[delta[0]]!.updateValue(DJMap(script: delta[3], scheme: delta[2]), forKey: delta[1])
-                }
-                else {
-                    result.updateValue([delta[1] : DJMap(script: delta[3], scheme: delta[2])], forKey: delta[0])
-                }
-                return result
+            let content = mappings?.reduce("") {initial, delta in
+                return initial?.appending("\(delta[0])\t\(delta[1])\t\(delta[2])\t\(delta[3])\n")
             }
-            DJLipikaMappings.store(lipikaMaps, scriptName: scriptName, schemeName: schemeName)
+            DJLipikaMappings.storeContent(content, scriptName: scriptName, schemeName: schemeName)
         }
         else {
             mappings = originalMappings

@@ -89,6 +89,8 @@
 		A5D635051877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
 		A5D6351D1877435B0048DAE5 /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* LipikaEngine.framework */; };
+		A5E315981EBE4E1100E1AE7E /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */; };
+		A5E315991EBE4E2900E1AE7E /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */; };
 		A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */; };
 		A5EDA4E3187F202700B58B8D /* DJStringBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */; };
 		A5F19397188F4D1100EBF6B3 /* DJLipikaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CF5950188F4B690093F016 /* DJLipikaHelper.m */; };
@@ -306,6 +308,8 @@
 		A5D635071877435B0048DAE5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5D635091877435B0048DAE5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		A5D635181877435B0048DAE5 /* LipikaEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
+		A5E315971EBE4E1100E1AE7E /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
 		A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJStringBufferManager.m; sourceTree = "<group>"; };
 		A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJStringBufferManager.h; sourceTree = "<group>"; };
 		A5FAF5AD1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.daivajnanam.LipikaIME; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -548,6 +552,8 @@
 		A5848D97187B201800EB6C46 /* Lipika */ = {
 			isa = PBXGroup;
 			children = (
+				A5E315971EBE4E1100E1AE7E /* OrderedDictionary.h */,
+				A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */,
 				A54CF18C1EBD49010005B0A5 /* DJLipikaMappings.h */,
 				A54CF18B1EBD49010005B0A5 /* DJLipikaMappings.m */,
 				A5848D98187B201800EB6C46 /* DJLipikaInputScheme.h */,
@@ -1052,6 +1058,7 @@
 				A5883E77187B551C00FFE7F6 /* main.m in Sources */,
 				A5883E78187B551C00FFE7F6 /* DJLipikaCandidates.m in Sources */,
 				A5883E79187B551C00FFE7F6 /* DJPreferenceController.m in Sources */,
+				A5E315981EBE4E1100E1AE7E /* OrderedDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1097,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5E315991EBE4E2900E1AE7E /* OrderedDictionary.m in Sources */,
 				A5F19397188F4D1100EBF6B3 /* DJLipikaHelper.m in Sources */,
 				A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */,
 				A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */,

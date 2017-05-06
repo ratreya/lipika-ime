@@ -1,6 +1,6 @@
 /*
  * LipikaIME is a user-configurable phonetic Input Method Engine for Mac OS X.
- * Copyright (C) 2013 Ranganath Atreya
+ * Copyright (C) 2017 Ranganath Atreya
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -12,6 +12,7 @@
 #import "DJLogger.h"
 #import "DJLipikaHelper.h"
 #import "DJLipikaMappings.h"
+#import "OrderedDictionary.h"
 
 @implementation DJLipikaSchemeFactory
 
@@ -119,10 +120,10 @@ static NSString *schemesDirectory;
         [NSException raise:@"Default IME not found in Schemes directory" format:@"Not found: %@", defaultImeFilePath];
     }
     NSArray *imeLines = nil;
-    NSDictionary *mappings = [DJLipikaMappings mappingsForScriptName:scriptName schemeName:schemeName];
+    OrderedDictionary *mappings = [DJLipikaMappings mappingsForScriptName:scriptName schemeName:schemeName];
     if (!mappings) {
         // parse script file
-        NSMutableDictionary *scriptMap;
+        OrderedDictionary *scriptMap;
         @try {
             NSString *scriptFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCRIPTSUBDIR] stringByAppendingPathComponent:scriptName] stringByAppendingPathExtension:SCRIPTEXTENSION];
             logDebug(@"Parsing script file: %@", scriptFilePath);
@@ -133,7 +134,7 @@ static NSString *schemesDirectory;
             return nil;
         }
         // parse scheme file
-        NSMutableDictionary *schemeMap;
+        OrderedDictionary *schemeMap;
         @try {
             NSString *schemeFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCHEMESUBDIR] stringByAppendingPathComponent:schemeName] stringByAppendingPathExtension:SCHEMEEXTENSION];
             logDebug(@"Parsing scheme file: %@", schemeFilePath);
@@ -165,12 +166,14 @@ static NSString *schemesDirectory;
             [validKeys setObject:sortedValueKeys forKey:className];
         }
         // create a combined mapping
-        NSMutableDictionary *newMappings = [NSMutableDictionary dictionaryWithCapacity:validKeys.count];
-        for (NSString *class in validKeys) {
-            for (NSString *key in [validKeys objectForKey:class]) {
+        OrderedDictionary *newMappings = [OrderedDictionary dictionaryWithCapacity:validKeys.count];
+        for (NSString *class in scriptMap) {
+            for (NSString *key in [scriptMap objectForKey:class]) {
+                // We do it this way to preserve ordering of keys
+                if (![[validKeys objectForKey:class] containsObject:key]) continue;
                 DJMap * map = [[DJMap alloc] initWithScript:[[scriptMap objectForKey:class] objectForKey:key] scheme:[[schemeMap objectForKey:class] objectForKey:key]];
                 if (![newMappings objectForKey:class]) {
-                    [newMappings setObject:[[NSMutableDictionary alloc] init] forKey:class];
+                    [newMappings setObject:[[OrderedDictionary alloc] initWithCapacity:0] forKey:class];
                 }
                 [[newMappings objectForKey:class] setObject:map forKey:key];
             }
@@ -187,9 +190,9 @@ static NSString *schemesDirectory;
     return self;
 }
 
--(NSMutableDictionary *)tsvToDictionaryForFile:(NSString *)filePath dictionary:(NSMutableDictionary *)outerTable {
+-(OrderedDictionary *)tsvToDictionaryForFile:(NSString *)filePath dictionary:(OrderedDictionary *)outerTable {
     NSArray *linesOfScheme = linesOfFile(filePath);
-    if (!outerTable) outerTable = [NSMutableDictionary dictionaryWithCapacity:0];
+    if (!outerTable) outerTable = [OrderedDictionary dictionaryWithCapacity:0];
     for (NSString *line in linesOfScheme) {
         logDebug(@"Parsing line %@", line);
         if([line length] <=0 || isWhitespace(line)) {
@@ -205,7 +208,7 @@ static NSString *schemesDirectory;
             }
             NSMutableDictionary *innerTable = [outerTable objectForKey:one];
             if (!innerTable) {
-                innerTable = [NSMutableDictionary dictionaryWithCapacity:0];
+                innerTable = [OrderedDictionary dictionaryWithCapacity:0];
                 [outerTable setObject:innerTable forKey:one];
             }
             [innerTable setObject:three forKey:two];
@@ -217,7 +220,7 @@ static NSString *schemesDirectory;
     return outerTable;
 }
 
--(NSArray *)linesOfImeFile:(NSString *)filePath schemeTable:(NSMutableDictionary *)schemeTable scriptTable:(NSMutableDictionary *)scriptTable depth:(int)depth {
+-(NSArray *)linesOfImeFile:(NSString *)filePath schemeTable:(OrderedDictionary *)schemeTable scriptTable:(OrderedDictionary *)scriptTable depth:(int)depth {
     if (depth > 5) {
         logError(@"Stopped processing IME referrence at depth five for %@", filePath);
         return @[];

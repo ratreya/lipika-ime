@@ -29,6 +29,7 @@
 		A51E2B151E7F7A2F00CCAB34 /* DJLipikaUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2B0F1E7F7A2F00CCAB34 /* DJLipikaUserSettings.m */; };
 		A51E2B191E7F7A2F00CCAB34 /* DJLipikaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2B131E7F7A2F00CCAB34 /* DJLipikaHelper.m */; };
 		A51E2B1A1E7F7A2F00CCAB34 /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A51E2B141E7F7A2F00CCAB34 /* DJLogger.m */; };
+		A52703BC1EBE33E100C08080 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A52703BB1EBE33E100C08080 /* OrderedDictionary.m */; };
 		A52B94711EAA9E49008587C6 /* LipikaBoardSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B31D61E95FB6D004A9F6D /* LipikaBoardSettings.swift */; };
 		A52B94721EAAA4E4008587C6 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A58CA4D31E949D4900F8897F /* UserSettings.plist */; };
 		A52B94731EAAA7A3008587C6 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A58CA4D31E949D4900F8897F /* UserSettings.plist */; };
@@ -181,6 +182,8 @@
 		A51E2B141E7F7A2F00CCAB34 /* DJLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DJLogger.m; path = Common/Sources/DJLogger.m; sourceTree = SOURCE_ROOT; };
 		A51E2B1C1E7F7A5A00CCAB34 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EngineFramework/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		A51F685C1E7F5D260075EC06 /* LipikaBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A52703BA1EBE33A400C08080 /* OrderedDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
+		A52703BB1EBE33E100C08080 /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
 		A52B94701EAA6C98008587C6 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "App-Bridging-Header.h"; path = "HostingApp/LipikaBoard/App-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		A53130DC1EAFBB29009FD56F /* LipikaBoard.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = LipikaBoard.entitlements; path = HostingApp/LipikaBoard/LipikaBoard.entitlements; sourceTree = SOURCE_ROOT; };
 		A55228B81E7F8E0600B2E0AA /* Keyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Keyboard-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -349,6 +352,8 @@
 				A51E2ADE1E7F79CC00CCAB34 /* DJLipikaSchemeFactory.m */,
 				A5F5AFE11EBCC89200F379FC /* DJLipikaMappings.h */,
 				A5F5AFDF1EBCC87F00F379FC /* DJLipikaMappings.m */,
+				A52703BA1EBE33A400C08080 /* OrderedDictionary.h */,
+				A52703BB1EBE33E100C08080 /* OrderedDictionary.m */,
 			);
 			path = Lipika;
 			sourceTree = "<group>";
@@ -797,6 +802,7 @@
 				A51E2AEA1E7F79CC00CCAB34 /* DJStringBufferManager.m in Sources */,
 				A51E2AE81E7F79CC00CCAB34 /* DJInputMethodEngine.m in Sources */,
 				A51E2AF11E7F79CD00CCAB34 /* DJParseOutput.m in Sources */,
+				A52703BC1EBE33E100C08080 /* OrderedDictionary.m in Sources */,
 				A51E2B081E7F79CD00CCAB34 /* DJReadWriteTrie.m in Sources */,
 				A51E2B0A1E7F79CD00CCAB34 /* DJTrieNode.m in Sources */,
 			);
