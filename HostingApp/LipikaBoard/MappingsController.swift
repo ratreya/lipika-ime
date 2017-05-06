@@ -10,29 +10,28 @@
 import UIKit
 
 extension DJLipikaInputScheme {
-    public func getMappings() -> [(String, String, String, String)]? {
-        let schemeTable = self.schemeTable() as! [String: [String: String]]
-        let scriptTable = self.scriptTable() as! [String: [String: String]]
-        let validKeys = self.validKeys() as! [String: [String]]
-        var mappings: [(String, String, String, String)] = []
-        for type in validKeys.keys {
-            for key in validKeys[type]! {
-                if scriptTable[type]?[key] != nil {
-                    mappings.append((type, key, schemeTable[type]![key]!, scriptTable[type]![key]!))
+    public func getMappings() -> [[String]]? {
+        let mappings = self.mappings() as! [String: [String:DJMap]]
+        var result: [[String]] = [[String]]()
+        for type in mappings.keys {
+            for key in mappings[type]!.keys {
+                if mappings[type]?[key] != nil {
+                    result.append([type, key, mappings[type]![key]!.scheme, mappings[type]![key]!.script])
                 }
             }
         }
-        return mappings
+        return result
     }
 }
 
 var isInEditingMode = false
 
-class MappingsController: UITableViewController {
+class MappingsController: UITableViewController, UITextViewDelegate {
     @IBOutlet weak var mappingsView: UITableView!
     var scriptName = DJLipikaUserSettings.scriptName()
     var schemeName = DJLipikaUserSettings.schemeName()
-    var mappings: [(String, String, String, String)]?
+    var mappings: [[String]]?
+    var originalMappings: [[String]]?
     var oldLeftButton: UIBarButtonItem? = nil
     var oldRightButton: UIBarButtonItem? = nil
 
@@ -49,7 +48,8 @@ class MappingsController: UITableViewController {
             schemeName = DJLipikaUserSettings.schemeName()
             DJLipikaSchemeFactory.setSchemesDirectory(LipikaBoardSettings.getSchemesURL()?.path)
             let scheme = DJLipikaSchemeFactory.inputScheme(forScript: scriptName, scheme: schemeName)
-            mappings = scheme?.getMappings()
+            originalMappings = scheme?.getMappings()
+            mappings = originalMappings
         }
     }
     
@@ -59,28 +59,67 @@ class MappingsController: UITableViewController {
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Mapping", for: indexPath)
-        (cell as! MappingViewCell).setText(mappings![indexPath.row])
+        (cell as! MappingViewCell).setupCell(textValues: mappings![indexPath.row], controller: self)
+        cell.tag = indexPath.row
         return cell
     }
 
-    public func startEditMode() {
+    public func startEditMode(sender: UIBarButtonItem) {
         isInEditingMode = true
         oldLeftButton = navigationItem.leftBarButtonItem
         oldRightButton = navigationItem.rightBarButtonItem
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(MappingsController.endEditMode))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(MappingsController.endEditMode))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(MappingsController.endEditMode(sender:)))
+        navigationItem.rightBarButtonItem?.tag = 1
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(MappingsController.endEditMode(sender:)))
+        navigationItem.leftBarButtonItem?.tag = 2
         mappingsView.beginUpdates()
         mappingsView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .automatic)
         mappingsView.endUpdates()
     }
 
-    public func endEditMode() {
+    public func endEditMode(sender: UIBarButtonItem) {
+        if sender.tag == 1 {
+            // Save the changes
+            let lipikaMaps = mappings?.reduce([String:[String:DJMap]]()) {initial, delta in
+                var result = initial
+                if result[delta[0]] != nil {
+                    result[delta[0]]!.updateValue(DJMap(script: delta[3], scheme: delta[2]), forKey: delta[1])
+                }
+                else {
+                    result.updateValue([delta[1] : DJMap(script: delta[3], scheme: delta[2])], forKey: delta[0])
+                }
+                return result
+            }
+            DJLipikaMappings.store(lipikaMaps, scriptName: scriptName, schemeName: schemeName)
+        }
+        else {
+            mappings = originalMappings
+            tableView.reloadData()
+        }
         isInEditingMode = false
         navigationItem.leftBarButtonItem = oldLeftButton
         navigationItem.rightBarButtonItem = oldRightButton
         mappingsView.beginUpdates()
         mappingsView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .automatic)
         mappingsView.endUpdates()
+    }
+    
+    public func textViewDidChange(_ textView: UITextView) {
+        mappings![textView.superview!.tag][textView.tag] = textView.text
+    }
+    
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if textView.tag == 3 {
+            textView.toUnicodeHex()
+        }
+        return true
+    }
+    
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if textView.tag == 3 {
+            textView.toUnicodeChars()
+        }
+        return true
     }
 }
 
@@ -94,14 +133,13 @@ extension UITextView {
     }
 }
 
-class MappingViewCell: UITableViewCell, UITextViewDelegate {
+class MappingViewCell: UITableViewCell {
     var mappings: [UITextView] = [UITextView(), UITextView(), UITextView(), UITextView()]
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         for i in 0..<mappings.count {
             mappings[i].isScrollEnabled = false
-            mappings[i].delegate = self
             mappings[i].translatesAutoresizingMaskIntoConstraints = false
             mappings[i].tag = i
             mappings[i].isEditable = false
@@ -141,25 +179,11 @@ class MappingViewCell: UITableViewCell, UITextViewDelegate {
         setStyle()
     }
 
-    public func setText(_ text: (String, String, String, String)) {
-        mappings[0].text = text.0
-        mappings[1].text = text.1
-        mappings[2].text = text.2
-        mappings[3].text = text.3
+    public func setupCell(textValues: [String], controller: MappingsController) {
+        for i in 0..<4 {
+            mappings[i].text = textValues[i]
+            mappings[i].delegate = controller
+        }
         mappings[3].toUnicodeChars()
-    }
-
-    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if textView.tag == 3 {
-            textView.toUnicodeHex()
-        }
-        return true
-    }
-
-    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        if textView.tag == 3 {
-            textView.toUnicodeChars()
-        }
-        return true
     }
 }

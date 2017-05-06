@@ -11,6 +11,7 @@
 #import "DJSchemeHelper.h"
 #import "DJLogger.h"
 #import "DJLipikaHelper.h"
+#import "DJLipikaMappings.h"
 
 @implementation DJLipikaSchemeFactory
 
@@ -63,7 +64,7 @@ static NSString *schemesDirectory;
     schemesDirectory = directory;
 }
 
-+(DJLipikaInputScheme *)inputSchemeForScript:script scheme:scheme {
++(DJLipikaInputScheme *)inputSchemeForScript:(NSString *)script scheme:(NSString *)scheme {
     // Parse one file at a time
     @synchronized(self) {
         DJLipikaSchemeFactory *factory = [[DJLipikaSchemeFactory alloc] initWithScript:script scheme:scheme];
@@ -104,29 +105,7 @@ static NSString *schemesDirectory;
     if (self == nil) {
         return self;
     }
-    // 1. parse script file
-    NSMutableDictionary *scriptMap;
-    @try {
-        NSString *scriptFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCRIPTSUBDIR] stringByAppendingPathComponent:scriptName] stringByAppendingPathExtension:SCRIPTEXTENSION];
-        logDebug(@"Parsing script file: %@", scriptFilePath);
-        scriptMap = [self tsvToDictionaryForFile:scriptFilePath dictionary:nil];
-    }
-    @catch (NSException *exception) {
-        logFatal(@"Error parsing script file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
-        return nil;
-    }
-    // 2. parse scheme file
-    NSMutableDictionary *schemeMap;
-    @try {
-        NSString *schemeFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCHEMESUBDIR] stringByAppendingPathComponent:schemeName] stringByAppendingPathExtension:SCHEMEEXTENSION];
-        logDebug(@"Parsing scheme file: %@", schemeFilePath);
-        schemeMap = [self tsvToDictionaryForFile:schemeFilePath dictionary:nil];
-    }
-    @catch (NSException *exception) {
-        logFatal(@"Error parsing scheme file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
-        return nil;
-    }
-    // 3. look for a script-scheme specific ime; if not found revert to default
+    // look for a script-scheme specific ime; if not found revert to default
     NSString *specificImeFilePath = [[schemesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@", scriptName, schemeName]] stringByAppendingPathExtension:IMEEXTENSION];
     NSString *defaultImeFilePath = [[schemesDirectory stringByAppendingPathComponent:@"Default"] stringByAppendingPathExtension:IMEEXTENSION];
     NSString *imeFilePath;
@@ -139,16 +118,72 @@ static NSString *schemesDirectory;
     else {
         [NSException raise:@"Default IME not found in Schemes directory" format:@"Not found: %@", defaultImeFilePath];
     }
-    // 4. expand out any referrences in ime
-    @try {
-        logDebug(@"Parsing IME file: %@", imeFilePath);
-        NSArray *imeLines = [self linesOfImeFile:imeFilePath schemeTable:schemeMap scriptTable:scriptMap depth:1];
-        scheme = [[DJLipikaInputScheme alloc] initWithSchemeTable:schemeMap scriptTable:scriptMap imeLines:imeLines];
+    NSArray *imeLines = nil;
+    NSDictionary *mappings = [DJLipikaMappings mappingsForScriptName:scriptName schemeName:schemeName];
+    if (!mappings) {
+        // parse script file
+        NSMutableDictionary *scriptMap;
+        @try {
+            NSString *scriptFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCRIPTSUBDIR] stringByAppendingPathComponent:scriptName] stringByAppendingPathExtension:SCRIPTEXTENSION];
+            logDebug(@"Parsing script file: %@", scriptFilePath);
+            scriptMap = [self tsvToDictionaryForFile:scriptFilePath dictionary:nil];
+        }
+        @catch (NSException *exception) {
+            logFatal(@"Error parsing script file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
+            return nil;
+        }
+        // parse scheme file
+        NSMutableDictionary *schemeMap;
+        @try {
+            NSString *schemeFilePath = [[[schemesDirectory stringByAppendingPathComponent:SCHEMESUBDIR] stringByAppendingPathComponent:schemeName] stringByAppendingPathExtension:SCHEMEEXTENSION];
+            logDebug(@"Parsing scheme file: %@", schemeFilePath);
+            schemeMap = [self tsvToDictionaryForFile:schemeFilePath dictionary:nil];
+        }
+        @catch (NSException *exception) {
+            logFatal(@"Error parsing scheme file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
+            return nil;
+        }
+        // expand out any referrences in ime
+        @try {
+            logDebug(@"Parsing IME file: %@", imeFilePath);
+            imeLines = [self linesOfImeFile:imeFilePath schemeTable:schemeMap scriptTable:scriptMap depth:1];
+        }
+        @catch (NSException *exception) {
+            logFatal(@"Error parsing IME file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
+            return nil;
+        }
+        // figure out the common set of valid keys between the two tables and only use this set
+        NSMutableDictionary *validKeys = [NSMutableDictionary dictionaryWithCapacity:MAX(schemeMap.count, scriptMap.count)];
+        NSMutableSet *commonClasses = [NSMutableSet setWithArray:[schemeMap allKeys]];
+        NSSet *scriptClasses = [NSSet setWithArray:[scriptMap allKeys]];
+        [commonClasses intersectSet:scriptClasses];
+        for (NSString *className in commonClasses) {
+            NSMutableSet *commonValueKeys = [NSMutableSet setWithArray:[[schemeMap objectForKey:className] allKeys]];
+            NSSet *scriptValueKeys = [NSSet setWithArray:[[scriptMap objectForKey:className] allKeys]];
+            [commonValueKeys intersectSet:scriptValueKeys];
+            NSArray *sortedValueKeys = [[NSMutableArray arrayWithArray:[commonValueKeys allObjects]] sortedArrayUsingSelector:@selector(compare:)];
+            [validKeys setObject:sortedValueKeys forKey:className];
+        }
+        // create a combined mapping
+        NSMutableDictionary *newMappings = [NSMutableDictionary dictionaryWithCapacity:validKeys.count];
+        for (NSString *class in validKeys) {
+            for (NSString *key in [validKeys objectForKey:class]) {
+                DJMap * map = [[DJMap alloc] initWithScript:[[scriptMap objectForKey:class] objectForKey:key] scheme:[[schemeMap objectForKey:class] objectForKey:key]];
+                if (![newMappings objectForKey:class]) {
+                    [newMappings setObject:[[NSMutableDictionary alloc] init] forKey:class];
+                }
+                [[newMappings objectForKey:class] setObject:map forKey:key];
+            }
+        }
+        // write the mappings file
+        [DJLipikaMappings storeMappings:newMappings scriptName:scriptName schemeName:schemeName];
+        mappings = newMappings;
     }
-    @catch (NSException *exception) {
-        logFatal(@"Error parsing IME file for script: %@, scheme: %@ due to %@", scriptName, schemeName, [exception reason]);
-        return nil;
+    if (!imeLines) {
+        imeLines = [self linesOfImeFile:imeFilePath schemeTable:nil scriptTable:nil depth:1];
     }
+    scheme = [[DJLipikaInputScheme alloc] initWithMappings:mappings imeLines:imeLines];
+    scheme.fingerprint = [DJLipikaMappings fingerPrintForScript:scriptName scheme:schemeName];
     return self;
 }
 
@@ -184,7 +219,8 @@ static NSString *schemesDirectory;
 
 -(NSArray *)linesOfImeFile:(NSString *)filePath schemeTable:(NSMutableDictionary *)schemeTable scriptTable:(NSMutableDictionary *)scriptTable depth:(int)depth {
     if (depth > 5) {
-        [NSException raise:@"IME referrences depth greater than five" format:@"Terminating IME parsing at %@", filePath];
+        logError(@"Stopped processing IME referrence at depth five for %@", filePath);
+        return @[];
     }
     logDebug(@"Parsing IME file: %@", filePath);
     NSArray *lines = linesOfFile(filePath);
@@ -195,6 +231,7 @@ static NSString *schemesDirectory;
         }
         logDebug(@"Parsing line %@", line);
         if ([scriptOverrideExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
+            if (!scriptTable) continue;
             NSString *override = [scriptOverrideExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
             NSArray *scriptOverrides = csvToArrayForString(override);
             for (NSString *scriptOverride in scriptOverrides) {
@@ -204,6 +241,7 @@ static NSString *schemesDirectory;
             }
         }
         else if ([schemeOverrideExpression numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)]) {
+            if (!schemeTable) continue;
             NSString *override = [schemeOverrideExpression stringByReplacingMatchesInString:line options:0 range:NSMakeRange(0, line.length) withTemplate:@"$1"];
             NSArray *schemeOverrides = csvToArrayForString(override);
             for (NSString *schemeOverride in schemeOverrides) {

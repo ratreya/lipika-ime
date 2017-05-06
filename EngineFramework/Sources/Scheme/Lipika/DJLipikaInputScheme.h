@@ -15,14 +15,13 @@
     DJSimpleForwardMapping *forwardMapping;
     DJSimpleReverseMapping *reverseMapping;
     DJReadWriteTrie *addMapping;
-    NSDictionary *schemeTable;
-    NSDictionary *scriptTable;
-    NSMutableDictionary *validKeys;
+    NSDictionary *mappings;
+    double fingerprint;
 }
 
--(id)initWithSchemeTable:(NSDictionary *)schemeTable scriptTable:(NSDictionary *)scriptTable imeLines:(NSArray *)imeLines;
--(NSDictionary *)schemeTable;
--(NSDictionary *)scriptTable;
--(NSDictionary *)validKeys;
+@property double fingerprint;
+
+-(id)initWithMappings:(NSDictionary *)aMappings imeLines:(NSArray *)imeLines;
+-(NSDictionary *)mappings;
 
 @end

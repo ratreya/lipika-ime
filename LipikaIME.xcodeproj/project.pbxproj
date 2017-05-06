@@ -17,6 +17,7 @@
 		A54323541C4AC71000AC2129 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
 		A545F0311E8F3B0B001A3540 /* InstallProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A545F0301E8F3B0B001A3540 /* InstallProtocol.swift */; };
 		A545F0321E8F3F37001A3540 /* InstallProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A545F0301E8F3B0B001A3540 /* InstallProtocol.swift */; };
+		A54CF18E1EBD49230005B0A5 /* DJLipikaMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = A54CF18B1EBD49010005B0A5 /* DJLipikaMappings.m */; };
 		A55E73191E89D840004FF42A /* LipikaInputSource.app in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107320486CEB800E47090 /* LipikaInputSource.app */; };
 		A55E732C1E89F96C004FF42A /* DJClientManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */; };
 		A55E732D1E89F96C004FF42A /* DJFileConversionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A53013FB1955E1990012E017 /* DJFileConversionTest.m */; };
@@ -204,6 +205,8 @@
 		A54323521C4AC3F600AC2129 /* LipikaSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LipikaSchemes; sourceTree = "<group>"; };
 		A54323581C4ACABA00AC2129 /* CustomSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CustomSchemes; sourceTree = "<group>"; };
 		A545F0301E8F3B0B001A3540 /* InstallProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstallProtocol.swift; path = HostingApp/LipikaIME/InstallHelper/InstallProtocol.swift; sourceTree = SOURCE_ROOT; };
+		A54CF18B1EBD49010005B0A5 /* DJLipikaMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLipikaMappings.m; sourceTree = "<group>"; };
+		A54CF18C1EBD49010005B0A5 /* DJLipikaMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaMappings.h; sourceTree = "<group>"; };
 		A55E73221E89F93E004FF42A /* LipikaInputSourceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaInputSourceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A58373621E9011A800402A1A /* installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = installer; sourceTree = BUILT_PRODUCTS_DIR; };
 		A583F15C19525D8100A80B88 /* FileConversion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileConversion.xib; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 		A5848D97187B201800EB6C46 /* Lipika */ = {
 			isa = PBXGroup;
 			children = (
+				A54CF18C1EBD49010005B0A5 /* DJLipikaMappings.h */,
+				A54CF18B1EBD49010005B0A5 /* DJLipikaMappings.m */,
 				A5848D98187B201800EB6C46 /* DJLipikaInputScheme.h */,
 				A5848D99187B201800EB6C46 /* DJLipikaInputScheme.m */,
 				A5848D9A187B201800EB6C46 /* DJLipikaSchemeFactory.h */,
@@ -915,7 +920,7 @@
 			attributes = {
 				CLASSPREFIX = DJ;
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = com.daivajnanam;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
@@ -1088,6 +1093,7 @@
 				A5F19397188F4D1100EBF6B3 /* DJLipikaHelper.m in Sources */,
 				A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */,
 				A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */,
+				A54CF18E1EBD49230005B0A5 /* DJLipikaMappings.m in Sources */,
 				A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */,
 				A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */,
 				A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */,
@@ -1426,7 +1432,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -1475,7 +1481,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.2;

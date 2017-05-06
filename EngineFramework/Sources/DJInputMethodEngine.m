@@ -10,6 +10,7 @@
 #import "DJInputMethodEngine.h"
 #import "DJInputSchemeFactory.h"
 #import "DJSchemeHelper.h"
+#import "DJLipikaMappings.h"
 
 @implementation DJInputMethodEngine
 
@@ -32,7 +33,7 @@ static NSCache *schemesCache;
     @synchronized(schemesCache) {
         NSString *key = [NSString stringWithFormat:@"%@-%@-%u", scriptName, schemeName, type];
         scheme = [schemesCache objectForKey:key];
-        if (scheme == nil) {
+        if (scheme == nil || scheme.fingerprint != [DJLipikaMappings fingerPrintForScript:scriptName scheme:schemeName]) {
             scheme = [DJInputSchemeFactory inputSchemeForScript:scriptName scheme:schemeName type:type];
             if (scheme == nil) {
                 [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, type];

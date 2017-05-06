@@ -14,7 +14,7 @@
 }
 
 +(void)setSchemesDirectory:(NSString *)directory;
-+(DJLipikaInputScheme *)inputSchemeForScript:script scheme:scheme;
++(DJLipikaInputScheme *)inputSchemeForScript:(NSString *)script scheme:(NSString *)scheme;
 +(NSArray *)availableScripts;
 +(NSArray *)availableSchemes;
 

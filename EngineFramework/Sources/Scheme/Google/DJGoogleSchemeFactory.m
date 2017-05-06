@@ -104,7 +104,11 @@ static NSRegularExpression *classesDelimiterExpression;
     }
     scheme = [[DJGoogleInputScheme alloc] init];
     currentLineNumber = 0;
-    
+
+    NSDictionary* fileAttribs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+    NSDate *result = [fileAttribs objectForKey:NSFileModificationDate];
+    scheme.fingerprint = result.timeIntervalSince1970;
+
     // Read contents of the Scheme file
     logDebug(@"Parsing scheme file: %@", filePath);
     scheme.schemeFilePath = filePath;

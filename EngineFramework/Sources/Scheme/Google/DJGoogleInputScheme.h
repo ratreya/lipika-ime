@@ -26,10 +26,11 @@
     NSString *classCloseDelimiter;
     NSString *wildcard;
     NSString *stopChar;
+    double fingerprint;
     
     BOOL isProcessingClassDefinition;
     NSString *currentClassName;
-    
+
     DJGoogleForwardMapping *forwardMappings;
     DJGoogleReverseMapping *reverseMappings;
 }
@@ -42,6 +43,7 @@
 @property NSString *classCloseDelimiter;
 @property NSString *wildcard;
 @property NSString *stopChar;
+@property double fingerprint;
 
 -(void)onStartParsingAtLine:(int)lineNumber;
 -(void)createMappingWithLine:(NSString *)line lineNumber:(int)lineNumber;

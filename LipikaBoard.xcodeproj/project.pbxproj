@@ -72,6 +72,7 @@
 		A5F222851EA714F300546604 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5E561D01E876F0700D0365F /* Images.xcassets */; };
 		A5F222901EA717D300546604 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5F2228A1EA717D300546604 /* MainInterface.storyboard */; };
 		A5F222921EA717D300546604 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F2228F1EA717D300546604 /* ShareViewController.swift */; };
+		A5F5AFE01EBCC87F00F379FC /* DJLipikaMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F5AFDF1EBCC87F00F379FC /* DJLipikaMappings.m */; };
 		A5FC194F1E837AC70014F61F /* LipikaBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FC194E1E837AC70014F61F /* LipikaBoard.swift */; };
 /* End PBXBuildFile section */
 
@@ -197,7 +198,7 @@
 		A5810BD61E7F747300759112 /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayout.swift; path = TastyImitationKeyboard/Keyboard/KeyboardLayout.swift; sourceTree = SOURCE_ROOT; };
 		A5810BD71E7F747300759112 /* KeyboardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardModel.swift; path = TastyImitationKeyboard/Keyboard/KeyboardModel.swift; sourceTree = SOURCE_ROOT; };
 		A5810BD81E7F747300759112 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = TastyImitationKeyboard/Keyboard/KeyboardViewController.swift; sourceTree = SOURCE_ROOT; };
-		A5810BD91E7F747300759112 /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shapes.swift; path = TastyImitationKeyboard/Keyboard/Shapes.swift; sourceTree = SOURCE_ROOT; };
+		A5810BD91E7F747300759112 /* Shapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Shapes.swift; path = TastyImitationKeyboard/Keyboard/Shapes.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A5810BDA1E7F747300759112 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = TastyImitationKeyboard/Keyboard/Utilities.swift; sourceTree = SOURCE_ROOT; };
 		A5810BEF1E7F74CC00759112 /* DefaultSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DefaultSettings.xib; path = TastyImitationKeyboard/Keyboard/DefaultSettings.xib; sourceTree = SOURCE_ROOT; };
 		A5810BF01E7F74CC00759112 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = TastyImitationKeyboard/Keyboard/Media.xcassets; sourceTree = SOURCE_ROOT; };
@@ -224,6 +225,8 @@
 		A5F222951EA7180B00546604 /* Lipika-320@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lipika-320@2x.png"; sourceTree = "<group>"; };
 		A5F222961EA7180B00546604 /* Lipika-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lipika-64.png"; sourceTree = "<group>"; };
 		A5F222971EA7180B00546604 /* Lipika-64@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Lipika-64@2x.png"; sourceTree = "<group>"; };
+		A5F5AFDF1EBCC87F00F379FC /* DJLipikaMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLipikaMappings.m; sourceTree = "<group>"; };
+		A5F5AFE11EBCC89200F379FC /* DJLipikaMappings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaMappings.h; sourceTree = "<group>"; };
 		A5FC194E1E837AC70014F61F /* LipikaBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -344,6 +347,8 @@
 				A51E2ADC1E7F79CC00CCAB34 /* DJLipikaInputScheme.m */,
 				A51E2ADD1E7F79CC00CCAB34 /* DJLipikaSchemeFactory.h */,
 				A51E2ADE1E7F79CC00CCAB34 /* DJLipikaSchemeFactory.m */,
+				A5F5AFE11EBCC89200F379FC /* DJLipikaMappings.h */,
+				A5F5AFDF1EBCC87F00F379FC /* DJLipikaMappings.m */,
 			);
 			path = Lipika;
 			sourceTree = "<group>";
@@ -655,6 +660,7 @@
 					A51E2A461E7F78C500CCAB34 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 7JZ87Y4JWT;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					A51F685B1E7F5D260075EC06 = {
@@ -785,6 +791,7 @@
 				A51E2B001E7F79CD00CCAB34 /* DJGoogleSchemeFactory.m in Sources */,
 				A51E2B151E7F7A2F00CCAB34 /* DJLipikaUserSettings.m in Sources */,
 				A51E2B1A1E7F7A2F00CCAB34 /* DJLogger.m in Sources */,
+				A5F5AFE01EBCC87F00F379FC /* DJLipikaMappings.m in Sources */,
 				A51E2AF41E7F79CD00CCAB34 /* DJSchemeHelper.m in Sources */,
 				A51E2AFC1E7F79CD00CCAB34 /* DJGoogleInputScheme.m in Sources */,
 				A51E2AEA1E7F79CC00CCAB34 /* DJStringBufferManager.m in Sources */,
@@ -929,6 +936,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -949,6 +957,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
