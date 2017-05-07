@@ -7,6 +7,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+#import <UIKit/UIKit.h>
 #import "DJLipikaSchemeFactory.h"
 #import "DJSchemeHelper.h"
 #import "DJLogger.h"
@@ -178,8 +179,10 @@ static NSString *schemesDirectory;
                 [[newMappings objectForKey:class] setObject:map forKey:key];
             }
         }
-        // write the mappings file
-        [DJLipikaMappings storeMappings:newMappings scriptName:scriptName schemeName:schemeName];
+        // write the mappings file if you have "open access"
+        if ([UIPasteboard generalPasteboard]) {
+            [DJLipikaMappings storeMappings:newMappings scriptName:scriptName schemeName:schemeName];
+        }
         mappings = newMappings;
     }
     if (!imeLines) {
