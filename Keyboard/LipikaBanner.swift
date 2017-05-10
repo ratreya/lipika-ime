@@ -12,13 +12,13 @@ import UIKit
 class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     var tempInput = UILabel()
     var languagePicker = AKPickerView()
-    var manager: DJStringBufferManager
+    var keyboard: LipikaBoard
     var languages: [(String, DJSchemeType)]
 
-    required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool, inputManager: DJStringBufferManager) {
+    required init(globalColors: GlobalColors.Type?, darkMode: Bool, solidColorMode: Bool, keyboard: LipikaBoard) {
         let langTuples = LipikaBoardSettings.getLanguages()
-        languages = langTuples.filter({$0.1}).map({($0.0, $0.2)})
-        manager = inputManager
+        self.languages = langTuples.filter({$0.1}).map({($0.0, $0.2)})
+        self.keyboard = keyboard
         super.init(globalColors: globalColors, darkMode: darkMode, solidColorMode: solidColorMode)
         addSubview(tempInput)
         addSubview(languagePicker)
@@ -41,13 +41,19 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
         self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: CGFloat(8.0)))
         self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.width, multiplier: 0.5, constant: CGFloat(-8.0)))
-        self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: CGFloat(2.0)))
         self.addConstraint(NSLayoutConstraint(item: tempInput, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.height, multiplier: 1, constant: CGFloat(-2.0)))
         
         languagePicker.interitemSpacing = 5.0
         languagePicker.translatesAutoresizingMaskIntoConstraints = false
         languagePicker.delegate = self
         languagePicker.dataSource = self
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tempInput, attribute: NSLayoutAttribute.right, multiplier: 1, constant: CGFloat(8.0)))
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.width, multiplier: 0.5, constant: CGFloat(-8.0)))
+        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.height, multiplier: 1, constant: CGFloat(-2.0)))
+    }
+
+    func selectCurrentLanguage() {
         let currentName = DJLipikaUserSettings.schemeType() == DJ_LIPIKA ? DJLipikaUserSettings.scriptName() : DJLipikaUserSettings.customSchemeName()
         var currentItemIndex = languages.index(where: {$0.0 == currentName})
         if currentItemIndex == nil {
@@ -55,13 +61,7 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
             currentItemIndex = 0
             selectLanguage(index: 0)
         }
-        languagePicker.selectItem(currentItemIndex!)
-        languagePicker.reloadData()
-        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: tempInput, attribute: NSLayoutAttribute.right, multiplier: 1, constant: CGFloat(8.0)))
-        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.width, multiplier: 0.5, constant: CGFloat(-8.0)))
-        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: CGFloat(2.0)))
-        self.addConstraint(NSLayoutConstraint(item: languagePicker, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.height, multiplier: 1, constant: CGFloat(-2.0)))
+        self.languagePicker.selectItem(currentItemIndex!)
     }
 
     func setTempInput(input: String) {
@@ -84,11 +84,11 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
         let queue = DispatchQueue(label: "com.daivajnanam.LipikaBoard.LanguageDispatch")
         queue.async {
             if self.languages[index].1 == DJ_LIPIKA {
-                self.manager.changeToLipikaScheme(withName: DJLipikaUserSettings.schemeName(), forScript: self.languages[index].0)
+                self.keyboard.manager.changeToLipikaScheme(withName: DJLipikaUserSettings.schemeName(), forScript: self.languages[index].0)
                 DJLipikaUserSettings.setScriptName(self.languages[index].0)
             }
             else {
-                self.manager.changeToCustomScheme(withName: self.languages[index].0)
+                self.keyboard.manager.changeToCustomScheme(withName: self.languages[index].0)
                 DJLipikaUserSettings.setCustomSchemeName(self.languages[index].0)
             }
             DJLipikaUserSettings.setSchemeType(self.languages[index].1)

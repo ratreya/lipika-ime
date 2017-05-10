@@ -17,7 +17,7 @@
 	<key>IMKCandidatesOpacityAttributeName</key>
 	<real>0.9</real>
 	<key>LoggingLevel</key>
-	<string>Warning</string>
+	<string>Error</string>
 	<key>BackspaceDeletes</key>
 	<string>Input character</string>
 	<key>OnUnfocusUncommitted</key>

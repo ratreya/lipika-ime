@@ -10,7 +10,7 @@
 import UIKit
 
 class LipikaBoard: KeyboardViewController {
-    var manager = DJStringBufferManager()
+    public private(set) lazy var manager = DJStringBufferManager()
     var tempTextLength: String.IndexDistance = 0
     var banner: LipikaBanner?
     var edgeCase = false
@@ -26,7 +26,8 @@ class LipikaBoard: KeyboardViewController {
     }
 
     override func createBanner() -> ExtraView? {
-        banner = LipikaBanner(globalColors: type(of: self).globalColors, darkMode: false, solidColorMode: self.solidColorMode(), inputManager: manager)
+        banner = LipikaBanner(globalColors: type(of: self).globalColors, darkMode: false, solidColorMode: self.solidColorMode(), keyboard: self)
+        banner?.selectCurrentLanguage()
         return banner
     }
 
