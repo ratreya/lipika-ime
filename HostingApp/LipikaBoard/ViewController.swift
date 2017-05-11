@@ -294,7 +294,7 @@ class LanguageSelectionTableViewCell: UITableViewCell, UITableViewDataSource, UI
         }
         let switchView = UISwitch()
         switchView.isOn = language.1
-        switchView.addTarget(self, action: #selector(LanguageSelectionTableViewCell.languageSelectionChanged(sender:)), for: .valueChanged)
+        switchView.addTarget(self, action: #selector(LanguageSelectionTableViewCell.languageStatusChanged(sender:)), for: .valueChanged)
         switchView.tag = indexPath.row
         cell.accessoryView = switchView
 
@@ -312,13 +312,7 @@ class LanguageSelectionTableViewCell: UITableViewCell, UITableViewDataSource, UI
         if !languages[indexPath.row].1 {
             return nil
         }
-        DJLipikaUserSettings.setSchemeType(languages[indexPath.row].2)
-        if languages[indexPath.row].2 == DJ_LIPIKA {
-            DJLipikaUserSettings.setScriptName(languages[indexPath.row].0)
-        }
-        else {
-            DJLipikaUserSettings.setCustomSchemeName(languages[indexPath.row].0)
-        }
+        storeSelectedLanguage(indexPath.row)
         return indexPath
     }
 
@@ -334,10 +328,25 @@ class LanguageSelectionTableViewCell: UITableViewCell, UITableViewDataSource, UI
         return .none
     }
 
-    func languageSelectionChanged(sender: UISwitch) {
-        let index = sender.tag
+    func storeSelectedLanguage(_ index: Int) {
+        DJLipikaUserSettings.setSchemeType(languages[index].2)
+        if languages[index].2 == DJ_LIPIKA {
+            DJLipikaUserSettings.setScriptName(languages[index].0)
+        }
+        else {
+            DJLipikaUserSettings.setCustomSchemeName(languages[index].0)
+        }
+    }
+
+    func languageStatusChanged(sender: UISwitch) {
+        let index = languagesView.indexPath(for: sender.superview as! UITableViewCell)!.row
         languages[index].1 = sender.isOn
         languagesView.cellForRow(at: IndexPath(row: index, section: 0))?.textLabel?.isEnabled = sender.isOn
+        let selectedIndex = languagesView.indexPathForSelectedRow?.row
+        if !languages[selectedIndex!].1, let firstEnabled = languages.index(where: { $0.1 }) {
+            languagesView.selectRow(at: IndexPath(row: firstEnabled, section: 0), animated: true, scrollPosition: .none)
+            storeSelectedLanguage(firstEnabled)
+        }
         LipikaBoardSettings.storeLanguages(languages)
     }
 }
