@@ -16,32 +16,11 @@
 
 @synthesize scheme;
 
-static NSCache *schemesCache;
-
-+(void)initialize {
-    static BOOL initialized = NO;
-    if(!initialized) {
-        initialized = YES;
-        schemesCache = [[NSCache alloc] init];
-        [schemesCache setCountLimit: 3];
-    }
-}
-
 +(DJInputMethodEngine *)inputEngineForScheme:(NSString *)schemeName scriptName:(NSString *)scriptName type:(enum DJSchemeType)type {
     // Initialize with the given scheme file
-    id<DJInputMethodScheme> scheme;
-    @synchronized(schemesCache) {
-        NSString *key = [NSString stringWithFormat:@"%@-%@-%u", scriptName, schemeName, type];
-        scheme = [schemesCache objectForKey:key];
-        if (scheme == nil || scheme.fingerprint != [DJLipikaMappings fingerPrintForScript:scriptName scheme:schemeName]) {
-            scheme = [DJInputSchemeFactory inputSchemeForScript:scriptName scheme:schemeName type:type];
-            if (scheme == nil) {
-                [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, type];
-            }
-            else {
-                [schemesCache setObject:scheme forKey:key];
-            }
-        }
+    id<DJInputMethodScheme> scheme = [DJInputSchemeFactory inputSchemeForScript:scriptName scheme:schemeName type:type];
+    if (scheme == nil) {
+        [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, type];
     }
     return [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }

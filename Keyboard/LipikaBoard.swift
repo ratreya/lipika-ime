@@ -10,7 +10,15 @@
 import UIKit
 
 class LipikaBoard: KeyboardViewController {
-    public private(set) lazy var manager = DJStringBufferManager()
+    private var _manager: DJStringBufferManager?
+    public var manager: DJStringBufferManager {
+        get {
+            if _manager == nil {
+                _manager = DJStringBufferManager()
+            }
+            return _manager!
+        }
+    }
     var tempTextLength: String.IndexDistance = 0
     var banner: LipikaBanner?
     var edgeCase = false
@@ -103,6 +111,11 @@ class LipikaBoard: KeyboardViewController {
         else {
             flushTempText()
         }
+    }
+
+    override func didReceiveMemoryWarning() {
+        flushTempText()
+        _manager = nil
     }
 
     private func getPreviousText() -> String? {

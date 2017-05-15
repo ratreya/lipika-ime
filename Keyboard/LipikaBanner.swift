@@ -81,7 +81,7 @@ class LipikaBanner: ExtraView, AKPickerViewDelegate, AKPickerViewDataSource {
     }
 
     func selectLanguage(index: Int) {
-        let queue = DispatchQueue(label: "com.daivajnanam.LipikaBoard.LanguageDispatch")
+        let queue = DispatchQueue(label: "com.daivajnanam.LipikaBoard.LanguageDispatch", qos: .userInitiated)
         queue.async {
             if self.languages[index].1 == DJ_LIPIKA {
                 self.keyboard.manager.changeToLipikaScheme(withName: DJLipikaUserSettings.schemeName(), forScript: self.languages[index].0)
