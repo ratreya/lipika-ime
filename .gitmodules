@@ -1,3 +1,6 @@
 [submodule "Keyboard"]
-	path = Keyboard
+	path = TastyImitationKeyboard
 	url = https://github.com/ratreya/tasty-imitation-keyboard.git
+[submodule "AKPickerView"]
+	path = AKPickerView
+	url = https://github.com/ratreya/AKPickerView-Swift.git

@@ -7,20 +7,22 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <Cocoa/Cocoa.h>
 #import "DJInputMethodScheme.h"
 #import "DJSimpleForwardMapping.h"
 #import "DJSimpleReverseMapping.h"
+#import "OrderedDictionary.h"
 
 @interface DJLipikaInputScheme : NSObject<DJInputMethodScheme> {
     DJSimpleForwardMapping *forwardMapping;
     DJSimpleReverseMapping *reverseMapping;
     DJReadWriteTrie *addMapping;
-    NSDictionary *schemeTable;
-    NSDictionary *scriptTable;
-    NSMutableDictionary *validKeys;
+    OrderedDictionary *mappings;
+    double fingerprint;
 }
 
--(id)initWithSchemeTable:(NSDictionary *)schemeTable scriptTable:(NSDictionary *)scriptTable imeLines:(NSArray *)imeLines;
+@property double fingerprint;
+
+-(id)initWithMappings:(NSDictionary *)aMappings imeLines:(NSArray *)imeLines;
+-(OrderedDictionary *)mappings;
 
 @end

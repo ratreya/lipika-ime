@@ -10,37 +10,17 @@
 #import "DJInputMethodEngine.h"
 #import "DJInputSchemeFactory.h"
 #import "DJSchemeHelper.h"
-#include <AppKit/AppKit.h>
+#import "DJLipikaMappings.h"
 
 @implementation DJInputMethodEngine
 
 @synthesize scheme;
 
-static NSMutableDictionary *schemesCache;
-
-+(void)initialize {
-    static BOOL initialized = NO;
-    if(!initialized) {
-        initialized = YES;
-        schemesCache = [NSMutableDictionary dictionaryWithCapacity:0];
-    }
-}
-
 +(DJInputMethodEngine *)inputEngineForScheme:(NSString *)schemeName scriptName:(NSString *)scriptName type:(enum DJSchemeType)type {
     // Initialize with the given scheme file
-    id<DJInputMethodScheme> scheme;
-    @synchronized(schemesCache) {
-        NSString *key = [NSString stringWithFormat:@"%@-%@-%u", scriptName, schemeName, type];
-        scheme = [schemesCache objectForKey:key];
-        if (scheme == nil) {
-            scheme = [DJInputSchemeFactory inputSchemeForScript:scriptName scheme:schemeName type:type];
-            if (scheme == nil) {
-                [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, type];
-            }
-            else {
-                [schemesCache setObject:scheme forKey:key];
-            }
-        }
+    id<DJInputMethodScheme> scheme = [DJInputSchemeFactory inputSchemeForScript:scriptName scheme:schemeName type:type];
+    if (scheme == nil) {
+        [NSException raise:@"Invalid selection" format:@"Unable to load script: %@, scheme: %@ for type: %u", scriptName, schemeName, type];
     }
     return [[DJInputMethodEngine alloc] initWithScheme:scheme];
 }

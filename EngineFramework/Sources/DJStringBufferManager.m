@@ -112,9 +112,14 @@
     return replacement;
 }
 
--(void)changeToSchemeWithName:(NSString *)schemeName forScript:(id)scriptName type:(enum DJSchemeType)type {
-    [delegate changeToSchemeWithName:schemeName forScript:scriptName type:type];
+-(void)changeToLipikaSchemeWithName:(NSString *)schemeName forScript:(NSString *)scriptName {
+    [delegate changeToSchemeWithName:schemeName forScript:scriptName type:DJ_LIPIKA];
 }
+
+-(void)changeToCustomSchemeWithName:(NSString *)schemeName {
+    [delegate changeToSchemeWithName:schemeName forScript:nil type:DJ_GOOGLE];
+}
+
 
 -(BOOL)hasDeletable {
     return [delegate hasDeletable];

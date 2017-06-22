@@ -43,7 +43,7 @@
 - (void)testLipikaForwardConversion {
     NSString *outputFile = @"/tmp/DhatupaaTaSvara.itrans.out";
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] init];
-    [engine changeToSchemeWithName:@"ITRANS" forScript:@"Devanagari" type:DJ_LIPIKA];
+    [engine changeToLipikaSchemeWithName:@"ITRANS" forScript:@"Devanagari"];
     DJConversionController *controller = [[DJConversionController alloc] init];
     NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Control/DhatupaaTaSvara.itrans"];
     [controller convertFileFromPath:filePath toPath:outputFile withEngine:engine isReverseMapping:NO];
@@ -57,7 +57,7 @@
 -(void)testLipikaReverseConversion {
     NSString *outputFile = @"/tmp/DhatupaaTaSvara.itrans";
     DJStringBufferManager *engine = [[DJStringBufferManager alloc] init];
-    [engine changeToSchemeWithName:@"ITRANS" forScript:@"Devanagari" type:DJ_LIPIKA];
+    [engine changeToLipikaSchemeWithName:@"ITRANS" forScript:@"Devanagari"];
     DJConversionController *controller = [[DJConversionController alloc] init];
     NSString *filePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Control/DhatupaaTaSvara.txt"];
     [controller convertFileFromPath:filePath toPath:outputFile withEngine:engine isReverseMapping:YES];

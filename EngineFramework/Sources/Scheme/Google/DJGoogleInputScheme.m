@@ -21,6 +21,7 @@
 @synthesize classCloseDelimiter;
 @synthesize wildcard;
 @synthesize stopChar;
+@synthesize fingerprint;
 
 // This regular expression only has static elements
 static NSRegularExpression *simpleMappingExpression;

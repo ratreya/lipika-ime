@@ -13,6 +13,7 @@
 
 @protocol DJInputMethodScheme <NSObject>
 
+-(double) fingerprint;
 -(NSString *)stopChar;
 -(id<DJForwardMapping>)forwardMappings;
 -(id<DJReverseMapping>)reverseMappings;

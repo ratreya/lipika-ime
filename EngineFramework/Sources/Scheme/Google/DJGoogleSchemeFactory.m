@@ -14,12 +14,18 @@
 
 @implementation DJGoogleSchemeFactory
 
+#if TARGET_OS_IPHONE
+    static BOOL iOS = YES;
+#else 
+    static BOOL iOS = NO;
+#endif
+
+static NSString *const SCHEMESPATH = @"%@/Contents/Resources/Schemes/Google";
 static NSString *const VERSION = @"version";
 static NSString *const NAME = @"name";
 static NSString *const STOP_CHAR = @"stop-char";
 static NSString *const CLASS_DELIMITERS = @"class-delimiters";
 static NSString *const WILDCARD = @"wildcard";
-static NSString *const SCHEMESPATH = @"%@/Contents/Resources/Schemes/Google";
 static NSString *const EXTENSION = @"scm";
 
 // These regular expressions don't have dynamic elements
@@ -50,7 +56,13 @@ static NSRegularExpression *classesDelimiterExpression;
 +(DJGoogleInputScheme *)inputSchemeForScheme:scheme {
     // Parse one file at a time
     @synchronized(self) {
-        NSString *schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
+        NSString *schemesDirectory;
+        if (iOS) {
+            schemesDirectory = [[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.LipikaBoard"] path];
+        }
+        else {
+            schemesDirectory = [NSString stringWithFormat:SCHEMESPATH, [[NSBundle mainBundle] bundlePath]];
+        }
         NSString *filePath = [[schemesDirectory stringByAppendingPathComponent:scheme] stringByAppendingPathExtension:EXTENSION];
         DJGoogleSchemeFactory *factory = [[DJGoogleSchemeFactory alloc] initWithSchemeFile:filePath];
         return [factory scheme];
@@ -92,30 +104,61 @@ static NSRegularExpression *classesDelimiterExpression;
     }
     scheme = [[DJGoogleInputScheme alloc] init];
     currentLineNumber = 0;
-    
+
+    NSDictionary* fileAttribs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+    NSDate *result = [fileAttribs objectForKey:NSFileModificationDate];
+    scheme.fingerprint = result.timeIntervalSince1970;
+
     // Read contents of the Scheme file
     logDebug(@"Parsing scheme file: %@", filePath);
     scheme.schemeFilePath = filePath;
     linesOfScheme = linesOfFile(filePath);
+    if ([self parseLinesOfFile]) {
+        return self;
+    }
+    else {
+        return nil;
+    }
+}
 
+-(id)initWithSchemeData:(NSString *)data {
+    self = [super init];
+    if (self == nil) {
+        return self;
+    }
+    scheme = [[DJGoogleInputScheme alloc] init];
+    currentLineNumber = 0;
+
+    scheme.schemeFilePath = @"";
+    linesOfScheme = [data componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"]];
+    if ([self parseLinesOfFile]) {
+        return self;
+    }
+    else {
+        return nil;
+    }
+    return self;
+}
+
+-(BOOL)parseLinesOfFile {
     @try {
         logDebug(@"Parsing Headers");
         [self parseHeaders];
     }
     @catch (NSException *exception) {
-        logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
-        return nil;
+        logFatal(@"Error parsing scheme file: %@; %@", scheme.schemeFilePath, [exception reason]);
+        return NO;
     }
     @try {
         logDebug(@"Parsing Mappings");
         [self parseMappings];
     }
     @catch (NSException *exception) {
-        logFatal(@"Error parsing scheme file: %@; %@", filePath, [exception reason]);
-        return nil;
+        logFatal(@"Error parsing scheme file: %@; %@", scheme.schemeFilePath, [exception reason]);
+        return NO;
     }
     [scheme onDoneParsingAtLine:currentLineNumber];
-    return self;
+    return YES;
 }
 
 -(void)parseHeaders {

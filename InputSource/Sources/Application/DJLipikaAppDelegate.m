@@ -78,7 +78,7 @@
     NSArray *googleSchemes = [DJInputSchemeFactory availableSchemesForType:DJ_GOOGLE];
     defaultSchemeName = [DJLipikaUserSettings customSchemeName];
     if (googleSchemes && googleSchemes.count > 0) {
-        NSMenuItem *googleSchemeItem = [[NSMenuItem alloc] initWithTitle:@"Custom schemes" action:NULL keyEquivalent:@""];
+        NSMenuItem *googleSchemeItem = [[NSMenuItem alloc] initWithTitle:DJCustomMenuItemTitle action:NULL keyEquivalent:@""];
         [googleSchemeItem setTag:++runningTagId];
         [mainMenu addItem:googleSchemeItem];
         NSMenu *googleSubMenu = [[NSMenu alloc] initWithTitle:DJGoogleSubMenu];
@@ -97,9 +97,30 @@
 
 -(void)configureCandiates {
     extern IMKCandidates *candidates;
-    [candidates setPanelType:[DJLipikaUserSettings candidatePanelType]];
+    [candidates setPanelType:[[DJLipikaUserSettings candidatePanelType] intValue]];
     [candidates setDismissesAutomatically:NO];
     [candidates setAttributes:[DJLipikaUserSettings candidateWindowAttributes]];
+}
+
+-(void)clearAllOnStates:(NSMenu *)rootMenu {
+    NSArray *peerItems = [rootMenu itemArray];
+    [peerItems enumerateObjectsUsingBlock:^(NSMenuItem *obj, NSUInteger idx, BOOL *stop) {
+        [obj setState:NSOffState];
+        if ([obj hasSubmenu]) [self clearAllOnStates:[obj submenu]];
+    }];
+}
+
+-(void)updateSchemeSelection {
+    // Clear all existing selections
+    [self clearAllOnStates:mainMenu];
+    // Turn on state for the script and scheme
+    if ([DJLipikaUserSettings schemeType] == DJ_GOOGLE) {
+        [[[[mainMenu itemWithTitle:DJCustomMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
+    }
+    else {
+        [[[[mainMenu itemWithTitle:DJInputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings schemeName]] setState:NSOnState];
+        [[[[mainMenu itemWithTitle:DJOutputMenuItemTitle] submenu] itemWithTitle:[DJLipikaUserSettings scriptName]] setState:NSOnState];
+    }
 }
 
 @end

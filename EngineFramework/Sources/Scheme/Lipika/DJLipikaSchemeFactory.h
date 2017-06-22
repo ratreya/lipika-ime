@@ -7,14 +7,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-#import <Cocoa/Cocoa.h>
 #import "DJLipikaInputScheme.h"
 
 @interface DJLipikaSchemeFactory : NSObject {
     DJLipikaInputScheme *scheme;
 }
 
-+(DJLipikaInputScheme *)inputSchemeForScript:script scheme:scheme;
++(void)setSchemesDirectory:(NSString *)directory;
++(DJLipikaInputScheme *)inputSchemeForScript:(NSString *)script scheme:(NSString *)scheme;
 +(NSArray *)availableScripts;
 +(NSArray *)availableSchemes;
 

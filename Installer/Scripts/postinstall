@@ -1,5 +1,8 @@
 #!/bin/sh
-open /Library/Input\ Methods/LipikaIME.app
-sleep 1
-./installer --register
+open /Library/Input\ Methods/LipikaInputSource.app
+sleep 10
+until ./installer --register
+do
+  sleep 1
+done
 exit 0

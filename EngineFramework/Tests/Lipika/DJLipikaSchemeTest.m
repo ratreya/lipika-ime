@@ -11,6 +11,7 @@
 #import "DJSchemeHelper.h"
 #import "DJLipikaInputScheme.h"
 #import "DJInputMethodEngine.h"
+#import "DJLipikaMappings.h"
 
 @interface DJLipikaInputScheme (Test)
 
@@ -36,41 +37,26 @@
 }
 
 -(DJLipikaInputScheme *)schemeWithDefaultData {
-    NSMutableDictionary *depScript = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      @"0CBF",   @"I",
-                                      @"0CC1",   @"U", nil];
-    NSMutableDictionary *conScript = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      @"0C95",    @"KA",
-                                      @"0C96",    @"KHA",
-                                      @"0C97",    @"GA",
-                                      @"0C98",    @"GHA",
-                                      @"0C99",    @"NGA", nil];
-    NSMutableDictionary *signScript = [NSMutableDictionary dictionaryWithObject:@"0CCD" forKey:@"VIRAMA"];
-    NSMutableDictionary *scriptTable = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                        depScript, @"DEPENDENT",
-                                        conScript, @"CONSONANT",
-                                        signScript, @"SIGN",nil];
-    
-    NSMutableDictionary *depScheme = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      @"i",   @"I",
-                                      @"u",   @"U", nil];
-    NSMutableDictionary *conScheme = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      @"k",    @"KA",
-                                      @"kh, K",    @"KHA",
-                                      @"g",    @"GA",
-                                      @"gh, G",    @"GHA",
-                                      @"~N, N^",    @"NGA", nil];
-    NSMutableDictionary *signScheme = [NSMutableDictionary dictionaryWithObject:@"q" forKey:@"VIRAMA"];
-    NSMutableDictionary *schemeTable = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                        depScheme, @"DEPENDENT",
-                                        conScheme, @"CONSONANT",
-                                        signScheme, @"SIGN",nil];
+    NSMutableDictionary *dependents = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      [[DJMap alloc] initWithScript:@"0CBF" scheme:@"i"],   @"I",
+                                      [[DJMap alloc] initWithScript:@"0CC1" scheme:@"u"],   @"U", nil];
+    NSMutableDictionary *consonants = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      [[DJMap alloc] initWithScript:@"0C95" scheme:@"k"],    @"KA",
+                                      [[DJMap alloc] initWithScript:@"0C96" scheme:@"kh, K"],    @"KHA",
+                                      [[DJMap alloc] initWithScript:@"0C97" scheme:@"g"],    @"GA",
+                                      [[DJMap alloc] initWithScript:@"0C98" scheme:@"gh, G"],    @"GHA",
+                                      [[DJMap alloc] initWithScript:@"0C99" scheme:@"~N, N^"],    @"NGA", nil];
+    NSMutableDictionary *signs = [NSMutableDictionary dictionaryWithObject:[[DJMap alloc] initWithScript:@"0CCD" scheme:@"q"] forKey:@"VIRAMA"];
+    NSMutableDictionary *mappings = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                        dependents, @"DEPENDENT",
+                                        consonants, @"CONSONANT",
+                                        signs, @"SIGN",nil];
 
     NSArray *imeLines = [NSMutableArray arrayWithObjects:
                          @"{CONSONANT}	[CONSONANT][SIGN/VIRAMA]",
                          @"{CONSONANT}a	[CONSONANT]",
                          @"{CONSONANT}{DEPENDENT}	[CONSONANT][DEPENDENT]", nil];
-    return [[DJLipikaInputScheme alloc] initWithSchemeTable:schemeTable scriptTable:scriptTable imeLines:imeLines];
+    return [[DJLipikaInputScheme alloc] initWithMappings:mappings imeLines:imeLines];
 }
 
 -(void)testCharacterConversion {

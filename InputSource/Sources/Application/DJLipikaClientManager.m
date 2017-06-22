@@ -179,12 +179,13 @@ static long numCompositionCommits = 0;
 -(void)changeToSchemeWithName:(NSString *)schemeName type:(enum DJSchemeType)type forScript:scriptName {
     [self commit];
     logDebug(@"Changing to Scheme: %@ withType: %u forScript: %@", schemeName, type, scriptName);
-    [bufferManager changeToSchemeWithName:schemeName forScript:scriptName type:type];
     // If no exceptions then change the user settings
     if (type == DJ_GOOGLE) {
+        [bufferManager changeToCustomSchemeWithName:schemeName];
         [DJLipikaUserSettings setCustomSchemeName:schemeName];
     }
     else {
+        [bufferManager changeToLipikaSchemeWithName:schemeName forScript:scriptName];
         [DJLipikaUserSettings setScriptName:scriptName];
         [DJLipikaUserSettings setSchemeName:schemeName];
     }
