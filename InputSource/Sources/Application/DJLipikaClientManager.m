@@ -155,7 +155,7 @@ static long numCompositionCommits = 0;
 }
 
 -(void)onCandidateSelected:(NSString *)candidateString {
-    [client replaceTextAtCurrentSelection:candidateString];
+    [client replaceTextAtCurrentSelection:[bufferManager output]];
     [bufferManager flush];
     [candidateManager hide];
 }
