@@ -10,9 +10,9 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6BC5FF2D-4B08-4CB5-AD4A-E04DEBC3A046",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "E6041C5B09E1F0AE0DBE0F49EFA66C3F94FB801C" : "Lipika_IME\/TastyImitationKeyboard\/",
-    "E40D2BADE4527E7BB263CC1D49B8F886B4F49439" : "Lipika_IME\/",
-    "B32017251BF42EE8E91702534228FCE83750636D" : "Lipika_IME\/AKPickerView\/"
+    "E6041C5B09E1F0AE0DBE0F49EFA66C3F94FB801C" : "lipika-ime\/TastyImitationKeyboard\/",
+    "E40D2BADE4527E7BB263CC1D49B8F886B4F49439" : "lipika-ime\/",
+    "B32017251BF42EE8E91702534228FCE83750636D" : "lipika-ime\/AKPickerView\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "LipikaBoard",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
