@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:LipikaIME.xcodeproj">
+      location = "self:../Source">
    </FileRef>
 </Workspace>

@@ -1,5 +1,0 @@
-#!/bin/sh
-./installer --remove
-sleep 1
-killall LipikaIME
-exit 0
