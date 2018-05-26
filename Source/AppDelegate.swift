@@ -1,18 +1,18 @@
-//
-//  AppDelegate.swift
-//  LipikaIME
-//
-//  Created by Atreya Ranganath on 5/24/18.
-//  Copyright © 2018 Daivajnanam. All rights reserved.
-//
+/*
+ * LipikaIME is a user-configurable phonetic Input Method Engine for Mac OS X.
+ * Copyright (C) 2018 Ranganath Atreya
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
 import Cocoa
+import LipikaEngine_OSX
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-    @IBOutlet weak var window: NSWindow!
-
+    @IBOutlet weak var menu: NSMenu!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -21,7 +21,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
-
 }
 

@@ -7,8 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A55155BD20B90AF300B598E9 /* LipikaEngine_OSX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A5BF5FB020B8C89C004CA217 /* LipikaEngine_OSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A55155BF20B90B6D00B598E9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56C903120B7A0A6004691D9 /* MainMenu.xib */; };
 		A56C902020B79E3F004691D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56C901F20B79E3F004691D9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A55155BE20B90AF400B598E9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A55155BD20B90AF300B598E9 /* LipikaEngine_OSX.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A56C901C20B79E3F004691D9 /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +40,7 @@
 		A56C903A20B7A0E5004691D9 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		A5907FB220B7A2C500F6DD8E /* bug_report.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = bug_report.md; path = .github/ISSUE_TEMPLATE/bug_report.md; sourceTree = "<group>"; };
 		A5907FB320B7A2C500F6DD8E /* feature_request.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = feature_request.md; path = .github/ISSUE_TEMPLATE/feature_request.md; sourceTree = "<group>"; };
+		A5BF5FB020B8C89C004CA217 /* LipikaEngine_OSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LipikaEngine_OSX.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +97,7 @@
 		A56C902E20B7A0A6004691D9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5BF5FB020B8C89C004CA217 /* LipikaEngine_OSX.framework */,
 				A56C902F20B7A0A6004691D9 /* LipikaIME.entitlements */,
 				A56C903020B7A0A6004691D9 /* Assets.xcassets */,
 				A56C903120B7A0A6004691D9 /* MainMenu.xib */,
@@ -98,6 +116,7 @@
 				A56C901820B79E3F004691D9 /* Sources */,
 				A56C901920B79E3F004691D9 /* Frameworks */,
 				A56C901A20B79E3F004691D9 /* Resources */,
+				A55155BE20B90AF400B598E9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -146,6 +165,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A55155BF20B90B6D00B598E9 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +315,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Resources",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,6 +338,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Resources",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
