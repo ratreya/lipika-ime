@@ -18,15 +18,35 @@
 	<string>2.0</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>InputMethodConnectionName</key>
+	<string>DJLipikaInputController_Connection</string>
+	<key>InputMethodServerControllerClass</key>
+	<string>DJLipikaInputController</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 Daivajnanam. All rights reserved.</string>
+	<string>Copyright © 2018 Ranganath Atreya. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>tsInputMethodCharacterRepertoireKey</key>
+	<array>
+		<string>Beng</string>
+		<string>Deva</string>
+		<string>Gujr</string>
+		<string>Guru</string>
+		<string>Knda</string>
+		<string>Mlym</string>
+		<string>Orya</string>
+		<string>Taml</string>
+		<string>Telu</string>
+	</array>
+	<key>tsInputMethodIconFileKey</key>
+	<string>LipikaIcon.png</string>
 </dict>
 </plist>
