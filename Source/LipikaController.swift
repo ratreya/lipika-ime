@@ -10,7 +10,8 @@
 import InputMethodKit
 import LipikaEngine_OSX
 
-class LipikaController: IMKInputController {
+@objc(LipikaController)
+public class LipikaController: IMKInputController {
     private var _transliteratorKey: Int?
     private var _transliterator: Transliterator?
     private var transliterator: Transliterator { return _transliterator! }
@@ -49,13 +50,13 @@ class LipikaController: IMKInputController {
         }
     }
     
-    override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
+    override public init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
         client = ClientManaager(client: inputClient as! IMKTextInput)
         super.init(server: server, delegate: delegate, client: inputClient)
         refreshTransliterator()
     }
     
-    override func inputText(_ input: String!, client sender: Any!) -> Bool {
+    override public func inputText(_ input: String!, client sender: Any!) -> Bool {
         if input.unicodeScalars.count != 1 || CharacterSet.whitespacesAndNewlines.contains(input.unicodeScalars.first!) {
             commit()
             return false
@@ -65,7 +66,7 @@ class LipikaController: IMKInputController {
         return true
     }
     
-    override func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
+    override public func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
         if aSelector == #selector(NSResponder.deleteBackward) {
             if let result = transliterator.delete() {
                 client.showActive(result)
@@ -83,29 +84,30 @@ class LipikaController: IMKInputController {
     }
     
     /// This message is sent when our client gains focus
-    override func activateServer(_ sender: Any!) {
+    override public func activateServer(_ sender: Any!) {
         // Do this in case the user changed the scheme or script on the other window
         refreshTransliterator()
     }
     
     /// This message is sent when our client looses focus
-    override func deactivateServer(_ sender: Any!) {
+    override public func deactivateServer(_ sender: Any!) {
         commit()
     }
     
-    override func menu() -> NSMenu! {
-        return (NSApp.delegate as! AppDelegate).menu
+    override public func menu() -> NSMenu! {
+        let menu = NSMenu(title: "LipikaIME")
+        return menu
     }
     
-    override func candidates(_ sender: Any!) -> [Any]! {
+    override public func candidates(_ sender: Any!) -> [Any]! {
         return client.candidates
     }
     
-    override func candidateSelected(_ candidateString: NSAttributedString!) {
+    override public func candidateSelected(_ candidateString: NSAttributedString!) {
         commit()
     }
     
-    override func commitComposition(_ sender: Any!) {
+    override public func commitComposition(_ sender: Any!) {
         commit()
     }
 }
