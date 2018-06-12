@@ -21,6 +21,7 @@
 		A546182720CC6BB2003A73EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A546181E20CC6A06003A73EB /* LICENSE */; };
 		A546182920CC6BEA003A73EB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182820CC6BEA003A73EB /* Cocoa.framework */; };
 		A546182B20CC6BF3003A73EB /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182A20CC6BF3003A73EB /* InputMethodKit.framework */; };
+		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,7 @@
 		A546182420CC6A23003A73EB /* feature_request.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = feature_request.md; path = .github/ISSUE_TEMPLATE/feature_request.md; sourceTree = "<group>"; };
 		A546182820CC6BEA003A73EB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A546182A20CC6BF3003A73EB /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
+		A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				A53AD00720CC347900C95844 /* Info.plist */,
 				A53AD00820CC347900C95844 /* LipikaIME.entitlements */,
 				A50133AF20CDDA7700953E55 /* TrayIcon.png */,
+				A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */,
 				A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */,
 			);
 			path = Resources;
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A546182720CC6BB2003A73EB /* LICENSE in Resources */,
+				A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */,
 				A53AD00320CC347900C95844 /* Assets.xcassets in Resources */,
 				A50133B020CDDA7700953E55 /* TrayIcon.png in Resources */,
 				A50133B120CDDD2200953E55 /* LipikaIME.entitlements in Resources */,

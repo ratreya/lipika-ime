@@ -32,6 +32,8 @@
 	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018 Ranganath Atreya. All rights reserved.</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>tsInputMethodCharacterRepertoireKey</key>

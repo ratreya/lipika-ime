@@ -13,16 +13,17 @@ import LipikaEngine_OSX
 class LipikaConfig: Config {
     private let userDefaults: UserDefaults
     
-    init() {
+    override init() {
         guard let groupDefaults = UserDefaults(suiteName: "group.daivajnanam.Lipika") else {
             fatal("Unable to open UserDefaults for suite: group.daivajnanam.Lipika!")
         }
         self.userDefaults = groupDefaults
+        super.init()
     }
     
-    var stopCharacter: UnicodeScalar {
+    override var stopCharacter: UnicodeScalar {
         get {
-            return userDefaults.string(forKey: #function)?.unicodeScalars.first ?? "\\"
+            return userDefaults.string(forKey: #function)?.unicodeScalars.first ?? super.stopCharacter
         }
         set(value) {
             var strValue = ""
@@ -31,29 +32,14 @@ class LipikaConfig: Config {
         }
     }
     
-    var schemesDirectory: URL {
+    override var logLevel: Level {
         get {
-            let directoryName = userDefaults.string(forKey: #function) ?? "Mapping"
-            return Bundle.main.bundleURL.appendingPathComponent("Contents", isDirectory: true).appendingPathComponent("Resources", isDirectory: true).appendingPathComponent(directoryName, isDirectory: true)
-        }
-        set(value) {
-            userDefaults.set(value, forKey: #function)
-        }
-    }
-    
-    var customMappingsDirectory: URL {
-        get {
-            let directoryName = userDefaults.string(forKey: #function) ?? "Custom"
-            return Bundle.main.bundleURL.appendingPathComponent("Contents", isDirectory: true).appendingPathComponent("Resources", isDirectory: true).appendingPathComponent(directoryName, isDirectory: true)
-        }
-        set(value) {
-            userDefaults.set(value, forKey: #function)
-        }
-    }
-    
-    var logLevel: Level {
-        get {
-            return Level.init(rawValue: userDefaults.string(forKey: #function) ?? "Warning")!
+            if let logLevelString = userDefaults.string(forKey: #function) {
+                return Level.init(rawValue: logLevelString)!
+            }
+            else {
+                return super.logLevel
+            }
         }
         set(value) {
             userDefaults.set(value.rawValue, forKey: #function)
@@ -80,6 +66,7 @@ class LipikaConfig: Config {
             return userDefaults.string(forKey: #function) ?? "Barahavat"
         }
         set(value) {
+            userDefaults.removeObject(forKey: "customSchemeName")
             userDefaults.set(schemeName, forKey: #function)
         }
     }
@@ -89,6 +76,7 @@ class LipikaConfig: Config {
             return userDefaults.string(forKey: #function) ?? enabledScripts.first!
         }
         set(value) {
+            userDefaults.removeObject(forKey: "customSchemeName")
             userDefaults.set(value, forKey: #function)
         }
     }

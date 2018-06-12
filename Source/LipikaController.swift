@@ -40,7 +40,7 @@ public class LipikaController: IMKInputController {
             fatal(error.localizedDescription)
         }
     }
-
+    
     private func commit() {
         if let text = transliterator.reset() {
             client.finalize(text.finalaizedOutput + text.unfinalaizedOutput)
@@ -50,13 +50,13 @@ public class LipikaController: IMKInputController {
         }
     }
     
-    override public init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
+    public override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
         client = ClientManaager(client: inputClient as! IMKTextInput)
         super.init(server: server, delegate: delegate, client: inputClient)
         refreshTransliterator()
     }
     
-    override public func inputText(_ input: String!, client sender: Any!) -> Bool {
+    public override func inputText(_ input: String!, client sender: Any!) -> Bool {
         if input.unicodeScalars.count != 1 || CharacterSet.whitespacesAndNewlines.contains(input.unicodeScalars.first!) {
             commit()
             return false
@@ -66,7 +66,7 @@ public class LipikaController: IMKInputController {
         return true
     }
     
-    override public func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
+    public override func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
         if aSelector == #selector(NSResponder.deleteBackward) {
             if let result = transliterator.delete() {
                 client.showActive(result)
@@ -84,30 +84,64 @@ public class LipikaController: IMKInputController {
     }
     
     /// This message is sent when our client gains focus
-    override public func activateServer(_ sender: Any!) {
+    public override func activateServer(_ sender: Any!) {
         // Do this in case the user changed the scheme or script on the other window
         refreshTransliterator()
     }
     
     /// This message is sent when our client looses focus
-    override public func deactivateServer(_ sender: Any!) {
+    public override func deactivateServer(_ sender: Any!) {
         commit()
     }
     
-    override public func menu() -> NSMenu! {
+    public override func menu() -> NSMenu! {
         let menu = NSMenu(title: "LipikaIME")
+        let config = LipikaConfig()
+        guard let factory = try? LiteratorFactory(config: config) else { return menu }
+        var indent = 0
+        if let customSchemes = try? factory.availableCustomMappings(), !customSchemes.isEmpty {
+            indent = 1
+            let customTitle = NSMenuItem(title: "Custom Schemes", action: nil, keyEquivalent: "")
+            customTitle.isEnabled = false
+            for customScheme in customSchemes {
+                let item = NSMenuItem(title: customScheme, action: #selector(customSchemeSelected), keyEquivalent: "")
+                item.indentationLevel = indent
+                menu.addItem(item)
+            }
+            menu.addItem(NSMenuItem.separator())
+            let installedTitle = NSMenuItem(title: "Installed Scripts", action: nil, keyEquivalent: "")
+            installedTitle.isEnabled = false
+            menu.addItem(installedTitle)
+        }
+        if !config.enabledScripts.isEmpty {
+            for script in config.enabledScripts {
+                let item = NSMenuItem(title: script, action: #selector(installedScriptSelected), keyEquivalent: "")
+                item.indentationLevel = indent
+                menu.addItem(item)
+            }
+        }
         return menu
     }
     
-    override public func candidates(_ sender: Any!) -> [Any]! {
+    public override func candidates(_ sender: Any!) -> [Any]! {
         return client.candidates
     }
     
-    override public func candidateSelected(_ candidateString: NSAttributedString!) {
+    public override func candidateSelected(_ candidateString: NSAttributedString!) {
         commit()
     }
     
-    override public func commitComposition(_ sender: Any!) {
+    public override func commitComposition(_ sender: Any!) {
         commit()
+    }
+    
+    @objc public func customSchemeSelected(sender: NSMenuItem) {
+        LipikaConfig().customSchemeName = sender.title
+        refreshTransliterator()
+    }
+    
+    @objc public func installedScriptSelected(sender: NSMenuItem) {
+        LipikaConfig().scriptName = sender.title
+        refreshTransliterator()
     }
 }
