@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A50133B020CDDA7700953E55 /* TrayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A50133AF20CDDA7700953E55 /* TrayIcon.png */; };
+		A5122A4E20D42A2000575848 /* InputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01A20CC658000C95844 /* InputSource.swift */; };
+		A5122A4F20D42A2000575848 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5122A4220D420E100575848 /* main.swift */; };
+		A5122A5020D42A9500575848 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182A20CC6BF3003A73EB /* InputMethodKit.framework */; };
+		A5122A5120D42AA600575848 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182820CC6BEA003A73EB /* Cocoa.framework */; };
 		A53AD00120CC347900C95844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD00020CC347900C95844 /* AppDelegate.swift */; };
 		A53AD00320CC347900C95844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53AD00220CC347900C95844 /* Assets.xcassets */; };
 		A53AD01220CC643700C95844 /* LipikaEngine_OSX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -20,6 +24,16 @@
 		A546182B20CC6BF3003A73EB /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182A20CC6BF3003A73EB /* InputMethodKit.framework */; };
 		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A5122A5320D43D8800575848 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A53ACFF520CC347900C95844 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A53ACFFC20CC347900C95844;
+			remoteInfo = LipikaIME;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A53AD01320CC643700C95844 /* Embed Frameworks */ = {
@@ -37,6 +51,8 @@
 
 /* Begin PBXFileReference section */
 		A50133AF20CDDA7700953E55 /* TrayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayIcon.png; sourceTree = "<group>"; };
+		A5122A4220D420E100575848 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A5122A4720D429D300575848 /* Installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Installer; sourceTree = BUILT_PRODUCTS_DIR; };
 		A52DCDBB20D17767001F34AC /* LipikaIME.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaIME.entitlements; sourceTree = "<group>"; };
 		A53ACFFD20CC347900C95844 /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53AD00020CC347900C95844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +76,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A5122A4420D429D300575848 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5122A5120D42AA600575848 /* Cocoa.framework in Frameworks */,
+				A5122A5020D42A9500575848 /* InputMethodKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A53ACFFA20CC347900C95844 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				A53ACFFD20CC347900C95844 /* LipikaIME.app */,
+				A5122A4720D429D300575848 /* Installer */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				A53AD01A20CC658000C95844 /* InputSource.swift */,
+				A5122A4220D420E100575848 /* main.swift */,
 			);
 			path = Installation;
 			sourceTree = "<group>";
@@ -151,6 +178,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A5122A4620D429D300575848 /* Installer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5122A4B20D429D300575848 /* Build configuration list for PBXNativeTarget "Installer" */;
+			buildPhases = (
+				A5122A4320D429D300575848 /* Sources */,
+				A5122A4420D429D300575848 /* Frameworks */,
+				A5122A5520D43EE200575848 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A5122A5420D43D8800575848 /* PBXTargetDependency */,
+			);
+			name = Installer;
+			productName = Installer;
+			productReference = A5122A4720D429D300575848 /* Installer */;
+			productType = "com.apple.product-type.tool";
+		};
 		A53ACFFC20CC347900C95844 /* LipikaIME */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A53AD00B20CC347900C95844 /* Build configuration list for PBXNativeTarget "LipikaIME" */;
@@ -179,6 +224,9 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Daivajnanam;
 				TargetAttributes = {
+					A5122A4620D429D300575848 = {
+						CreatedOnToolsVersion = 9.4;
+					};
 					A53ACFFC20CC347900C95844 = {
 						CreatedOnToolsVersion = 9.4;
 						SystemCapabilities = {
@@ -203,6 +251,7 @@
 			projectRoot = "";
 			targets = (
 				A53ACFFC20CC347900C95844 /* LipikaIME */,
+				A5122A4620D429D300575848 /* Installer */,
 			);
 		};
 /* End PBXProject section */
@@ -221,7 +270,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A5122A5520D43EE200575848 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${TARGET_BUILD_DIR}/Installer --remove\nkillall LipikaIME\nrm -rf /Library/Input\\ Methods/LipikaIME.app\ncp -r ${TARGET_BUILD_DIR}/LipikaIME.app /Library/Input\\ Methods/\n${TARGET_BUILD_DIR}/Installer --select";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		A5122A4320D429D300575848 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5122A4E20D42A2000575848 /* InputSource.swift in Sources */,
+				A5122A4F20D42A2000575848 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A53ACFF920CC347900C95844 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,7 +309,37 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A5122A5420D43D8800575848 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A53ACFFC20CC347900C95844 /* LipikaIME */;
+			targetProxy = A5122A5320D43D8800575848 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		A5122A4C20D429D300575848 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Installer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		A5122A4D20D429D300575848 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Installer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		A53AD00920CC347900C95844 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -363,6 +467,7 @@
 					"$(PROJECT_DIR)/Resources",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -388,6 +493,7 @@
 					"$(PROJECT_DIR)/Resources",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -402,6 +508,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A5122A4B20D429D300575848 /* Build configuration list for PBXNativeTarget "Installer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5122A4C20D429D300575848 /* Debug */,
+				A5122A4D20D429D300575848 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A53ACFF820CC347900C95844 /* Build configuration list for PBXProject "LipikaIME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

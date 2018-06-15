@@ -1,6 +1,6 @@
 /*
  * LipikaIME is a user-configurable phonetic Input Method Engine for Mac OS X.
- * Copyright (C) 2017 Ranganath Atreya
+ * Copyright (C) 2018 Ranganath Atreya
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -8,7 +8,6 @@
  */
 
 import Carbon
-import LipikaEngine_OSX
 
 class InputSource {
     enum LipikaError: Error {
@@ -18,9 +17,11 @@ class InputSource {
     enum InstallType {
         case new, replace, upgrade, downgrade
     }
+    
+    private init() {}
 
     static func getLipika() -> Array<TISInputSource> {
-        let options: CFDictionary = [kTISPropertyBundleID as String: Bundle.main.bundleIdentifier] as CFDictionary
+        let options: CFDictionary = [kTISPropertyBundleID as String: "com.daivajnanam.inputmethod.LipikaIME"] as CFDictionary
         if let rawList = TISCreateInputSourceList(options, true) {
             let inputSourceNSArray = rawList.takeRetainedValue() as NSArray
             let inputSourceList = inputSourceNSArray as! [TISInputSource]
