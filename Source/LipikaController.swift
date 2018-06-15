@@ -12,33 +12,52 @@ import LipikaEngine_OSX
 
 @objc(LipikaController)
 public class LipikaController: IMKInputController {
+    let config = LipikaConfig()
     private let client: ClientManaager
+    private var literatorHash = 0
     private (set) var systemTrayMenu: NSMenu
-    private (set) var transliterator: Transliterator
-    private (set) var anteliterator: Anteliterator
-
+    private (set) var transliterator: Transliterator!
+    private (set) var anteliterator: Anteliterator!
+    
+    private func refreshLiterators() -> Bool {
+        let factory = try! LiteratorFactory(config: config)
+        if let customSchemeName = config.customSchemeName {
+            let hashValue = "customMapping: \(customSchemeName)".hashValue
+            if hashValue != literatorHash {
+                Logger.log.debug("Refreshing Literators with customMapping: \(customSchemeName)")
+                transliterator = try! factory.transliterator(customMapping: customSchemeName)
+                anteliterator = try! factory.anteliterator(customMapping: customSchemeName)
+                literatorHash = hashValue
+                return true
+            }
+        }
+        else {
+            let hashValue = "schemeName: \(config.schemeName) and scriptName: \(config.scriptName)".hashValue
+            if hashValue != literatorHash {
+                Logger.log.debug("Refreshing Literators with schemeName: \(config.schemeName) and scriptName: \(config.scriptName)")
+                transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName)
+                anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName)
+                literatorHash = hashValue
+                return true
+            }
+        }
+        return false
+    }
+    
     private func commit() {
         if let text = transliterator.reset() {
+            Logger.log.debug("Committing with text: \(text)")
             client.finalize(text.finalaizedOutput + text.unfinalaizedOutput)
         }
         else {
+            Logger.log.debug("Nothing to commit")
             client.clear()
         }
     }
     
     public override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
-        // Initialize Literators
-        let config = LipikaConfig()
-        let factory = try! LiteratorFactory(config: config)
-        if let customSchemeName = config.customSchemeName {
-            transliterator = try! factory.transliterator(customMapping: customSchemeName)
-            anteliterator = try! factory.anteliterator(customMapping: customSchemeName)
-        }
-        else {
-            transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName)
-            anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName)
-        }
         // Setup the System Tray Menu
+        let factory = try! LiteratorFactory(config: config)
         self.systemTrayMenu = NSMenu(title: "LipikaIME")
         var indent = 0
         let customSchemes = try! factory.availableCustomMappings()
@@ -62,7 +81,7 @@ public class LipikaController: IMKInputController {
             systemTrayMenu.addItem(installedTitle)
         }
         if !config.enabledScripts.isEmpty {
-            Logger.log.debug("Adding Installed Scripts to Menu: \(config.enabledScripts)")
+            Logger.log.debug("Adding Installed Scripts to Menu")
             for script in config.enabledScripts {
                 let item = NSMenuItem(title: script, action: #selector(menuItemSelected), keyEquivalent: "")
                 if config.customSchemeName == nil, script == config.scriptName {
@@ -75,6 +94,8 @@ public class LipikaController: IMKInputController {
         }
         client = ClientManaager(client: inputClient as! IMKTextInput)
         super.init(server: server, delegate: delegate, client: inputClient)
+        // Initialize Literators
+        assert(refreshLiterators())
         Logger.log.debug("Initialized Controller for Client: \(client)")
     }
     
@@ -120,6 +141,18 @@ public class LipikaController: IMKInputController {
         commit()
     }
     
+    /// This message is sent when our client gains focus
+    public override func activateServer(_ sender: Any!) {
+        Logger.log.debug("Client: \(client) gained focus")
+        if config.globalScriptSelection {
+            // Do this in case selection was changed when we were out of focus
+            if refreshLiterators() {
+                systemTrayMenu.items.forEach() { $0.state = .off }
+                systemTrayMenu.items.first(where: { $0.title == config.customSchemeName ?? config.scriptName } )!.state = .on
+            }
+        }
+    }
+    
     public override func menu() -> NSMenu! {
         Logger.log.debug("Returning menu")
         return systemTrayMenu
@@ -145,7 +178,6 @@ public class LipikaController: IMKInputController {
         Logger.log.debug("Menu Item Selected: \(item.title)")
         item.menu?.items.forEach() { $0.state = .off }
         item.state = .on
-        let config = LipikaConfig()
         let factory = try! LiteratorFactory(config: config)
         if item.tag == 0 {
             Logger.log.debug("Selected Menu Item is Custom Scheme")
