@@ -11,6 +11,10 @@ import Carbon
 import LipikaEngine_OSX
 
 class InputSource {
+    enum LipikaError: Error {
+        case systemError(String)
+    }
+    
     enum InstallType {
         case new, replace, upgrade, downgrade
     }

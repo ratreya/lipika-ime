@@ -8,14 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		A50133B020CDDA7700953E55 /* TrayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A50133AF20CDDA7700953E55 /* TrayIcon.png */; };
-		A50133B120CDDD2200953E55 /* LipikaIME.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = A53AD00820CC347900C95844 /* LipikaIME.entitlements */; };
 		A53AD00120CC347900C95844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD00020CC347900C95844 /* AppDelegate.swift */; };
 		A53AD00320CC347900C95844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53AD00220CC347900C95844 /* Assets.xcassets */; };
 		A53AD01220CC643700C95844 /* LipikaEngine_OSX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A53AD01520CC64FD00C95844 /* LipikaEngine_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; };
 		A53AD01720CC654700C95844 /* LipikaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01620CC654700C95844 /* LipikaConfig.swift */; };
-		A53AD01920CC655A00C95844 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01820CC655900C95844 /* Common.swift */; };
-		A53AD01B20CC658000C95844 /* InputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01A20CC658000C95844 /* InputSource.swift */; };
 		A53AD01D20CC659C00C95844 /* ClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01C20CC659C00C95844 /* ClientManager.swift */; };
 		A53AD01F20CC660900C95844 /* LipikaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01E20CC660900C95844 /* LipikaController.swift */; };
 		A546182720CC6BB2003A73EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A546181E20CC6A06003A73EB /* LICENSE */; };
@@ -40,14 +37,13 @@
 
 /* Begin PBXFileReference section */
 		A50133AF20CDDA7700953E55 /* TrayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayIcon.png; sourceTree = "<group>"; };
+		A52DCDBB20D17767001F34AC /* LipikaIME.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaIME.entitlements; sourceTree = "<group>"; };
 		A53ACFFD20CC347900C95844 /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53AD00020CC347900C95844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A53AD00220CC347900C95844 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A53AD00720CC347900C95844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A53AD00820CC347900C95844 /* LipikaIME.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaIME.entitlements; sourceTree = "<group>"; };
 		A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LipikaEngine_OSX.framework; sourceTree = "<group>"; };
 		A53AD01620CC654700C95844 /* LipikaConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaConfig.swift; sourceTree = "<group>"; };
-		A53AD01820CC655900C95844 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		A53AD01A20CC658000C95844 /* InputSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSource.swift; sourceTree = "<group>"; };
 		A53AD01C20CC659C00C95844 /* ClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientManager.swift; sourceTree = "<group>"; };
 		A53AD01E20CC660900C95844 /* LipikaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaController.swift; sourceTree = "<group>"; };
@@ -83,6 +79,7 @@
 				A546181D20CC69EC003A73EB /* Documents */,
 				A53AD00E20CC34E500C95844 /* Resources */,
 				A53ACFFF20CC347900C95844 /* Source */,
+				A57F18EA20D1FBA1007C9745 /* Installation */,
 				A53ACFFE20CC347900C95844 /* Products */,
 				A53AD01420CC64FD00C95844 /* Frameworks */,
 			);
@@ -99,8 +96,6 @@
 		A53ACFFF20CC347900C95844 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				A53AD01A20CC658000C95844 /* InputSource.swift */,
-				A53AD01820CC655900C95844 /* Common.swift */,
 				A53AD00020CC347900C95844 /* AppDelegate.swift */,
 				A53AD01620CC654700C95844 /* LipikaConfig.swift */,
 				A53AD01C20CC659C00C95844 /* ClientManager.swift */,
@@ -114,9 +109,9 @@
 			children = (
 				A53AD00220CC347900C95844 /* Assets.xcassets */,
 				A53AD00720CC347900C95844 /* Info.plist */,
-				A53AD00820CC347900C95844 /* LipikaIME.entitlements */,
 				A50133AF20CDDA7700953E55 /* TrayIcon.png */,
 				A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */,
+				A52DCDBB20D17767001F34AC /* LipikaIME.entitlements */,
 				A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */,
 			);
 			path = Resources;
@@ -143,6 +138,14 @@
 				A546182020CC6A06003A73EB /* README.md */,
 			);
 			name = Documents;
+			sourceTree = "<group>";
+		};
+		A57F18EA20D1FBA1007C9745 /* Installation */ = {
+			isa = PBXGroup;
+			children = (
+				A53AD01A20CC658000C95844 /* InputSource.swift */,
+			);
+			path = Installation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +216,6 @@
 				A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */,
 				A53AD00320CC347900C95844 /* Assets.xcassets in Resources */,
 				A50133B020CDDA7700953E55 /* TrayIcon.png in Resources */,
-				A50133B120CDDD2200953E55 /* LipikaIME.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,8 +228,6 @@
 			files = (
 				A53AD00120CC347900C95844 /* AppDelegate.swift in Sources */,
 				A53AD01F20CC660900C95844 /* LipikaController.swift in Sources */,
-				A53AD01B20CC658000C95844 /* InputSource.swift in Sources */,
-				A53AD01920CC655A00C95844 /* Common.swift in Sources */,
 				A53AD01720CC654700C95844 /* LipikaConfig.swift in Sources */,
 				A53AD01D20CC659C00C95844 /* ClientManager.swift in Sources */,
 			);

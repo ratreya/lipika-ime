@@ -15,7 +15,7 @@ class LipikaConfig: Config {
     
     override init() {
         guard let groupDefaults = UserDefaults(suiteName: "group.daivajnanam.Lipika") else {
-            fatal("Unable to open UserDefaults for suite: group.daivajnanam.Lipika!")
+            fatalError("Unable to open UserDefaults for suite: group.daivajnanam.Lipika!")
         }
         self.userDefaults = groupDefaults
         super.init()
@@ -48,22 +48,21 @@ class LipikaConfig: Config {
     
     var enabledScripts: [String] {
         get {
-            do {
-                let availableScripts = try LiteratorFactory(config: self).availableScripts()
-                return userDefaults.stringArray(forKey: #function) ?? availableScripts
-            }
-            catch {
-                fatal(error.localizedDescription)
-            }
+            return try! userDefaults.stringArray(forKey: #function) ?? LiteratorFactory(config: self).availableScripts()
         }
         set(value) {
-            userDefaults.set(value, forKey: #function)
+            if value.isEmpty {
+                userDefaults.removeObject(forKey: #function)
+            }
+            else {
+                userDefaults.set(value, forKey: #function)
+            }
         }
     }
 
     var schemeName: String {
         get {
-            return userDefaults.string(forKey: #function) ?? "Barahavat"
+            return try! userDefaults.string(forKey: #function) ?? LiteratorFactory(config: self).availableSchemes().first!
         }
         set(value) {
             userDefaults.removeObject(forKey: "customSchemeName")

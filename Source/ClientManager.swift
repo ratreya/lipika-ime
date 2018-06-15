@@ -10,30 +10,35 @@
 import InputMethodKit
 import LipikaEngine_OSX
 
-class ClientManaager {
+class ClientManaager: CustomStringConvertible {
     private let currentPosition = NSMakeRange(NSNotFound, NSNotFound)
     private let config = LipikaConfig()
     private let client: IMKTextInput
     private let candidatesWindow: IMKCandidates
     private (set) var candidates = [String]()
-    
+    var description: String {
+        return "\(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())"
+    }
+
     private var attributes: [NSAttributedStringKey: Any]! {
         var rect = NSMakeRect(0, 0, 0, 0)
         return client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect) as! [NSAttributedStringKey : Any]
     }
     
     init(client: IMKTextInput) {
+        Logger.log.debug("Initializing client: \(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())")
         self.client = client
         if !client.supportsUnicode() {
             Logger.log.warning("Client: \(client.bundleIdentifier()) does not support Unicode!")
         }
-        if client.supportsProperty(TSMDocumentPropertyTag(kTSMDocumentSupportDocumentAccessPropertyTag)) {
+        if !client.supportsProperty(TSMDocumentPropertyTag(kTSMDocumentSupportDocumentAccessPropertyTag)) {
             Logger.log.warning("Client: \(client.bundleIdentifier()) does not support Document Access!")
         }
-        candidatesWindow = IMKCandidates(server: (NSApp.delegate as! AppDelegate).server, panelType: kIMKScrollingGridCandidatePanel)
+        candidatesWindow = IMKCandidates(server: (NSApp.delegate as! AppDelegate).server, panelType: kIMKSingleRowSteppingCandidatePanel)
     }
     
     func showActive(_ literated: Literated) {
+        Logger.log.debug("Showing Active: \(literated)")
         var clientText: NSAttributedString
         var candidateText: String
         var unfinalizedRange: NSRange
@@ -56,11 +61,13 @@ class ClientManaager {
     }
     
     func finalize(_ output: String) {
+        Logger.log.debug("Finalizing with: \(output)")
         client.insertText(output, replacementRange: currentPosition)
         candidatesWindow.hide()
     }
     
     func clear() {
+        Logger.log.debug("Clearing MarkedText and Candidate window")
         client.setMarkedText("", selectionRange: NSMakeRange(0, 0), replacementRange: currentPosition)
         candidatesWindow.hide()
     }
@@ -72,19 +79,30 @@ class ClientManaager {
         repeat {
             let low = wordStart == -1 ? max(current - 2^exponent, 0): wordStart
             let high = wordEnd == -1 ? min(current + 2^exponent, maxLength): wordEnd
+            Logger.log.debug("Looking for word between \(low) and \(high)")
             var real = NSRange()
             guard let text = client.string(from: NSMakeRange(low, high - low), actualRange: &real) else { return nil }
+            Logger.log.debug("Looking for word in text: \(text)")
             if wordStart == -1, let startOffset = text.unicodeScalars[text.unicodeScalars.startIndex...text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - low)].reversed().index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.base.encodedOffset {
                 wordStart = low + startOffset
+                Logger.log.debug("Found wordStart: \(wordStart)")
             }
             if wordEnd == -1, let endOffset = text.unicodeScalars[text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - low + 1)...text.unicodeScalars.endIndex].index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.encodedOffset {
                 wordEnd = low + endOffset
+                Logger.log.debug("Found wordEnd: \(wordEnd)")
             }
             exponent += 1
-            if wordStart == -1, low == 0 { wordStart = low }
-            if wordEnd == -1, high == maxLength { wordEnd = high }
+            if wordStart == -1, low == 0 {
+                wordStart = low
+                Logger.log.debug("Starting word at beginning of document")
+            }
+            if wordEnd == -1, high == maxLength {
+                wordEnd = high
+                Logger.log.debug("Ending word at end of document")
+            }
         }
         while(wordStart == -1 || wordEnd == -1)
+        Logger.log.debug("Found word between \(wordStart) and \(wordEnd)")
         return (wordStart, wordEnd)
     }
 }
