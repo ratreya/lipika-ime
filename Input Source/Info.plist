@@ -49,6 +49,6 @@
 		<string>Telu</string>
 	</array>
 	<key>tsInputMethodIconFileKey</key>
-	<string>TrayIcon.png</string>
+	<string>TrayIcon.icns</string>
 </dict>
 </plist>
