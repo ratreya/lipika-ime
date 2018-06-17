@@ -10,7 +10,7 @@
 import InputMethodKit
 import LipikaEngine_OSX
 
-class ClientManaager: CustomStringConvertible {
+class ClientManager: CustomStringConvertible {
     private let currentPosition = NSMakeRange(NSNotFound, NSNotFound)
     private let config = LipikaConfig()
     private let client: IMKTextInput
@@ -37,7 +37,7 @@ class ClientManaager: CustomStringConvertible {
         candidatesWindow = IMKCandidates(server: (NSApp.delegate as! AppDelegate).server, panelType: kIMKSingleRowSteppingCandidatePanel)
     }
     
-    func showActive(_ literated: Literated) {
+    func showActive(_ literated: Literated, replacementRange: NSRange? = nil) {
         Logger.log.debug("Showing Active: \(literated)")
         var clientText: NSAttributedString
         var candidateText: String
@@ -52,7 +52,7 @@ class ClientManaager: CustomStringConvertible {
             clientText = NSAttributedString(string: literated.finalaizedInput + literated.unfinalaizedInput, attributes: attributes)
             candidateText = literated.finalaizedOutput + literated.unfinalaizedOutput
         }
-        client.setMarkedText(clientText, selectionRange: unfinalizedRange, replacementRange: currentPosition)
+        client.setMarkedText(clientText, selectionRange: unfinalizedRange, replacementRange: replacementRange ?? currentPosition)
         candidates = [candidateText]
         candidatesWindow.update()
         if !config.hideCandidate {
@@ -72,23 +72,25 @@ class ClientManaager: CustomStringConvertible {
         candidatesWindow.hide()
     }
     
-    func findWord(at current: Int) -> (start: Int, end: Int)? {
+    func findWord(at current: Int) -> NSRange? {
         let maxLength = client.length()
-        var exponent = 2
+        var exponent = 1
         var wordStart = -1, wordEnd = -1
+        Logger.log.debug("Finding word at: \(current) with max: \(maxLength)")
         repeat {
-            let low = wordStart == -1 ? max(current - 2^exponent, 0): wordStart
-            let high = wordEnd == -1 ? min(current + 2^exponent, maxLength): wordEnd
+            // TODO: Change * to exponent once you figure out the operator for it
+            let low = wordStart == -1 ? max(current - 2*exponent, 0): wordStart
+            let high = wordEnd == -1 ? min(current + 2*exponent, maxLength): wordEnd
             Logger.log.debug("Looking for word between \(low) and \(high)")
             var real = NSRange()
             guard let text = client.string(from: NSMakeRange(low, high - low), actualRange: &real) else { return nil }
             Logger.log.debug("Looking for word in text: \(text)")
-            if wordStart == -1, let startOffset = text.unicodeScalars[text.unicodeScalars.startIndex...text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - low)].reversed().index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.base.encodedOffset {
-                wordStart = low + startOffset
+            if wordStart == -1, let startOffset = text.unicodeScalars[text.unicodeScalars.startIndex..<text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - real.location)].reversed().index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.base.encodedOffset {
+                wordStart = real.location + startOffset
                 Logger.log.debug("Found wordStart: \(wordStart)")
             }
-            if wordEnd == -1, let endOffset = text.unicodeScalars[text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - low + 1)...text.unicodeScalars.endIndex].index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.encodedOffset {
-                wordEnd = low + endOffset
+            if wordEnd == -1, let endOffset = text.unicodeScalars[text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - real.location)..<text.unicodeScalars.endIndex].index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.encodedOffset {
+                wordEnd = real.location + endOffset
                 Logger.log.debug("Found wordEnd: \(wordEnd)")
             }
             exponent += 1
@@ -103,6 +105,6 @@ class ClientManaager: CustomStringConvertible {
         }
         while(wordStart == -1 || wordEnd == -1)
         Logger.log.debug("Found word between \(wordStart) and \(wordEnd)")
-        return (wordStart, wordEnd)
+        return NSMakeRange(wordStart, wordEnd - wordStart)
     }
 }

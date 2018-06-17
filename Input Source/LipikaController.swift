@@ -13,7 +13,7 @@ import LipikaEngine_OSX
 @objc(LipikaController)
 public class LipikaController: IMKInputController {
     let config = LipikaConfig()
-    private let client: ClientManaager
+    private let clientManager: ClientManager
     private var literatorHash = 0
     private (set) var systemTrayMenu: NSMenu
     private (set) var transliterator: Transliterator!
@@ -47,11 +47,11 @@ public class LipikaController: IMKInputController {
     private func commit() {
         if let text = transliterator.reset() {
             Logger.log.debug("Committing with text: \(text)")
-            client.finalize(text.finalaizedOutput + text.unfinalaizedOutput)
+            clientManager.finalize(text.finalaizedOutput + text.unfinalaizedOutput)
         }
         else {
             Logger.log.debug("Nothing to commit")
-            client.clear()
+            clientManager.clear()
         }
     }
     
@@ -92,11 +92,11 @@ public class LipikaController: IMKInputController {
                 systemTrayMenu.addItem(item)
             }
         }
-        client = ClientManaager(client: inputClient as! IMKTextInput)
+        clientManager = ClientManager(client: inputClient as! IMKTextInput)
         super.init(server: server, delegate: delegate, client: inputClient)
         // Initialize Literators
         assert(refreshLiterators())
-        Logger.log.debug("Initialized Controller for Client: \(client)")
+        Logger.log.debug("Initialized Controller for Client: \(clientManager)")
     }
     
     public override func inputText(_ input: String!, client sender: Any!) -> Bool {
@@ -107,7 +107,7 @@ public class LipikaController: IMKInputController {
             return false
         }
         let literated = transliterator.transliterate(input)
-        client.showActive(literated)
+        clientManager.showActive(literated)
         return true
     }
     
@@ -116,7 +116,7 @@ public class LipikaController: IMKInputController {
             Logger.log.debug("Processing deleteBackward")
             if let result = transliterator.delete() {
                 Logger.log.debug("Resulted in an actual delete")
-                client.showActive(result)
+                clientManager.showActive(result)
                 return true
             }
             Logger.log.debug("Nothing to delete")
@@ -124,7 +124,7 @@ public class LipikaController: IMKInputController {
         else if aSelector == #selector(NSResponder.cancelOperation) {
             Logger.log.debug("Processing cancelOperation")
             let result = transliterator.reset()
-            client.clear()
+            clientManager.clear()
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
         }
@@ -132,18 +132,25 @@ public class LipikaController: IMKInputController {
             Logger.log.debug("Comitting due to unhandled selector: \(aSelector)")
             commit()
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            guard let currentWordRange = self.clientManager.findWord(at: self.client().selectedRange().location) else {
+                return
+            }
+            var real = NSRange()
+            Logger.log.debug("Current word: \(self.client().string(from: currentWordRange, actualRange: &real))")
+        }
         return false
     }
     
     /// This message is sent when our client looses focus
     public override func deactivateServer(_ sender: Any!) {
-        Logger.log.debug("Client: \(client) loosing focus")
+        Logger.log.debug("Client: \(clientManager) loosing focus")
         commit()
     }
     
     /// This message is sent when our client gains focus
     public override func activateServer(_ sender: Any!) {
-        Logger.log.debug("Client: \(client) gained focus")
+        Logger.log.debug("Client: \(clientManager) gained focus")
         if config.globalScriptSelection {
             // Do this in case selection was changed when we were out of focus
             if refreshLiterators() {
@@ -160,7 +167,7 @@ public class LipikaController: IMKInputController {
     
     public override func candidates(_ sender: Any!) -> [Any]! {
         Logger.log.debug("Returning Candidates")
-        return client.candidates
+        return clientManager.candidates
     }
     
     public override func candidateSelected(_ candidateString: NSAttributedString!) {
