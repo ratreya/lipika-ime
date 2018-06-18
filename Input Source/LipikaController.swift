@@ -54,6 +54,21 @@ public class LipikaController: IMKInputController {
             clientManager.clear()
         }
     }
+
+    private func showActive(_ literated: Literated) {
+        if config.outputInClient {
+            let attributes = mark(forStyle: kTSMHiliteConvertedText, at: client().selectedRange()) as! [NSAttributedStringKey : Any]
+            let clientText = NSMutableAttributedString(string: literated.finalaizedOutput + literated.unfinalaizedOutput)
+            clientText.addAttributes(attributes, range: NSMakeRange(0, clientText.length))
+            clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedInput + literated.unfinalaizedInput)
+        }
+        else {
+            let attributes = mark(forStyle: kTSMHiliteSelectedRawText, at: client().selectedRange()) as! [NSAttributedStringKey : Any]
+            let clientText = NSMutableAttributedString(string: literated.finalaizedInput + literated.unfinalaizedInput)
+            clientText.addAttributes(attributes, range: NSMakeRange(0, literated.finalaizedInput.unicodeScalars.count))
+            clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedOutput + literated.unfinalaizedOutput)
+        }
+    }
     
     public override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
         // Setup the System Tray Menu
@@ -107,7 +122,7 @@ public class LipikaController: IMKInputController {
             return false
         }
         let literated = transliterator.transliterate(input)
-        clientManager.showActive(literated)
+        showActive(literated)
         return true
     }
     
@@ -116,7 +131,7 @@ public class LipikaController: IMKInputController {
             Logger.log.debug("Processing deleteBackward")
             if let result = transliterator.delete() {
                 Logger.log.debug("Resulted in an actual delete")
-                clientManager.showActive(result)
+                showActive(result)
                 return true
             }
             Logger.log.debug("Nothing to delete")
@@ -128,11 +143,12 @@ public class LipikaController: IMKInputController {
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
         }
-        else {
-            Logger.log.debug("Comitting due to unhandled selector: \(aSelector)")
-            commit()
-        }
+        // Dispatch after the function returns and the client has updated selectedRange
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            if self.client().markedRange().contains(self.client().selectedRange().location) {
+                return
+            }
+            self.commit()
             guard let currentWordRange = self.clientManager.findWord(at: self.client().selectedRange().location) else {
                 return
             }

@@ -16,8 +16,10 @@ class ClientManager: CustomStringConvertible {
     private let client: IMKTextInput
     private let candidatesWindow: IMKCandidates
     private (set) var candidates = [String]()
+    // Cache, otherwise clients quitting can sometimes SEGFAULT us
+    var _description: String
     var description: String {
-        return "\(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())"
+        return _description
     }
 
     private var attributes: [NSAttributedStringKey: Any]! {
@@ -35,24 +37,12 @@ class ClientManager: CustomStringConvertible {
             Logger.log.warning("Client: \(client.bundleIdentifier()) does not support Document Access!")
         }
         candidatesWindow = IMKCandidates(server: (NSApp.delegate as! AppDelegate).server, panelType: kIMKSingleRowSteppingCandidatePanel)
+        _description = "\(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())"
     }
     
-    func showActive(_ literated: Literated, replacementRange: NSRange? = nil) {
-        Logger.log.debug("Showing Active: \(literated)")
-        var clientText: NSAttributedString
-        var candidateText: String
-        var unfinalizedRange: NSRange
-        if config.outputInClient {
-            unfinalizedRange = NSMakeRange(literated.finalaizedOutput.unicodeScalars.count, literated.unfinalaizedOutput.unicodeScalars.count)
-            clientText = NSAttributedString(string: literated.finalaizedOutput + literated.unfinalaizedOutput, attributes: attributes)
-            candidateText = literated.finalaizedInput + literated.unfinalaizedInput
-        }
-        else {
-            unfinalizedRange = NSMakeRange(literated.finalaizedInput.unicodeScalars.count, literated.unfinalaizedInput.unicodeScalars.count)
-            clientText = NSAttributedString(string: literated.finalaizedInput + literated.unfinalaizedInput, attributes: attributes)
-            candidateText = literated.finalaizedOutput + literated.unfinalaizedOutput
-        }
-        client.setMarkedText(clientText, selectionRange: unfinalizedRange, replacementRange: replacementRange ?? currentPosition)
+    func showActive(clientText: NSAttributedString, candidateText: String, replacementRange: NSRange? = nil) {
+        Logger.log.debug("Showing clientText: \(clientText) and candidateText: \(candidateText)")
+        client.setMarkedText(clientText, selectionRange: NSMakeRange(clientText.length, 0), replacementRange: replacementRange ?? currentPosition)
         candidates = [candidateText]
         candidatesWindow.update()
         if !config.hideCandidate {
@@ -74,13 +64,12 @@ class ClientManager: CustomStringConvertible {
     
     func findWord(at current: Int) -> NSRange? {
         let maxLength = client.length()
-        var exponent = 1
+        var exponent = 2
         var wordStart = -1, wordEnd = -1
         Logger.log.debug("Finding word at: \(current) with max: \(maxLength)")
         repeat {
-            // TODO: Change * to exponent once you figure out the operator for it
-            let low = wordStart == -1 ? max(current - 2*exponent, 0): wordStart
-            let high = wordEnd == -1 ? min(current + 2*exponent, maxLength): wordEnd
+            let low = wordStart == -1 ? max(current - 2 << exponent, 0): wordStart
+            let high = wordEnd == -1 ? min(current + 2 << exponent, maxLength): wordEnd
             Logger.log.debug("Looking for word between \(low) and \(high)")
             var real = NSRange()
             guard let text = client.string(from: NSMakeRange(low, high - low), actualRange: &real) else { return nil }
