@@ -11,10 +11,12 @@ import InputMethodKit
 import LipikaEngine_OSX
 
 class ClientManager: CustomStringConvertible {
-    private let currentPosition = NSMakeRange(NSNotFound, NSNotFound)
+    private let globalCurrentPosition = NSMakeRange(NSNotFound, NSNotFound)
     private let config = LipikaConfig()
     private let client: IMKTextInput
     private let candidatesWindow: IMKCandidates
+    // This is the position of the cursor within the marked text
+    private var localCursorPosition: Int? = nil
     private (set) var candidates = [String]()
     // Cache, otherwise clients quitting can sometimes SEGFAULT us
     var _description: String
@@ -40,9 +42,24 @@ class ClientManager: CustomStringConvertible {
         _description = "\(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())"
     }
     
+    func resetCursor() { localCursorPosition = nil }
+    
+    func moveCursor(delta: Int) -> Bool {
+        Logger.log.debug("Cursor moved: \(delta) with markedRange: \(client.markedRange()) and cursorPosition: \(localCursorPosition?.description ?? "nil")")
+        let nextPosition = (localCursorPosition ?? client.markedRange().length) + delta
+        if (0...client.markedRange().length).contains(nextPosition) {
+            Logger.log.debug("Still within markedRange")
+            localCursorPosition = nextPosition
+            return true
+        }
+        Logger.log.debug("Outside of markedRange")
+        localCursorPosition = nil
+        return false
+    }
+
     func showActive(clientText: NSAttributedString, candidateText: String, replacementRange: NSRange? = nil) {
         Logger.log.debug("Showing clientText: \(clientText) and candidateText: \(candidateText)")
-        client.setMarkedText(clientText, selectionRange: NSMakeRange(clientText.length, 0), replacementRange: replacementRange ?? currentPosition)
+        client.setMarkedText(clientText, selectionRange: NSMakeRange(localCursorPosition ?? clientText.length, 0), replacementRange: replacementRange ?? globalCurrentPosition)
         candidates = [candidateText]
         candidatesWindow.update()
         if !config.hideCandidate {
@@ -52,14 +69,16 @@ class ClientManager: CustomStringConvertible {
     
     func finalize(_ output: String) {
         Logger.log.debug("Finalizing with: \(output)")
-        client.insertText(output, replacementRange: currentPosition)
+        client.insertText(output, replacementRange: globalCurrentPosition)
         candidatesWindow.hide()
+        localCursorPosition = nil
     }
     
     func clear() {
         Logger.log.debug("Clearing MarkedText and Candidate window")
-        client.setMarkedText("", selectionRange: NSMakeRange(0, 0), replacementRange: currentPosition)
+        client.setMarkedText("", selectionRange: NSMakeRange(0, 0), replacementRange: globalCurrentPosition)
         candidatesWindow.hide()
+        localCursorPosition = nil
     }
     
     func findWord(at current: Int) -> NSRange? {

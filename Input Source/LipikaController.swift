@@ -14,8 +14,8 @@ import LipikaEngine_OSX
 public class LipikaController: IMKInputController {
     let config = LipikaConfig()
     private let clientManager: ClientManager
-    private var literatorHash = 0
     private (set) var systemTrayMenu: NSMenu
+    private var literatorHash = 0
     private (set) var transliterator: Transliterator!
     private (set) var anteliterator: Anteliterator!
     
@@ -121,13 +121,14 @@ public class LipikaController: IMKInputController {
             commit()
             return false
         }
-        let literated = transliterator.transliterate(input)
-        showActive(literated)
+        clientManager.resetCursor()
+        showActive(transliterator.transliterate(input))
         return true
     }
     
     public override func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
-        if aSelector == #selector(NSResponder.deleteBackward) {
+        switch aSelector {
+        case #selector(NSResponder.deleteBackward):
             Logger.log.debug("Processing deleteBackward")
             if let result = transliterator.delete() {
                 Logger.log.debug("Resulted in an actual delete")
@@ -135,25 +136,42 @@ public class LipikaController: IMKInputController {
                 return true
             }
             Logger.log.debug("Nothing to delete")
-        }
-        else if aSelector == #selector(NSResponder.cancelOperation) {
+        case #selector(NSResponder.cancelOperation):
             Logger.log.debug("Processing cancelOperation")
             let result = transliterator.reset()
             clientManager.clear()
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
-        }
-        // Dispatch after the function returns and the client has updated selectedRange
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-            if self.client().markedRange().contains(self.client().selectedRange().location) {
-                return
+        case #selector(NSResponder.insertNewline):
+            Logger.log.debug("Committing for insertNewline")
+            commit()
+        case #selector(NSResponder.moveLeft):
+            if clientManager.moveCursor(delta: -1) {
+                // TODO: provide an API in Engine for this
+                showActive(transliterator.transliterate(""))
+                return true
             }
-            self.commit()
-            guard let currentWordRange = self.clientManager.findWord(at: self.client().selectedRange().location) else {
-                return
+            else {
+                commit()
+                return false
             }
-            var real = NSRange()
-            Logger.log.debug("Current word: \(self.client().string(from: currentWordRange, actualRange: &real))")
+        case #selector(NSResponder.moveRight):
+            if clientManager.moveCursor(delta: 1) {
+                // TODO: provide an API in Engine for this
+                showActive(transliterator.transliterate(""))
+                return true
+            }
+            else {
+                commit()
+                return false
+            }
+        default:
+            // Dispatch after the function returns and the client has updated selectedRange
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+                guard let currentWordRange = self.clientManager.findWord(at: self.client().selectedRange().location) else { return }
+                var real = NSRange()
+                Logger.log.debug("Current word: \(self.client().string(from: currentWordRange, actualRange: &real))")
+            }
         }
         return false
     }
