@@ -16,7 +16,7 @@ class ClientManager: CustomStringConvertible {
     private let client: IMKTextInput
     private let candidatesWindow: IMKCandidates
     // This is the position of the cursor within the marked text
-    private var localCursorPosition: Int? = nil
+    private (set) var localCursorPosition: Int? = nil
     private (set) var candidates = [String]()
     // Cache, otherwise clients quitting can sometimes SEGFAULT us
     var _description: String
@@ -42,10 +42,15 @@ class ClientManager: CustomStringConvertible {
         _description = "\(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())"
     }
     
-    func resetCursor() { localCursorPosition = nil }
+    func setCursor(location: Int) {
+        client.setMarkedText("|", selectionRange: NSMakeRange(0, 0), replacementRange: NSMakeRange(location, 0))
+        client.setMarkedText("", selectionRange: NSMakeRange(0, 0), replacementRange: globalCurrentPosition)
+        localCursorPosition = nil
+    }
     
     func moveCursor(delta: Int) -> Bool {
         Logger.log.debug("Cursor moved: \(delta) with markedRange: \(client.markedRange()) and cursorPosition: \(localCursorPosition?.description ?? "nil")")
+        if client.markedRange().length == NSNotFound { return false }
         let nextPosition = (localCursorPosition ?? client.markedRange().length) + delta
         if (0...client.markedRange().length).contains(nextPosition) {
             Logger.log.debug("Still within markedRange")

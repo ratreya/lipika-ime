@@ -10,6 +10,13 @@
 import InputMethodKit
 import LipikaEngine_OSX
 
+extension Transliterator {
+    func isEmpty() -> Bool {
+        let literation = self.transliterate()
+        return literation.finalaizedInput == "" && literation.finalaizedOutput == "" && literation.unfinalaizedInput == "" && literation.unfinalaizedOutput == ""
+    }
+}
+
 @objc(LipikaController)
 public class LipikaController: IMKInputController {
     let config = LipikaConfig()
@@ -65,7 +72,7 @@ public class LipikaController: IMKInputController {
         else {
             let attributes = mark(forStyle: kTSMHiliteSelectedRawText, at: client().selectedRange()) as! [NSAttributedStringKey : Any]
             let clientText = NSMutableAttributedString(string: literated.finalaizedInput + literated.unfinalaizedInput)
-            clientText.addAttributes(attributes, range: NSMakeRange(0, literated.finalaizedInput.unicodeScalars.count))
+            clientText.addAttributes(attributes, range: NSMakeRange(0, clientText.length))
             clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedOutput + literated.unfinalaizedOutput)
         }
     }
@@ -121,8 +128,11 @@ public class LipikaController: IMKInputController {
             commit()
             return false
         }
-        clientManager.resetCursor()
-        showActive(transliterator.transliterate(input))
+        let literated = transliterator.transliterate(input, position: clientManager.localCursorPosition)
+        if clientManager.localCursorPosition != nil {
+            _ = clientManager.moveCursor(delta: 1)
+        }
+        showActive(literated)
         return true
     }
     
@@ -130,8 +140,11 @@ public class LipikaController: IMKInputController {
         switch aSelector {
         case #selector(NSResponder.deleteBackward):
             Logger.log.debug("Processing deleteBackward")
-            if let result = transliterator.delete() {
+            if let result = transliterator.delete(position: clientManager.localCursorPosition) {
                 Logger.log.debug("Resulted in an actual delete")
+                if clientManager.localCursorPosition != nil {
+                    _ = clientManager.moveCursor(delta: -1)
+                }
                 showActive(result)
                 return true
             }
@@ -145,24 +158,23 @@ public class LipikaController: IMKInputController {
         case #selector(NSResponder.insertNewline):
             Logger.log.debug("Committing for insertNewline")
             commit()
-        case #selector(NSResponder.moveLeft):
-            if clientManager.moveCursor(delta: -1) {
-                // TODO: provide an API in Engine for this
-                showActive(transliterator.transliterate(""))
-                return true
-            }
-            else {
-                commit()
+        case #selector(NSResponder.moveLeft), #selector(NSResponder.moveRight):
+            if transliterator.isEmpty() {
+                Logger.log.debug("Transliterator is empty, not handling cursor move")
                 return false
             }
-        case #selector(NSResponder.moveRight):
-            if clientManager.moveCursor(delta: 1) {
-                // TODO: provide an API in Engine for this
-                showActive(transliterator.transliterate(""))
+            if clientManager.moveCursor(delta: aSelector == #selector(NSResponder.moveLeft) ? -1 : 1) {
+                showActive(transliterator.transliterate())
                 return true
             }
             else {
+                // Fix the cursor position when moving off the left edge of a word.
+                let cursorLocation = client().markedRange().location
                 commit()
+                if aSelector == #selector(NSResponder.moveLeft), cursorLocation != NSNotFound {
+                    Logger.log.debug("Fixing cursor position to location: \(cursorLocation)")
+                    clientManager.setCursor(location: cursorLocation)
+                }
                 return false
             }
         default:
