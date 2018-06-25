@@ -10,21 +10,51 @@
 import InputMethodKit
 import LipikaEngine_OSX
 
-extension Transliterator {
-    func isEmpty() -> Bool {
-        let literation = self.transliterate()
-        return literation.finalaizedInput == "" && literation.finalaizedOutput == "" && literation.unfinalaizedInput == "" && literation.unfinalaizedOutput == ""
-    }
-}
-
 @objc(LipikaController)
 public class LipikaController: IMKInputController {
     let config = LipikaConfig()
     private let clientManager: ClientManager
-    private (set) var systemTrayMenu: NSMenu
+    private (set) var systemTrayMenu: NSMenu!
     private var literatorHash = 0
     private (set) var transliterator: Transliterator!
     private (set) var anteliterator: Anteliterator!
+    
+    private func refreshMenu() {
+        self.systemTrayMenu = NSMenu(title: "LipikaIME")
+        var indent = 0
+        let customSchemes = try! LiteratorFactory(config: config).availableCustomMappings()
+        if !customSchemes.isEmpty {
+            Logger.log.debug("Adding Custom Schemes to Menu: \(customSchemes)")
+            indent = 1
+            let customTitle = NSMenuItem(title: "Custom Schemes", action: nil, keyEquivalent: "")
+            customTitle.isEnabled = false
+            for customScheme in customSchemes {
+                let item = NSMenuItem(title: customScheme, action: #selector(menuItemSelected), keyEquivalent: "")
+                if customScheme == config.customSchemeName {
+                    item.state = .on
+                }
+                item.indentationLevel = indent
+                item.tag = 0
+                systemTrayMenu.addItem(item)
+            }
+            systemTrayMenu.addItem(NSMenuItem.separator())
+            let installedTitle = NSMenuItem(title: "Installed Scripts", action: nil, keyEquivalent: "")
+            installedTitle.isEnabled = false
+            systemTrayMenu.addItem(installedTitle)
+        }
+        if !config.enabledScripts.isEmpty {
+            Logger.log.debug("Adding Installed Scripts to Menu")
+            for script in config.enabledScripts {
+                let item = NSMenuItem(title: script, action: #selector(menuItemSelected), keyEquivalent: "")
+                if config.customSchemeName == nil, script == config.scriptName {
+                    item.state = .on
+                }
+                item.indentationLevel = indent
+                item.tag = 1
+                systemTrayMenu.addItem(item)
+            }
+        }
+    }
     
     private func refreshLiterators() -> Bool {
         let factory = try! LiteratorFactory(config: config)
@@ -62,60 +92,59 @@ public class LipikaController: IMKInputController {
         }
     }
 
-    private func showActive(_ literated: Literated) {
+    private func showActive(_ literated: Literated, replacementRange: NSRange? = nil) {
         if config.outputInClient {
-            let attributes = mark(forStyle: kTSMHiliteConvertedText, at: client().selectedRange()) as! [NSAttributedStringKey : Any]
+            let attributes = mark(forStyle: kTSMHiliteConvertedText, at: replacementRange ?? client().selectedRange()) as! [NSAttributedStringKey : Any]
             let clientText = NSMutableAttributedString(string: literated.finalaizedOutput + literated.unfinalaizedOutput)
             clientText.addAttributes(attributes, range: NSMakeRange(0, clientText.length))
-            clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedInput + literated.unfinalaizedInput)
+            clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedInput + literated.unfinalaizedInput, replacementRange: replacementRange)
         }
         else {
-            let attributes = mark(forStyle: kTSMHiliteSelectedRawText, at: client().selectedRange()) as! [NSAttributedStringKey : Any]
+            let attributes = mark(forStyle: kTSMHiliteSelectedRawText, at: replacementRange ?? client().selectedRange()) as! [NSAttributedStringKey : Any]
             let clientText = NSMutableAttributedString(string: literated.finalaizedInput + literated.unfinalaizedInput)
             clientText.addAttributes(attributes, range: NSMakeRange(0, clientText.length))
-            clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedOutput + literated.unfinalaizedOutput)
+            clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedOutput + literated.unfinalaizedOutput, replacementRange: replacementRange)
+        }
+    }
+    
+    private func moveCursorWithinMarkedText(delta: Int) -> Bool {
+        if transliterator.isEmpty() {
+            Logger.log.debug("Transliterator is empty, not handling cursor move")
+        }
+        else if clientManager.updateMarkedCursorLocation(delta) {
+            showActive(transliterator.transliterate())
+            return true
+        }
+        else {
+            commit()
+        }
+        return false
+    }
+    
+    private func convertWord(at location: Int) {
+        if let wordRange = self.clientManager.findWord(at: location), wordRange.length > 0 {
+            var actual = NSRange()
+            guard let word = self.client().string(from: wordRange, actualRange: &actual), !word.isEmpty else {
+                return
+            }
+            Logger.log.debug("Found word: \(word) at: \(actual)")
+            let inputs = self.anteliterator.anteliterate(word)
+            let literated = self.transliterator.transliterate(inputs)
+            // Calculate the location of cursor within Marked Text
+            self.clientManager.markedCursorLocation = transliterator.findPosition(forPosition: location - actual.location, inOutput: true)
+            Logger.log.debug("Marked Cursor Location: \(self.clientManager.markedCursorLocation!)  for Global Location: \(location - actual.location)")
+            self.showActive(literated, replacementRange: actual)
+        }
+        else {
+            Logger.log.debug("No word found at: \(location)")
         }
     }
     
     public override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
-        // Setup the System Tray Menu
-        let factory = try! LiteratorFactory(config: config)
-        self.systemTrayMenu = NSMenu(title: "LipikaIME")
-        var indent = 0
-        let customSchemes = try! factory.availableCustomMappings()
-        if !customSchemes.isEmpty {
-            Logger.log.debug("Adding Custom Schemes to Menu: \(customSchemes)")
-            indent = 1
-            let customTitle = NSMenuItem(title: "Custom Schemes", action: nil, keyEquivalent: "")
-            customTitle.isEnabled = false
-            for customScheme in customSchemes {
-                let item = NSMenuItem(title: customScheme, action: #selector(menuItemSelected), keyEquivalent: "")
-                if customScheme == config.customSchemeName {
-                    item.state = .on
-                }
-                item.indentationLevel = indent
-                item.tag = 0
-                systemTrayMenu.addItem(item)
-            }
-            systemTrayMenu.addItem(NSMenuItem.separator())
-            let installedTitle = NSMenuItem(title: "Installed Scripts", action: nil, keyEquivalent: "")
-            installedTitle.isEnabled = false
-            systemTrayMenu.addItem(installedTitle)
-        }
-        if !config.enabledScripts.isEmpty {
-            Logger.log.debug("Adding Installed Scripts to Menu")
-            for script in config.enabledScripts {
-                let item = NSMenuItem(title: script, action: #selector(menuItemSelected), keyEquivalent: "")
-                if config.customSchemeName == nil, script == config.scriptName {
-                    item.state = .on
-                }
-                item.indentationLevel = indent
-                item.tag = 1
-                systemTrayMenu.addItem(item)
-            }
-        }
         clientManager = ClientManager(client: inputClient as! IMKTextInput)
         super.init(server: server, delegate: delegate, client: inputClient)
+        // Setup the System Tray Menu
+        refreshMenu()
         // Initialize Literators
         assert(refreshLiterators())
         Logger.log.debug("Initialized Controller for Client: \(clientManager)")
@@ -124,13 +153,32 @@ public class LipikaController: IMKInputController {
     public override func inputText(_ input: String!, client sender: Any!) -> Bool {
         Logger.log.debug("Processing Input: \(input)")
         if input.unicodeScalars.count != 1 || CharacterSet.whitespacesAndNewlines.contains(input.unicodeScalars.first!) {
-            Logger.log.debug("Input triggered a commit; not handling the input")
-            commit()
-            return false
+            // Handle inputting of whitespace inbetween Marked Text
+            if let markedLocation = clientManager.markedCursorLocation {
+                Logger.log.debug("Handling whitespace being inserted inbetween Marked Text at: \(markedLocation)")
+                let literated = transliterator.transliterate()
+                let aggregateInputs = literated.finalaizedInput + literated.unfinalaizedInput
+                let committedIndex = aggregateInputs.index(aggregateInputs.startIndex, offsetBy: markedLocation)
+                _ = transliterator.reset()
+                _ = transliterator.transliterate(String(aggregateInputs.prefix(upTo: committedIndex)))
+                commit()
+                clientManager.finalize(input)
+                clientManager.markedCursorLocation = 0
+                showActive(transliterator.transliterate(String(aggregateInputs.suffix(from: committedIndex))))
+                return true
+            }
+            else {
+                Logger.log.debug("Input triggered a commit; not handling the input")
+                commit()
+                return false
+            }
         }
-        let literated = transliterator.transliterate(input, position: clientManager.localCursorPosition)
-        if clientManager.localCursorPosition != nil {
-            _ = clientManager.moveCursor(delta: 1)
+        if !config.noActiveSessionOnInsert, transliterator.isEmpty() {
+            convertWord(at: client().selectedRange().location)
+        }
+        let literated = transliterator.transliterate(input, position: clientManager.markedCursorLocation)
+        if clientManager.markedCursorLocation != nil {
+            _ = clientManager.updateMarkedCursorLocation(1)
         }
         showActive(literated)
         return true
@@ -140,50 +188,42 @@ public class LipikaController: IMKInputController {
         switch aSelector {
         case #selector(NSResponder.deleteBackward):
             Logger.log.debug("Processing deleteBackward")
-            if let result = transliterator.delete(position: clientManager.localCursorPosition) {
+            if let result = transliterator.delete(position: clientManager.markedCursorLocation) {
                 Logger.log.debug("Resulted in an actual delete")
-                if clientManager.localCursorPosition != nil {
-                    _ = clientManager.moveCursor(delta: -1)
+                if clientManager.markedCursorLocation != nil {
+                    _ = clientManager.updateMarkedCursorLocation(-1)
                 }
                 showActive(result)
                 return true
             }
             Logger.log.debug("Nothing to delete")
+            let oldLocation = client().selectedRange().location
+            commit()
+            if config.noActiveSessionOnDelete { return false }
+            // Move the cursor back to the oldLocation because commit() would have moved it to the end of the committed string
+            clientManager.setGlobalCursorLocation(oldLocation)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+                let newLocation = self.client().selectedRange().location
+                Logger.log.debug("oldLocation: \(oldLocation), newLocation: \(newLocation)")
+                if self.transliterator.isEmpty() {
+                    self.convertWord(at: newLocation)
+                }
+            }
         case #selector(NSResponder.cancelOperation):
             Logger.log.debug("Processing cancelOperation")
             let result = transliterator.reset()
             clientManager.clear()
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
-        case #selector(NSResponder.insertNewline):
-            Logger.log.debug("Committing for insertNewline")
-            commit()
         case #selector(NSResponder.moveLeft), #selector(NSResponder.moveRight):
-            if transliterator.isEmpty() {
-                Logger.log.debug("Transliterator is empty, not handling cursor move")
-                return false
-            }
-            if clientManager.moveCursor(delta: aSelector == #selector(NSResponder.moveLeft) ? -1 : 1) {
-                showActive(transliterator.transliterate())
+            Logger.log.debug("Processing moveRight/Left")
+            if moveCursorWithinMarkedText(delta: aSelector == #selector(NSResponder.moveLeft) ? -1 : 1) {
                 return true
             }
-            else {
-                // Fix the cursor position when moving off the left edge of a word.
-                let cursorLocation = client().markedRange().location
-                commit()
-                if aSelector == #selector(NSResponder.moveLeft), cursorLocation != NSNotFound {
-                    Logger.log.debug("Fixing cursor position to location: \(cursorLocation)")
-                    clientManager.setCursor(location: cursorLocation)
-                }
-                return false
-            }
+            commit()
         default:
-            // Dispatch after the function returns and the client has updated selectedRange
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-                guard let currentWordRange = self.clientManager.findWord(at: self.client().selectedRange().location) else { return }
-                var real = NSRange()
-                Logger.log.debug("Current word: \(self.client().string(from: currentWordRange, actualRange: &real))")
-            }
+            Logger.log.debug("Not processing selector: \(aSelector)")
+            commit()
         }
         return false
     }

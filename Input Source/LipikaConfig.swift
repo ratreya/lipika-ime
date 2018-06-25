@@ -115,4 +115,22 @@ class LipikaConfig: Config {
             userDefaults.set(value, forKey: #function)
         }
     }
+    
+    var noActiveSessionOnDelete: Bool {
+        get {
+            return userDefaults.bool(forKey: #function)
+        }
+        set(value) {
+            userDefaults.set(value, forKey: #function)
+        }
+    }
+    
+    var noActiveSessionOnInsert: Bool {
+        get {
+            return userDefaults.bool(forKey: #function)
+        }
+        set(value) {
+            userDefaults.set(value, forKey: #function)
+        }
+    }
 }
