@@ -132,11 +132,20 @@ public class LipikaController: IMKInputController {
             let literated = self.transliterator.transliterate(inputs)
             // Calculate the location of cursor within Marked Text
             self.clientManager.markedCursorLocation = transliterator.findPosition(forPosition: location - actual.location, inOutput: true)
-            Logger.log.debug("Marked Cursor Location: \(self.clientManager.markedCursorLocation!)  for Global Location: \(location - actual.location)")
+            Logger.log.debug("Marked Cursor Location: \(self.clientManager.markedCursorLocation!) for Global Location: \(location - actual.location)")
             self.showActive(literated, replacementRange: actual)
         }
         else {
             Logger.log.debug("No word found at: \(location)")
+        }
+    }
+    
+    private func dispatchConversion() {
+        // Do this asynch after 10ms to give didCommand time to return and for the client to react to the command such as moving the cursor to the new location
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+            if self.transliterator.isEmpty() {
+                self.convertWord(at: self.client().selectedRange().location)
+            }
         }
     }
     
@@ -185,9 +194,11 @@ public class LipikaController: IMKInputController {
     }
     
     public override func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
+        // Move the cursor back to the oldLocation because commit() will move it to the end of the committed string
+        let oldLocation = client().selectedRange().location
+        Logger.log.debug("Switching \(aSelector) at location: \(oldLocation)")
         switch aSelector {
         case #selector(NSResponder.deleteBackward):
-            Logger.log.debug("Processing deleteBackward")
             if let result = transliterator.delete(position: clientManager.markedCursorLocation) {
                 Logger.log.debug("Resulted in an actual delete")
                 if clientManager.markedCursorLocation != nil {
@@ -197,33 +208,30 @@ public class LipikaController: IMKInputController {
                 return true
             }
             Logger.log.debug("Nothing to delete")
-            let oldLocation = client().selectedRange().location
             commit()
             if config.noActiveSessionOnDelete { return false }
-            // Move the cursor back to the oldLocation because commit() would have moved it to the end of the committed string
             clientManager.setGlobalCursorLocation(oldLocation)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-                let newLocation = self.client().selectedRange().location
-                Logger.log.debug("oldLocation: \(oldLocation), newLocation: \(newLocation)")
-                if self.transliterator.isEmpty() {
-                    self.convertWord(at: newLocation)
-                }
-            }
+            dispatchConversion()
+            return false
         case #selector(NSResponder.cancelOperation):
-            Logger.log.debug("Processing cancelOperation")
             let result = transliterator.reset()
             clientManager.clear()
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
         case #selector(NSResponder.moveLeft), #selector(NSResponder.moveRight):
-            Logger.log.debug("Processing moveRight/Left")
             if moveCursorWithinMarkedText(delta: aSelector == #selector(NSResponder.moveLeft) ? -1 : 1) {
                 return true
             }
             commit()
+            if aSelector == #selector(NSResponder.moveLeft) {
+                clientManager.setGlobalCursorLocation(oldLocation)
+            }
         default:
             Logger.log.debug("Not processing selector: \(aSelector)")
             commit()
+        }
+        if !config.noActiveSessionOnCursorMove {
+            dispatchConversion()
         }
         return false
     }

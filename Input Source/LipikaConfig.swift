@@ -133,4 +133,13 @@ class LipikaConfig: Config {
             userDefaults.set(value, forKey: #function)
         }
     }
+    
+    var noActiveSessionOnCursorMove: Bool {
+        get {
+            return userDefaults.bool(forKey: #function)
+        }
+        set(value) {
+            userDefaults.set(value, forKey: #function)
+        }
+    }
 }
