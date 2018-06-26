@@ -26,12 +26,19 @@ class LipikaConfig: Config {
             return userDefaults.string(forKey: #function)?.unicodeScalars.first ?? super.stopCharacter
         }
         set(value) {
-            var strValue = ""
-            strValue.unicodeScalars.append(value)
-            userDefaults.set(strValue, forKey: #function)
+            userDefaults.set(String(value), forKey: #function)
         }
     }
     
+    override var escapeCharacter: UnicodeScalar {
+        get {
+            return userDefaults.string(forKey: #function)?.unicodeScalars.first ?? super.escapeCharacter
+        }
+        set(value) {
+            userDefaults.set(String(value), forKey: #function)
+        }
+    }
+
     override var logLevel: Level {
         get {
             if let logLevelString = userDefaults.string(forKey: #function) {

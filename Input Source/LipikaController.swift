@@ -129,7 +129,12 @@ public class LipikaController: IMKInputController {
             }
             Logger.log.debug("Found word: \(word) at: \(actual)")
             let inputs = self.anteliterator.anteliterate(word)
+            Logger.log.debug("Anteliterated inputs: \(inputs)")
             let literated = self.transliterator.transliterate(inputs)
+            if word != literated.finalaizedOutput + literated.unfinalaizedOutput {
+                Logger.log.error("Original: \(word) != Ante + Transliterated: \(literated.finalaizedOutput + literated.unfinalaizedOutput) - aborting conversion!")
+                return
+            }
             // Calculate the location of cursor within Marked Text
             self.clientManager.markedCursorLocation = transliterator.findPosition(forPosition: location - actual.location, inOutput: true)
             Logger.log.debug("Marked Cursor Location: \(self.clientManager.markedCursorLocation!) for Global Location: \(location - actual.location)")
@@ -218,6 +223,9 @@ public class LipikaController: IMKInputController {
             clientManager.clear()
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
+        case #selector(NSResponder.insertNewline):
+            commit()
+            return false    // Don't dispatchConversion
         case #selector(NSResponder.moveLeft), #selector(NSResponder.moveRight):
             if moveCursorWithinMarkedText(delta: aSelector == #selector(NSResponder.moveLeft) ? -1 : 1) {
                 return true
