@@ -21,19 +21,17 @@ public class LipikaController: IMKInputController {
     
     private func refreshMenu() {
         self.systemTrayMenu = NSMenu(title: "LipikaIME")
-        var indent = 0
         let customSchemes = try! LiteratorFactory(config: config).availableCustomMappings()
         if !customSchemes.isEmpty {
             Logger.log.debug("Adding Custom Schemes to Menu: \(customSchemes)")
-            indent = 1
             let customTitle = NSMenuItem(title: "Custom Schemes", action: nil, keyEquivalent: "")
             customTitle.isEnabled = false
+            systemTrayMenu.addItem(customTitle)
             for customScheme in customSchemes {
                 let item = NSMenuItem(title: customScheme, action: #selector(menuItemSelected), keyEquivalent: "")
                 if customScheme == config.customSchemeName {
                     item.state = .on
                 }
-                item.indentationLevel = indent
                 item.tag = 0
                 systemTrayMenu.addItem(item)
             }
@@ -49,7 +47,6 @@ public class LipikaController: IMKInputController {
                 if config.customSchemeName == nil, script == config.scriptName {
                     item.state = .on
                 }
-                item.indentationLevel = indent
                 item.tag = 1
                 systemTrayMenu.addItem(item)
             }
