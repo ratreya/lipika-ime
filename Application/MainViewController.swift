@@ -9,7 +9,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class MainViewController: NSTabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
