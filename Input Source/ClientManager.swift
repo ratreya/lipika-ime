@@ -71,7 +71,7 @@ class ClientManager: CustomStringConvertible {
         }
         else {
             candidatesWindow.update()
-            if !config.hideCandidate {
+            if config.showCandidates {
                 candidatesWindow.show()
             }
         }

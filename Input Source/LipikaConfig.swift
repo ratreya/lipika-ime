@@ -73,7 +73,7 @@ class LipikaConfig: Config {
         }
         set(value) {
             userDefaults.removeObject(forKey: "customSchemeName")
-            userDefaults.set(schemeName, forKey: #function)
+            userDefaults.set(value, forKey: #function)
         }
     }
     
@@ -96,12 +96,12 @@ class LipikaConfig: Config {
         }
     }
     
-    var hideCandidate: Bool {
+    var showCandidates: Bool {
         get {
-            return userDefaults.bool(forKey: #function)
+            return !userDefaults.bool(forKey: #function)
         }
         set(value) {
-            userDefaults.set(value, forKey: #function)
+            userDefaults.set(!value, forKey: #function)
         }
     }
     
@@ -123,30 +123,30 @@ class LipikaConfig: Config {
         }
     }
     
-    var noActiveSessionOnDelete: Bool {
+    var activeSessionOnDelete: Bool {
         get {
-            return userDefaults.bool(forKey: #function)
+            return !userDefaults.bool(forKey: #function)
         }
         set(value) {
-            userDefaults.set(value, forKey: #function)
+            userDefaults.set(!value, forKey: #function)
         }
     }
     
-    var noActiveSessionOnInsert: Bool {
+    var activeSessionOnInsert: Bool {
         get {
-            return userDefaults.bool(forKey: #function)
+            return !userDefaults.bool(forKey: #function)
         }
         set(value) {
-            userDefaults.set(value, forKey: #function)
+            userDefaults.set(!value, forKey: #function)
         }
     }
     
-    var noActiveSessionOnCursorMove: Bool {
+    var activeSessionOnCursorMove: Bool {
         get {
-            return userDefaults.bool(forKey: #function)
+            return !userDefaults.bool(forKey: #function)
         }
         set(value) {
-            userDefaults.set(value, forKey: #function)
+            userDefaults.set(!value, forKey: #function)
         }
     }
 }

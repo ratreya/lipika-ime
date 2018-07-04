@@ -78,14 +78,16 @@ public class LipikaController: IMKInputController {
         return false
     }
     
-    private func commit() {
+    @discardableResult private func commit() -> Bool {
         if let text = transliterator.reset() {
             Logger.log.debug("Committing with text: \(text)")
             clientManager.finalize(text.finalaizedOutput + text.unfinalaizedOutput)
+            return true
         }
         else {
             Logger.log.debug("Nothing to commit")
             clientManager.clear()
+            return false
         }
     }
 
@@ -143,6 +145,8 @@ public class LipikaController: IMKInputController {
     }
     
     private func dispatchConversion() {
+        // Don't dispatch if active session or selection is in progress
+        if !transliterator.isEmpty() || client().selectedRange().length != 0 { return }
         // Do this asynch after 10ms to give didCommand time to return and for the client to react to the command such as moving the cursor to the new location
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
             if self.transliterator.isEmpty() {
@@ -184,7 +188,7 @@ public class LipikaController: IMKInputController {
                 return false
             }
         }
-        if !config.noActiveSessionOnInsert, transliterator.isEmpty() {
+        if config.activeSessionOnInsert, transliterator.isEmpty() {
             convertWord(at: client().selectedRange().location)
         }
         let literated = transliterator.transliterate(input, position: clientManager.markedCursorLocation)
@@ -210,10 +214,12 @@ public class LipikaController: IMKInputController {
                 return true
             }
             Logger.log.debug("Nothing to delete")
-            commit()
-            if config.noActiveSessionOnDelete { return false }
-            clientManager.setGlobalCursorLocation(oldLocation)
-            dispatchConversion()
+            if commit() {
+                clientManager.setGlobalCursorLocation(oldLocation)
+            }
+            if config.activeSessionOnDelete {
+                dispatchConversion()
+            }
             return false
         case #selector(NSResponder.cancelOperation):
             let result = transliterator.reset()
@@ -235,7 +241,7 @@ public class LipikaController: IMKInputController {
             Logger.log.debug("Not processing selector: \(aSelector)")
             commit()
         }
-        if !config.noActiveSessionOnCursorMove {
+        if config.activeSessionOnCursorMove {
             dispatchConversion()
         }
         return false
