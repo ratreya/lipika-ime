@@ -167,7 +167,7 @@ public class LipikaController: IMKInputController {
     
     public override func inputText(_ input: String!, client sender: Any!) -> Bool {
         Logger.log.debug("Processing Input: \(input)")
-        if input.unicodeScalars.count != 1 || CharacterSet.whitespacesAndNewlines.contains(input.unicodeScalars.first!) {
+        if input.unicodeScalars.count != 1 || CharacterSet.whitespaces.contains(input.unicodeScalars.first!) {
             // Handle inputting of whitespace inbetween Marked Text
             if let markedLocation = clientManager.markedCursorLocation {
                 Logger.log.debug("Handling whitespace being inserted inbetween Marked Text at: \(markedLocation)")
@@ -202,7 +202,12 @@ public class LipikaController: IMKInputController {
     public override func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
         // Move the cursor back to the oldLocation because commit() will move it to the end of the committed string
         let oldLocation = client().selectedRange().location
-        Logger.log.debug("Switching \(aSelector) at location: \(oldLocation)")
+        if aSelector!.description.hasSuffix("ModifySelection:") {
+            Logger.log.debug("Shortcircuting and letting the client handle the event: \(aSelector!)!")
+            commit()
+            return false
+        }
+        Logger.log.debug("Switching \(aSelector!) at location: \(oldLocation)")
         switch aSelector {
         case #selector(NSResponder.deleteBackward):
             if let result = transliterator.delete(position: clientManager.markedCursorLocation) {
@@ -227,8 +232,7 @@ public class LipikaController: IMKInputController {
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
         case #selector(NSResponder.insertNewline):
-            commit()
-            return false    // Don't dispatchConversion
+            return commit()    // Don't dispatchConversion
         case #selector(NSResponder.moveLeft), #selector(NSResponder.moveRight):
             if moveCursorWithinMarkedText(delta: aSelector == #selector(NSResponder.moveLeft) ? -1 : 1) {
                 return true
