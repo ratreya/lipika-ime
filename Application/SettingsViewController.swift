@@ -17,7 +17,7 @@ class SettingsViewController: NSViewController {
     @IBOutlet weak var stopCharacter: NSTextField!
     @IBOutlet weak var escapeCharacter: NSTextField!
     @IBOutlet weak var showCandidates: NSButton!
-    @IBOutlet weak var outputInClient: NSButton!
+    @IBOutlet weak var outputInClient: NSPopUpButton!
     @IBOutlet weak var globalScriptSelection: NSButton!
     @IBOutlet weak var activeSessionOnDelete: NSButton!
     @IBOutlet weak var activeSessionOnInsert: NSButton!
@@ -35,7 +35,7 @@ class SettingsViewController: NSViewController {
         stopCharacter.stringValue = String(config.stopCharacter)
         escapeCharacter.stringValue = String(config.escapeCharacter)
         showCandidates.state = config.showCandidates ? .on : .off
-        outputInClient.state = config.outputInClient ? .on : .off
+        outputInClient.selectItem(withTag: config.outputInClient ? 1 : 0)
         globalScriptSelection.state = config.globalScriptSelection ? .on : .off
         activeSessionOnDelete.state = config.activeSessionOnDelete ? .on : .off
         activeSessionOnInsert.state = config.activeSessionOnInsert ? .on : .off
@@ -112,7 +112,7 @@ class SettingsViewController: NSViewController {
         config.stopCharacter = stopCharacter.stringValue.unicodeScalars.first!
         config.escapeCharacter = escapeCharacter.stringValue.unicodeScalars.first!
         config.showCandidates = showCandidates.state == .on
-        config.outputInClient = outputInClient.state == .on
+        config.outputInClient = outputInClient.selectedTag() == 1
         config.activeSessionOnDelete = activeSessionOnDelete.state == .on
         config.globalScriptSelection = globalScriptSelection.state == .on
         config.activeSessionOnInsert = activeSessionOnInsert.state == .on

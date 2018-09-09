@@ -51,15 +51,30 @@ public final class Installer {
     }
     
     private func enable() {
-        try! InputSource.enable(inputSource: InputSource.getLipika().first!)
+        if let lipika = InputSource.getLipika().first {
+            try! InputSource.enable(inputSource: lipika)
+        }
+        else {
+            print("[ERROR] LipikaIME input source not found")
+        }
     }
     
     private func select() {
-        try! InputSource.select(inputSource: InputSource.getLipika().first!)
+        if let lipika = InputSource.getLipika().first {
+            try! InputSource.select(inputSource: lipika)
+        }
+        else {
+            print("[ERROR] LipikaIME input source not found")
+        }
     }
     
     private func remove() {
-        try! InputSource.remove(inputSource: InputSource.getLipika().first!)
+        if let lipika = InputSource.getLipika().first {
+            try! InputSource.remove(inputSource: lipika)
+        }
+        else {
+            print("[ERROR] LipikaIME input source not found")
+        }
     }
 }
 
