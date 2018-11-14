@@ -19,3 +19,8 @@ Installation
 To install LipikaIME, follow the **[Installation Instructions](https://github.com/ratreya/Lipika_IME/wiki)**.
 
 New releases and their release notes have been moved to the [Release Section](https://github.com/ratreya/Lipika_IME/releases). And release notes for older releases can be found on [this wiki](https://github.com/ratreya/Lipika_IME/wiki/Old-Release-Notes).
+
+
+Transliteration Schemes
+------------------------
+https://github.com/ratreya/lipika-ime/wiki/Transliteration-Schemes
