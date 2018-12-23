@@ -10,7 +10,7 @@
 import Cocoa
 import LipikaEngine_OSX
 
-class SettingsViewController: NSViewController {
+class SettingsViewController: NSViewController, NSTextFieldDelegate {
 
     @IBOutlet weak var schemeName: NSPopUpButton!
     @IBOutlet weak var logLevel: NSPopUpButton!
@@ -66,7 +66,7 @@ class SettingsViewController: NSViewController {
         reset()
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
+    func controlTextDidChange(_ obj: Notification) {
         makeSaveable()
     }
     
