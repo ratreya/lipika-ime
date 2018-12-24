@@ -64,7 +64,7 @@
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="LipikaApp" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <rect key="contentRect" x="534" y="269" width="680" height="390"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
@@ -123,6 +123,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="inputSchemeSelected:" target="B7v-90-QOY" id="AjH-0Y-HIl"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXO-2Z-sbB">
                                 <rect key="frame" x="19" y="321" width="58" height="18"/>
@@ -130,37 +133,34 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="inputScriptSelected:" target="B7v-90-QOY" id="N3c-ji-chl"/>
+                                </connections>
                             </button>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8uP-RE-CDN">
                                 <rect key="frame" x="94" y="349" width="135" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="H9S-QZ-eHB"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2H4-B3-Feu" id="JW1-M9-dFw">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="JW1-M9-dFw">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="0vA-6M-OIC">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="2H4-B3-Feu"/>
-                                            <menuItem title="Item 2" id="xCH-v8-Mdx"/>
-                                            <menuItem title="Item 3" id="beh-Ky-eoJ"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" id="0vA-6M-OIC"/>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="selectionChanged:" target="B7v-90-QOY" id="HAp-zq-L7x"/>
+                                </connections>
                             </popUpButton>
                             <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IJv-M5-ENI">
                                 <rect key="frame" x="81" y="317" width="148" height="25"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Ez5-Wj-Agd" id="HbS-mb-gRs">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="HbS-mb-gRs">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="Koy-yS-pYm">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="Ez5-Wj-Agd"/>
-                                            <menuItem title="Item 2" id="350-Af-RnQ"/>
-                                            <menuItem title="Item 3" id="xP6-2v-pEj"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" id="Koy-yS-pYm"/>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="selectionChanged:" target="B7v-90-QOY" id="AZM-2l-3CZ"/>
+                                </connections>
                             </popUpButton>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mlT-2W-5TZ">
                                 <rect key="frame" x="453" y="353" width="71" height="18"/>
@@ -168,37 +168,34 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="outputSchemeSelected:" target="B7v-90-QOY" id="XEp-TY-5VE"/>
+                                </connections>
                             </button>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="odD-T2-IwZ">
                                 <rect key="frame" x="528" y="349" width="135" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="X8Y-dv-236"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="nMN-Qc-Rmm" id="dHQ-Hd-KuG">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="dHQ-Hd-KuG">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="bzC-wF-2h6">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="nMN-Qc-Rmm"/>
-                                            <menuItem title="Item 2" id="BMO-Y0-l1M"/>
-                                            <menuItem title="Item 3" id="bXV-nZ-BZG"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" id="bzC-wF-2h6"/>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="selectionChanged:" target="B7v-90-QOY" id="coW-he-dfc"/>
+                                </connections>
                             </popUpButton>
                             <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lgg-2e-4tl">
                                 <rect key="frame" x="515" y="317" width="148" height="25"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="UgI-HL-q3p" id="4Ge-W9-NLH">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="4Ge-W9-NLH">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="t0k-g8-xJ4">
-                                        <items>
-                                            <menuItem title="Item 1" state="on" id="UgI-HL-q3p"/>
-                                            <menuItem title="Item 2" id="S8b-Zn-aOO"/>
-                                            <menuItem title="Item 3" id="yqB-Sh-7u5"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" id="t0k-g8-xJ4"/>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="selectionChanged:" target="B7v-90-QOY" id="y1p-Mm-P41"/>
+                                </connections>
                             </popUpButton>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nhY-Xq-RDL">
                                 <rect key="frame" x="453" y="321" width="58" height="18"/>
@@ -206,6 +203,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="ouputScriptSelected:" target="B7v-90-QOY" id="4QK-Nj-1tl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -236,7 +236,14 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="splitContainer" destination="hkJ-z0-kME" id="48d-oe-n4H"/>
+                        <outlet property="inputScheme" destination="8uP-RE-CDN" id="SVg-5L-LN5"/>
+                        <outlet property="inputScript" destination="IJv-M5-ENI" id="iQd-jY-mh6"/>
+                        <outlet property="isInputScheme" destination="Q1z-xJ-pL4" id="O0Y-9w-OyS"/>
+                        <outlet property="isInputScript" destination="YXO-2Z-sbB" id="cmT-fk-FgF"/>
+                        <outlet property="isOutputScheme" destination="mlT-2W-5TZ" id="bgB-tS-zwd"/>
+                        <outlet property="isOutputScript" destination="nhY-Xq-RDL" id="e9W-rS-Peo"/>
+                        <outlet property="outputScheme" destination="odD-T2-IwZ" id="vIB-wt-RLs"/>
+                        <outlet property="outputScript" destination="Lgg-2e-4tl" id="Zj7-rh-tNe"/>
                     </connections>
                 </viewController>
             </objects>
@@ -570,7 +577,7 @@
                 </viewController>
                 <customObject id="bIT-AI-YOf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="390" y="1175"/>
+            <point key="canvasLocation" x="390" y="1182"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="oSE-TB-SqS">
@@ -602,36 +609,39 @@
             <objects>
                 <viewController id="HGu-gj-59t" sceneMemberID="viewController">
                     <view key="view" id="u8b-Hj-Pzy">
-                        <rect key="frame" x="0.0" y="0.0" width="140" height="390"/>
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="390"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1F-KT-6vH">
-                                <rect key="frame" x="20" y="20" width="100" height="350"/>
+                                <rect key="frame" x="20" y="20" width="300" height="350"/>
                                 <clipView key="contentView" drawsBackground="NO" id="cT2-AL-61y">
-                                    <rect key="frame" x="1" y="1" width="98" height="348"/>
+                                    <rect key="frame" x="1" y="1" width="298" height="348"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="lhz-iO-l9e">
-                                            <rect key="frame" x="0.0" y="0.0" width="98" height="348"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="348"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="98" height="348"/>
+                                            <size key="minSize" width="298" height="348"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="HGu-gj-59t" id="ikN-IA-vMk"/>
+                                            </connections>
                                         </textView>
                                     </subviews>
                                 </clipView>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="dzw-4a-Jvv"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="eLH-rQ-HIs"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="275" id="eLH-rQ-HIs"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="6dw-lo-qOF">
                                     <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="KZn-Wg-RZV">
-                                    <rect key="frame" x="83" y="1" width="16" height="348"/>
+                                    <rect key="frame" x="283" y="1" width="16" height="348"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -653,28 +663,31 @@
             <objects>
                 <viewController id="3k9-Ge-5hI" sceneMemberID="viewController">
                     <view key="view" id="6SB-wz-ETZ">
-                        <rect key="frame" x="0.0" y="0.0" width="140" height="390"/>
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="390"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tap-rg-zxW">
-                                <rect key="frame" x="20" y="20" width="100" height="350"/>
+                                <rect key="frame" x="20" y="20" width="300" height="350"/>
                                 <clipView key="contentView" drawsBackground="NO" id="5fF-mu-NWr">
-                                    <rect key="frame" x="1" y="1" width="98" height="348"/>
+                                    <rect key="frame" x="1" y="1" width="298" height="348"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="XjA-1F-Rbi">
-                                            <rect key="frame" x="0.0" y="-1" width="98" height="348"/>
+                                            <rect key="frame" x="0.0" y="-1" width="298" height="348"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="98" height="348"/>
+                                            <size key="minSize" width="298" height="348"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="3k9-Ge-5hI" id="kpc-pJ-ABR"/>
+                                            </connections>
                                         </textView>
                                     </subviews>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="356-8l-Prg"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="275" id="356-8l-Prg"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="f6e-bC-jWj"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="d6W-Jf-8eS">
@@ -682,7 +695,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rI2-rQ-rZt">
-                                    <rect key="frame" x="83" y="1" width="16" height="348"/>
+                                    <rect key="frame" x="283" y="1" width="16" height="348"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -697,12 +710,12 @@
                 </viewController>
                 <customObject id="5jB-ZM-etF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1895" y="851"/>
+            <point key="canvasLocation" x="1895" y="895"/>
         </scene>
         <!--Mappings-->
         <scene sceneID="luX-yE-p5b">
             <objects>
-                <viewController title="Mappings" id="Fac-X1-ZZw" sceneMemberID="viewController">
+                <viewController title="Mappings" id="Fac-X1-ZZw" customClass="MappingsViewController" customModule="LipikaApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="r3h-IP-dVf">
                         <rect key="frame" x="0.0" y="0.0" width="680" height="390"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -737,9 +750,8 @@
                                                             <rect key="frame" x="1" y="1" width="116" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-ik-wRU">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-ik-wRU">
                                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="nzW-c6-Tux">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -747,6 +759,11 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="0ji-ik-wRU" firstAttribute="centerY" secondItem="wBQ-MP-8ZM" secondAttribute="centerY" id="UJV-eT-jiJ"/>
+                                                                <constraint firstItem="0ji-ik-wRU" firstAttribute="centerX" secondItem="wBQ-MP-8ZM" secondAttribute="centerX" id="UUj-rZ-OPZ"/>
+                                                                <constraint firstItem="0ji-ik-wRU" firstAttribute="leading" secondItem="wBQ-MP-8ZM" secondAttribute="leading" constant="2" id="hFf-x9-0i0"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="0ji-ik-wRU" id="zKY-b0-6Ux"/>
                                                             </connections>
@@ -770,9 +787,8 @@
                                                             <rect key="frame" x="120" y="1" width="516" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CwG-dI-51f">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="CwG-dI-51f">
                                                                     <rect key="frame" x="0.0" y="0.0" width="516" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="42z-CB-8k6">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -780,6 +796,11 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="CwG-dI-51f" firstAttribute="leading" secondItem="2qG-I6-NF7" secondAttribute="leading" constant="2" id="4kD-kZ-wYP"/>
+                                                                <constraint firstItem="CwG-dI-51f" firstAttribute="centerX" secondItem="2qG-I6-NF7" secondAttribute="centerX" id="QoJ-Af-xLK"/>
+                                                                <constraint firstItem="CwG-dI-51f" firstAttribute="centerY" secondItem="2qG-I6-NF7" secondAttribute="centerY" id="o0J-RG-qJe"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="CwG-dI-51f" id="K9g-UR-BwJ"/>
                                                             </connections>
@@ -878,6 +899,12 @@
                             <constraint firstAttribute="trailing" secondItem="ZV8-W3-Zoy" secondAttribute="trailing" constant="20" id="yb6-oS-kg4"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mappings" destination="lws-VP-MFn" id="kBV-Ky-bw9"/>
+                        <outlet property="mappingsHeader" destination="i7w-Qr-KVO" id="xeH-7T-Rde"/>
+                        <outlet property="schemeName" destination="8at-2t-VFX" id="jVd-jY-fAj"/>
+                        <outlet property="scriptName" destination="08g-op-Eeh" id="YDG-HS-ilu"/>
+                    </connections>
                 </viewController>
                 <customObject id="nGB-IV-DAF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

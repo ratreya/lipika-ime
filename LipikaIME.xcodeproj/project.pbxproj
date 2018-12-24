@@ -32,6 +32,8 @@
 		A56AECF020ED1CE40070CD5C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */; };
 		A59281E120D45653003013B8 /* TrayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A59281E020D45634003013B8 /* TrayIcon.icns */; };
 		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
+		A5F338A621CFF6510052577A /* MappingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A521CFF6510052577A /* MappingsViewController.swift */; };
+		A5F338AA21CFFBCF0052577A /* LiteratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A59281E020D45634003013B8 /* TrayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TrayIcon.icns; sourceTree = "<group>"; };
 		A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		A5F338A521CFF6510052577A /* MappingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsViewController.swift; sourceTree = "<group>"; };
+		A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiteratorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,8 @@
 				A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */,
 				A54397CD20D4D2F20011C7B7 /* MainViewController.swift */,
 				A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */,
+				A5F338A521CFF6510052577A /* MappingsViewController.swift */,
+				A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -409,6 +415,8 @@
 				A54397E020D4D6840011C7B7 /* LipikaConfig.swift in Sources */,
 				A54397CE20D4D2F20011C7B7 /* MainViewController.swift in Sources */,
 				A54397CC20D4D2F20011C7B7 /* AppDelegate.swift in Sources */,
+				A5F338AA21CFFBCF0052577A /* LiteratorViewController.swift in Sources */,
+				A5F338A621CFF6510052577A /* MappingsViewController.swift in Sources */,
 				A56AECF020ED1CE40070CD5C /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
