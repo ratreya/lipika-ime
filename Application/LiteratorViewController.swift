@@ -51,7 +51,6 @@ class LiteratorViewController: NSViewController, NSTextViewDelegate {
         inputScheme.addItems(withTitles: try! factory.availableSchemes())
         outputScheme.addItems(withTitles: try! factory.availableSchemes())
         inputScript.addItems(withTitles: try! factory.availableScripts())
-        inputScript.insertItem(withTitle: "Autodetect...", at: 0)
         outputScript.addItems(withTitles: try! factory.availableScripts())
 
         inputScheme.selectItem(withTitle: config.schemeName)
@@ -79,6 +78,7 @@ class LiteratorViewController: NSViewController, NSTextViewDelegate {
         output = textViews.last
         input.delegate = self
         output.delegate = self
+        output.isEditable = false
     }
 
     @IBAction func inputSchemeSelected(_ sender: NSButton) {
