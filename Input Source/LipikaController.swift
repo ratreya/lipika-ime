@@ -69,8 +69,9 @@ public class LipikaController: IMKInputController {
             let hashValue = "schemeName: \(config.schemeName) and scriptName: \(config.scriptName)".hashValue
             if hashValue != literatorHash {
                 Logger.log.debug("Refreshing Literators with schemeName: \(config.schemeName) and scriptName: \(config.scriptName)")
-                transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName)
-                anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName)
+                let override: [String: MappingValue]? = MappingStore.read(schemeName: config.schemeName, scriptName: config.scriptName)
+                transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
+                anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
                 literatorHash = hashValue
                 return true
             }
@@ -93,13 +94,13 @@ public class LipikaController: IMKInputController {
 
     private func showActive(_ literated: Literated, replacementRange: NSRange? = nil) {
         if config.outputInClient {
-            let attributes = mark(forStyle: kTSMHiliteConvertedText, at: replacementRange ?? client().selectedRange()) as! [NSAttributedStringKey : Any]
+            let attributes = mark(forStyle: kTSMHiliteConvertedText, at: replacementRange ?? client().selectedRange()) as! [NSAttributedString.Key : Any]
             let clientText = NSMutableAttributedString(string: literated.finalaizedOutput + literated.unfinalaizedOutput)
             clientText.addAttributes(attributes, range: NSMakeRange(0, clientText.length))
             clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedInput + literated.unfinalaizedInput, replacementRange: replacementRange)
         }
         else {
-            let attributes = mark(forStyle: kTSMHiliteSelectedRawText, at: replacementRange ?? client().selectedRange()) as! [NSAttributedStringKey : Any]
+            let attributes = mark(forStyle: kTSMHiliteSelectedRawText, at: replacementRange ?? client().selectedRange()) as! [NSAttributedString.Key : Any]
             let clientText = NSMutableAttributedString(string: literated.finalaizedInput + literated.unfinalaizedInput)
             clientText.addAttributes(attributes, range: NSMakeRange(0, clientText.length))
             clientManager.showActive(clientText: clientText, candidateText: literated.finalaizedOutput + literated.unfinalaizedOutput, replacementRange: replacementRange)
@@ -166,7 +167,7 @@ public class LipikaController: IMKInputController {
     }
     
     public override func inputText(_ input: String!, client sender: Any!) -> Bool {
-        Logger.log.debug("Processing Input: \(input)")
+        Logger.log.debug("Processing Input: \(input!)")
         if input.unicodeScalars.count != 1 || CharacterSet.whitespaces.contains(input.unicodeScalars.first!) {
             // Handle inputting of whitespace inbetween Marked Text
             if let markedLocation = clientManager.markedCursorLocation {
@@ -242,7 +243,7 @@ public class LipikaController: IMKInputController {
                 clientManager.setGlobalCursorLocation(oldLocation)
             }
         default:
-            Logger.log.debug("Not processing selector: \(aSelector)")
+            Logger.log.debug("Not processing selector: \(aSelector!)")
             commit()
         }
         if config.activeSessionOnCursorMove {
@@ -280,12 +281,12 @@ public class LipikaController: IMKInputController {
     }
     
     public override func candidateSelected(_ candidateString: NSAttributedString!) {
-        Logger.log.debug("Candidate selected: \(candidateString)")
+        Logger.log.debug("Candidate selected: \(candidateString!)")
         commit()
     }
     
     public override func commitComposition(_ sender: Any!) {
-        Logger.log.debug("Commit Composition called by \(sender)")
+        Logger.log.debug("Commit Composition called by \(sender!)")
         commit()
     }
     

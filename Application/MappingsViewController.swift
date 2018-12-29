@@ -13,12 +13,15 @@ import LipikaEngine_OSX
 class MappingsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     @IBOutlet weak var scriptName: NSPopUpButton!
     @IBOutlet weak var schemeName: NSPopUpButton!
-    
+    @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var mappingsView: NSTableView!
+    @IBOutlet weak var addButton: NSButton!
+    @IBOutlet weak var removeButton: NSButton!
     
+    private let types = ["CONSONANT", "DEPENDENT", "DIGIT", "SIGN", "VOWEL"]
     private let config = LipikaConfig()
     private let factory: LiteratorFactory
-    private var mappings: [(String, String, String, String)]!
+    private var mappings: [[String]]!
     
     required init?(coder: NSCoder) {
         factory = try! LiteratorFactory(config: config)
@@ -27,24 +30,18 @@ class MappingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     }
     
     private func updateMappings(schemeName: String, scriptName: String) {
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.daivajnanam.Lipika")
-        let customMap = container!.appendingPathComponent(schemeName + "-" + scriptName).appendingPathExtension("map")
-        if FileManager.default.fileExists(atPath: customMap.path) {
-            mappings = NSArray(contentsOf: customMap) as? [(String, String, String, String)]
+        if let mappings: [[String]] = MappingStore.read(schemeName: schemeName, scriptName: scriptName) {
+            self.mappings = mappings
         }
         else {
             let nested = try! factory.mappings(schemeName: schemeName, scriptName: scriptName)
-            mappings = []
-            for type in nested.keys {
-                for key in nested[type]!.keys {
-                    mappings.append((type, key, nested[type]![key]!.scheme.reduce("", {$0 + ", " + $1}), nested[type]![key]!.script ?? ""))
-                }
-            }
+            self.mappings = MappingStore.denest(nested: nested)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveButton.isEnabled = false
         mappingsView.delegate = self
         mappingsView.dataSource = self
         
@@ -61,21 +58,62 @@ class MappingsViewController: NSViewController, NSTableViewDelegate, NSTableView
     public func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         switch tableColumn!.title {
         case "Type":
-            return mappings[row].0
+            return types.firstIndex(of: mappings[row][0])
         case "Key":
-            return mappings[row].1
+            return mappings[row][1]
         case "Scheme":
-            return mappings[row].2
+            return mappings[row][2]
         case "Script":
-            return mappings[row].3
+            return mappings[row][3]
         default:
             Logger.log.fatal("Unknown column title \(tableColumn!.title)")
             fatalError()
         }
     }
     
-    @IBAction func selectionChanged(_ sender: NSPopUpButton) {
+    func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
+        switch tableColumn!.title {
+        case "Type":
+            mappings[row][0] = types[(object as! NSNumber).intValue]
+        case "Key":
+            mappings[row][1] = object as! String
+        case "Scheme":
+            mappings[row][2] = object as! String
+        case "Script":
+            mappings[row][3] = object as! String
+        default:
+            Logger.log.fatal("Unknown column title \(tableColumn!.title)")
+            fatalError()
+        }
+        saveButton.isEnabled = true
+    }
+    
+    @IBAction func addMapping(_ sender: NSButton) {
+        mappings.insert([types[0], "", "", ""], at: mappingsView.selectedRow + 1)
+        mappingsView.reloadData()
+        mappingsView.selectRowIndexes(IndexSet.init(integer: mappingsView.selectedRow + 1), byExtendingSelection: false)
+        mappingsView.scrollRowToVisible(mappingsView.selectedRow)
+    }
+    
+    @IBAction func removeMapping(_ sender: NSButton) {
+        let selectedRow = mappingsView.selectedRow
+        mappings.remove(at: selectedRow)
+        mappingsView.reloadData()
+        mappingsView.selectRowIndexes(IndexSet.init(integer: max(0, selectedRow - 1)), byExtendingSelection: false)
+        mappingsView.scrollRowToVisible(mappingsView.selectedRow)
+    }
+    
+    @IBAction func reset(_ sender: Any) {
+        saveButton.isEnabled = false
+        MappingStore.delete(schemeName: schemeName.titleOfSelectedItem!, scriptName: scriptName.titleOfSelectedItem!)
         updateMappings(schemeName: schemeName.titleOfSelectedItem!, scriptName: scriptName.titleOfSelectedItem!)
         mappingsView.reloadData()
+    }
+    
+    @IBAction func save(_ sender: NSButton) {
+        saveButton.isEnabled = false
+        if !MappingStore.write(schemeName: schemeName.titleOfSelectedItem!, scriptName: scriptName.titleOfSelectedItem!, mappings: mappings) {
+            Logger.log.error("Unable to write to MappingStore for \(schemeName.titleOfSelectedItem!) and \(scriptName.titleOfSelectedItem!)")
+        }
     }
 }

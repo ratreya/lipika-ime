@@ -24,23 +24,23 @@ class ClientManager: CustomStringConvertible {
         return _description
     }
 
-    private var attributes: [NSAttributedStringKey: Any]! {
+    private var attributes: [NSAttributedString.Key: Any]! {
         var rect = NSMakeRect(0, 0, 0, 0)
-        return client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect) as! [NSAttributedStringKey : Any]
+        return client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect) as? [NSAttributedString.Key : Any]
     }
     
     init(client: IMKTextInput) {
-        Logger.log.debug("Initializing client: \(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())")
+        Logger.log.debug("Initializing client: \(client.bundleIdentifier()!) with Id: \(client.uniqueClientIdentifierString()!)")
         self.client = client
         if !client.supportsUnicode() {
-            Logger.log.warning("Client: \(client.bundleIdentifier()) does not support Unicode!")
+            Logger.log.warning("Client: \(client.bundleIdentifier()!) does not support Unicode!")
         }
         if !client.supportsProperty(TSMDocumentPropertyTag(kTSMDocumentSupportDocumentAccessPropertyTag)) {
-            Logger.log.warning("Client: \(client.bundleIdentifier()) does not support Document Access!")
+            Logger.log.warning("Client: \(client.bundleIdentifier()!) does not support Document Access!")
         }
         candidatesWindow = IMKCandidates(server: (NSApp.delegate as! AppDelegate).server, panelType: kIMKSingleRowSteppingCandidatePanel)
         candidatesWindow.setAttributes([IMKCandidatesSendServerKeyEventFirst: NSNumber(booleanLiteral: true)])
-        _description = "\(client.bundleIdentifier()) with Id: \(client.uniqueClientIdentifierString())"
+        _description = "\(client.bundleIdentifier()!) with Id: \(client.uniqueClientIdentifierString()!)"
     }
     
     func setGlobalCursorLocation(_ location: Int) {

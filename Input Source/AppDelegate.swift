@@ -30,6 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         Logger.log.debug("Comitting all editing before terminating")
-        server.commitEditing()
+        server.commitComposition(self)
     }
 }

@@ -10,10 +10,8 @@
 import Cocoa
 
 class MainViewController: NSTabViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -22,7 +20,4 @@ class MainViewController: NSTabViewController {
         // Update the view, if already loaded.
         }
     }
-
-
 }
-
