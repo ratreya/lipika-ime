@@ -18,4 +18,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    
+    @IBAction func showUserGroup(_ sender: NSMenuItem) {
+        NSWorkspace.shared.open(URL(string: "http://facebook.com/groups/lipika.ime")!)
+    }
+    
+    @IBAction func showReleaseNotes(_ sender: NSMenuItem) {
+        NSWorkspace.shared.open(URL(string: "https://github.com/ratreya/lipika-ime/releases")!)
+    }
+    
+    @IBAction func reportIssue(_ sender: NSMenuItem) {
+        NSWorkspace.shared.open(URL(string: "https://github.com/ratreya/lipika-ime/issues/new")!)
+    }
 }

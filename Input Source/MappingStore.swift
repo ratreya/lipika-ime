@@ -56,7 +56,7 @@ class MappingStore {
         for type in nested.keys.sorted() {
             for key in nested[type]!.keys {
                 if let script = nested[type]![key]!.script {
-                    mappings.append([type, key, nested[type]![key]!.scheme.joined(separator: ", "), script.unicodeScalars.map({$0.value}).map({String($0, radix: 16, uppercase: true)}).joined(separator: ", ")])
+                    mappings.append([type, key, nested[type]![key]!.scheme.joined(separator: ", "), script])
                 }
             }
         }
@@ -66,7 +66,7 @@ class MappingStore {
     class func nest(denested: [[String]]) -> [String: MappingValue] {
         var mappings = [String: MappingValue]()
         for row in denested {
-            mappings[row[0], default: MappingValue()][row[1]] = (scheme: row[2].components(separatedBy: ",").map({$0.trimmingCharacters(in: CharacterSet.whitespaces)}), script: row[3].components(separatedBy: ",").map({$0.trimmingCharacters(in: CharacterSet.whitespaces)}).compactMap({String(UnicodeScalar(Int($0, radix: 16)!)!)}).joined())
+            mappings[row[0], default: MappingValue()][row[1]] = (scheme: row[2].components(separatedBy: ",").map({$0.trimmingCharacters(in: CharacterSet.whitespaces)}), script: row[3])
         }
         return mappings
     }

@@ -292,19 +292,19 @@
                                         <menuItem title="Lipika User Group" id="FKE-Sm-Kum">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <action selector="showUserGroup:" target="Voe-Tx-rLC" id="zcC-7n-Ems"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Release Notes" id="Okc-2I-BJ2">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="f3e-DY-FAx"/>
+                                                <action selector="showReleaseNotes:" target="Voe-Tx-rLC" id="xmv-hk-laL"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Report an Issue" id="Pp8-9v-Bh0">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="jJS-QL-Bgb"/>
+                                                <action selector="reportIssue:" target="Voe-Tx-rLC" id="VDj-8d-LXA"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="sem-sB-cDp"/>

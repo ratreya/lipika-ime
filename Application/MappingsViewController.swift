@@ -51,11 +51,11 @@ class MappingsViewController: NSViewController, NSTableViewDelegate, NSTableView
         schemeName.selectItem(withTitle: config.schemeName)
     }
     
-    public func numberOfRows(in tableView: NSTableView) -> Int {
+    func numberOfRows(in tableView: NSTableView) -> Int {
         return mappings.count
     }
     
-    public func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         switch tableColumn!.title {
         case "Type":
             return types.firstIndex(of: mappings[row][0])
