@@ -3,1215 +3,445 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		A5174B13191DDF92001001F3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A5174B12191DDF7F001001F3 /* LICENSE */; };
-		A517EED6187C883600323900 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A517EED4187C87E900323900 /* UserSettings.plist */; };
-		A531FE85195370AA00A714C2 /* DJConversionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A531FE84195370AA00A714C2 /* DJConversionController.m */; };
-		A534DB661E8B479000F814DD /* InputSourceUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A534DB651E8B479000F814DD /* InputSourceUtil.swift */; };
-		A54323511C4AC3E300AC2129 /* GoogleSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323501C4AC3E300AC2129 /* GoogleSchemes */; };
-		A54323531C4AC3F600AC2129 /* LipikaSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323521C4AC3F600AC2129 /* LipikaSchemes */; };
-		A54323541C4AC71000AC2129 /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
-		A545F0311E8F3B0B001A3540 /* InstallProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A545F0301E8F3B0B001A3540 /* InstallProtocol.swift */; };
-		A545F0321E8F3F37001A3540 /* InstallProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A545F0301E8F3B0B001A3540 /* InstallProtocol.swift */; };
-		A54CF18E1EBD49230005B0A5 /* DJLipikaMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = A54CF18B1EBD49010005B0A5 /* DJLipikaMappings.m */; };
-		A55E73191E89D840004FF42A /* LipikaInputSource.app in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107320486CEB800E47090 /* LipikaInputSource.app */; };
-		A55E732C1E89F96C004FF42A /* DJClientManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */; };
-		A55E732D1E89F96C004FF42A /* DJFileConversionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A53013FB1955E1990012E017 /* DJFileConversionTest.m */; };
-		A55E732E1E89F993004FF42A /* CustomSchemes in Resources */ = {isa = PBXBuildFile; fileRef = A54323581C4ACABA00AC2129 /* CustomSchemes */; };
-		A55E732F1E89F993004FF42A /* Control in Resources */ = {isa = PBXBuildFile; fileRef = A53013FD195614810012E017 /* Control */; };
-		A55E73301E89F993004FF42A /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
-		A55E73331E89FA2F004FF42A /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* LipikaEngine.framework */; };
-		A55E73341E89FA5D004FF42A /* DJTestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D71187B201800EB6C46 /* DJTestClient.m */; };
-		A55E73351E89FA5D004FF42A /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D73187B201800EB6C46 /* DJTestHelper.m */; };
-		A55E73361E89FB49004FF42A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
-		A58373691E9011C700402A1A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5876A6F1E8F6BD700D9DA30 /* main.swift */; };
-		A583736A1E90137300402A1A /* InputSourceUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A534DB651E8B479000F814DD /* InputSourceUtil.swift */; };
-		A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */ = {isa = PBXBuildFile; fileRef = A583F15C19525D8100A80B88 /* FileConversion.xib */; };
-		A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */; };
-		A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */; };
-		A5848DE5187B22C400EB6C46 /* DJInputSchemeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D81187B201800EB6C46 /* DJInputSchemeFactory.m */; };
-		A5848DE7187B22C400EB6C46 /* DJParseOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D85187B201800EB6C46 /* DJParseOutput.m */; };
-		A5848DE8187B22C400EB6C46 /* DJSchemeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D88187B201800EB6C46 /* DJSchemeHelper.m */; };
-		A5848DE9187B22C400EB6C46 /* DJSimpleForwardMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D8A187B201800EB6C46 /* DJSimpleForwardMapping.m */; };
-		A5848DEA187B22C400EB6C46 /* DJSimpleReverseMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D8C187B201800EB6C46 /* DJSimpleReverseMapping.m */; };
-		A5848DEB187B22C400EB6C46 /* DJGoogleForwardMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D8F187B201800EB6C46 /* DJGoogleForwardMapping.m */; };
-		A5848DEC187B22C400EB6C46 /* DJGoogleInputScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D91187B201800EB6C46 /* DJGoogleInputScheme.m */; };
-		A5848DED187B22C400EB6C46 /* DJGoogleReverseMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D93187B201800EB6C46 /* DJGoogleReverseMapping.m */; };
-		A5848DEE187B22C400EB6C46 /* DJGoogleSchemeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D95187B201800EB6C46 /* DJGoogleSchemeFactory.m */; };
-		A5848DEF187B22C400EB6C46 /* DJLipikaInputScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D99187B201800EB6C46 /* DJLipikaInputScheme.m */; };
-		A5848DF0187B22C400EB6C46 /* DJLipikaSchemeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D9B187B201800EB6C46 /* DJLipikaSchemeFactory.m */; };
-		A5848DF1187B22C400EB6C46 /* DJReadWriteTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D9F187B201800EB6C46 /* DJReadWriteTrie.m */; };
-		A5848DF2187B22C400EB6C46 /* DJTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA1187B201800EB6C46 /* DJTrieNode.m */; };
-		A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = A5883E69187B530A00FFE7F6 /* DJLipikaUserSettings.m */; };
-		A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D6E187B201800EB6C46 /* DJLogger.m */; };
-		A5883E6E187B543700FFE7F6 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */; };
-		A5883E6F187B545D00FFE7F6 /* DJActiveBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */; };
-		A5883E72187B551C00FFE7F6 /* DJLipikaClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5883E2F187B394800FFE7F6 /* DJLipikaClientManager.m */; };
-		A5883E73187B551C00FFE7F6 /* DJLipikaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */; };
-		A5883E74187B551C00FFE7F6 /* DJLipikaClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD1187B201800EB6C46 /* DJLipikaClientDelegate.m */; };
-		A5883E76187B551C00FFE7F6 /* DJLipikaInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD5187B201800EB6C46 /* DJLipikaInputController.m */; };
-		A5883E77187B551C00FFE7F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DD9187B201800EB6C46 /* main.m */; };
-		A5883E78187B551C00FFE7F6 /* DJLipikaCandidates.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DDC187B201800EB6C46 /* DJLipikaCandidates.m */; };
-		A5883E79187B551C00FFE7F6 /* DJPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DDE187B201800EB6C46 /* DJPreferenceController.m */; };
-		A5883E7B187B55C600FFE7F6 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */; };
-		A5883E7C187B566100FFE7F6 /* DJBufferManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA4187B201800EB6C46 /* DJBufferManagerTest.m */; };
-		A5883E7D187B566100FFE7F6 /* DJBufferReplayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA5187B201800EB6C46 /* DJBufferReplayTest.m */; };
-		A5883E7E187B566100FFE7F6 /* DJGoogleEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA7187B201800EB6C46 /* DJGoogleEngineTest.m */; };
-		A5883E7F187B566100FFE7F6 /* DJGoogleInputStringText.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA8187B201800EB6C46 /* DJGoogleInputStringText.m */; };
-		A5883E80187B566100FFE7F6 /* DJGoogleNestedClassTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DA9187B201800EB6C46 /* DJGoogleNestedClassTest.m */; };
-		A5883E81187B566100FFE7F6 /* DJGoogleNestedReverseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DAA187B201800EB6C46 /* DJGoogleNestedReverseTest.m */; };
-		A5883E82187B566100FFE7F6 /* DJGoogleReverseMapTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DAB187B201800EB6C46 /* DJGoogleReverseMapTest.m */; };
-		A5883E83187B566100FFE7F6 /* DJGoogleSchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DAC187B201800EB6C46 /* DJGoogleSchemeTest.m */; };
-		A5883E84187B566100FFE7F6 /* DJGoogleSpecialCharsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DAD187B201800EB6C46 /* DJGoogleSpecialCharsTest.m */; };
-		A5AD412F1E75D1FB00F23C32 /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* LipikaEngine.framework */; };
-		A5AD41301E75D1FB00F23C32 /* LipikaEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* LipikaEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A5BD74141E896181003342D0 /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5C2A1BE188872E70085DE01 /* Icon.xcassets */; };
-		A5C2A1BF1888761F0085DE01 /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5C2A1BE188872E70085DE01 /* Icon.xcassets */; };
-		A5C2E91A1E8DDE3E002D610D /* com.daivajnanam.LipikaIME in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5FAF5AD1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A5C2E91C1E8DE8E0002D610D /* Launchd.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5C2E91B1E8DE8E0002D610D /* Launchd.plist */; };
-		A5CAE3F3187B927A00A1549A /* DJLipikaAddendumTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */; };
-		A5CAE3F4187B927A00A1549A /* DJLipikaSchemeFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB7187B201800EB6C46 /* DJLipikaSchemeFactoryTest.m */; };
-		A5CAE3F5187B927A00A1549A /* DJLipikaSchemeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DB8187B201800EB6C46 /* DJLipikaSchemeTest.m */; };
-		A5CAE3F6187B927A00A1549A /* DJReadWriteTrieTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848DC0187B201800EB6C46 /* DJReadWriteTrieTest.m */; };
-		A5CAE3F7187B92DE00A1549A /* DJTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5848D73187B201800EB6C46 /* DJTestHelper.m */; };
-		A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = A5848DC5187B201800EB6C46 /* MainMenu.nib */; };
-		A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5848DC7187B201800EB6C46 /* Preferences.xib */; };
-		A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5848DCA187B201800EB6C46 /* LipikaIcon.png */; };
-		A5CAE402187B951F00A1549A /* Schemes in Resources */ = {isa = PBXBuildFile; fileRef = A5CAE401187B950D00A1549A /* Schemes */; };
-		A5CF5951188F4B690093F016 /* DJLipikaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CF5950188F4B690093F016 /* DJLipikaHelper.m */; };
-		A5D26AB91E88B58F0077FB9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5D26AB71E88B58F0077FB9D /* Main.storyboard */; };
-		A5D26ABE1E88B5B30077FB9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D26ABC1E88B5B30077FB9D /* AppDelegate.swift */; };
-		A5D26ABF1E88B5B30077FB9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D26ABD1E88B5B30077FB9D /* ViewController.swift */; };
-		A5D635051877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
-		A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635041877435B0048DAE5 /* Cocoa.framework */; };
-		A5D6351D1877435B0048DAE5 /* LipikaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D635031877435B0048DAE5 /* LipikaEngine.framework */; };
-		A5E315981EBE4E1100E1AE7E /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */; };
-		A5E315991EBE4E2900E1AE7E /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */; };
-		A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */; };
-		A5EDA4E3187F202700B58B8D /* DJStringBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */; };
-		A5F19397188F4D1100EBF6B3 /* DJLipikaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CF5950188F4B690093F016 /* DJLipikaHelper.m */; };
-		A5FAF5B51E8C8F94004E4414 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FAF5B41E8C8F94004E4414 /* main.swift */; };
-		A5FAF5B81E8C94A2004E4414 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FAF5B71E8C94A2004E4414 /* Security.framework */; };
+		A5122A4E20D42A2000575848 /* InputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01A20CC658000C95844 /* InputSource.swift */; };
+		A5122A4F20D42A2000575848 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5122A4220D420E100575848 /* main.swift */; };
+		A5122A5020D42A9500575848 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182A20CC6BF3003A73EB /* InputMethodKit.framework */; };
+		A5122A5120D42AA600575848 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182820CC6BEA003A73EB /* Cocoa.framework */; };
+		A53AD00120CC347900C95844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD00020CC347900C95844 /* AppDelegate.swift */; };
+		A53AD00320CC347900C95844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53AD00220CC347900C95844 /* Assets.xcassets */; };
+		A53AD01220CC643700C95844 /* LipikaEngine_OSX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A53AD01520CC64FD00C95844 /* LipikaEngine_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; };
+		A53AD01720CC654700C95844 /* LipikaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01620CC654700C95844 /* LipikaConfig.swift */; };
+		A53AD01D20CC659C00C95844 /* ClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01C20CC659C00C95844 /* ClientManager.swift */; };
+		A53AD01F20CC660900C95844 /* LipikaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01E20CC660900C95844 /* LipikaController.swift */; };
+		A54397CC20D4D2F20011C7B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */; };
+		A54397CE20D4D2F20011C7B7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54397CD20D4D2F20011C7B7 /* MainViewController.swift */; };
+		A54397D320D4D2F30011C7B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A54397D120D4D2F30011C7B7 /* Main.storyboard */; };
+		A54397DB20D4D5E90011C7B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53AD00220CC347900C95844 /* Assets.xcassets */; };
+		A54397DC20D4D6090011C7B7 /* LipikaEngine_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; };
+		A54397DD20D4D6090011C7B7 /* LipikaEngine_OSX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A54397DF20D4D6170011C7B7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182820CC6BEA003A73EB /* Cocoa.framework */; };
+		A54397E020D4D6840011C7B7 /* LipikaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01620CC654700C95844 /* LipikaConfig.swift */; };
+		A546182720CC6BB2003A73EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A546181E20CC6A06003A73EB /* LICENSE */; };
+		A546182920CC6BEA003A73EB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182820CC6BEA003A73EB /* Cocoa.framework */; };
+		A546182B20CC6BF3003A73EB /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A546182A20CC6BF3003A73EB /* InputMethodKit.framework */; };
+		A55381F521D703EA00A3CD8A /* MappingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55381F421D703EA00A3CD8A /* MappingStore.swift */; };
+		A55381F621D706E500A3CD8A /* MappingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55381F421D703EA00A3CD8A /* MappingStore.swift */; };
+		A56AECF020ED1CE40070CD5C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */; };
+		A59281E120D45653003013B8 /* TrayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A59281E020D45634003013B8 /* TrayIcon.icns */; };
+		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
+		A5F338A621CFF6510052577A /* MappingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A521CFF6510052577A /* MappingsViewController.swift */; };
+		A5F338AA21CFFBCF0052577A /* LiteratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A553F1911E1834B300A736A3 /* PBXContainerItemProxy */ = {
+		A5122A5320D43D8800575848 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			containerPortal = A53ACFF520CC347900C95844 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A5D635021877435B0048DAE5;
-			remoteInfo = Engine;
-		};
-		A55E731A1E89D849004FF42A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = InputSource;
-		};
-		A55E73271E89F93E004FF42A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = LipikaInputSource;
-		};
-		A55E73311E89FA24004FF42A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A5D635021877435B0048DAE5;
-			remoteInfo = LipikaEngine;
-		};
-		A56E75841E74EA4E0013A6ED /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A5D635021877435B0048DAE5;
-			remoteInfo = Engine;
-		};
-		A5AE5AEF1E74E16100355D8F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = InputSource;
-		};
-		A5C2E9151E8DDB67002D610D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A5FAF5AC1E8C8F0C004E4414;
-			remoteInfo = InstallHelper;
+			remoteGlobalIDString = A53ACFFC20CC347900C95844;
+			remoteInfo = LipikaIME;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A58373601E9011A800402A1A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-		A5AD41311E75D1FB00F23C32 /* Embed Frameworks */ = {
+		A53AD01320CC643700C95844 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A5AD41301E75D1FB00F23C32 /* LipikaEngine.framework in Embed Frameworks */,
+				A53AD01220CC643700C95844 /* LipikaEngine_OSX.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A5C2E9191E8DDE2C002D610D /* CopyFiles */ = {
+		A54397DE20D4D6090011C7B7 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Library/LaunchServices;
-			dstSubfolderSpec = 1;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
-				A5C2E91A1E8DDE3E002D610D /* com.daivajnanam.LipikaIME in CopyFiles */,
+				A54397DD20D4D6090011C7B7 /* LipikaEngine_OSX.framework in Embed Frameworks */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5FAF5AB1E8C8F0C004E4414 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		8D1107320486CEB800E47090 /* LipikaInputSource.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaInputSource.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5174B12191DDF7F001001F3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
-		A5174B14191DDFB5001001F3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
-		A517EED4187C87E900323900 /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
-		A53013FB1955E1990012E017 /* DJFileConversionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJFileConversionTest.m; sourceTree = "<group>"; };
-		A53013FD195614810012E017 /* Control */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Control; sourceTree = "<group>"; };
-		A531FE83195370AA00A714C2 /* DJConversionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJConversionController.h; sourceTree = "<group>"; };
-		A531FE84195370AA00A714C2 /* DJConversionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJConversionController.m; sourceTree = "<group>"; };
-		A534DB651E8B479000F814DD /* InputSourceUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputSourceUtil.swift; path = HostingApp/LipikaIME/InputSourceUtil.swift; sourceTree = SOURCE_ROOT; };
-		A54323501C4AC3E300AC2129 /* GoogleSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GoogleSchemes; sourceTree = "<group>"; };
-		A54323521C4AC3F600AC2129 /* LipikaSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LipikaSchemes; sourceTree = "<group>"; };
-		A54323581C4ACABA00AC2129 /* CustomSchemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CustomSchemes; sourceTree = "<group>"; };
-		A545F0301E8F3B0B001A3540 /* InstallProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstallProtocol.swift; path = HostingApp/LipikaIME/InstallHelper/InstallProtocol.swift; sourceTree = SOURCE_ROOT; };
-		A54CF18B1EBD49010005B0A5 /* DJLipikaMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLipikaMappings.m; sourceTree = "<group>"; };
-		A54CF18C1EBD49010005B0A5 /* DJLipikaMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaMappings.h; sourceTree = "<group>"; };
-		A55E73221E89F93E004FF42A /* LipikaInputSourceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaInputSourceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A58373621E9011A800402A1A /* installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = installer; sourceTree = BUILT_PRODUCTS_DIR; };
-		A583F15C19525D8100A80B88 /* FileConversion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileConversion.xib; sourceTree = "<group>"; };
-		A5848D6C187B201800EB6C46 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		A5848D6D187B201800EB6C46 /* DJLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLogger.h; sourceTree = "<group>"; };
-		A5848D6E187B201800EB6C46 /* DJLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLogger.m; sourceTree = "<group>"; };
-		A5848D70187B201800EB6C46 /* DJTestClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJTestClient.h; sourceTree = "<group>"; };
-		A5848D71187B201800EB6C46 /* DJTestClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJTestClient.m; sourceTree = "<group>"; };
-		A5848D72187B201800EB6C46 /* DJTestHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJTestHelper.h; sourceTree = "<group>"; };
-		A5848D73187B201800EB6C46 /* DJTestHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJTestHelper.m; sourceTree = "<group>"; };
-		A5848D79187B201800EB6C46 /* DJInputMethodEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputMethodEngine.h; sourceTree = "<group>"; };
-		A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputMethodEngine.m; sourceTree = "<group>"; };
-		A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJActiveBufferManager.h; sourceTree = "<group>"; };
-		A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJActiveBufferManager.m; sourceTree = "<group>"; };
-		A5848D7E187B201800EB6C46 /* DJForwardMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJForwardMapping.h; sourceTree = "<group>"; };
-		A5848D7F187B201800EB6C46 /* DJInputMethodScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputMethodScheme.h; sourceTree = "<group>"; };
-		A5848D80187B201800EB6C46 /* DJInputSchemeFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJInputSchemeFactory.h; sourceTree = "<group>"; };
-		A5848D81187B201800EB6C46 /* DJInputSchemeFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJInputSchemeFactory.m; sourceTree = "<group>"; };
-		A5848D84187B201800EB6C46 /* DJParseOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJParseOutput.h; sourceTree = "<group>"; };
-		A5848D85187B201800EB6C46 /* DJParseOutput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJParseOutput.m; sourceTree = "<group>"; };
-		A5848D86187B201800EB6C46 /* DJReverseMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJReverseMapping.h; sourceTree = "<group>"; };
-		A5848D87187B201800EB6C46 /* DJSchemeHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJSchemeHelper.h; sourceTree = "<group>"; };
-		A5848D88187B201800EB6C46 /* DJSchemeHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJSchemeHelper.m; sourceTree = "<group>"; };
-		A5848D89187B201800EB6C46 /* DJSimpleForwardMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJSimpleForwardMapping.h; sourceTree = "<group>"; };
-		A5848D8A187B201800EB6C46 /* DJSimpleForwardMapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJSimpleForwardMapping.m; sourceTree = "<group>"; };
-		A5848D8B187B201800EB6C46 /* DJSimpleReverseMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJSimpleReverseMapping.h; sourceTree = "<group>"; };
-		A5848D8C187B201800EB6C46 /* DJSimpleReverseMapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJSimpleReverseMapping.m; sourceTree = "<group>"; };
-		A5848D8E187B201800EB6C46 /* DJGoogleForwardMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJGoogleForwardMapping.h; sourceTree = "<group>"; };
-		A5848D8F187B201800EB6C46 /* DJGoogleForwardMapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleForwardMapping.m; sourceTree = "<group>"; };
-		A5848D90187B201800EB6C46 /* DJGoogleInputScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJGoogleInputScheme.h; sourceTree = "<group>"; };
-		A5848D91187B201800EB6C46 /* DJGoogleInputScheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleInputScheme.m; sourceTree = "<group>"; };
-		A5848D92187B201800EB6C46 /* DJGoogleReverseMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJGoogleReverseMapping.h; sourceTree = "<group>"; };
-		A5848D93187B201800EB6C46 /* DJGoogleReverseMapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleReverseMapping.m; sourceTree = "<group>"; };
-		A5848D94187B201800EB6C46 /* DJGoogleSchemeFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJGoogleSchemeFactory.h; sourceTree = "<group>"; };
-		A5848D95187B201800EB6C46 /* DJGoogleSchemeFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleSchemeFactory.m; sourceTree = "<group>"; };
-		A5848D96187B201800EB6C46 /* DJGoogleSchemeMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJGoogleSchemeMapping.h; sourceTree = "<group>"; };
-		A5848D98187B201800EB6C46 /* DJLipikaInputScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaInputScheme.h; sourceTree = "<group>"; };
-		A5848D99187B201800EB6C46 /* DJLipikaInputScheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaInputScheme.m; sourceTree = "<group>"; };
-		A5848D9A187B201800EB6C46 /* DJLipikaSchemeFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaSchemeFactory.h; sourceTree = "<group>"; };
-		A5848D9B187B201800EB6C46 /* DJLipikaSchemeFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaSchemeFactory.m; sourceTree = "<group>"; };
-		A5848D9D187B201800EB6C46 /* DJReadOnlyTrie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJReadOnlyTrie.h; sourceTree = "<group>"; };
-		A5848D9E187B201800EB6C46 /* DJReadWriteTrie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJReadWriteTrie.h; sourceTree = "<group>"; };
-		A5848D9F187B201800EB6C46 /* DJReadWriteTrie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJReadWriteTrie.m; sourceTree = "<group>"; };
-		A5848DA0187B201800EB6C46 /* DJTrieNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJTrieNode.h; sourceTree = "<group>"; };
-		A5848DA1187B201800EB6C46 /* DJTrieNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJTrieNode.m; sourceTree = "<group>"; };
-		A5848DA4187B201800EB6C46 /* DJBufferManagerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJBufferManagerTest.m; sourceTree = "<group>"; };
-		A5848DA5187B201800EB6C46 /* DJBufferReplayTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJBufferReplayTest.m; sourceTree = "<group>"; };
-		A5848DA7187B201800EB6C46 /* DJGoogleEngineTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleEngineTest.m; sourceTree = "<group>"; };
-		A5848DA8187B201800EB6C46 /* DJGoogleInputStringText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleInputStringText.m; sourceTree = "<group>"; };
-		A5848DA9187B201800EB6C46 /* DJGoogleNestedClassTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleNestedClassTest.m; sourceTree = "<group>"; };
-		A5848DAA187B201800EB6C46 /* DJGoogleNestedReverseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleNestedReverseTest.m; sourceTree = "<group>"; };
-		A5848DAB187B201800EB6C46 /* DJGoogleReverseMapTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleReverseMapTest.m; sourceTree = "<group>"; };
-		A5848DAC187B201800EB6C46 /* DJGoogleSchemeTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleSchemeTest.m; sourceTree = "<group>"; };
-		A5848DAD187B201800EB6C46 /* DJGoogleSpecialCharsTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJGoogleSpecialCharsTest.m; sourceTree = "<group>"; };
-		A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaAddendumTest.m; sourceTree = "<group>"; };
-		A5848DB7187B201800EB6C46 /* DJLipikaSchemeFactoryTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaSchemeFactoryTest.m; sourceTree = "<group>"; };
-		A5848DB8187B201800EB6C46 /* DJLipikaSchemeTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaSchemeTest.m; sourceTree = "<group>"; };
-		A5848DC0187B201800EB6C46 /* DJReadWriteTrieTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJReadWriteTrieTest.m; sourceTree = "<group>"; };
-		A5848DC6187B201800EB6C46 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		A5848DC8187B201800EB6C46 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
-		A5848DC9187B201800EB6C46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5848DCA187B201800EB6C46 /* LipikaIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LipikaIcon.png; sourceTree = "<group>"; };
-		A5848DCE187B201800EB6C46 /* DJLipikaAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaAppDelegate.h; sourceTree = "<group>"; };
-		A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaAppDelegate.m; sourceTree = "<group>"; };
-		A5848DD0187B201800EB6C46 /* DJLipikaClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaClientDelegate.h; sourceTree = "<group>"; };
-		A5848DD1187B201800EB6C46 /* DJLipikaClientDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaClientDelegate.m; sourceTree = "<group>"; };
-		A5848DD4187B201800EB6C46 /* DJLipikaInputController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaInputController.h; sourceTree = "<group>"; };
-		A5848DD5187B201800EB6C46 /* DJLipikaInputController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaInputController.m; sourceTree = "<group>"; };
-		A5848DD9187B201800EB6C46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A5848DDB187B201800EB6C46 /* DJLipikaCandidates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaCandidates.h; sourceTree = "<group>"; };
-		A5848DDC187B201800EB6C46 /* DJLipikaCandidates.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaCandidates.m; sourceTree = "<group>"; };
-		A5848DDD187B201800EB6C46 /* DJPreferenceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJPreferenceController.h; sourceTree = "<group>"; };
-		A5848DDE187B201800EB6C46 /* DJPreferenceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJPreferenceController.m; sourceTree = "<group>"; };
-		A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJClientManagerTest.m; sourceTree = "<group>"; };
-		A5848DE1187B207500EB6C46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5876A6F1E8F6BD700D9DA30 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = Installer/Source/main.swift; sourceTree = SOURCE_ROOT; };
-		A5883E2F187B394800FFE7F6 /* DJLipikaClientManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaClientManager.m; sourceTree = "<group>"; };
-		A5883E30187B394800FFE7F6 /* DJLipikaClientManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaClientManager.h; sourceTree = "<group>"; };
-		A5883E69187B530A00FFE7F6 /* DJLipikaUserSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJLipikaUserSettings.m; sourceTree = "<group>"; };
-		A5883E6A187B530A00FFE7F6 /* DJLipikaUserSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJLipikaUserSettings.h; sourceTree = "<group>"; };
-		A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
-		A5883E86187B572700FFE7F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5883E87187B5BC800FFE7F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5BD74131E8960F6003342D0 /* InputSource-Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "InputSource-Bridge.h"; path = "HostingApp/LipikaIME/InputSource-Bridge.h"; sourceTree = SOURCE_ROOT; };
-		A5C2A1BE188872E70085DE01 /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
-		A5C2E91B1E8DE8E0002D610D /* Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Launchd.plist; path = HostingApp/LipikaIME/InstallHelper/Launchd.plist; sourceTree = SOURCE_ROOT; };
-		A5CAE401187B950D00A1549A /* Schemes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schemes; sourceTree = "<group>"; };
-		A5CF594F188F4B690093F016 /* DJLipikaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJLipikaHelper.h; sourceTree = "<group>"; };
-		A5CF5950188F4B690093F016 /* DJLipikaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJLipikaHelper.m; sourceTree = "<group>"; };
-		A5D26AA41E88B4D00077FB9D /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5D26AB81E88B58F0077FB9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = HostingApp/LipikaIME/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
-		A5D26ABA1E88B5990077FB9D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HostingApp/LipikaIME/Info.plist; sourceTree = SOURCE_ROOT; };
-		A5D26ABC1E88B5B30077FB9D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = HostingApp/LipikaIME/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
-		A5D26ABD1E88B5B30077FB9D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = HostingApp/LipikaIME/ViewController.swift; sourceTree = SOURCE_ROOT; };
-		A5D635031877435B0048DAE5 /* LipikaEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LipikaEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5D635041877435B0048DAE5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		A5D635071877435B0048DAE5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		A5D635091877435B0048DAE5 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		A5D635181877435B0048DAE5 /* LipikaEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LipikaEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
-		A5E315971EBE4E1100E1AE7E /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
-		A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJStringBufferManager.m; sourceTree = "<group>"; };
-		A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJStringBufferManager.h; sourceTree = "<group>"; };
-		A5FAF5AD1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.daivajnanam.LipikaIME; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5FAF5B41E8C8F94004E4414 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = HostingApp/LipikaIME/InstallHelper/main.swift; sourceTree = SOURCE_ROOT; };
-		A5FAF5B61E8C8FC3004E4414 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HostingApp/LipikaIME/InstallHelper/Info.plist; sourceTree = SOURCE_ROOT; };
-		A5FAF5B71E8C94A2004E4414 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		A5FAF5B91E8C94C5004E4414 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
-		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
+		A5122A4220D420E100575848 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A5122A4720D429D300575848 /* Installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Installer; sourceTree = BUILT_PRODUCTS_DIR; };
+		A52DCDBB20D17767001F34AC /* LipikaIME.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaIME.entitlements; sourceTree = "<group>"; };
+		A53ACFFD20CC347900C95844 /* LipikaIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A53AD00020CC347900C95844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A53AD00220CC347900C95844 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A53AD00720CC347900C95844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LipikaEngine_OSX.framework; sourceTree = "<group>"; };
+		A53AD01620CC654700C95844 /* LipikaConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaConfig.swift; sourceTree = "<group>"; };
+		A53AD01A20CC658000C95844 /* InputSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputSource.swift; sourceTree = "<group>"; };
+		A53AD01C20CC659C00C95844 /* ClientManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientManager.swift; sourceTree = "<group>"; };
+		A53AD01E20CC660900C95844 /* LipikaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaController.swift; sourceTree = "<group>"; };
+		A54397C920D4D2F10011C7B7 /* LipikaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A54397CD20D4D2F20011C7B7 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A54397D220D4D2F30011C7B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A54397D420D4D2F30011C7B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A54397D520D4D2F30011C7B7 /* LipikaApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaApp.entitlements; sourceTree = "<group>"; };
+		A546181E20CC6A06003A73EB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		A546181F20CC6A06003A73EB /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		A546182020CC6A06003A73EB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A546182120CC6A06003A73EB /* PULL_REQUEST_TEMPLATE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PULL_REQUEST_TEMPLATE.md; sourceTree = "<group>"; };
+		A546182220CC6A06003A73EB /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
+		A546182320CC6A23003A73EB /* bug_report.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = bug_report.md; path = .github/ISSUE_TEMPLATE/bug_report.md; sourceTree = "<group>"; };
+		A546182420CC6A23003A73EB /* feature_request.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = feature_request.md; path = .github/ISSUE_TEMPLATE/feature_request.md; sourceTree = "<group>"; };
+		A546182820CC6BEA003A73EB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		A546182A20CC6BF3003A73EB /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
+		A55381F421D703EA00A3CD8A /* MappingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingStore.swift; sourceTree = "<group>"; };
+		A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		A59281E020D45634003013B8 /* TrayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TrayIcon.icns; sourceTree = "<group>"; };
+		A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		A5F338A521CFF6510052577A /* MappingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsViewController.swift; sourceTree = "<group>"; };
+		A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiteratorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8D11072E0486CEB800E47090 /* Frameworks */ = {
+		A5122A4420D429D300575848 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				A5883E7B187B55C600FFE7F6 /* InputMethodKit.framework in Frameworks */,
-				A5AD412F1E75D1FB00F23C32 /* LipikaEngine.framework in Frameworks */,
+				A5122A5120D42AA600575848 /* Cocoa.framework in Frameworks */,
+				A5122A5020D42A9500575848 /* InputMethodKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A55E731F1E89F93E004FF42A /* Frameworks */ = {
+		A53ACFFA20CC347900C95844 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A55E73361E89FB49004FF42A /* Cocoa.framework in Frameworks */,
-				A55E73331E89FA2F004FF42A /* LipikaEngine.framework in Frameworks */,
+				A546182920CC6BEA003A73EB /* Cocoa.framework in Frameworks */,
+				A546182B20CC6BF3003A73EB /* InputMethodKit.framework in Frameworks */,
+				A53AD01520CC64FD00C95844 /* LipikaEngine_OSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A583735F1E9011A800402A1A /* Frameworks */ = {
+		A54397C620D4D2F10011C7B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D26AA11E88B4D00077FB9D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A5FAF5B81E8C94A2004E4414 /* Security.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D634FF1877435B0048DAE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A5883E6E187B543700FFE7F6 /* InputMethodKit.framework in Frameworks */,
-				A5D635051877435B0048DAE5 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D635151877435B0048DAE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A5D6351A1877435B0048DAE5 /* Cocoa.framework in Frameworks */,
-				A5D6351D1877435B0048DAE5 /* LipikaEngine.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5FAF5AA1E8C8F0C004E4414 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				A54397DF20D4D6170011C7B7 /* Cocoa.framework in Frameworks */,
+				A54397DC20D4D6090011C7B7 /* LipikaEngine_OSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+		A53ACFF420CC347900C95844 = {
 			isa = PBXGroup;
 			children = (
-				E93074B60A5C264700470842 /* InputMethodKit.framework */,
-				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				A546181D20CC69EC003A73EB /* Documents */,
+				A53ACFFF20CC347900C95844 /* Input Source */,
+				A57F18EA20D1FBA1007C9745 /* Installation */,
+				A54397CA20D4D2F20011C7B7 /* Application */,
+				A53ACFFE20CC347900C95844 /* Products */,
+				A53AD01420CC64FD00C95844 /* Frameworks */,
 			);
-			name = "Linked Frameworks";
 			sourceTree = "<group>";
 		};
-		19C28FACFE9D520D11CA2CBB /* Products */ = {
+		A53ACFFE20CC347900C95844 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* LipikaInputSource.app */,
-				A5D635031877435B0048DAE5 /* LipikaEngine.framework */,
-				A5D635181877435B0048DAE5 /* LipikaEngineTests.xctest */,
-				A5D26AA41E88B4D00077FB9D /* LipikaIME.app */,
-				A55E73221E89F93E004FF42A /* LipikaInputSourceTests.xctest */,
-				A5FAF5AD1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */,
-				A58373621E9011A800402A1A /* installer */,
+				A53ACFFD20CC347900C95844 /* LipikaIME.app */,
+				A5122A4720D429D300575848 /* Installer */,
+				A54397C920D4D2F10011C7B7 /* LipikaApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* NumberInput */ = {
+		A53ACFFF20CC347900C95844 /* Input Source */ = {
 			isa = PBXGroup;
 			children = (
-				A5848D36187B201800EB6C46 /* Common */,
-				A5848D74187B201800EB6C46 /* LipikaEngine */,
-				A5848DC1187B201800EB6C46 /* LipikaInputSource */,
-				A5D26AA51E88B4D00077FB9D /* LipikaIME */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				19C28FACFE9D520D11CA2CBB /* Products */,
+				A54397D920D4D3D80011C7B7 /* Resources */,
+				A53AD01620CC654700C95844 /* LipikaConfig.swift */,
+				A53AD00020CC347900C95844 /* AppDelegate.swift */,
+				A53AD01C20CC659C00C95844 /* ClientManager.swift */,
+				A53AD01E20CC660900C95844 /* LipikaController.swift */,
+				A55381F421D703EA00A3CD8A /* MappingStore.swift */,
 			);
-			name = NumberInput;
+			path = "Input Source";
 			sourceTree = "<group>";
 		};
-		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+		A53AD01420CC64FD00C95844 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A5FAF5B91E8C94C5004E4414 /* ServiceManagement.framework */,
-				A5FAF5B71E8C94A2004E4414 /* Security.framework */,
-				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
-				A5D635061877435B0048DAE5 /* Other Frameworks */,
+				A546182820CC6BEA003A73EB /* Cocoa.framework */,
+				A546182A20CC6BF3003A73EB /* InputMethodKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A5848D36187B201800EB6C46 /* Common */ = {
+		A54397CA20D4D2F20011C7B7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				A5848D37187B201800EB6C46 /* Resources */,
-				A5848D6B187B201800EB6C46 /* Sources */,
-				A5848D6F187B201800EB6C46 /* Tests */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		A5848D37187B201800EB6C46 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A517EED4187C87E900323900 /* UserSettings.plist */,
-				A5C2A1BE188872E70085DE01 /* Icon.xcassets */,
-				A5174B14191DDFB5001001F3 /* README.md */,
-				A5174B12191DDF7F001001F3 /* LICENSE */,
-				A5CAE401187B950D00A1549A /* Schemes */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		A5848D6B187B201800EB6C46 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A5883E6A187B530A00FFE7F6 /* DJLipikaUserSettings.h */,
-				A5883E69187B530A00FFE7F6 /* DJLipikaUserSettings.m */,
-				A5848D6C187B201800EB6C46 /* Constants.h */,
-				A5848D6D187B201800EB6C46 /* DJLogger.h */,
-				A5848D6E187B201800EB6C46 /* DJLogger.m */,
-				A5CF594F188F4B690093F016 /* DJLipikaHelper.h */,
-				A5CF5950188F4B690093F016 /* DJLipikaHelper.m */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		A5848D6F187B201800EB6C46 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D70187B201800EB6C46 /* DJTestClient.h */,
-				A5848D71187B201800EB6C46 /* DJTestClient.m */,
-				A5848D72187B201800EB6C46 /* DJTestHelper.h */,
-				A5848D73187B201800EB6C46 /* DJTestHelper.m */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		A5848D74187B201800EB6C46 /* LipikaEngine */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D75187B201800EB6C46 /* Resources */,
-				A5848D76187B201800EB6C46 /* Sources */,
-				A5848DA2187B201800EB6C46 /* Tests */,
-			);
-			name = LipikaEngine;
-			path = EngineFramework;
-			sourceTree = "<group>";
-		};
-		A5848D75187B201800EB6C46 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DE1187B207500EB6C46 /* Info.plist */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		A5848D76187B201800EB6C46 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A5EDA4E1187F202700B58B8D /* DJStringBufferManager.h */,
-				A5EDA4E0187F202700B58B8D /* DJStringBufferManager.m */,
-				A5848D7B187B201800EB6C46 /* DJActiveBufferManager.h */,
-				A5848D7C187B201800EB6C46 /* DJActiveBufferManager.m */,
-				A5848D79187B201800EB6C46 /* DJInputMethodEngine.h */,
-				A5848D7A187B201800EB6C46 /* DJInputMethodEngine.m */,
-				A5848D9C187B201800EB6C46 /* Trie */,
-				A5848D7D187B201800EB6C46 /* Scheme */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		A5848D7D187B201800EB6C46 /* Scheme */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D7E187B201800EB6C46 /* DJForwardMapping.h */,
-				A5848D7F187B201800EB6C46 /* DJInputMethodScheme.h */,
-				A5848D80187B201800EB6C46 /* DJInputSchemeFactory.h */,
-				A5848D81187B201800EB6C46 /* DJInputSchemeFactory.m */,
-				A5848D84187B201800EB6C46 /* DJParseOutput.h */,
-				A5848D85187B201800EB6C46 /* DJParseOutput.m */,
-				A5848D86187B201800EB6C46 /* DJReverseMapping.h */,
-				A5848D87187B201800EB6C46 /* DJSchemeHelper.h */,
-				A5848D88187B201800EB6C46 /* DJSchemeHelper.m */,
-				A5848D89187B201800EB6C46 /* DJSimpleForwardMapping.h */,
-				A5848D8A187B201800EB6C46 /* DJSimpleForwardMapping.m */,
-				A5848D8B187B201800EB6C46 /* DJSimpleReverseMapping.h */,
-				A5848D8C187B201800EB6C46 /* DJSimpleReverseMapping.m */,
-				A5848D8D187B201800EB6C46 /* Google */,
-				A5848D97187B201800EB6C46 /* Lipika */,
-			);
-			path = Scheme;
-			sourceTree = "<group>";
-		};
-		A5848D8D187B201800EB6C46 /* Google */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D8E187B201800EB6C46 /* DJGoogleForwardMapping.h */,
-				A5848D8F187B201800EB6C46 /* DJGoogleForwardMapping.m */,
-				A5848D90187B201800EB6C46 /* DJGoogleInputScheme.h */,
-				A5848D91187B201800EB6C46 /* DJGoogleInputScheme.m */,
-				A5848D92187B201800EB6C46 /* DJGoogleReverseMapping.h */,
-				A5848D93187B201800EB6C46 /* DJGoogleReverseMapping.m */,
-				A5848D94187B201800EB6C46 /* DJGoogleSchemeFactory.h */,
-				A5848D95187B201800EB6C46 /* DJGoogleSchemeFactory.m */,
-				A5848D96187B201800EB6C46 /* DJGoogleSchemeMapping.h */,
-			);
-			path = Google;
-			sourceTree = "<group>";
-		};
-		A5848D97187B201800EB6C46 /* Lipika */ = {
-			isa = PBXGroup;
-			children = (
-				A5E315971EBE4E1100E1AE7E /* OrderedDictionary.h */,
-				A5E315961EBE4E1100E1AE7E /* OrderedDictionary.m */,
-				A54CF18C1EBD49010005B0A5 /* DJLipikaMappings.h */,
-				A54CF18B1EBD49010005B0A5 /* DJLipikaMappings.m */,
-				A5848D98187B201800EB6C46 /* DJLipikaInputScheme.h */,
-				A5848D99187B201800EB6C46 /* DJLipikaInputScheme.m */,
-				A5848D9A187B201800EB6C46 /* DJLipikaSchemeFactory.h */,
-				A5848D9B187B201800EB6C46 /* DJLipikaSchemeFactory.m */,
-			);
-			path = Lipika;
-			sourceTree = "<group>";
-		};
-		A5848D9C187B201800EB6C46 /* Trie */ = {
-			isa = PBXGroup;
-			children = (
-				A5848D9D187B201800EB6C46 /* DJReadOnlyTrie.h */,
-				A5848D9E187B201800EB6C46 /* DJReadWriteTrie.h */,
-				A5848D9F187B201800EB6C46 /* DJReadWriteTrie.m */,
-				A5848DA0187B201800EB6C46 /* DJTrieNode.h */,
-				A5848DA1187B201800EB6C46 /* DJTrieNode.m */,
-			);
-			path = Trie;
-			sourceTree = "<group>";
-		};
-		A5848DA2187B201800EB6C46 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A5883E86187B572700FFE7F6 /* Info.plist */,
-				A5848DA3187B201800EB6C46 /* Engine */,
-				A5848DA6187B201800EB6C46 /* Google */,
-				A5848DB5187B201800EB6C46 /* Lipika */,
-				A5848DBF187B201800EB6C46 /* ReadWriteTrie */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		A5848DA3187B201800EB6C46 /* Engine */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DA4187B201800EB6C46 /* DJBufferManagerTest.m */,
-				A5848DA5187B201800EB6C46 /* DJBufferReplayTest.m */,
-			);
-			path = Engine;
-			sourceTree = "<group>";
-		};
-		A5848DA6187B201800EB6C46 /* Google */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DA7187B201800EB6C46 /* DJGoogleEngineTest.m */,
-				A5848DA8187B201800EB6C46 /* DJGoogleInputStringText.m */,
-				A5848DA9187B201800EB6C46 /* DJGoogleNestedClassTest.m */,
-				A5848DAA187B201800EB6C46 /* DJGoogleNestedReverseTest.m */,
-				A5848DAB187B201800EB6C46 /* DJGoogleReverseMapTest.m */,
-				A5848DAC187B201800EB6C46 /* DJGoogleSchemeTest.m */,
-				A5848DAD187B201800EB6C46 /* DJGoogleSpecialCharsTest.m */,
-				A54323501C4AC3E300AC2129 /* GoogleSchemes */,
-			);
-			path = Google;
-			sourceTree = "<group>";
-		};
-		A5848DB5187B201800EB6C46 /* Lipika */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DB6187B201800EB6C46 /* DJLipikaAddendumTest.m */,
-				A5848DB7187B201800EB6C46 /* DJLipikaSchemeFactoryTest.m */,
-				A5848DB8187B201800EB6C46 /* DJLipikaSchemeTest.m */,
-				A54323521C4AC3F600AC2129 /* LipikaSchemes */,
-			);
-			path = Lipika;
-			sourceTree = "<group>";
-		};
-		A5848DBF187B201800EB6C46 /* ReadWriteTrie */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DC0187B201800EB6C46 /* DJReadWriteTrieTest.m */,
-			);
-			path = ReadWriteTrie;
-			sourceTree = "<group>";
-		};
-		A5848DC1187B201800EB6C46 /* LipikaInputSource */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DC2187B201800EB6C46 /* Resources */,
-				A5848DCC187B201800EB6C46 /* Sources */,
-				A5848DDF187B201800EB6C46 /* Tests */,
-			);
-			name = LipikaInputSource;
-			path = InputSource;
-			sourceTree = "<group>";
-		};
-		A5848DC2187B201800EB6C46 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DC5187B201800EB6C46 /* MainMenu.nib */,
-				A5848DC7187B201800EB6C46 /* Preferences.xib */,
-				A583F15C19525D8100A80B88 /* FileConversion.xib */,
-				A5848DC9187B201800EB6C46 /* Info.plist */,
-				A5848DCA187B201800EB6C46 /* LipikaIcon.png */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		A5848DCC187B201800EB6C46 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DCD187B201800EB6C46 /* Application */,
-				A5848DD6187B201800EB6C46 /* Support */,
-				A5848DDA187B201800EB6C46 /* UI */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		A5848DCD187B201800EB6C46 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				A5883E30187B394800FFE7F6 /* DJLipikaClientManager.h */,
-				A5883E2F187B394800FFE7F6 /* DJLipikaClientManager.m */,
-				A5848DD0187B201800EB6C46 /* DJLipikaClientDelegate.h */,
-				A5848DD1187B201800EB6C46 /* DJLipikaClientDelegate.m */,
-				A5848DCE187B201800EB6C46 /* DJLipikaAppDelegate.h */,
-				A5848DCF187B201800EB6C46 /* DJLipikaAppDelegate.m */,
-				A5848DD4187B201800EB6C46 /* DJLipikaInputController.h */,
-				A5848DD5187B201800EB6C46 /* DJLipikaInputController.m */,
+				A54397DA20D4D3F50011C7B7 /* Resources */,
+				A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */,
+				A54397CD20D4D2F20011C7B7 /* MainViewController.swift */,
+				A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */,
+				A5F338A521CFF6510052577A /* MappingsViewController.swift */,
+				A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
 		};
-		A5848DD6187B201800EB6C46 /* Support */ = {
+		A54397D920D4D3D80011C7B7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A5848DD9187B201800EB6C46 /* main.m */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
-		A5848DDA187B201800EB6C46 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				A5848DDB187B201800EB6C46 /* DJLipikaCandidates.h */,
-				A5848DDC187B201800EB6C46 /* DJLipikaCandidates.m */,
-				A5848DDD187B201800EB6C46 /* DJPreferenceController.h */,
-				A5848DDE187B201800EB6C46 /* DJPreferenceController.m */,
-				A531FE83195370AA00A714C2 /* DJConversionController.h */,
-				A531FE84195370AA00A714C2 /* DJConversionController.m */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		A5848DDF187B201800EB6C46 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A54323581C4ACABA00AC2129 /* CustomSchemes */,
-				A53013FD195614810012E017 /* Control */,
-				A5883E87187B5BC800FFE7F6 /* Info.plist */,
-				A5848DE0187B201800EB6C46 /* DJClientManagerTest.m */,
-				A53013FB1955E1990012E017 /* DJFileConversionTest.m */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		A5876A6E1E8F6BBB00D9DA30 /* PkgInstallTool */ = {
-			isa = PBXGroup;
-			children = (
-				A5876A6F1E8F6BD700D9DA30 /* main.swift */,
-			);
-			name = PkgInstallTool;
-			sourceTree = "<group>";
-		};
-		A5D26AA51E88B4D00077FB9D /* LipikaIME */ = {
-			isa = PBXGroup;
-			children = (
-				A5D26AB31E88B5200077FB9D /* Resources */,
-				A5D26AB41E88B5320077FB9D /* Sources */,
-			);
-			path = LipikaIME;
-			sourceTree = "<group>";
-		};
-		A5D26AB31E88B5200077FB9D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A5D26AB71E88B58F0077FB9D /* Main.storyboard */,
-				A5D26ABA1E88B5990077FB9D /* Info.plist */,
+				A53AD00220CC347900C95844 /* Assets.xcassets */,
+				A53AD00720CC347900C95844 /* Info.plist */,
+				A59281E020D45634003013B8 /* TrayIcon.icns */,
+				A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */,
+				A52DCDBB20D17767001F34AC /* LipikaIME.entitlements */,
+				A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		A5D26AB41E88B5320077FB9D /* Sources */ = {
+		A54397DA20D4D3F50011C7B7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A5876A6E1E8F6BBB00D9DA30 /* PkgInstallTool */,
-				A5FAF5AE1E8C8F0C004E4414 /* InstallHelper */,
-				A5D26ABC1E88B5B30077FB9D /* AppDelegate.swift */,
-				A5D26ABD1E88B5B30077FB9D /* ViewController.swift */,
-				A5BD74131E8960F6003342D0 /* InputSource-Bridge.h */,
-				A534DB651E8B479000F814DD /* InputSourceUtil.swift */,
+				A54397D120D4D2F30011C7B7 /* Main.storyboard */,
+				A54397D420D4D2F30011C7B7 /* Info.plist */,
+				A54397D520D4D2F30011C7B7 /* LipikaApp.entitlements */,
 			);
-			name = Sources;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		A5D635061877435B0048DAE5 /* Other Frameworks */ = {
+		A546181D20CC69EC003A73EB /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				A5883E6D187B543700FFE7F6 /* InputMethodKit.framework */,
-				A5D635041877435B0048DAE5 /* Cocoa.framework */,
-				A5D635071877435B0048DAE5 /* Foundation.framework */,
-				A5D635091877435B0048DAE5 /* AppKit.framework */,
+				A546182320CC6A23003A73EB /* bug_report.md */,
+				A546182420CC6A23003A73EB /* feature_request.md */,
+				A546182220CC6A06003A73EB /* CODE_OF_CONDUCT.md */,
+				A546181F20CC6A06003A73EB /* CONTRIBUTING.md */,
+				A546181E20CC6A06003A73EB /* LICENSE */,
+				A546182120CC6A06003A73EB /* PULL_REQUEST_TEMPLATE.md */,
+				A546182020CC6A06003A73EB /* README.md */,
 			);
-			name = "Other Frameworks";
+			name = Documents;
 			sourceTree = "<group>";
 		};
-		A5FAF5AE1E8C8F0C004E4414 /* InstallHelper */ = {
+		A57F18EA20D1FBA1007C9745 /* Installation */ = {
 			isa = PBXGroup;
 			children = (
-				A5FAF5B61E8C8FC3004E4414 /* Info.plist */,
-				A5FAF5B41E8C8F94004E4414 /* main.swift */,
-				A5C2E91B1E8DE8E0002D610D /* Launchd.plist */,
-				A545F0301E8F3B0B001A3540 /* InstallProtocol.swift */,
+				A53AD01A20CC658000C95844 /* InputSource.swift */,
+				A5122A4220D420E100575848 /* main.swift */,
 			);
-			name = InstallHelper;
-			path = ../InstallHelper;
+			path = Installation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		A5D635001877435B0048DAE5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A5883E6F187B545D00FFE7F6 /* DJActiveBufferManager.h in Headers */,
-				A5EDA4E3187F202700B58B8D /* DJStringBufferManager.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* LipikaInputSource */ = {
+		A5122A4620D429D300575848 /* Installer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LipikaInputSource" */;
+			buildConfigurationList = A5122A4B20D429D300575848 /* Build configuration list for PBXNativeTarget "Installer" */;
 			buildPhases = (
-				8D11072C0486CEB800E47090 /* Sources */,
-				8D11072E0486CEB800E47090 /* Frameworks */,
-				8D1107290486CEB800E47090 /* Resources */,
-				A5AD41311E75D1FB00F23C32 /* Embed Frameworks */,
+				A5122A4320D429D300575848 /* Sources */,
+				A5122A4420D429D300575848 /* Frameworks */,
+				A5122A5520D43EE200575848 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A56E75851E74EA4E0013A6ED /* PBXTargetDependency */,
+				A5122A5420D43D8800575848 /* PBXTargetDependency */,
 			);
-			name = LipikaInputSource;
-			productInstallPath = "$(HOME)/Applications";
-			productName = NumberInput;
-			productReference = 8D1107320486CEB800E47090 /* LipikaInputSource.app */;
-			productType = "com.apple.product-type.application";
-		};
-		A55E73211E89F93E004FF42A /* LipikaInputSourceTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A55E73291E89F93E004FF42A /* Build configuration list for PBXNativeTarget "LipikaInputSourceTests" */;
-			buildPhases = (
-				A55E731E1E89F93E004FF42A /* Sources */,
-				A55E731F1E89F93E004FF42A /* Frameworks */,
-				A55E73201E89F93E004FF42A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A55E73321E89FA24004FF42A /* PBXTargetDependency */,
-				A55E73281E89F93E004FF42A /* PBXTargetDependency */,
-			);
-			name = LipikaInputSourceTests;
-			productName = LipikaInputSourceTests;
-			productReference = A55E73221E89F93E004FF42A /* LipikaInputSourceTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		A58373611E9011A800402A1A /* PkgInstallTool */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A58373661E9011A800402A1A /* Build configuration list for PBXNativeTarget "PkgInstallTool" */;
-			buildPhases = (
-				A583735E1E9011A800402A1A /* Sources */,
-				A583735F1E9011A800402A1A /* Frameworks */,
-				A58373601E9011A800402A1A /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PkgInstallTool;
-			productName = PkgInstallTool;
-			productReference = A58373621E9011A800402A1A /* installer */;
+			name = Installer;
+			productName = Installer;
+			productReference = A5122A4720D429D300575848 /* Installer */;
 			productType = "com.apple.product-type.tool";
 		};
-		A5D26AA31E88B4D00077FB9D /* LipikaIME */ = {
+		A53ACFFC20CC347900C95844 /* LipikaIME */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A5D26AB21E88B4D00077FB9D /* Build configuration list for PBXNativeTarget "LipikaIME" */;
+			buildConfigurationList = A53AD00B20CC347900C95844 /* Build configuration list for PBXNativeTarget "LipikaIME" */;
 			buildPhases = (
-				A5D26AA01E88B4D00077FB9D /* Sources */,
-				A5D26AA11E88B4D00077FB9D /* Frameworks */,
-				A5D26AA21E88B4D00077FB9D /* Resources */,
-				A5C2E9191E8DDE2C002D610D /* CopyFiles */,
+				A53ACFF920CC347900C95844 /* Sources */,
+				A53ACFFA20CC347900C95844 /* Frameworks */,
+				A53ACFFB20CC347900C95844 /* Resources */,
+				A53AD01320CC643700C95844 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A5C2E9161E8DDB67002D610D /* PBXTargetDependency */,
-				A55E731B1E89D849004FF42A /* PBXTargetDependency */,
 			);
 			name = LipikaIME;
 			productName = LipikaIME;
-			productReference = A5D26AA41E88B4D00077FB9D /* LipikaIME.app */;
+			productReference = A53ACFFD20CC347900C95844 /* LipikaIME.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A5D635021877435B0048DAE5 /* LipikaEngine */ = {
+		A54397C820D4D2F10011C7B7 /* LipikaApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A5D635261877435B0048DAE5 /* Build configuration list for PBXNativeTarget "LipikaEngine" */;
+			buildConfigurationList = A54397D620D4D2F30011C7B7 /* Build configuration list for PBXNativeTarget "LipikaApp" */;
 			buildPhases = (
-				A5D634FE1877435B0048DAE5 /* Sources */,
-				A5D634FF1877435B0048DAE5 /* Frameworks */,
-				A5D635001877435B0048DAE5 /* Headers */,
+				A54397C520D4D2F10011C7B7 /* Sources */,
+				A54397C620D4D2F10011C7B7 /* Frameworks */,
+				A54397C720D4D2F10011C7B7 /* Resources */,
+				A54397DE20D4D6090011C7B7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = LipikaEngine;
-			productName = LipikaEngine;
-			productReference = A5D635031877435B0048DAE5 /* LipikaEngine.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		A5D635171877435B0048DAE5 /* LipikaEngineTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A5D635291877435B0048DAE5 /* Build configuration list for PBXNativeTarget "LipikaEngineTests" */;
-			buildPhases = (
-				A5D635141877435B0048DAE5 /* Sources */,
-				A5D635151877435B0048DAE5 /* Frameworks */,
-				A5D635161877435B0048DAE5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A553F1921E1834B300A736A3 /* PBXTargetDependency */,
-				A5AE5AF01E74E16100355D8F /* PBXTargetDependency */,
-			);
-			name = LipikaEngineTests;
-			productName = LipikaEngineTests;
-			productReference = A5D635181877435B0048DAE5 /* LipikaEngineTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		A5FAF5AC1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A5FAF5B11E8C8F0C004E4414 /* Build configuration list for PBXNativeTarget "com.daivajnanam.LipikaIME" */;
-			buildPhases = (
-				A5FAF5A91E8C8F0C004E4414 /* Sources */,
-				A5FAF5AA1E8C8F0C004E4414 /* Frameworks */,
-				A5FAF5AB1E8C8F0C004E4414 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = com.daivajnanam.LipikaIME;
-			productName = InstallHelper;
-			productReference = A5FAF5AD1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */;
-			productType = "com.apple.product-type.tool";
+			name = LipikaApp;
+			productName = LipikaApp;
+			productReference = A54397C920D4D2F10011C7B7 /* LipikaApp.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		29B97313FDCFA39411CA2CEA /* Project object */ = {
+		A53ACFF520CC347900C95844 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = DJ;
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = com.daivajnanam;
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = Daivajnanam;
 				TargetAttributes = {
-					8D1107260486CEB800E47090 = {
-						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+					A5122A4620D429D300575848 = {
+						CreatedOnToolsVersion = 9.4;
 					};
-					A55E73211E89F93E004FF42A = {
-						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 8D1107260486CEB800E47090;
-					};
-					A58373611E9011A800402A1A = {
-						CreatedOnToolsVersion = 8.3;
-						ProvisioningStyle = Automatic;
-					};
-					A5D26AA31E88B4D00077FB9D = {
-						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+					A53ACFFC20CC347900C95844 = {
+						CreatedOnToolsVersion = 9.4;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
-								enabled = 0;
-							};
-							com.apple.Keychain = {
-								enabled = 0;
-							};
-							com.apple.NetworkExtensions = {
-								enabled = 0;
-							};
-							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
-					A5D635021877435B0048DAE5 = {
-						ProvisioningStyle = Automatic;
-					};
-					A5FAF5AC1E8C8F0C004E4414 = {
-						CreatedOnToolsVersion = 8.3;
-						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+					A54397C820D4D2F10011C7B7 = {
+						CreatedOnToolsVersion = 9.4;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LipikaIME" */;
-			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = English;
-			hasScannedForEncodings = 1;
+			buildConfigurationList = A53ACFF820CC347900C95844 /* Build configuration list for PBXProject "LipikaIME" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				English,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* NumberInput */;
+			mainGroup = A53ACFF420CC347900C95844;
+			productRefGroup = A53ACFFE20CC347900C95844 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* LipikaInputSource */,
-				A55E73211E89F93E004FF42A /* LipikaInputSourceTests */,
-				A5D635021877435B0048DAE5 /* LipikaEngine */,
-				A5D635171877435B0048DAE5 /* LipikaEngineTests */,
-				A5D26AA31E88B4D00077FB9D /* LipikaIME */,
-				A5FAF5AC1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */,
-				A58373611E9011A800402A1A /* PkgInstallTool */,
+				A53ACFFC20CC347900C95844 /* LipikaIME */,
+				A5122A4620D429D300575848 /* Installer */,
+				A54397C820D4D2F10011C7B7 /* LipikaApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8D1107290486CEB800E47090 /* Resources */ = {
+		A53ACFFB20CC347900C95844 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A517EED6187C883600323900 /* UserSettings.plist in Resources */,
-				A5CAE402187B951F00A1549A /* Schemes in Resources */,
-				A583F15D19525D8100A80B88 /* FileConversion.xib in Resources */,
-				A5C2E91C1E8DE8E0002D610D /* Launchd.plist in Resources */,
-				A5CAE3FA187B94ED00A1549A /* MainMenu.nib in Resources */,
-				A5CAE3FB187B94ED00A1549A /* Preferences.xib in Resources */,
-				A5CAE3FD187B94ED00A1549A /* LipikaIcon.png in Resources */,
-				A5C2A1BF1888761F0085DE01 /* Icon.xcassets in Resources */,
-				A5174B13191DDF92001001F3 /* LICENSE in Resources */,
+				A546182720CC6BB2003A73EB /* LICENSE in Resources */,
+				A59281E120D45653003013B8 /* TrayIcon.icns in Resources */,
+				A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */,
+				A53AD00320CC347900C95844 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A55E73201E89F93E004FF42A /* Resources */ = {
+		A54397C720D4D2F10011C7B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A55E732E1E89F993004FF42A /* CustomSchemes in Resources */,
-				A55E732F1E89F993004FF42A /* Control in Resources */,
-				A55E73301E89F993004FF42A /* Schemes in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D26AA21E88B4D00077FB9D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A55E73191E89D840004FF42A /* LipikaInputSource.app in Resources */,
-				A5BD74141E896181003342D0 /* Icon.xcassets in Resources */,
-				A5D26AB91E88B58F0077FB9D /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D635161877435B0048DAE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A54323541C4AC71000AC2129 /* Schemes in Resources */,
-				A54323511C4AC3E300AC2129 /* GoogleSchemes in Resources */,
-				A54323531C4AC3F600AC2129 /* LipikaSchemes in Resources */,
+				A54397DB20D4D5E90011C7B7 /* Assets.xcassets in Resources */,
+				A54397D320D4D2F30011C7B7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A5122A5520D43EE200575848 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${TARGET_BUILD_DIR}/Installer --remove\nkillall LipikaIME\nrm -rf /Library/Input\\ Methods/LipikaIME.app\ncp -r ${TARGET_BUILD_DIR}/LipikaIME.app /Library/Input\\ Methods/\n${TARGET_BUILD_DIR}/Installer --select\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		8D11072C0486CEB800E47090 /* Sources */ = {
+		A5122A4320D429D300575848 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5CF5951188F4B690093F016 /* DJLipikaHelper.m in Sources */,
-				A5883E72187B551C00FFE7F6 /* DJLipikaClientManager.m in Sources */,
-				A5883E73187B551C00FFE7F6 /* DJLipikaAppDelegate.m in Sources */,
-				A5883E74187B551C00FFE7F6 /* DJLipikaClientDelegate.m in Sources */,
-				A531FE85195370AA00A714C2 /* DJConversionController.m in Sources */,
-				A5883E76187B551C00FFE7F6 /* DJLipikaInputController.m in Sources */,
-				A5883E77187B551C00FFE7F6 /* main.m in Sources */,
-				A5883E78187B551C00FFE7F6 /* DJLipikaCandidates.m in Sources */,
-				A5883E79187B551C00FFE7F6 /* DJPreferenceController.m in Sources */,
-				A5E315981EBE4E1100E1AE7E /* OrderedDictionary.m in Sources */,
+				A5122A4E20D42A2000575848 /* InputSource.swift in Sources */,
+				A5122A4F20D42A2000575848 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A55E731E1E89F93E004FF42A /* Sources */ = {
+		A53ACFF920CC347900C95844 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A55E73341E89FA5D004FF42A /* DJTestClient.m in Sources */,
-				A55E73351E89FA5D004FF42A /* DJTestHelper.m in Sources */,
-				A55E732C1E89F96C004FF42A /* DJClientManagerTest.m in Sources */,
-				A55E732D1E89F96C004FF42A /* DJFileConversionTest.m in Sources */,
+				A53AD00120CC347900C95844 /* AppDelegate.swift in Sources */,
+				A53AD01F20CC660900C95844 /* LipikaController.swift in Sources */,
+				A53AD01720CC654700C95844 /* LipikaConfig.swift in Sources */,
+				A53AD01D20CC659C00C95844 /* ClientManager.swift in Sources */,
+				A55381F521D703EA00A3CD8A /* MappingStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A583735E1E9011A800402A1A /* Sources */ = {
+		A54397C520D4D2F10011C7B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A583736A1E90137300402A1A /* InputSourceUtil.swift in Sources */,
-				A58373691E9011C700402A1A /* main.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D26AA01E88B4D00077FB9D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A545F0321E8F3F37001A3540 /* InstallProtocol.swift in Sources */,
-				A534DB661E8B479000F814DD /* InputSourceUtil.swift in Sources */,
-				A5D26ABF1E88B5B30077FB9D /* ViewController.swift in Sources */,
-				A5D26ABE1E88B5B30077FB9D /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D634FE1877435B0048DAE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A5E315991EBE4E2900E1AE7E /* OrderedDictionary.m in Sources */,
-				A5F19397188F4D1100EBF6B3 /* DJLipikaHelper.m in Sources */,
-				A5883E6C187B532C00FFE7F6 /* DJLogger.m in Sources */,
-				A5883E6B187B532C00FFE7F6 /* DJLipikaUserSettings.m in Sources */,
-				A54CF18E1EBD49230005B0A5 /* DJLipikaMappings.m in Sources */,
-				A5848DE3187B22C400EB6C46 /* DJInputMethodEngine.m in Sources */,
-				A5848DE4187B22C400EB6C46 /* DJActiveBufferManager.m in Sources */,
-				A5EDA4E2187F202700B58B8D /* DJStringBufferManager.m in Sources */,
-				A5848DE5187B22C400EB6C46 /* DJInputSchemeFactory.m in Sources */,
-				A5848DE7187B22C400EB6C46 /* DJParseOutput.m in Sources */,
-				A5848DE8187B22C400EB6C46 /* DJSchemeHelper.m in Sources */,
-				A5848DE9187B22C400EB6C46 /* DJSimpleForwardMapping.m in Sources */,
-				A5848DEA187B22C400EB6C46 /* DJSimpleReverseMapping.m in Sources */,
-				A5848DEB187B22C400EB6C46 /* DJGoogleForwardMapping.m in Sources */,
-				A5848DEC187B22C400EB6C46 /* DJGoogleInputScheme.m in Sources */,
-				A5848DED187B22C400EB6C46 /* DJGoogleReverseMapping.m in Sources */,
-				A5848DEE187B22C400EB6C46 /* DJGoogleSchemeFactory.m in Sources */,
-				A5848DEF187B22C400EB6C46 /* DJLipikaInputScheme.m in Sources */,
-				A5848DF0187B22C400EB6C46 /* DJLipikaSchemeFactory.m in Sources */,
-				A5848DF1187B22C400EB6C46 /* DJReadWriteTrie.m in Sources */,
-				A5848DF2187B22C400EB6C46 /* DJTrieNode.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5D635141877435B0048DAE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A5CAE3F7187B92DE00A1549A /* DJTestHelper.m in Sources */,
-				A5CAE3F3187B927A00A1549A /* DJLipikaAddendumTest.m in Sources */,
-				A5CAE3F4187B927A00A1549A /* DJLipikaSchemeFactoryTest.m in Sources */,
-				A5CAE3F5187B927A00A1549A /* DJLipikaSchemeTest.m in Sources */,
-				A5CAE3F6187B927A00A1549A /* DJReadWriteTrieTest.m in Sources */,
-				A5883E7C187B566100FFE7F6 /* DJBufferManagerTest.m in Sources */,
-				A5883E7D187B566100FFE7F6 /* DJBufferReplayTest.m in Sources */,
-				A5883E7E187B566100FFE7F6 /* DJGoogleEngineTest.m in Sources */,
-				A5883E7F187B566100FFE7F6 /* DJGoogleInputStringText.m in Sources */,
-				A5883E80187B566100FFE7F6 /* DJGoogleNestedClassTest.m in Sources */,
-				A5883E81187B566100FFE7F6 /* DJGoogleNestedReverseTest.m in Sources */,
-				A5883E82187B566100FFE7F6 /* DJGoogleReverseMapTest.m in Sources */,
-				A5883E83187B566100FFE7F6 /* DJGoogleSchemeTest.m in Sources */,
-				A5883E84187B566100FFE7F6 /* DJGoogleSpecialCharsTest.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5FAF5A91E8C8F0C004E4414 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A5FAF5B51E8C8F94004E4414 /* main.swift in Sources */,
-				A545F0311E8F3B0B001A3540 /* InstallProtocol.swift in Sources */,
+				A55381F621D706E500A3CD8A /* MappingStore.swift in Sources */,
+				A54397E020D4D6840011C7B7 /* LipikaConfig.swift in Sources */,
+				A54397CE20D4D2F20011C7B7 /* MainViewController.swift in Sources */,
+				A54397CC20D4D2F20011C7B7 /* AppDelegate.swift in Sources */,
+				A5F338AA21CFFBCF0052577A /* LiteratorViewController.swift in Sources */,
+				A5F338A621CFF6510052577A /* MappingsViewController.swift in Sources */,
+				A56AECF020ED1CE40070CD5C /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A553F1921E1834B300A736A3 /* PBXTargetDependency */ = {
+		A5122A5420D43D8800575848 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A5D635021877435B0048DAE5 /* LipikaEngine */;
-			targetProxy = A553F1911E1834B300A736A3 /* PBXContainerItemProxy */;
-		};
-		A55E731B1E89D849004FF42A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* LipikaInputSource */;
-			targetProxy = A55E731A1E89D849004FF42A /* PBXContainerItemProxy */;
-		};
-		A55E73281E89F93E004FF42A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* LipikaInputSource */;
-			targetProxy = A55E73271E89F93E004FF42A /* PBXContainerItemProxy */;
-		};
-		A55E73321E89FA24004FF42A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A5D635021877435B0048DAE5 /* LipikaEngine */;
-			targetProxy = A55E73311E89FA24004FF42A /* PBXContainerItemProxy */;
-		};
-		A56E75851E74EA4E0013A6ED /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A5D635021877435B0048DAE5 /* LipikaEngine */;
-			targetProxy = A56E75841E74EA4E0013A6ED /* PBXContainerItemProxy */;
-		};
-		A5AE5AF01E74E16100355D8F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* LipikaInputSource */;
-			targetProxy = A5AE5AEF1E74E16100355D8F /* PBXContainerItemProxy */;
-		};
-		A5C2E9161E8DDB67002D610D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A5FAF5AC1E8C8F0C004E4414 /* com.daivajnanam.LipikaIME */;
-			targetProxy = A5C2E9151E8DDB67002D610D /* PBXContainerItemProxy */;
+			target = A53ACFFC20CC347900C95844 /* LipikaIME */;
+			targetProxy = A5122A5320D43D8800575848 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A5848DC5187B201800EB6C46 /* MainMenu.nib */ = {
+		A54397D120D4D2F30011C7B7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A5848DC6187B201800EB6C46 /* English */,
-			);
-			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
-		A5848DC7187B201800EB6C46 /* Preferences.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A5848DC8187B201800EB6C46 /* English */,
-			);
-			name = Preferences.xib;
-			sourceTree = "<group>";
-		};
-		A5D26AB71E88B58F0077FB9D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A5D26AB81E88B58F0077FB9D /* Base */,
+				A54397D220D4D2F30011C7B7 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1219,666 +449,281 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A55E732A1E89F93E004FF42A /* Debug */ = {
+		A5122A4C20D429D300575848 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InputSource/Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaInputSourceTests;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Installer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LipikaInputSource.app/Contents/MacOS/LipikaInputSource";
 			};
 			name = Debug;
 		};
-		A55E732B1E89F93E004FF42A /* Release */ = {
+		A5122A4D20D429D300575848 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = InputSource/Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaInputSourceTests;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Installer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LipikaInputSource.app/Contents/MacOS/LipikaInputSource";
 			};
 			name = Release;
 		};
-		A58373671E9011A800402A1A /* Debug */ = {
+		A53AD00920CC347900C95844 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = installer;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		A58373681E9011A800402A1A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = installer;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		A5D26AB01E88B4D00077FB9D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "$(SRCROOT)/HostingApp/LipikaIME/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaIME;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "HostingApp/LipikaIME/InputSource-Bridge.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		A5D26AB11E88B4D00077FB9D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "$(SRCROOT)/HostingApp/LipikaIME/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaIME;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "HostingApp/LipikaIME/InputSource-Bridge.h";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		A5D635271877435B0048DAE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = EngineFramework/Resources/Info.plist;
-				INSTALL_PATH = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaEngine;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
-		A5D635281877435B0048DAE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = EngineFramework/Resources/Info.plist;
-				INSTALL_PATH = "@loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaEngine;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
-		A5D6352A1877435B0048DAE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = EngineFramework/Tests/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaEngine.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		A5D6352B1877435B0048DAE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = EngineFramework/Tests/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaEngine.Tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-		A5FAF5B21E8C8F0C004E4414 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = HostingApp/LipikaIME/InstallHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					HostingApp/LipikaIME/InstallHelper/Info.plist,
-					"-sectcreate",
-					__TEXT,
-					__launchd_plist,
-					HostingApp/LipikaIME/InstallHelper/Launchd.plist,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaIME;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		A5FAF5B31E8C8F0C004E4414 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = HostingApp/LipikaIME/InstallHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					HostingApp/LipikaIME/InstallHelper/Info.plist,
-					"-sectcreate",
-					__TEXT,
-					__launchd_plist,
-					HostingApp/LipikaIME/InstallHelper/Launchd.plist,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaIME;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		C01FCF4B08A954540054247B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = InputSource/Resources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				OTHER_CODE_SIGN_FLAGS = "--deep";
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource;
-				PRODUCT_NAME = LipikaInputSource;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "InputSource-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		C01FCF4C08A954540054247B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				INFOPLIST_FILE = InputSource/Resources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods/";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				OTHER_CODE_SIGN_FLAGS = "--deep";
-				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.InputSource;
-				PRODUCT_NAME = LipikaInputSource;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "InputSource-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		C01FCF4F08A954540054247B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
-		C01FCF5008A954540054247B /* Release */ = {
+		A53AD00A20CC347900C95844 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		A53AD00C20CC347900C95844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Input Source/LipikaIME.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2.0;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Input\\ Source",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Input Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		A53AD00D20CC347900C95844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Input Source/LipikaIME.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2.0;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Input\\ Source",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Input Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Input Methods";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		A54397D720D4D2F30011C7B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Application/LipikaApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Input\\ Source",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Application/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		A54397D820D4D2F30011C7B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Application/LipikaApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0;
+				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Input\\ Source",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Application/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A55E73291E89F93E004FF42A /* Build configuration list for PBXNativeTarget "LipikaInputSourceTests" */ = {
+		A5122A4B20D429D300575848 /* Build configuration list for PBXNativeTarget "Installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A55E732A1E89F93E004FF42A /* Debug */,
-				A55E732B1E89F93E004FF42A /* Release */,
+				A5122A4C20D429D300575848 /* Debug */,
+				A5122A4D20D429D300575848 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A58373661E9011A800402A1A /* Build configuration list for PBXNativeTarget "PkgInstallTool" */ = {
+		A53ACFF820CC347900C95844 /* Build configuration list for PBXProject "LipikaIME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A58373671E9011A800402A1A /* Debug */,
-				A58373681E9011A800402A1A /* Release */,
+				A53AD00920CC347900C95844 /* Debug */,
+				A53AD00A20CC347900C95844 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A5D26AB21E88B4D00077FB9D /* Build configuration list for PBXNativeTarget "LipikaIME" */ = {
+		A53AD00B20CC347900C95844 /* Build configuration list for PBXNativeTarget "LipikaIME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A5D26AB01E88B4D00077FB9D /* Debug */,
-				A5D26AB11E88B4D00077FB9D /* Release */,
+				A53AD00C20CC347900C95844 /* Debug */,
+				A53AD00D20CC347900C95844 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A5D635261877435B0048DAE5 /* Build configuration list for PBXNativeTarget "LipikaEngine" */ = {
+		A54397D620D4D2F30011C7B7 /* Build configuration list for PBXNativeTarget "LipikaApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A5D635271877435B0048DAE5 /* Debug */,
-				A5D635281877435B0048DAE5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A5D635291877435B0048DAE5 /* Build configuration list for PBXNativeTarget "LipikaEngineTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A5D6352A1877435B0048DAE5 /* Debug */,
-				A5D6352B1877435B0048DAE5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A5FAF5B11E8C8F0C004E4414 /* Build configuration list for PBXNativeTarget "com.daivajnanam.LipikaIME" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A5FAF5B21E8C8F0C004E4414 /* Debug */,
-				A5FAF5B31E8C8F0C004E4414 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LipikaInputSource" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C01FCF4B08A954540054247B /* Debug */,
-				C01FCF4C08A954540054247B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LipikaIME" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C01FCF4F08A954540054247B /* Debug */,
-				C01FCF5008A954540054247B /* Release */,
+				A54397D720D4D2F30011C7B7 /* Debug */,
+				A54397D820D4D2F30011C7B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+	rootObject = A53ACFF520CC347900C95844 /* Project object */;
 }

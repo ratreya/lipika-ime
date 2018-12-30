@@ -1,0 +1,19 @@
+#!/bin/sh
+rm -rf ./LipikaIME.app
+rm -rf ./LipikaApp.app
+rm -rf ./LipikaIME.pkg
+rm ./Scripts/installer
+if [ "$1" == "clean" ]; then 
+exit 0
+fi
+xcodebuild -project ../../lipika-engine/LipikaEngine.xcodeproj -scheme "LipikaEngine OSX" -configuration Debug clean build test || exit 1
+xcodebuild -project ../../lipika-engine/LipikaEngine.xcodeproj -scheme "LipikaEngine OSX" -configuration Release clean build || exit 1
+cp -r ../../lipika-engine/build/Release/LipikaEngine_OSX.framework ../Input\ Source/
+xcodebuild -project ../LipikaIME.xcodeproj -scheme LipikaIME -configuration Release clean build || exit 1
+cp -r ../build/Release/LipikaIME.app .
+xcodebuild -project ../LipikaIME.xcodeproj -scheme LipikaApp -configuration Release clean build || exit 1
+cp -r ../build/Release/LipikaAPP.app .
+xcodebuild -project ../LipikaIME.xcodeproj -scheme Installer -configuration Release clean build  || exit 1
+cp ../build/Release/installer ./Scripts/
+packagesbuild -v LipikaIME.pkgproj
+exit 0
