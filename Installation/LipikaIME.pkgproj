@@ -1198,7 +1198,7 @@
 						<key>VALUE</key>
 						<dict>
 							<key>PATH</key>
-							<string>Assets/Welcome.rtf</string>
+							<string>Assets/Welcome.rtfd</string>
 							<key>PATH_TYPE</key>
 							<integer>3</integer>
 						</dict>
