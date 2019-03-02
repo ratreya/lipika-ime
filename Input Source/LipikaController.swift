@@ -162,7 +162,7 @@ public class LipikaController: IMKInputController {
         // Setup the System Tray Menu
         refreshMenu()
         // Initialize Literators
-        assert(refreshLiterators())
+        precondition(refreshLiterators())
         Logger.log.debug("Initialized Controller for Client: \(clientManager)")
     }
     
