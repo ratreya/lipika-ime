@@ -1,7 +1,7 @@
 ---
 name: Crash report
 about: Report crashes so we can fix our reliability
-
+labels: crash
 ---
 
 **Attach the crash report**
