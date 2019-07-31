@@ -13,7 +13,7 @@ import LipikaEngine_OSX
 class ClientManager: CustomStringConvertible {
     private let notFoundRange = NSMakeRange(NSNotFound, NSNotFound)
     private let config = LipikaConfig()
-    private let client: IMKTextInput
+    private weak var client: IMKTextInput!
     private let candidatesWindow: IMKCandidates
     // This is the position of the cursor within the marked text
     public var markedCursorLocation: Int? = nil
@@ -29,7 +29,7 @@ class ClientManager: CustomStringConvertible {
         return client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect) as? [NSAttributedString.Key : Any]
     }
     
-    init(client: IMKTextInput) {
+    init(client: IMKTextInput!) {
         Logger.log.debug("Initializing client: \(client.bundleIdentifier()!) with Id: \(client.uniqueClientIdentifierString()!)")
         self.client = client
         if !client.supportsUnicode() {
@@ -103,11 +103,11 @@ class ClientManager: CustomStringConvertible {
             var real = NSRange()
             guard let text = client.string(from: NSMakeRange(low, high - low), actualRange: &real) else { return nil }
             Logger.log.debug("Looking for word in text: \(text)")
-            if wordStart == -1, let startOffset = text.unicodeScalars[text.unicodeScalars.startIndex..<text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - real.location)].reversed().index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.base.encodedOffset {
+            if wordStart == -1, let startOffset = text.unicodeScalars[text.unicodeScalars.startIndex..<text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - real.location)].reversed().firstIndex(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.base.utf16Offset(in: text) {
                 wordStart = real.location + startOffset
                 Logger.log.debug("Found wordStart: \(wordStart)")
             }
-            if wordEnd == -1, let endOffset = text.unicodeScalars[text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - real.location)..<text.unicodeScalars.endIndex].index(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.encodedOffset {
+            if wordEnd == -1, let endOffset = text.unicodeScalars[text.unicodeScalars.index(text.unicodeScalars.startIndex, offsetBy: current - real.location)..<text.unicodeScalars.endIndex].firstIndex(where: { CharacterSet.whitespacesAndNewlines.contains($0) })?.utf16Offset(in: text) {
                 wordEnd = real.location + endOffset
                 Logger.log.debug("Found wordEnd: \(wordEnd)")
             }

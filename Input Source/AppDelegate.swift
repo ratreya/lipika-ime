@@ -13,6 +13,7 @@ import LipikaEngine_OSX
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     private (set) var server: IMKServer!
+    private (set) var systemTrayMenu: NSMenu!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         guard let connectionName = Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String else {
@@ -26,10 +27,47 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         Logger.log.debug("Initialized IMK Server: \(server.bundle().bundleIdentifier ?? "nil")")
         self.server = server
+        self.systemTrayMenu = createSystemTrayMenu()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         Logger.log.debug("Comitting all editing before terminating")
         server.commitComposition(self)
+    }
+    
+    private func createSystemTrayMenu() -> NSMenu {
+        let config = LipikaConfig()
+        let systemTrayMenu = NSMenu(title: "LipikaIME")
+        let customSchemes = try! LiteratorFactory(config: config).availableCustomMappings()
+        if !customSchemes.isEmpty {
+            Logger.log.debug("Adding Custom Schemes to Menu: \(customSchemes)")
+            let customTitle = NSMenuItem(title: "Custom Schemes", action: nil, keyEquivalent: "")
+            customTitle.isEnabled = false
+            systemTrayMenu.addItem(customTitle)
+            for customScheme in customSchemes {
+                let item = NSMenuItem(title: customScheme, action: #selector(LipikaController.menuItemSelected), keyEquivalent: "")
+                if customScheme == config.customSchemeName {
+                    item.state = .on
+                }
+                item.tag = 0
+                systemTrayMenu.addItem(item)
+            }
+            systemTrayMenu.addItem(NSMenuItem.separator())
+            let installedTitle = NSMenuItem(title: "Installed Scripts", action: nil, keyEquivalent: "")
+            installedTitle.isEnabled = false
+            systemTrayMenu.addItem(installedTitle)
+        }
+        if !config.enabledScripts.isEmpty {
+            Logger.log.debug("Adding Installed Scripts to Menu")
+            for script in config.enabledScripts {
+                let item = NSMenuItem(title: script, action: #selector(LipikaController.menuItemSelected), keyEquivalent: "")
+                if config.customSchemeName == nil, script == config.scriptName {
+                    item.state = .on
+                }
+                item.tag = 1
+                systemTrayMenu.addItem(item)
+            }
+        }
+        return systemTrayMenu
     }
 }

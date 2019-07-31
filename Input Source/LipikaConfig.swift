@@ -125,28 +125,28 @@ class LipikaConfig: Config {
     
     var activeSessionOnDelete: Bool {
         get {
-            return !userDefaults.bool(forKey: #function)
+            return userDefaults.bool(forKey: #function)
         }
         set(value) {
-            userDefaults.set(!value, forKey: #function)
+            userDefaults.set(value, forKey: #function)
         }
     }
     
     var activeSessionOnInsert: Bool {
         get {
-            return !userDefaults.bool(forKey: #function)
+            return userDefaults.bool(forKey: #function)
         }
         set(value) {
-            userDefaults.set(!value, forKey: #function)
+            userDefaults.set(value, forKey: #function)
         }
     }
     
     var activeSessionOnCursorMove: Bool {
         get {
-            return !userDefaults.bool(forKey: #function)
+            return userDefaults.bool(forKey: #function)
         }
         set(value) {
-            userDefaults.set(!value, forKey: #function)
+            userDefaults.set(value, forKey: #function)
         }
     }
 }

@@ -13,45 +13,11 @@ import LipikaEngine_OSX
 @objc(LipikaController)
 public class LipikaController: IMKInputController {
     let config = LipikaConfig()
+    let dispatch = AsyncDispatcher()
     private let clientManager: ClientManager
-    private (set) var systemTrayMenu: NSMenu!
     private var literatorHash = 0
     private (set) var transliterator: Transliterator!
     private (set) var anteliterator: Anteliterator!
-    
-    private func refreshMenu() {
-        self.systemTrayMenu = NSMenu(title: "LipikaIME")
-        let customSchemes = try! LiteratorFactory(config: config).availableCustomMappings()
-        if !customSchemes.isEmpty {
-            Logger.log.debug("Adding Custom Schemes to Menu: \(customSchemes)")
-            let customTitle = NSMenuItem(title: "Custom Schemes", action: nil, keyEquivalent: "")
-            customTitle.isEnabled = false
-            systemTrayMenu.addItem(customTitle)
-            for customScheme in customSchemes {
-                let item = NSMenuItem(title: customScheme, action: #selector(menuItemSelected), keyEquivalent: "")
-                if customScheme == config.customSchemeName {
-                    item.state = .on
-                }
-                item.tag = 0
-                systemTrayMenu.addItem(item)
-            }
-            systemTrayMenu.addItem(NSMenuItem.separator())
-            let installedTitle = NSMenuItem(title: "Installed Scripts", action: nil, keyEquivalent: "")
-            installedTitle.isEnabled = false
-            systemTrayMenu.addItem(installedTitle)
-        }
-        if !config.enabledScripts.isEmpty {
-            Logger.log.debug("Adding Installed Scripts to Menu")
-            for script in config.enabledScripts {
-                let item = NSMenuItem(title: script, action: #selector(menuItemSelected), keyEquivalent: "")
-                if config.customSchemeName == nil, script == config.scriptName {
-                    item.state = .on
-                }
-                item.tag = 1
-                systemTrayMenu.addItem(item)
-            }
-        }
-    }
     
     private func refreshLiterators() -> Bool {
         let factory = try! LiteratorFactory(config: config)
@@ -149,7 +115,8 @@ public class LipikaController: IMKInputController {
         // Don't dispatch if active session or selection is in progress
         if !transliterator.isEmpty() || client().selectedRange().length != 0 { return }
         // Do this asynch after 10ms to give didCommand time to return and for the client to react to the command such as moving the cursor to the new location
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+        dispatch.schedule(deadline: .now() + .milliseconds(10)) {
+            [unowned self] in
             if self.transliterator.isEmpty() {
                 self.convertWord(at: self.client().selectedRange().location)
             }
@@ -157,10 +124,8 @@ public class LipikaController: IMKInputController {
     }
     
     public override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
-        clientManager = ClientManager(client: inputClient as! IMKTextInput)
+        clientManager = ClientManager(client: inputClient as? IMKTextInput)
         super.init(server: server, delegate: delegate, client: inputClient)
-        // Setup the System Tray Menu
-        refreshMenu()
         // Initialize Literators
         precondition(refreshLiterators())
         Logger.log.debug("Initialized Controller for Client: \(clientManager)")
@@ -255,6 +220,8 @@ public class LipikaController: IMKInputController {
     /// This message is sent when our client looses focus
     public override func deactivateServer(_ sender: Any!) {
         Logger.log.debug("Client: \(clientManager) loosing focus")
+        // Do this in case the application is quitting, otherwise we will end up with a SIGSEGV
+        dispatch.cancelAll()
         commit()
     }
     
@@ -264,6 +231,7 @@ public class LipikaController: IMKInputController {
         if config.globalScriptSelection {
             // Do this in case selection was changed when we were out of focus
             if refreshLiterators() {
+                let systemTrayMenu = (NSApp.delegate as! AppDelegate).systemTrayMenu!
                 systemTrayMenu.items.forEach() { $0.state = .off }
                 systemTrayMenu.items.first(where: { $0.title == config.customSchemeName ?? config.scriptName } )!.state = .on
             }
@@ -272,7 +240,7 @@ public class LipikaController: IMKInputController {
     
     public override func menu() -> NSMenu! {
         Logger.log.debug("Returning menu")
-        return systemTrayMenu
+        return (NSApp.delegate as! AppDelegate).systemTrayMenu
     }
     
     public override func candidates(_ sender: Any!) -> [Any]! {

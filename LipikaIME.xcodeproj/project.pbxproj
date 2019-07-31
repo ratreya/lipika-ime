@@ -34,6 +34,7 @@
 		A56AECF020ED1CE40070CD5C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */; };
 		A59281E120D45653003013B8 /* TrayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A59281E020D45634003013B8 /* TrayIcon.icns */; };
 		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
+		A5DC681F22335F72006FC519 /* AsyncDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */; };
 		A5F338A621CFF6510052577A /* MappingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A521CFF6510052577A /* MappingsViewController.swift */; };
 		A5F338AA21CFFBCF0052577A /* LiteratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A59281E020D45634003013B8 /* TrayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TrayIcon.icns; sourceTree = "<group>"; };
 		A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDispatcher.swift; sourceTree = "<group>"; };
 		A5F338A521CFF6510052577A /* MappingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsViewController.swift; sourceTree = "<group>"; };
 		A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiteratorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,6 +174,7 @@
 				A53AD01C20CC659C00C95844 /* ClientManager.swift */,
 				A53AD01E20CC660900C95844 /* LipikaController.swift */,
 				A55381F421D703EA00A3CD8A /* MappingStore.swift */,
+				A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */,
 			);
 			path = "Input Source";
 			sourceTree = "<group>";
@@ -313,9 +316,11 @@
 				TargetAttributes = {
 					A5122A4620D429D300575848 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1030;
 					};
 					A53ACFFC20CC347900C95844 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1030;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
 								enabled = 1;
@@ -324,6 +329,7 @@
 					};
 					A54397C820D4D2F10011C7B7 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1030;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
 								enabled = 1;
@@ -410,6 +416,7 @@
 				A53AD01720CC654700C95844 /* LipikaConfig.swift in Sources */,
 				A53AD01D20CC659C00C95844 /* ClientManager.swift in Sources */,
 				A55381F521D703EA00A3CD8A /* MappingStore.swift in Sources */,
+				A5DC681F22335F72006FC519 /* AsyncDispatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +463,7 @@
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Installer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -466,6 +474,7 @@
 				DEVELOPMENT_TEAM = 7JZ87Y4JWT;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME.Installer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -607,6 +616,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -632,6 +642,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.inputmethod.LipikaIME;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -656,6 +667,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -680,6 +692,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.daivajnanam.LipikaApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
