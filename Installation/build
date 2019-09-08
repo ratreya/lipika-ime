@@ -6,8 +6,8 @@ rm ./Scripts/installer
 if [ "$1" == "clean" ]; then 
 exit 0
 fi
-xcodebuild -project ../../lipika-engine/LipikaEngine.xcodeproj -scheme "LipikaEngine OSX" -configuration Debug clean build test || exit 1
-xcodebuild -project ../../lipika-engine/LipikaEngine.xcodeproj -scheme "LipikaEngine OSX" -configuration Release clean build || exit 1
+xcodebuild -project ../../lipika-engine/LipikaEngine.xcodeproj -scheme "LipikaEngine_OSX" -configuration Debug clean build test || exit 1
+xcodebuild -project ../../lipika-engine/LipikaEngine.xcodeproj -scheme "LipikaEngine_OSX" -configuration Release clean build || exit 1
 cp -r ../../lipika-engine/build/Release/LipikaEngine_OSX.framework ../Input\ Source/
 xcodebuild -project ../LipikaIME.xcodeproj -scheme LipikaIME -configuration Release clean build || exit 1
 cp -r ../build/Release/LipikaIME.app .

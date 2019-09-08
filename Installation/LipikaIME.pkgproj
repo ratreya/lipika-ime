@@ -448,6 +448,8 @@
 				</dict>
 				<key>PAYLOAD_TYPE</key>
 				<integer>0</integer>
+				<key>PRESERVE_EXTENDED_ATTRIBUTES</key>
+				<false/>
 				<key>SHOW_INVISIBLE</key>
 				<false/>
 				<key>SPLIT_FORKS</key>
@@ -976,6 +978,8 @@
 				</dict>
 				<key>PAYLOAD_TYPE</key>
 				<integer>0</integer>
+				<key>PRESERVE_EXTENDED_ATTRIBUTES</key>
+				<false/>
 				<key>SHOW_INVISIBLE</key>
 				<false/>
 				<key>SPLIT_FORKS</key>
@@ -1261,7 +1265,7 @@
 						<key>IC_REQUIREMENT_OS_DISTRIBUTION_TYPE</key>
 						<integer>0</integer>
 						<key>IC_REQUIREMENT_OS_MINIMUM_VERSION</key>
-						<integer>101400</integer>
+						<integer>101000</integer>
 					</dict>
 					<key>IC_REQUIREMENT_CHECK_TYPE</key>
 					<integer>1</integer>
@@ -1273,7 +1277,7 @@
 							<key>LANGUAGE</key>
 							<string>English</string>
 							<key>VALUE</key>
-							<string>You need at least macOS 10.14 (Mojave) to run Lipika.</string>
+							<string>You need at least macOS 10.10 (Yosemite) to run Lipika.</string>
 						</dict>
 					</array>
 					<key>NAME</key>
