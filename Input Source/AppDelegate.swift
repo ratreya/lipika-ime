@@ -13,6 +13,7 @@ import LipikaEngine_OSX
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     private (set) var server: IMKServer!
+    private (set) var candidatesWindow: IMKCandidates!
     private (set) var systemTrayMenu: NSMenu!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -27,7 +28,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         Logger.log.debug("Initialized IMK Server: \(server.bundle().bundleIdentifier ?? "nil")")
         self.server = server
-        self.systemTrayMenu = createSystemTrayMenu()
+        systemTrayMenu = autoreleasepool { return createSystemTrayMenu() }
+        candidatesWindow = IMKCandidates(server: server, panelType: kIMKSingleRowSteppingCandidatePanel)
+        candidatesWindow.setAttributes([IMKCandidatesSendServerKeyEventFirst: NSNumber(booleanLiteral: true)])
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

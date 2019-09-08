@@ -13,11 +13,11 @@ import LipikaEngine_OSX
 class ClientManager: CustomStringConvertible {
     private let notFoundRange = NSMakeRange(NSNotFound, NSNotFound)
     private let config = LipikaConfig()
-    private weak var client: IMKTextInput!
-    private let candidatesWindow: IMKCandidates
+    private let client: IMKTextInput
     // This is the position of the cursor within the marked text
     public var markedCursorLocation: Int? = nil
-    private (set) var candidates = [String]()
+    private var candidatesWindow: IMKCandidates { return (NSApp.delegate as! AppDelegate).candidatesWindow }
+    private (set) var candidates = autoreleasepool { return [String]() }
     // Cache, otherwise clients quitting can sometimes SEGFAULT us
     private var _description: String
     var description: String {
@@ -29,18 +29,20 @@ class ClientManager: CustomStringConvertible {
         return client.attributes(forCharacterIndex: 0, lineHeightRectangle: &rect) as? [NSAttributedString.Key : Any]
     }
     
-    init(client: IMKTextInput!) {
-        Logger.log.debug("Initializing client: \(client.bundleIdentifier()!) with Id: \(client.uniqueClientIdentifierString()!)")
+    init?(client: IMKTextInput) {
+        guard let bundleId = client.bundleIdentifier(), let clientId = client.uniqueClientIdentifierString() else {
+            Logger.log.warning("bundleIdentifier: \(client.bundleIdentifier() ?? "nil") or uniqueClientIdentifierString: \(client.uniqueClientIdentifierString() ?? "nil") - failing ClientManager.init()")
+            return nil
+        }
+        Logger.log.debug("Initializing client: \(bundleId) with Id: \(clientId)")
         self.client = client
         if !client.supportsUnicode() {
-            Logger.log.warning("Client: \(client.bundleIdentifier()!) does not support Unicode!")
+            Logger.log.warning("Client: \(bundleId) does not support Unicode!")
         }
         if !client.supportsProperty(TSMDocumentPropertyTag(kTSMDocumentSupportDocumentAccessPropertyTag)) {
-            Logger.log.warning("Client: \(client.bundleIdentifier()!) does not support Document Access!")
+            Logger.log.warning("Client: \(bundleId) does not support Document Access!")
         }
-        candidatesWindow = IMKCandidates(server: (NSApp.delegate as! AppDelegate).server, panelType: kIMKSingleRowSteppingCandidatePanel)
-        candidatesWindow.setAttributes([IMKCandidatesSendServerKeyEventFirst: NSNumber(booleanLiteral: true)])
-        _description = "\(client.bundleIdentifier()!) with Id: \(client.uniqueClientIdentifierString()!)"
+        _description = "\(bundleId) with Id: \(clientId)"
     }
     
     func setGlobalCursorLocation(_ location: Int) {

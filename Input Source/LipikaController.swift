@@ -15,34 +15,23 @@ public class LipikaController: IMKInputController {
     let config = LipikaConfig()
     let dispatch = AsyncDispatcher()
     private let clientManager: ClientManager
-    private var literatorHash = 0
+    private var currentScriptName = ""
     private (set) var transliterator: Transliterator!
     private (set) var anteliterator: Anteliterator!
     
-    private func refreshLiterators() -> Bool {
+    private func refreshLiterators() {
         let factory = try! LiteratorFactory(config: config)
         if let customSchemeName = config.customSchemeName {
-            let hashValue = "customMapping: \(customSchemeName)".hashValue
-            if hashValue != literatorHash {
-                Logger.log.debug("Refreshing Literators with customMapping: \(customSchemeName)")
-                transliterator = try! factory.transliterator(customMapping: customSchemeName)
-                anteliterator = try! factory.anteliterator(customMapping: customSchemeName)
-                literatorHash = hashValue
-                return true
-            }
+            transliterator = try! factory.transliterator(customMapping: customSchemeName)
+            anteliterator = try! factory.anteliterator(customMapping: customSchemeName)
+            currentScriptName = customSchemeName
         }
         else {
-            let hashValue = "schemeName: \(config.schemeName) and scriptName: \(config.scriptName)".hashValue
-            if hashValue != literatorHash {
-                Logger.log.debug("Refreshing Literators with schemeName: \(config.schemeName) and scriptName: \(config.scriptName)")
-                let override: [String: MappingValue]? = MappingStore.read(schemeName: config.schemeName, scriptName: config.scriptName)
-                transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
-                anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
-                literatorHash = hashValue
-                return true
-            }
+            let override: [String: MappingValue]? = MappingStore.read(schemeName: config.schemeName, scriptName: config.scriptName)
+            transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
+            anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
+            currentScriptName = config.scriptName
         }
-        return false
     }
     
     @discardableResult private func commit() -> Bool {
@@ -123,16 +112,24 @@ public class LipikaController: IMKInputController {
         }
     }
     
-    public override init!(server: IMKServer!, delegate: Any!, client inputClient: Any!) {
-        clientManager = ClientManager(client: inputClient as? IMKTextInput)
+    public override init!(server: IMKServer, delegate: Any!, client inputClient: Any) {
+        guard let client = inputClient as? IMKTextInput & NSObjectProtocol else {
+            Logger.log.warning("Client does not conform to the necessary protocols - refusing to initiate LipikaController!")
+            return nil
+        }
+        guard let clientManager = ClientManager(client: client) else {
+            Logger.log.warning("Client manager failed to initialize - refusing to initiate LipikaController!")
+            return nil
+        }
+        self.clientManager = clientManager
         super.init(server: server, delegate: delegate, client: inputClient)
         // Initialize Literators
-        precondition(refreshLiterators())
+        refreshLiterators()
         Logger.log.debug("Initialized Controller for Client: \(clientManager)")
     }
     
     public override func inputText(_ input: String!, client sender: Any!) -> Bool {
-        Logger.log.debug("Processing Input: \(input!)")
+        Logger.log.debug("Processing Input: \(input!) from sender: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
         if input.unicodeScalars.count != 1 || CharacterSet.whitespaces.contains(input.unicodeScalars.first!) {
             // Handle inputting of whitespace inbetween Marked Text
             if let markedLocation = clientManager.markedCursorLocation {
@@ -166,6 +163,7 @@ public class LipikaController: IMKInputController {
     }
     
     public override func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
+        Logger.log.debug("Processing didCommand: \(aSelector!) from sender: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
         // Move the cursor back to the oldLocation because commit() will move it to the end of the committed string
         let oldLocation = client().selectedRange().location
         if aSelector!.description.hasSuffix("ModifySelection:") {
@@ -219,7 +217,7 @@ public class LipikaController: IMKInputController {
     
     /// This message is sent when our client looses focus
     public override func deactivateServer(_ sender: Any!) {
-        Logger.log.debug("Client: \(clientManager) loosing focus")
+        Logger.log.debug("Client: \(clientManager) loosing focus by: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
         // Do this in case the application is quitting, otherwise we will end up with a SIGSEGV
         dispatch.cancelAll()
         commit()
@@ -227,24 +225,26 @@ public class LipikaController: IMKInputController {
     
     /// This message is sent when our client gains focus
     public override func activateServer(_ sender: Any!) {
-        Logger.log.debug("Client: \(clientManager) gained focus")
-        if config.globalScriptSelection {
-            // Do this in case selection was changed when we were out of focus
-            if refreshLiterators() {
-                let systemTrayMenu = (NSApp.delegate as! AppDelegate).systemTrayMenu!
-                systemTrayMenu.items.forEach() { $0.state = .off }
-                systemTrayMenu.items.first(where: { $0.title == config.customSchemeName ?? config.scriptName } )!.state = .on
-            }
+        Logger.log.debug("Client: \(clientManager) gained focus by: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
+        // There are three sources for current script selection - (a) self.currentScriptName, (b) config.scriptName and (c) selectedMenuItem.title
+        // (b) could have changed while we were in background - converge (a) -> (b) if global script selection is configured
+        if config.globalScriptSelection, currentScriptName != (config.customSchemeName ?? config.scriptName) {
+            Logger.log.debug("Refreshing Literators from: \(currentScriptName) to: \(config.customSchemeName ?? config.scriptName)")
+            refreshLiterators()
         }
     }
     
     public override func menu() -> NSMenu! {
         Logger.log.debug("Returning menu")
-        return (NSApp.delegate as! AppDelegate).systemTrayMenu
+        // Set the system trey menu selection to reflect our literators; converge (c) -> (a)
+        let systemTrayMenu = (NSApp.delegate as! AppDelegate).systemTrayMenu!
+        systemTrayMenu.items.forEach() { $0.state = .off }
+        systemTrayMenu.items.first(where: { $0.title == currentScriptName } )!.state = .on
+        return systemTrayMenu
     }
     
     public override func candidates(_ sender: Any!) -> [Any]! {
-        Logger.log.debug("Returning Candidates")
+        Logger.log.debug("Returning Candidates for sender: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
         return clientManager.candidates
     }
     
@@ -254,27 +254,21 @@ public class LipikaController: IMKInputController {
     }
     
     public override func commitComposition(_ sender: Any!) {
-        Logger.log.debug("Commit Composition called by \(sender!)")
+        Logger.log.debug("Commit Composition called by: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
         commit()
     }
     
     @objc public func menuItemSelected(sender: NSDictionary) {
         let item = sender.value(forKey: kIMKCommandMenuItemName) as! NSMenuItem
         Logger.log.debug("Menu Item Selected: \(item.title)")
-        item.menu?.items.forEach() { $0.state = .off }
-        item.state = .on
-        let factory = try! LiteratorFactory(config: config)
+        // Converge (b) -> (c)
         if item.tag == 0 {
-            Logger.log.debug("Selected Menu Item is Custom Scheme")
-            transliterator = try! factory.transliterator(customMapping: item.title)
-            anteliterator = try! factory.anteliterator(customMapping: item.title)
             config.customSchemeName = item.title
         }
         else {
-            Logger.log.debug("Selected Menu Item is Installed Script; Loading schemeName: \(config.schemeName) and scriptName: \(item.title)")
-            transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: item.title)
-            anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: item.title)
             config.scriptName = item.title
         }
+        // Converge (a) -> (b)
+        refreshLiterators()
     }
 }
