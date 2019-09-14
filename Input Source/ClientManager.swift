@@ -46,6 +46,7 @@ class ClientManager: CustomStringConvertible {
     }
     
     func setGlobalCursorLocation(_ location: Int) {
+        Logger.log.debug("Setting global cursor location to: \(location)")
         client.setMarkedText("|", selectionRange: NSMakeRange(0, 0), replacementRange: NSMakeRange(location, 0))
         client.setMarkedText("", selectionRange: NSMakeRange(0, 0), replacementRange: NSMakeRange(location, 0))
     }

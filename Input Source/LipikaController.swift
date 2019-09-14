@@ -82,7 +82,7 @@ public class LipikaController: IMKInputController {
             guard let word = self.client().string(from: wordRange, actualRange: &actual), !word.isEmpty else {
                 return
             }
-            Logger.log.debug("Found word: \(word) at: \(actual)")
+            Logger.log.debug("Found word: \(word) at: \(location) with actual: \(actual)")
             let inputs = self.anteliterator.anteliterate(word)
             Logger.log.debug("Anteliterated inputs: \(inputs)")
             let literated = self.transliterator.transliterate(inputs)
@@ -91,7 +91,7 @@ public class LipikaController: IMKInputController {
                 return
             }
             // Calculate the location of cursor within Marked Text
-            self.clientManager.markedCursorLocation = transliterator.findPosition(forPosition: location - actual.location, inOutput: true)
+            self.clientManager.markedCursorLocation = config.outputInClient ? location - actual.location : transliterator.findPosition(forPosition: location - actual.location, inOutput: true)
             Logger.log.debug("Marked Cursor Location: \(self.clientManager.markedCursorLocation!) for Global Location: \(location - actual.location)")
             self.showActive(literated, replacementRange: actual)
         }
