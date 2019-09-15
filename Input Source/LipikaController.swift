@@ -66,7 +66,7 @@ public class LipikaController: IMKInputController {
         if transliterator.isEmpty() {
             Logger.log.debug("Transliterator is empty, not handling cursor move")
         }
-        else if clientManager.updateMarkedCursorLocation(delta) {
+        else if !config.outputInClient, clientManager.updateMarkedCursorLocation(delta) {
             showActive(transliterator.transliterate())
             return true
         }
@@ -91,7 +91,7 @@ public class LipikaController: IMKInputController {
                 return
             }
             // Calculate the location of cursor within Marked Text
-            self.clientManager.markedCursorLocation = config.outputInClient ? location - actual.location : transliterator.findPosition(forPosition: location - actual.location, inOutput: true)
+            self.clientManager.markedCursorLocation = config.outputInClient ? location - actual.location : transliterator.convertPosition(position: location - actual.location, fromUnits: .outputScalar, toUnits: .input)
             Logger.log.debug("Marked Cursor Location: \(self.clientManager.markedCursorLocation!) for Global Location: \(location - actual.location)")
             self.showActive(literated, replacementRange: actual)
         }

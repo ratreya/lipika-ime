@@ -11,11 +11,17 @@ import Foundation
 import LipikaEngine_OSX
 
 class LipikaConfig: Config {
+    private static let kGroupDomainName = "group.daivajnanam.Lipika"
     private let userDefaults: UserDefaults
     
+    func reset() {
+        UserDefaults.standard.removePersistentDomain(forName: LipikaConfig.kGroupDomainName)
+        UserDefaults.standard.synchronize()
+    }
+    
     override init() {
-        guard let groupDefaults = UserDefaults(suiteName: "group.daivajnanam.Lipika") else {
-            fatalError("Unable to open UserDefaults for suite: group.daivajnanam.Lipika!")
+        guard let groupDefaults = UserDefaults(suiteName: LipikaConfig.kGroupDomainName) else {
+            fatalError("Unable to open UserDefaults for suite: \(LipikaConfig.kGroupDomainName)!")
         }
         self.userDefaults = groupDefaults
         super.init()
@@ -39,10 +45,10 @@ class LipikaConfig: Config {
         }
     }
 
-    override var logLevel: Level {
+    override var logLevel: Logger.Level {
         get {
             if let logLevelString = userDefaults.string(forKey: #function) {
-                return Level.init(rawValue: logLevelString)!
+                return Logger.Level(rawValue: logLevelString)!
             }
             else {
                 return super.logLevel
@@ -122,10 +128,14 @@ class LipikaConfig: Config {
             userDefaults.set(value, forKey: #function)
         }
     }
-    
+
+    /*
+     It is impossible to reliably determine the PositionalUnit a give client uses to report caret location.
+     And so, when output is in client, don't try to start your own session.
+    */
     var activeSessionOnDelete: Bool {
         get {
-            return userDefaults.bool(forKey: #function)
+            return !outputInClient && userDefaults.bool(forKey: #function)
         }
         set(value) {
             userDefaults.set(value, forKey: #function)
@@ -134,7 +144,7 @@ class LipikaConfig: Config {
     
     var activeSessionOnInsert: Bool {
         get {
-            return userDefaults.bool(forKey: #function)
+            return !outputInClient && userDefaults.bool(forKey: #function)
         }
         set(value) {
             userDefaults.set(value, forKey: #function)
@@ -143,7 +153,7 @@ class LipikaConfig: Config {
     
     var activeSessionOnCursorMove: Bool {
         get {
-            return userDefaults.bool(forKey: #function)
+            return !outputInClient && userDefaults.bool(forKey: #function)
         }
         set(value) {
             userDefaults.set(value, forKey: #function)

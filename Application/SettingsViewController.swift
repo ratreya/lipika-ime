@@ -30,7 +30,7 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
         let factory = try! LiteratorFactory(config: config)
         schemeName.addItems(withTitles: try! factory.availableSchemes())
         schemeName.selectItem(withTitle: config.schemeName)
-        logLevel.addItems(withTitles: [Level.debug.rawValue, Level.warning.rawValue, Level.error.rawValue, Level.fatal.rawValue])
+        logLevel.addItems(withTitles: [Logger.Level.debug.rawValue, Logger.Level.warning.rawValue, Logger.Level.error.rawValue, Logger.Level.fatal.rawValue])
         logLevel.selectItem(withTitle: config.logLevel.rawValue)
         stopCharacter.stringValue = String(config.stopCharacter)
         escapeCharacter.stringValue = String(config.escapeCharacter)
@@ -44,11 +44,22 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
         stopCharacter.backgroundColor = NSColor.white
         saveButton.title = "Save"
         saveButton.isEnabled = false
+        outputInClientSideEffects()
     }
     
     private func isValid() -> Bool {
         return stopCharacter.stringValue.unicodeScalars.count == 1
             && escapeCharacter.stringValue.unicodeScalars.count == 1
+    }
+    
+    private func outputInClientSideEffects() {
+        let isOutputInClient = outputInClient.selectedTag() == 1
+        activeSessionOnDelete.state = isOutputInClient ? .off : (config.activeSessionOnDelete ? .on : .off)
+        activeSessionOnInsert.state = isOutputInClient ? .off : (config.activeSessionOnInsert ? .on : .off)
+        activeSessionOnCursorMove.state = isOutputInClient ? .off : (config.activeSessionOnCursorMove ? .on : .off)
+        activeSessionOnDelete.isEnabled = !isOutputInClient
+        activeSessionOnInsert.isEnabled = !isOutputInClient
+        activeSessionOnCursorMove.isEnabled = !isOutputInClient
     }
     
     private func makeSaveable() {
@@ -83,6 +94,7 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func outputInClientChanged(_ sender: NSButton) {
+        outputInClientSideEffects()
         makeSaveable()
     }
     
@@ -106,9 +118,14 @@ class SettingsViewController: NSViewController, NSTextFieldDelegate {
         reset()
     }
     
+    @IBAction func defaultPressed(_ sender: NSButton) {
+        config.reset()
+        reset()
+    }
+
     @IBAction func savePressed(_ sender: NSButton) {
         config.schemeName = schemeName.titleOfSelectedItem!
-        config.logLevel = Level(rawValue: logLevel.titleOfSelectedItem!)!
+        config.logLevel = Logger.Level(rawValue: logLevel.titleOfSelectedItem!)!
         config.stopCharacter = stopCharacter.stringValue.unicodeScalars.first!
         config.escapeCharacter = escapeCharacter.stringValue.unicodeScalars.first!
         config.showCandidates = showCandidates.state == .on
