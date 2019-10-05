@@ -21,7 +21,7 @@ class InputSource {
     private init() {}
 
     static func getLipika() -> Array<TISInputSource> {
-        let options: CFDictionary = [kTISPropertyBundleID as String: "com.daivajnanam.inputmethod.LipikaIME"] as CFDictionary
+        let options: CFDictionary = [kTISPropertyBundleID as String: "com.daivajnanam.inputmethod.Lipika"] as CFDictionary
         if let rawList = TISCreateInputSourceList(options, true) {
             let inputSourceNSArray = rawList.takeRetainedValue() as NSArray
             let inputSourceList = inputSourceNSArray as! [TISInputSource]
