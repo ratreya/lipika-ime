@@ -1265,7 +1265,7 @@
 						<key>IC_REQUIREMENT_OS_DISTRIBUTION_TYPE</key>
 						<integer>0</integer>
 						<key>IC_REQUIREMENT_OS_MINIMUM_VERSION</key>
-						<integer>101000</integer>
+						<integer>101500</integer>
 					</dict>
 					<key>IC_REQUIREMENT_CHECK_TYPE</key>
 					<integer>1</integer>
@@ -1277,7 +1277,7 @@
 							<key>LANGUAGE</key>
 							<string>English</string>
 							<key>VALUE</key>
-							<string>You need at least macOS 10.10 (Yosemite) to run Lipika.</string>
+							<string>You need at least macOS 10.15 (Catalina) to run Lipika.</string>
 						</dict>
 					</array>
 					<key>NAME</key>

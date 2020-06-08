@@ -7,6 +7,6 @@ do
 done
 until ./installer --enable
 do
-sleep 1
+  sleep 1
 done
 exit 0
