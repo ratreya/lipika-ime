@@ -25,14 +25,18 @@ struct SettingsView: View {
                 Button("Save Changes") {
                     self.settings.save()
                 }
-                .disabled(settings.stopCharacterInvalid || settings.escapeCharacterInvalid)
+                .disabled(!settings.isDirty || settings.stopCharacterInvalid || settings.escapeCharacterInvalid)
                 .padding([.leading, .trailing], 10)
                 Button("Discard Changes") {
                     self.settings.reset()
-                }.padding([.leading, .trailing], 10)
+                }
+                .padding([.leading, .trailing], 10)
+                .disabled(!settings.isDirty)
                 Button("Factory Defaults") {
                     self.settings.defaults()
-                }.padding([.leading, .trailing], 10)
+                }
+                .padding([.leading, .trailing], 10)
+                .disabled(settings.isFactory)
             }
             Spacer(minLength: 25)
         }.padding(20)

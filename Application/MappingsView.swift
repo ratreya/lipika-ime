@@ -32,6 +32,7 @@ class MappingModel: ObservableObject {
         scheme = config.schemeName
         script = config.scriptName
         mappings = MappingModel.storedMappings(scheme: scheme, script: script)
+        reeval()
     }
     
     static func storedMappings(scheme: String, script: String) -> [[String]] {

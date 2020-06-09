@@ -11,28 +11,22 @@ import LipikaEngine_OSX
 import SwiftUI
 
 class Settings: ObservableObject {
-    @Published var schemeName: String
-    @Published var scriptName: String
-    @Published var stopCharacter: String {
-        didSet {
-            self.stopCharacterInvalid = self.stopCharacter.unicodeScalars.count != 1
-        }
-    }
-    @Published var escapeCharacter: String {
-           didSet {
-               self.escapeCharacterInvalid = self.escapeCharacter.unicodeScalars.count != 1
-           }
-       }
-    @Published var logLevel: String
-    @Published var showCandidates: Bool
-    @Published var outputInClient: Bool
-    @Published var globalScriptSelection: Bool
-    @Published var activeSessionOnCursorMove: Bool
-    @Published var activeSessionOnDelete: Bool
-    @Published var activeSessionOnInsert: Bool
+    @Published var schemeName: String { didSet { self.reeval() } }
+    @Published var scriptName: String { didSet { self.reeval() } }
+    @Published var stopCharacter: String { didSet { self.reeval() } }
+    @Published var escapeCharacter: String { didSet { self.reeval() } }
+    @Published var logLevel: String { didSet { self.reeval() } }
+    @Published var showCandidates: Bool { didSet { self.reeval() } }
+    @Published var outputInClient: Bool { didSet { self.reeval() } }
+    @Published var globalScriptSelection: Bool { didSet { self.reeval() } }
+    @Published var activeSessionOnCursorMove: Bool { didSet { self.reeval() } }
+    @Published var activeSessionOnDelete: Bool { didSet { self.reeval() } }
+    @Published var activeSessionOnInsert: Bool { didSet { self.reeval() } }
     
     @Published var stopCharacterInvalid = false
     @Published var escapeCharacterInvalid = false
+    @Published var isDirty = false
+    @Published var isFactory = false
     
     let config = LipikaConfig()
     
@@ -48,6 +42,7 @@ class Settings: ObservableObject {
         activeSessionOnCursorMove = config.activeSessionOnCursorMove
         activeSessionOnDelete = config.activeSessionOnDelete
         activeSessionOnInsert = config.activeSessionOnInsert
+        reeval()
     }
     
     func defaults() {
@@ -67,11 +62,12 @@ class Settings: ObservableObject {
         activeSessionOnCursorMove = config.activeSessionOnCursorMove
         activeSessionOnDelete = config.activeSessionOnDelete
         activeSessionOnInsert = config.activeSessionOnInsert
+        reeval()
     }
     
     func save() {
         config.schemeName = schemeName
-        config.scriptName = schemeName
+        config.scriptName = scriptName
         config.stopCharacter = stopCharacter.unicodeScalars.first!
         config.escapeCharacter = escapeCharacter.unicodeScalars.first!
         config.logLevel = Logger.Level(rawValue: logLevel)!
@@ -81,5 +77,24 @@ class Settings: ObservableObject {
         config.activeSessionOnCursorMove = activeSessionOnCursorMove
         config.activeSessionOnDelete = activeSessionOnDelete
         config.activeSessionOnInsert = activeSessionOnInsert
+        reeval()
+    }
+    
+    func reeval() {
+        isDirty =
+            config.schemeName != schemeName ||
+            config.scriptName != scriptName ||
+            config.stopCharacter != stopCharacter.unicodeScalars.first! ||
+            config.escapeCharacter != escapeCharacter.unicodeScalars.first! ||
+            config.logLevel != Logger.Level(rawValue: logLevel)! ||
+            config.showCandidates != showCandidates ||
+            config.outputInClient != outputInClient ||
+            config.globalScriptSelection != globalScriptSelection ||
+            config.activeSessionOnCursorMove != activeSessionOnCursorMove ||
+            config.activeSessionOnDelete != activeSessionOnDelete ||
+            config.activeSessionOnInsert != activeSessionOnInsert
+        isFactory = UserDefaults.standard.persistentDomain(forName: "group.daivajnanam.Lipika") == nil
+        stopCharacterInvalid = self.stopCharacter.unicodeScalars.count != 1
+        escapeCharacterInvalid = self.escapeCharacter.unicodeScalars.count != 1
     }
 }
