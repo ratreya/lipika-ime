@@ -27,7 +27,7 @@ class UnicodeTextField: NSTextField {
     }
     
     override func textDidEndEditing(_ notification: Notification) {
-        if (self.stringValue.isHex()) {
+        if (!self.stringValue.isEmpty && self.stringValue.isHex()) {
             self.stringValue = self.stringValue.components(separatedBy: ",").map({$0.trimmingCharacters(in: CharacterSet.whitespaces)}).map({String(UnicodeScalar(Int($0, radix: 16)!)!)}).joined()
         }
         super.textDidEndEditing(notification)
@@ -39,27 +39,26 @@ struct TableView: NSViewControllerRepresentable {
     typealias NSViewControllerType = TableViewController
 
     func makeNSViewController(context: Context) -> TableViewController {
-        return TableViewController(mappings)
+        return TableViewController(self)
     }
     
     func updateNSViewController(_ nsViewController: TableViewController, context: Context) {
         if (nsViewController.mappings != mappings) {
             nsViewController.mappings = mappings
+            nsViewController.table.reloadData()
         }
     }
 }
 
-class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
-    private var table = NSTableView()
+class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
     private let types = ["CONSONANT", "DEPENDENT", "DIGIT", "SIGN", "VOWEL"]
-    var mappings: [[String]] {
-        didSet {
-            self.table.reloadData()
-        }
-    }
+    private var wrapper: TableView
+    var table = NSTableView()
+    var mappings: [[String]]
     
-    init(_ mappings: [[String]]) {
-        self.mappings = mappings
+    init(_ wrapper: TableView) {
+        self.wrapper = wrapper
+        self.mappings = wrapper.mappings
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -124,18 +123,15 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                 return type
             case "Key":
                 let key = NSTextField()
-                key.target = self
-                key.action = #selector(self.onChange(receiver:))
+                key.delegate = self
                 return key
             case "Scheme":
                 let scheme = NSTextField()
-                scheme.target = self
-                scheme.action = #selector(self.onChange(receiver:))
+                scheme.delegate = self
                 return scheme
             case "Script":
                 let script = UnicodeTextField()
-                script.target = self
-                script.action = #selector(self.onChange(receiver:))
+                script.delegate = self
                 return script
             default:
                 Logger.log.fatal("Unknown column title \(tableColumn!.title)")
@@ -179,6 +175,10 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     @objc func onChange(receiver: Any) {
         let row = table.row(for: receiver as! NSView)
+        if (row == -1) {
+            // The view has changed under us
+            return
+        }
         let column = table.column(for: receiver as! NSView)
         switch column {
         case 0:
@@ -193,6 +193,13 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
             Logger.log.fatal("Unknown column: \(column)")
             fatalError()
         }
+        if (wrapper.mappings != self.mappings) {
+            wrapper.mappings = self.mappings
+        }
+    }
+
+    func controlTextDidEndEditing(_ obj: Notification) {
+        onChange(receiver: obj.object!)
     }
 
     // Own API
@@ -207,6 +214,7 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     func addMapping(at: Int? = nil) {
         let newRow = at ?? table.selectedRow + 1
         mappings.insert([types[0], "", "", ""], at: newRow)
+        wrapper.mappings = self.mappings
         table.reloadData()
         table.selectRowIndexes(IndexSet.init(integer: newRow), byExtendingSelection: false)
         table.scrollRowToVisible(table.selectedRow)
@@ -215,6 +223,7 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     func removeMapping(row: Int? = nil) {
         let selectedRow = row ?? table.selectedRow
         mappings.remove(at: selectedRow)
+        wrapper.mappings = self.mappings
         table.reloadData()
         table.selectRowIndexes(IndexSet.init(integer: max(0, selectedRow - 1)), byExtendingSelection: false)
         table.scrollRowToVisible(table.selectedRow)
