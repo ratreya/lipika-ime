@@ -17,7 +17,7 @@ struct MainView: View {
             Text("Keyboard").tabItem {
                 Text("Keyboard")
             }.tag(0)
-            Text("Transliterator").tabItem {
+            LiteratorView().tabItem {
                 Text("Transliterator")
             }.tag(1)
             MappingsView().tabItem {
