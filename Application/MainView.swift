@@ -10,33 +10,27 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var currentTab = 3
+    @State private var currentTab = 0
     
     var body: some View {
         TabView(selection: $currentTab) {
-            Text("Keyboard").tabItem {
-                Text("Keyboard")
+            LiteratorView().tabItem {
+                Text("Transliterator")
             }.tag(0)
             .onAppear() {
                 self.currentTab = 0
             }
-            LiteratorView().tabItem {
-                Text("Transliterator")
+            MappingsView().tabItem {
+                Text("Mapping")
             }.tag(1)
             .onAppear() {
                 self.currentTab = 1
             }
-            MappingsView().tabItem {
-                Text("Mapping")
+            SettingsView().tabItem {
+                Text("Settings")
             }.tag(2)
             .onAppear() {
                 self.currentTab = 2
-            }
-            SettingsView().tabItem {
-                Text("Settings")
-            }.tag(3)
-            .onAppear() {
-                self.currentTab = 3
             }
         }.padding(20)
     }

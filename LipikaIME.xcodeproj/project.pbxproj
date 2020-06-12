@@ -19,7 +19,6 @@
 		A53AD01D20CC659C00C95844 /* ClientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01C20CC659C00C95844 /* ClientManager.swift */; };
 		A53AD01F20CC660900C95844 /* LipikaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53AD01E20CC660900C95844 /* LipikaController.swift */; };
 		A54397CC20D4D2F20011C7B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */; };
-		A54397CE20D4D2F20011C7B7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54397CD20D4D2F20011C7B7 /* MainViewController.swift */; };
 		A54397D320D4D2F30011C7B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A54397D120D4D2F30011C7B7 /* Main.storyboard */; };
 		A54397DB20D4D5E90011C7B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53AD00220CC347900C95844 /* Assets.xcassets */; };
 		A54397DC20D4D6090011C7B7 /* LipikaEngine_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53AD00F20CC641900C95844 /* LipikaEngine_OSX.framework */; };
@@ -34,15 +33,12 @@
 		A55381F621D706E500A3CD8A /* MappingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55381F421D703EA00A3CD8A /* MappingStore.swift */; };
 		A5698AE9247EFA8E00443158 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52905DC234EC67900A8D95E /* MainView.swift */; };
 		A5698AEA247EFA8E00443158 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58C00A32353705C00B53051 /* SettingsView.swift */; };
-		A56AECF020ED1CE40070CD5C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */; };
 		A59281E120D45653003013B8 /* TrayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A59281E020D45634003013B8 /* TrayIcon.icns */; };
 		A59364ED2481D12100674FBD /* MappingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59364EC2481D12100674FBD /* MappingsView.swift */; };
 		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
 		A5DC681F22335F72006FC519 /* AsyncDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */; };
 		A5E982802480658900D7B9A9 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9827F2480658900D7B9A9 /* SettingsModel.swift */; };
 		A5ECEBB924887A800084CFBD /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ECEBB824887A800084CFBD /* TableView.swift */; };
-		A5F338A621CFF6510052577A /* MappingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A521CFF6510052577A /* MappingsViewController.swift */; };
-		A5F338AA21CFFBCF0052577A /* LiteratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,7 +92,6 @@
 		A53AD01E20CC660900C95844 /* LipikaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LipikaController.swift; sourceTree = "<group>"; };
 		A54397C920D4D2F10011C7B7 /* LipikaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LipikaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A54397CD20D4D2F20011C7B7 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A54397D220D4D2F30011C7B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A54397D420D4D2F30011C7B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54397D520D4D2F30011C7B7 /* LipikaApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LipikaApp.entitlements; sourceTree = "<group>"; };
@@ -111,7 +106,6 @@
 		A546182A20CC6BF3003A73EB /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
 		A54B15D624900FC000E013A1 /* LiteratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteratorView.swift; sourceTree = "<group>"; };
 		A55381F421D703EA00A3CD8A /* MappingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingStore.swift; sourceTree = "<group>"; };
-		A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A58C00A32353705C00B53051 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A59281E020D45634003013B8 /* TrayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TrayIcon.icns; sourceTree = "<group>"; };
 		A59364EC2481D12100674FBD /* MappingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsView.swift; sourceTree = "<group>"; };
@@ -119,8 +113,6 @@
 		A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDispatcher.swift; sourceTree = "<group>"; };
 		A5E9827F2480658900D7B9A9 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		A5ECEBB824887A800084CFBD /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
-		A5F338A521CFF6510052577A /* MappingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsViewController.swift; sourceTree = "<group>"; };
-		A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiteratorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,10 +197,6 @@
 			children = (
 				A54397DA20D4D3F50011C7B7 /* Resources */,
 				A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */,
-				A54397CD20D4D2F20011C7B7 /* MainViewController.swift */,
-				A56AECEF20ED1CE40070CD5C /* SettingsViewController.swift */,
-				A5F338A521CFF6510052577A /* MappingsViewController.swift */,
-				A5F338A921CFFBCE0052577A /* LiteratorViewController.swift */,
 				A52905DC234EC67900A8D95E /* MainView.swift */,
 				A58C00A32353705C00B53051 /* SettingsView.swift */,
 				A59364EC2481D12100674FBD /* MappingsView.swift */,
@@ -449,12 +437,8 @@
 				A5698AEA247EFA8E00443158 /* SettingsView.swift in Sources */,
 				A55381F621D706E500A3CD8A /* MappingStore.swift in Sources */,
 				A54397E020D4D6840011C7B7 /* LipikaConfig.swift in Sources */,
-				A54397CE20D4D2F20011C7B7 /* MainViewController.swift in Sources */,
 				A54397CC20D4D2F20011C7B7 /* AppDelegate.swift in Sources */,
 				A5E982802480658900D7B9A9 /* SettingsModel.swift in Sources */,
-				A5F338AA21CFFBCF0052577A /* LiteratorViewController.swift in Sources */,
-				A5F338A621CFF6510052577A /* MappingsViewController.swift in Sources */,
-				A56AECF020ED1CE40070CD5C /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

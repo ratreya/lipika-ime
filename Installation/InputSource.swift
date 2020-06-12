@@ -14,10 +14,6 @@ class InputSource {
         case systemError(String)
     }
     
-    enum InstallType {
-        case new, replace, upgrade, downgrade
-    }
-    
     private init() {}
 
     static func getLipika() -> Array<TISInputSource> {

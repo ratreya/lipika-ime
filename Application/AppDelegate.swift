@@ -14,7 +14,6 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-    /* Disabling this until all of SwiftUI is ready for launch
         // Create the SwiftUI view that provides the window contents.
         let contentView = MainView()
 
@@ -23,11 +22,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             contentRect: NSRect(x: 0, y: 0, width: 700, height: 580),
             styleMask: [.titled, .closable, .miniaturizable, .fullSizeContentView],
             backing: .buffered, defer: false)
-        window.center()
-        window.setFrameAutosaveName("LipikaIME")
+        window.title = "LipikaApp"
+        window.setFrameAutosaveName("LipikaApp")
         window.contentView = NSHostingView(rootView: contentView)
+        window.titlebarAppearsTransparent = true
         window.makeKeyAndOrderFront(nil)
-    */
+        window.center()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
