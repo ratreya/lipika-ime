@@ -84,8 +84,8 @@ class Settings: ObservableObject {
         isDirty =
             config.schemeName != schemeName ||
             config.scriptName != scriptName ||
-            config.stopCharacter != stopCharacter.unicodeScalars.first! ||
-            config.escapeCharacter != escapeCharacter.unicodeScalars.first! ||
+            config.stopCharacter != stopCharacter.unicodeScalars.first ||
+            config.escapeCharacter != escapeCharacter.unicodeScalars.first ||
             config.logLevel != Logger.Level(rawValue: logLevel)! ||
             config.showCandidates != showCandidates ||
             config.outputInClient != outputInClient ||

@@ -26,7 +26,7 @@ struct MultilineTextView: NSViewRepresentable {
     }
 
     func updateNSView(_ nsView: Self.NSViewType, context: Self.Context) {
-        if (nsView.string != text) {
+        if nsView.string != text {
             nsView.string = text
         }
     }
@@ -43,7 +43,10 @@ struct MultilineTextView: NSViewRepresentable {
         }
         
         func textDidChange(_ notification: Notification) {
-            wrapper.text = (notification.object as! NSTextView).string
+            guard let view = notification.object as? NSTextView else { return }
+            if wrapper.text != view.string {
+                wrapper.text = view.string
+            }
         }
     }
 }

@@ -20,14 +20,14 @@ extension String {
 
 class UnicodeTextField: NSTextField {
     override func becomeFirstResponder() -> Bool {
-        if (!self.stringValue.isHex()) {
+        if !self.stringValue.isHex() {
             self.stringValue = self.stringValue.unicodeScalars.map({$0.value}).map({String($0, radix: 16, uppercase: true)}).joined(separator: ", ")
         }
         return super.becomeFirstResponder()
     }
     
     override func textDidEndEditing(_ notification: Notification) {
-        if (!self.stringValue.isEmpty && self.stringValue.isHex()) {
+        if !self.stringValue.isEmpty && self.stringValue.isHex() {
             self.stringValue = self.stringValue.components(separatedBy: ",").map({$0.trimmingCharacters(in: CharacterSet.whitespaces)}).map({String(UnicodeScalar(Int($0, radix: 16)!)!)}).joined()
         }
         super.textDidEndEditing(notification)
@@ -43,7 +43,7 @@ struct TableView: NSViewControllerRepresentable {
     }
     
     func updateNSViewController(_ nsViewController: TableViewController, context: Context) {
-        if (nsViewController.mappings != mappings) {
+        if nsViewController.mappings != mappings {
             nsViewController.mappings = mappings
             nsViewController.table.reloadData()
         }
@@ -175,7 +175,7 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     
     @objc func onChange(receiver: Any) {
         let row = table.row(for: receiver as! NSView)
-        if (row == -1) {
+        if row == -1 {
             // The view has changed under us
             return
         }
@@ -193,7 +193,7 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
             Logger.log.fatal("Unknown column: \(column)")
             fatalError()
         }
-        if (wrapper.mappings != self.mappings) {
+        if wrapper.mappings != self.mappings {
             wrapper.mappings = self.mappings
         }
     }
