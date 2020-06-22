@@ -100,7 +100,7 @@ struct MappingsView: View {
                 .fixedSize()
             }
             Spacer(minLength: 15)
-            TableView(mappings: $model.mappings)
+            MappingTable(mappings: $model.mappings)
             .padding()
             Spacer(minLength: 20)
             HStack {

@@ -35,10 +35,12 @@
 		A5698AEA247EFA8E00443158 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58C00A32353705C00B53051 /* SettingsView.swift */; };
 		A59281E120D45653003013B8 /* TrayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A59281E020D45634003013B8 /* TrayIcon.icns */; };
 		A59364ED2481D12100674FBD /* MappingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59364EC2481D12100674FBD /* MappingsView.swift */; };
+		A59E32562495A93300736334 /* LanguageTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E32552495A93300736334 /* LanguageTable.swift */; };
 		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
 		A5DC681F22335F72006FC519 /* AsyncDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */; };
+		A5E20D8424944B6E00EF7B1C /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E20D8324944B6E00EF7B1C /* LanguageView.swift */; };
 		A5E982802480658900D7B9A9 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9827F2480658900D7B9A9 /* SettingsModel.swift */; };
-		A5ECEBB924887A800084CFBD /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ECEBB824887A800084CFBD /* TableView.swift */; };
+		A5ECEBB924887A800084CFBD /* MappingTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5ECEBB824887A800084CFBD /* MappingTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,10 +111,12 @@
 		A58C00A32353705C00B53051 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A59281E020D45634003013B8 /* TrayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TrayIcon.icns; sourceTree = "<group>"; };
 		A59364EC2481D12100674FBD /* MappingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsView.swift; sourceTree = "<group>"; };
+		A59E32552495A93300736334 /* LanguageTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTable.swift; sourceTree = "<group>"; };
 		A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDispatcher.swift; sourceTree = "<group>"; };
+		A5E20D8324944B6E00EF7B1C /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
 		A5E9827F2480658900D7B9A9 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
-		A5ECEBB824887A800084CFBD /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		A5ECEBB824887A800084CFBD /* MappingTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,11 +202,13 @@
 				A54397DA20D4D3F50011C7B7 /* Resources */,
 				A54397CB20D4D2F20011C7B7 /* AppDelegate.swift */,
 				A52905DC234EC67900A8D95E /* MainView.swift */,
-				A58C00A32353705C00B53051 /* SettingsView.swift */,
+				A54B15D624900FC000E013A1 /* LiteratorView.swift */,
+				A5ECEBB824887A800084CFBD /* MappingTable.swift */,
 				A59364EC2481D12100674FBD /* MappingsView.swift */,
 				A5E9827F2480658900D7B9A9 /* SettingsModel.swift */,
-				A5ECEBB824887A800084CFBD /* TableView.swift */,
-				A54B15D624900FC000E013A1 /* LiteratorView.swift */,
+				A58C00A32353705C00B53051 /* SettingsView.swift */,
+				A59E32552495A93300736334 /* LanguageTable.swift */,
+				A5E20D8324944B6E00EF7B1C /* LanguageView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -431,9 +437,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5698AE9247EFA8E00443158 /* MainView.swift in Sources */,
-				A5ECEBB924887A800084CFBD /* TableView.swift in Sources */,
+				A5ECEBB924887A800084CFBD /* MappingTable.swift in Sources */,
+				A59E32562495A93300736334 /* LanguageTable.swift in Sources */,
 				A54B15D724900FC000E013A1 /* LiteratorView.swift in Sources */,
 				A59364ED2481D12100674FBD /* MappingsView.swift in Sources */,
+				A5E20D8424944B6E00EF7B1C /* LanguageView.swift in Sources */,
 				A5698AEA247EFA8E00443158 /* SettingsView.swift in Sources */,
 				A55381F621D706E500A3CD8A /* MappingStore.swift in Sources */,
 				A54397E020D4D6840011C7B7 /* LipikaConfig.swift in Sources */,

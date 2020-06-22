@@ -34,15 +34,15 @@ class UnicodeTextField: NSTextField {
     }
 }
 
-struct TableView: NSViewControllerRepresentable {
+struct MappingTable: NSViewControllerRepresentable {
     @Binding var mappings: [[String]]
-    typealias NSViewControllerType = TableViewController
+    typealias NSViewControllerType = MappingTableController
 
-    func makeNSViewController(context: Context) -> TableViewController {
-        return TableViewController(self)
+    func makeNSViewController(context: Context) -> MappingTableController {
+        return MappingTableController(self)
     }
     
-    func updateNSViewController(_ nsViewController: TableViewController, context: Context) {
+    func updateNSViewController(_ nsViewController: MappingTableController, context: Context) {
         if nsViewController.mappings != mappings {
             nsViewController.mappings = mappings
             nsViewController.table.reloadData()
@@ -50,13 +50,13 @@ struct TableView: NSViewControllerRepresentable {
     }
 }
 
-class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
+class MappingTableController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
     private let types = ["CONSONANT", "DEPENDENT", "DIGIT", "SIGN", "VOWEL"]
-    private var wrapper: TableView
+    private var wrapper: MappingTable
     var table = NSTableView()
     var mappings: [[String]]
     
-    init(_ wrapper: TableView) {
+    init(_ wrapper: MappingTable) {
         self.wrapper = wrapper
         self.mappings = wrapper.mappings
         super.init(nibName: nil, bundle: nil)
@@ -117,20 +117,24 @@ class TableViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         switch tableColumn?.title {
             case "Type":
                 let type = NSPopUpButton()
+                type.identifier = tableColumn!.identifier
                 type.addItems(withTitles: types)
                 type.target = self
                 type.action = #selector(self.onChange(receiver:))
                 return type
             case "Key":
                 let key = NSTextField()
+                key.identifier = tableColumn!.identifier
                 key.delegate = self
                 return key
             case "Scheme":
                 let scheme = NSTextField()
+                scheme.identifier = tableColumn!.identifier
                 scheme.delegate = self
                 return scheme
             case "Script":
                 let script = UnicodeTextField()
+                script.identifier = tableColumn!.identifier
                 script.delegate = self
                 return script
             default:

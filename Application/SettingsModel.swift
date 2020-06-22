@@ -10,12 +10,12 @@
 import LipikaEngine_OSX
 import SwiftUI
 
-class Settings: ObservableObject {
+class SettingsModel: Config, ObservableObject {
     @Published var schemeName: String { didSet { self.reeval() } }
     @Published var scriptName: String { didSet { self.reeval() } }
-    @Published var stopCharacter: String { didSet { self.reeval() } }
-    @Published var escapeCharacter: String { didSet { self.reeval() } }
-    @Published var logLevel: String { didSet { self.reeval() } }
+    @Published var stopString: String { didSet { self.reeval() } }
+    @Published var escapeString: String { didSet { self.reeval() } }
+    @Published var logLevelString: String { didSet { self.reeval() } }
     @Published var showCandidates: Bool { didSet { self.reeval() } }
     @Published var outputInClient: Bool { didSet { self.reeval() } }
     @Published var globalScriptSelection: Bool { didSet { self.reeval() } }
@@ -23,25 +23,38 @@ class Settings: ObservableObject {
     @Published var activeSessionOnDelete: Bool { didSet { self.reeval() } }
     @Published var activeSessionOnInsert: Bool { didSet { self.reeval() } }
     
+    @Published var stopCharacterExample = ""
     @Published var stopCharacterInvalid = false
     @Published var escapeCharacterInvalid = false
     @Published var isDirty = false
     @Published var isFactory = false
+
+    override var stopCharacter: UnicodeScalar { get { stopString.unicodeScalars.first ?? super.stopCharacter } }
+    override var escapeCharacter: UnicodeScalar { get { escapeString.unicodeScalars.first ?? super.escapeCharacter } }
+    override var logLevel: Logger.Level { get { Logger.Level(rawValue: logLevelString)! } }
     
+    func transliterate(_ input: String) -> String {
+        let factory = try! LiteratorFactory(config: self)
+        let transliterator = try! factory.transliterator(schemeName: schemeName, scriptName: scriptName)
+        let output = transliterator.transliterate(input)
+        return output.finalaizedOutput + output.unfinalaizedOutput
+    }
+
     let config = LipikaConfig()
     
-    init() {
+    override init() {
         schemeName = config.schemeName
         scriptName = config.scriptName
-        stopCharacter = String(config.stopCharacter)
-        escapeCharacter = String(config.escapeCharacter)
-        logLevel = config.logLevel.rawValue
+        stopString = String(config.stopCharacter)
+        escapeString = String(config.escapeCharacter)
+        logLevelString = config.logLevel.rawValue
         showCandidates = config.showCandidates
         outputInClient = config.outputInClient
         globalScriptSelection = config.globalScriptSelection
         activeSessionOnCursorMove = config.activeSessionOnCursorMove
         activeSessionOnDelete = config.activeSessionOnDelete
         activeSessionOnInsert = config.activeSessionOnInsert
+        super.init()
         reeval()
     }
     
@@ -53,9 +66,9 @@ class Settings: ObservableObject {
     func reset() {
         schemeName = config.schemeName
         scriptName = config.scriptName
-        stopCharacter = String(config.stopCharacter)
-        escapeCharacter = String(config.escapeCharacter)
-        logLevel = config.logLevel.rawValue
+        stopString = String(config.stopCharacter)
+        escapeString = String(config.escapeCharacter)
+        logLevelString = config.logLevel.rawValue
         showCandidates = config.showCandidates
         outputInClient = config.outputInClient
         globalScriptSelection = config.globalScriptSelection
@@ -68,9 +81,9 @@ class Settings: ObservableObject {
     func save() {
         config.schemeName = schemeName
         config.scriptName = scriptName
-        config.stopCharacter = stopCharacter.unicodeScalars.first!
-        config.escapeCharacter = escapeCharacter.unicodeScalars.first!
-        config.logLevel = Logger.Level(rawValue: logLevel)!
+        config.stopCharacter = stopCharacter
+        config.escapeCharacter = escapeCharacter
+        config.logLevel = logLevel
         config.showCandidates = showCandidates
         config.outputInClient = outputInClient
         config.globalScriptSelection = globalScriptSelection
@@ -84,9 +97,9 @@ class Settings: ObservableObject {
         isDirty =
             config.schemeName != schemeName ||
             config.scriptName != scriptName ||
-            config.stopCharacter != stopCharacter.unicodeScalars.first ||
-            config.escapeCharacter != escapeCharacter.unicodeScalars.first ||
-            config.logLevel != Logger.Level(rawValue: logLevel)! ||
+            config.stopCharacter != stopCharacter ||
+            config.escapeCharacter != escapeCharacter ||
+            config.logLevel != logLevel ||
             config.showCandidates != showCandidates ||
             config.outputInClient != outputInClient ||
             config.globalScriptSelection != globalScriptSelection ||
@@ -94,7 +107,8 @@ class Settings: ObservableObject {
             config.activeSessionOnDelete != activeSessionOnDelete ||
             config.activeSessionOnInsert != activeSessionOnInsert
         isFactory = UserDefaults.standard.persistentDomain(forName: "group.daivajnanam.Lipika") == nil
-        stopCharacterInvalid = self.stopCharacter.unicodeScalars.count != 1
-        escapeCharacterInvalid = self.escapeCharacter.unicodeScalars.count != 1
+        stopCharacterInvalid = self.stopString.unicodeScalars.count != 1
+        escapeCharacterInvalid = self.escapeString.unicodeScalars.count != 1
+        stopCharacterExample = transliterate("a\(stopCharacter)i")
     }
 }

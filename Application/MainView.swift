@@ -32,7 +32,13 @@ struct MainView: View {
             .onAppear() {
                 self.currentTab = 2
             }
-        }.padding(20)
+            LanguageView().tabItem {
+                Text("Languages")
+            }.tag(3)
+            .onAppear() {
+                self.currentTab = 3
+            }
+            }.padding(20)
     }
 }
 

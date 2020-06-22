@@ -11,32 +11,27 @@ import SwiftUI
 import LipikaEngine_OSX
 
 struct SettingsView: View {
-    @ObservedObject var settings = Settings()
+    @ObservedObject var model = SettingsModel()
     private var factory = try! LiteratorFactory(config: LipikaConfig())
-    
-    func transliterate(_ input: String) -> String {
-        let transliterator = try! factory.transliterator(schemeName: settings.schemeName, scriptName: settings.scriptName)
-        let output = transliterator.transliterate(input)
-        return output.finalaizedOutput + output.unfinalaizedOutput
-    }
 
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 20) {
-                VStack(alignment: .leading, spacing: 17) {
+                Spacer(minLength: 5)
+                VStack(alignment: .leading, spacing: 18) {
                     HStack {
                         Text("Use")
-                        MenuButton(settings.schemeName) {
+                        MenuButton(model.schemeName) {
                             ForEach(try! factory.availableSchemes(), id: \.self) { scheme in
-                                Button(scheme) { self.settings.schemeName = scheme }
+                                Button(scheme) { self.model.schemeName = scheme }
                             }
                         }
                         .padding(0)
                         .fixedSize()
                         Text("to transliterate into")
-                        MenuButton(settings.scriptName) {
+                        MenuButton(model.scriptName) {
                             ForEach(try! factory.availableScripts(), id: \.self) { script in
-                                Button(script) { self.settings.scriptName = script }
+                                Button(script) { self.model.scriptName = script }
                             }
                         }
                         .padding(0)
@@ -45,28 +40,28 @@ struct SettingsView: View {
                     VStack(alignment: .center, spacing: 4) {
                         HStack {
                             Text("If you type")
-                            TextField("`", text: $settings.stopCharacter)
+                            TextField("\\", text: $model.stopString)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .border(Color.red, width: settings.stopCharacterInvalid ? 2 : 0)
+                            .border(Color.red, width: model.stopCharacterInvalid ? 2 : 0)
                             .frame(width: 30)
                             Text("then output what you have so far and process all subsequent inputs afresh")
                         }
-                        Text("For example, typing ai will output \(transliterate("ai")) but typing a\(settings.stopCharacter)i will output \(transliterate("a\(settings.stopCharacter)i"))").font(.caption)
+                        Text("For example, typing ai will output \(model.transliterate("ai")) but typing a\(model.stopString)i will output \(model.stopCharacterExample)").font(.caption)
                     }
                     .fixedSize()
                     HStack {
                         Text("Any character typed between")
-                        TextField("\\", text: $settings.escapeCharacter)
+                        TextField("`", text: $model.escapeString)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .border(Color.red, width: settings.escapeCharacterInvalid ? 2 : 0)
+                        .border(Color.red, width: model.escapeCharacterInvalid ? 2 : 0)
                         .frame(width: 30)
                         Text("will be output as-is in alphanumeric")
                     }
                     HStack {
                         Text("Output logs to the console at")
-                        MenuButton(settings.logLevel) {
+                        MenuButton(model.logLevelString) {
                             ForEach(Logger.Level.allCases, id: \.self) { (level) in
-                                Button(level.rawValue) { self.settings.logLevel = level.rawValue }
+                                Button(level.rawValue) { self.model.logLevelString = level.rawValue }
                             }
                         }
                         .fixedSize()
@@ -77,55 +72,55 @@ struct SettingsView: View {
                 Divider()
                 Group {
                     VStack(alignment: .leading, spacing: 4) {
-                        Toggle(isOn: $settings.showCandidates) {
+                        Toggle(isOn: $model.showCandidates) {
                             HStack {
                                 Text("Display a pop-up candidates window that shows the")
-                                MenuButton(settings.outputInClient ? "Input" : "Output") {
-                                    Button("Input") { self.settings.outputInClient = true }
-                                    Button("Output") { self.settings.outputInClient = false }
+                                MenuButton(model.outputInClient ? "Input" : "Output") {
+                                    Button("Input") { self.model.outputInClient = true }
+                                    Button("Output") { self.model.outputInClient = false }
                                 }
                                 .padding(0)
                                 .scaledToFit()
                             }
                         }
-                        Text("Shows\(settings.showCandidates ? "\(settings.outputInClient ? " input" : " output") in candidate window and" : "") \(settings.outputInClient ? "output" : "input") in editor")
+                        Text("Shows\(model.showCandidates ? "\(model.outputInClient ? " input" : " output") in candidate window and" : "") \(model.outputInClient ? "output" : "input") in editor")
                             .font(.caption)
                             .padding(.leading, 18)
                     }
                     .fixedSize()
-                    VStack(alignment: .leading, spacing: 17) {
-                        Toggle(isOn: $settings.globalScriptSelection) {
+                    VStack(alignment: .leading, spacing: 18) {
+                        Toggle(isOn: $model.globalScriptSelection) {
                             Text("New Script selection to apply to all applications as opposed to just the one in the foreground")
                         }
-                        Toggle(isOn: $settings.activeSessionOnDelete) {
+                        Toggle(isOn: $model.activeSessionOnDelete) {
                             Text("When you backspace, start a new session with the word being edited")
                         }
-                        Toggle(isOn: $settings.activeSessionOnInsert) {
+                        Toggle(isOn: $model.activeSessionOnInsert) {
                             Text("When you type inbetween a word, start a new session with the word being edited")
                         }
-                        Toggle(isOn: $settings.activeSessionOnCursorMove) {
+                        Toggle(isOn: $model.activeSessionOnCursorMove) {
                             Text("When you move the caret over a word, start a new session with that word")
                         }
                     }
                 }
             }
-            Spacer(minLength: 35)
+            Spacer(minLength: 38)
             HStack {
                 Button("Save Changes") {
-                    self.settings.save()
+                    self.model.save()
                 }
-                .disabled(!settings.isDirty || settings.stopCharacterInvalid || settings.escapeCharacterInvalid)
+                .disabled(!model.isDirty || model.stopCharacterInvalid || model.escapeCharacterInvalid)
                 .padding([.leading, .trailing], 10)
                 Button("Discard Changes") {
-                    self.settings.reset()
+                    self.model.reset()
                 }
                 .padding([.leading, .trailing], 10)
-                .disabled(!settings.isDirty)
+                .disabled(!model.isDirty)
                 Button("Factory Defaults") {
-                    self.settings.defaults()
+                    self.model.defaults()
                 }
                 .padding([.leading, .trailing], 10)
-                .disabled(settings.isFactory)
+                .disabled(model.isFactory)
             }
             Spacer(minLength: 25)
         }.padding(20)

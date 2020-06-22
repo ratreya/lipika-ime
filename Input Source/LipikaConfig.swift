@@ -10,6 +10,39 @@
 import Foundation
 import LipikaEngine_OSX
 
+class LanguageConfig: NSObject, NSCoding {
+    var identifier: String  // Factory default name of the language
+    var language: String
+    var isEnabled: Bool
+    var keyModifier: UInt16?
+    var shortcutKey: Int?
+
+    init(identifier: String, language: String, isEnabled: Bool, keyModifier: UInt16? = nil, shortcutKey: Int? = nil) {
+        self.identifier = identifier
+        self.language = language
+        self.isEnabled = isEnabled
+        self.keyModifier = keyModifier
+        self.shortcutKey = shortcutKey
+    }
+    
+    required convenience init?(coder decoder: NSCoder) {
+        let identifier = decoder.decodeObject(forKey: "identifier") as! String
+        let language = decoder.decodeObject(forKey: "language") as! String
+        let isEnabled = decoder.decodeObject(forKey: "isEnabled") as! Bool
+        let keyModifier = decoder.decodeObject(forKey: "keyModifier") as? UInt16
+        let shortcutKey = decoder.decodeObject(forKey: "shortcutKey") as? Int
+        self.init(identifier: identifier, language: language, isEnabled: isEnabled, keyModifier: keyModifier, shortcutKey: shortcutKey)
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(identifier, forKey: "identifier")
+        coder.encode(language, forKey: "language")
+        coder.encode(isEnabled, forKey: "isEnabled")
+        coder.encode(keyModifier, forKey: "keyModifier")
+        coder.encode(shortcutKey, forKey: "shortcutKey")
+    }
+}
+
 class LipikaConfig: Config {
     private static let kGroupDomainName = "group.daivajnanam.Lipika"
     private let userDefaults: UserDefaults
@@ -17,6 +50,10 @@ class LipikaConfig: Config {
     func reset() {
         UserDefaults.standard.removePersistentDomain(forName: LipikaConfig.kGroupDomainName)
         UserDefaults.standard.synchronize()
+    }
+    
+    func resetLanguageConfig() {
+        userDefaults.removeObject(forKey: "languageConfig")
     }
     
     override init() {
@@ -130,7 +167,7 @@ class LipikaConfig: Config {
     }
 
     /*
-     It is impossible to reliably determine the PositionalUnit a give client uses to report caret location.
+     It is impossible to reliably determine the PositionalUnit a given client uses to report caret location.
      And so, when output is in client, don't try to start your own session.
     */
     var activeSessionOnDelete: Bool {
@@ -157,6 +194,22 @@ class LipikaConfig: Config {
         }
         set(value) {
             userDefaults.set(value, forKey: #function)
+        }
+    }
+    
+    var languageConfig: [LanguageConfig] {
+        get {
+            if let encoded = userDefaults.data(forKey: #function) {
+                return try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [LanguageConfig.self], from: encoded) as! [LanguageConfig]
+            }
+            else {
+                let scripts = try! LiteratorFactory(config: self).availableScripts()
+                return scripts.compactMap() { script in LanguageConfig(identifier: script, language: script, isEnabled: true) }
+            }
+        }
+        set(value) {
+            let encodedData: Data = try! NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
+            userDefaults.set(encodedData, forKey: #function)
         }
     }
 }
