@@ -37,6 +37,8 @@
 		A59364ED2481D12100674FBD /* MappingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59364EC2481D12100674FBD /* MappingsView.swift */; };
 		A59E32562495A93300736334 /* LanguageTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E32552495A93300736334 /* LanguageTable.swift */; };
 		A5BDA2F620D06FFC00C9D006 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */; };
+		A5C06C7C24A1358600FBD1E9 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C06C7B24A1358600FBD1E9 /* ShortcutRecorder.framework */; };
+		A5C06C7D24A1358F00FBD1E9 /* ShortcutRecorder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A5C06C7B24A1358600FBD1E9 /* ShortcutRecorder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A5DC681F22335F72006FC519 /* AsyncDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */; };
 		A5E20D8424944B6E00EF7B1C /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E20D8324944B6E00EF7B1C /* LanguageView.swift */; };
 		A5E982802480658900D7B9A9 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9827F2480658900D7B9A9 /* SettingsModel.swift */; };
@@ -71,6 +73,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A5C06C7D24A1358F00FBD1E9 /* ShortcutRecorder.framework in Embed Frameworks */,
 				A54397DD20D4D6090011C7B7 /* LipikaEngine_OSX.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -113,6 +116,7 @@
 		A59364EC2481D12100674FBD /* MappingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsView.swift; sourceTree = "<group>"; };
 		A59E32552495A93300736334 /* LanguageTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTable.swift; sourceTree = "<group>"; };
 		A5BDA2F520D06FFC00C9D006 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		A5C06C7B24A1358600FBD1E9 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShortcutRecorder.framework; sourceTree = "<group>"; };
 		A5DC681E22335F72006FC519 /* AsyncDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDispatcher.swift; sourceTree = "<group>"; };
 		A5E20D8324944B6E00EF7B1C /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
 		A5E9827F2480658900D7B9A9 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5C06C7C24A1358600FBD1E9 /* ShortcutRecorder.framework in Frameworks */,
 				A54397DF20D4D6170011C7B7 /* Cocoa.framework in Frameworks */,
 				A54397DC20D4D6090011C7B7 /* LipikaEngine_OSX.framework in Frameworks */,
 			);
@@ -229,6 +234,7 @@
 		A54397DA20D4D3F50011C7B7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A5C06C7B24A1358600FBD1E9 /* ShortcutRecorder.framework */,
 				A54397D120D4D2F30011C7B7 /* Main.storyboard */,
 				A54397D420D4D2F30011C7B7 /* Info.plist */,
 				A54397D520D4D2F30011C7B7 /* LipikaApp.entitlements */,
@@ -691,6 +697,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Input\\ Source",
+					"$(PROJECT_DIR)/Application",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -718,6 +725,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Input\\ Source",
+					"$(PROJECT_DIR)/Application",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

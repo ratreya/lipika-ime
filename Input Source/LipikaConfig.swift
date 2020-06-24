@@ -10,37 +10,12 @@
 import Foundation
 import LipikaEngine_OSX
 
-class LanguageConfig: NSObject, NSCoding {
+struct LanguageConfig: Codable, Equatable {
     var identifier: String  // Factory default name of the language
     var language: String
     var isEnabled: Bool
-    var keyModifier: UInt16?
-    var shortcutKey: Int?
-
-    init(identifier: String, language: String, isEnabled: Bool, keyModifier: UInt16? = nil, shortcutKey: Int? = nil) {
-        self.identifier = identifier
-        self.language = language
-        self.isEnabled = isEnabled
-        self.keyModifier = keyModifier
-        self.shortcutKey = shortcutKey
-    }
-    
-    required convenience init?(coder decoder: NSCoder) {
-        let identifier = decoder.decodeObject(forKey: "identifier") as! String
-        let language = decoder.decodeObject(forKey: "language") as! String
-        let isEnabled = decoder.decodeObject(forKey: "isEnabled") as! Bool
-        let keyModifier = decoder.decodeObject(forKey: "keyModifier") as? UInt16
-        let shortcutKey = decoder.decodeObject(forKey: "shortcutKey") as? Int
-        self.init(identifier: identifier, language: language, isEnabled: isEnabled, keyModifier: keyModifier, shortcutKey: shortcutKey)
-    }
-    
-    func encode(with coder: NSCoder) {
-        coder.encode(identifier, forKey: "identifier")
-        coder.encode(language, forKey: "language")
-        coder.encode(isEnabled, forKey: "isEnabled")
-        coder.encode(keyModifier, forKey: "keyModifier")
-        coder.encode(shortcutKey, forKey: "shortcutKey")
-    }
+    var keyModifier: UInt?
+    var shortcutKey: UInt16?
 }
 
 class LipikaConfig: Config {
@@ -200,15 +175,19 @@ class LipikaConfig: Config {
     var languageConfig: [LanguageConfig] {
         get {
             if let encoded = userDefaults.data(forKey: #function) {
-                return try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [LanguageConfig.self], from: encoded) as! [LanguageConfig]
+                do {
+                    return try JSONDecoder().decode(Array<LanguageConfig>.self, from: encoded)
+                }
+                catch {
+                    Logger.log.error("Exception while trying to decode languageConfig: \(error)")
+                    resetLanguageConfig()
+                }
             }
-            else {
-                let scripts = try! LiteratorFactory(config: self).availableScripts()
-                return scripts.compactMap() { script in LanguageConfig(identifier: script, language: script, isEnabled: true) }
-            }
+            let scripts = try! LiteratorFactory(config: self).availableScripts()
+            return scripts.compactMap() { script in LanguageConfig(identifier: script, language: script, isEnabled: true) }
         }
         set(value) {
-            let encodedData: Data = try! NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
+            let encodedData: Data = try! JSONEncoder().encode(value)
             userDefaults.set(encodedData, forKey: #function)
         }
     }
