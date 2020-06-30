@@ -91,7 +91,7 @@ class MappingTableController: NSViewController, NSTableViewDelegate, NSTableView
         table.allowsColumnReordering = false
         table.allowsEmptySelection = true
         table.allowsTypeSelect = false
-        table.intercellSpacing = NSSize(width: 5, height: 8)
+        table.intercellSpacing = NSSize(width: 5, height: 7)
         
         let menu = NSMenu(title: "Mappings")
         menu.addItem(NSMenuItem(title: "Add Mapping", action: #selector(self.addMappingMenu(receiver:)), keyEquivalent: ""))

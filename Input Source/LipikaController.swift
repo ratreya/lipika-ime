@@ -12,6 +12,7 @@ import LipikaEngine_OSX
 
 @objc(LipikaController)
 public class LipikaController: IMKInputController {
+    static let validInputs = CharacterSet.alphanumerics.union(CharacterSet.whitespaces).union(CharacterSet.punctuationCharacters).union(.symbols)
     let config = LipikaConfig()
     let dispatch = AsyncDispatcher()
     private let clientManager: ClientManager
@@ -21,17 +22,10 @@ public class LipikaController: IMKInputController {
     
     private func refreshLiterators() {
         let factory = try! LiteratorFactory(config: config)
-        if let customSchemeName = config.customSchemeName {
-            transliterator = try! factory.transliterator(customMapping: customSchemeName)
-            anteliterator = try! factory.anteliterator(customMapping: customSchemeName)
-            currentScriptName = customSchemeName
-        }
-        else {
-            let override: [String: MappingValue]? = MappingStore.read(schemeName: config.schemeName, scriptName: config.scriptName)
-            transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
-            anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
-            currentScriptName = config.scriptName
-        }
+        let override: [String: MappingValue]? = MappingStore.read(schemeName: config.schemeName, scriptName: config.scriptName)
+        transliterator = try! factory.transliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
+        anteliterator = try! factory.anteliterator(schemeName: config.schemeName, scriptName: config.scriptName, mappings: override)
+        currentScriptName = config.scriptName
     }
     
     @discardableResult private func commit() -> Bool {
@@ -128,7 +122,17 @@ public class LipikaController: IMKInputController {
         Logger.log.debug("Initialized Controller for Client: \(clientManager)")
     }
     
-    public override func inputText(_ input: String!, client sender: Any!) -> Bool {
+    public override func handle(_ event: NSEvent!, client sender: Any!) -> Bool {
+        Logger.log.debug("Handling event: \(event!) from sender: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
+        if event.type == .keyDown, let chars = event.characters, chars.unicodeScalars.count == 1, event.modifierFlags.isSubset(of: [.capsLock, .shift]), LipikaController.validInputs.contains(chars.unicodeScalars.first!) {
+            return processInput(chars, client: sender)
+        }
+        else {
+            return processEvent(event, client: sender)
+        }
+    }
+    
+    public func processInput(_ input: String!, client sender: Any!) -> Bool {
         Logger.log.debug("Processing Input: \(input!) from sender: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
         if input.unicodeScalars.count != 1 || CharacterSet.whitespaces.contains(input.unicodeScalars.first!) {
             // Handle inputting of whitespace inbetween Marked Text
@@ -162,18 +166,14 @@ public class LipikaController: IMKInputController {
         return true
     }
     
-    public override func didCommand(by aSelector: Selector!, client sender: Any!) -> Bool {
-        Logger.log.debug("Processing didCommand: \(aSelector!) from sender: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
+    public func processEvent(_ event: NSEvent, client sender: Any!) -> Bool {
+        Logger.log.debug("Processing event: \(event) from sender: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
+        // Perform shortcut actions on the system trey menu if any
+        if (NSApp.delegate as! AppDelegate).systemTrayMenu!.performKeyEquivalent(with: event) { return true }
         // Move the cursor back to the oldLocation because commit() will move it to the end of the committed string
         let oldLocation = client().selectedRange().location
-        if aSelector!.description.hasSuffix("ModifySelection:") {
-            Logger.log.debug("Shortcircuting and letting the client handle the event: \(aSelector!)!")
-            commit()
-            return false
-        }
-        Logger.log.debug("Switching \(aSelector!) at location: \(oldLocation)")
-        switch aSelector {
-        case #selector(NSResponder.deleteBackward):
+        Logger.log.debug("Switching \(event) at location: \(oldLocation)")
+        if event.modifierFlags.isEmpty && event.keyCode == 51 { // backspace
             if let result = transliterator.delete(position: clientManager.markedCursorLocation) {
                 Logger.log.debug("Resulted in an actual delete")
                 if clientManager.markedCursorLocation != nil {
@@ -190,25 +190,27 @@ public class LipikaController: IMKInputController {
                 dispatchConversion()
             }
             return false
-        case #selector(NSResponder.cancelOperation):
+        }
+        if event.modifierFlags.isEmpty && event.keyCode == 53 { // escape
             let result = transliterator.reset()
             clientManager.clear()
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
-        case #selector(NSResponder.insertNewline):
+        }
+        if event.modifierFlags.isEmpty && event.keyCode == 36 { // return
             return commit()    // Don't dispatchConversion
-        case #selector(NSResponder.moveLeft), #selector(NSResponder.moveRight):
-            if moveCursorWithinMarkedText(delta: aSelector == #selector(NSResponder.moveLeft) ? -1 : 1) {
+        }
+        if event.modifierFlags == [.numericPad, .function] && (event.keyCode == 123 || event.keyCode == 124) { // left or right arrow
+            if moveCursorWithinMarkedText(delta: event.keyCode == 123 ? -1 : 1) {
                 return true
             }
             commit()
-            if aSelector == #selector(NSResponder.moveLeft) {
+            if event.keyCode == 123 {
                 clientManager.setGlobalCursorLocation(oldLocation)
             }
-        default:
-            Logger.log.debug("Not processing selector: \(aSelector!)")
-            commit()
         }
+        Logger.log.debug("Not processing event: \(event)")
+        commit()
         if config.activeSessionOnCursorMove {
             dispatchConversion()
         }
@@ -228,8 +230,8 @@ public class LipikaController: IMKInputController {
         Logger.log.debug("Client: \(clientManager) gained focus by: \((sender as? IMKTextInput)?.bundleIdentifier() ?? "unknown")")
         // There are three sources for current script selection - (a) self.currentScriptName, (b) config.scriptName and (c) selectedMenuItem.title
         // (b) could have changed while we were in background - converge (a) -> (b) if global script selection is configured
-        if config.globalScriptSelection, currentScriptName != (config.customSchemeName ?? config.scriptName) {
-            Logger.log.debug("Refreshing Literators from: \(currentScriptName) to: \(config.customSchemeName ?? config.scriptName)")
+        if config.globalScriptSelection, currentScriptName != config.scriptName {
+            Logger.log.debug("Refreshing Literators from: \(currentScriptName) to: \(config.scriptName)")
             refreshLiterators()
         }
     }
@@ -239,7 +241,7 @@ public class LipikaController: IMKInputController {
         // Set the system trey menu selection to reflect our literators; converge (c) -> (a)
         let systemTrayMenu = (NSApp.delegate as! AppDelegate).systemTrayMenu!
         systemTrayMenu.items.forEach() { $0.state = .off }
-        systemTrayMenu.items.first(where: { $0.title == currentScriptName } )!.state = .on
+        systemTrayMenu.items.first(where: { ($0.representedObject as! String) == currentScriptName } )!.state = .on
         return systemTrayMenu
     }
     
@@ -262,12 +264,7 @@ public class LipikaController: IMKInputController {
         let item = sender.value(forKey: kIMKCommandMenuItemName) as! NSMenuItem
         Logger.log.debug("Menu Item Selected: \(item.title)")
         // Converge (b) -> (c)
-        if item.tag == 0 {
-            config.customSchemeName = item.title
-        }
-        else {
-            config.scriptName = item.title
-        }
+        config.scriptName = item.representedObject as! String
         // Converge (a) -> (b)
         refreshLiterators()
     }

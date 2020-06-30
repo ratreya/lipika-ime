@@ -13,10 +13,10 @@ import LipikaEngine_OSX
 class MappingModel: ObservableObject {
     var factory: LiteratorFactory
     var scheme: String {
-        didSet { self.loadMappings() }
+        didSet { self.reload() }
     }
     var script: String {
-        didSet { self.loadMappings() }
+        didSet { self.reload() }
     }
     @Published var isDirty = false
     @Published var isFactory = false
@@ -63,13 +63,13 @@ class MappingModel: ObservableObject {
         reeval()
     }
     
-    func loadMappings() {
+    func reload() {
         self.mappings = MappingModel.storedMappings(scheme: scheme, script: script)
     }
     
     func reset() {
         MappingStore.delete(schemeName: scheme, scriptName: script)
-        loadMappings()
+        reload()
     }
 }
 
@@ -77,12 +77,14 @@ struct MappingsView: View {
     @ObservedObject var model = MappingModel()
     @State var confirmDiscard = false
     @State var confirmReset = false
+    @State var saveError = false
+    @State var openError = false
     
     var body: some View {
-        VStack(alignment: .center) {
+        VStack {
             Spacer(minLength: 25)
             HStack {
-                Text("Edit mappigs for scheme")
+                Text("For scheme")
                 MenuButton(model.scheme) {
                     ForEach(try! model.factory.availableSchemes(), id: \.self) { scheme in
                         Button(scheme) { self.model.scheme = scheme }
@@ -99,10 +101,70 @@ struct MappingsView: View {
                 .padding(0)
                 .fixedSize()
             }
-            Spacer(minLength: 15)
-            MappingTable(mappings: $model.mappings)
-            .padding()
-            Spacer(minLength: 20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding([.leading, .trailing], 16)
+            Spacer(minLength: 10)
+            HStack(alignment: .center, spacing: 5) {
+                Group {
+                    Button("\u{2191}") {
+                        let savePanel = NSSavePanel()
+                        savePanel.title = "Export Mappings"
+                        savePanel.message = "Export Mappings for \(self.model.scheme) and \(self.model.script)"
+                        savePanel.nameFieldStringValue = "\(self.model.scheme)-\(self.model.script).ime"
+                        savePanel.directoryURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first
+                        savePanel.showsTagField = false
+                        savePanel.allowedFileTypes = ["ime"]
+                        savePanel.allowsOtherFileTypes = false
+                        savePanel.canCreateDirectories = false
+                        savePanel.canCreateDirectories = false
+                        savePanel.begin() { (result) -> Void in
+                            if result == NSApplication.ModalResponse.OK, let file = savePanel.url {
+                                if let data = try? JSONEncoder().encode(self.model.mappings) {
+                                    self.saveError = !FileManager.default.createFile(atPath: file.path, contents: data)
+                                }
+                                else {
+                                    self.saveError = true
+                                }
+                            }
+                        }
+                    }
+                    .alert(isPresented: $saveError) {
+                        Alert(title: Text("I/O Error"), message: Text("Error writing mappings to file."), dismissButton: .default(Text("OK")))
+                    }
+                    Button("\u{2193}") {
+                        let openPanel = NSOpenPanel()
+                        openPanel.title = "Import Mappings"
+                        openPanel.message = "Import Mappings for \(self.model.scheme) and \(self.model.script)"
+                        openPanel.directoryURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first
+                        openPanel.allowedFileTypes = ["ime"]
+                        openPanel.allowsOtherFileTypes = false
+                        openPanel.allowsMultipleSelection = false
+                        openPanel.canChooseDirectories = false
+                        openPanel.canCreateDirectories = false
+                        openPanel.canChooseFiles = true
+                        openPanel.begin { (result) -> Void in
+                            if result == NSApplication.ModalResponse.OK, let file = openPanel.url {
+                                if let data = try? Data(contentsOf: file), let mappings = try? JSONDecoder().decode([[String]].self, from: data) {
+                                    self.model.mappings = mappings
+                                }
+                                else {
+                                    self.openError = true
+                                }
+                            }
+                        }
+                    }
+                    .alert(isPresented: $openError) {
+                        Alert(title: Text("I/O Error"), message: Text("Error reading mappings from file."), dismissButton: .default(Text("OK")))
+                    }
+
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(0)
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(.trailing, 16).padding(.top, -20)
+            MappingTable(mappings: $model.mappings).padding([.leading, .bottom, .trailing], 16)
+            Spacer(minLength: 10)
             HStack {
                 Button("Save Changes") {
                     self.model.save()
@@ -113,7 +175,7 @@ struct MappingsView: View {
                     self.confirmDiscard = true
                 }
                 .alert(isPresented: $confirmDiscard) {
-                    Alert(title: Text("Discard current changes?"), message: Text("Do you wish to discard all changes you just made to \(model.scheme) mappings for \(model.script)?"), primaryButton: .destructive(Text("Discard"), action: { self.model.loadMappings() }), secondaryButton: .cancel(Text("Cancel")))
+                    Alert(title: Text("Discard current changes?"), message: Text("Do you wish to discard all changes you just made to \(model.scheme) mappings for \(model.script)?"), primaryButton: .destructive(Text("Discard"), action: { self.model.reload() }), secondaryButton: .cancel(Text("Cancel")))
                 }
                 .padding([.leading, .trailing], 10)
                 .disabled(!model.isDirty)

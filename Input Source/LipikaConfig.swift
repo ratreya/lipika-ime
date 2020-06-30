@@ -14,8 +14,8 @@ struct LanguageConfig: Codable, Equatable {
     var identifier: String  // Factory default name of the language
     var language: String
     var isEnabled: Bool
-    var keyModifier: UInt?
-    var shortcutKey: UInt16?
+    var shortcutKey: String?
+    var shortcutModifiers: UInt?
 }
 
 class LipikaConfig: Config {
@@ -71,43 +71,18 @@ class LipikaConfig: Config {
         }
     }
     
-    var enabledScripts: [String] {
-        get {
-            return try! userDefaults.stringArray(forKey: #function) ?? LiteratorFactory(config: self).availableScripts()
-        }
-        set(value) {
-            if value.isEmpty {
-                userDefaults.removeObject(forKey: #function)
-            }
-            else {
-                userDefaults.set(value, forKey: #function)
-            }
-        }
-    }
-
     var schemeName: String {
         get {
             return try! userDefaults.string(forKey: #function) ?? LiteratorFactory(config: self).availableSchemes().first!
         }
         set(value) {
-            userDefaults.removeObject(forKey: "customSchemeName")
             userDefaults.set(value, forKey: #function)
         }
     }
     
     var scriptName: String {
         get {
-            return userDefaults.string(forKey: #function) ?? enabledScripts.first!
-        }
-        set(value) {
-            userDefaults.removeObject(forKey: "customSchemeName")
-            userDefaults.set(value, forKey: #function)
-        }
-    }
-    
-    var customSchemeName: String? {
-        get {
-            return userDefaults.string(forKey: #function)
+            return userDefaults.string(forKey: #function) ?? languageConfig.first(where: { $0.isEnabled })?.identifier ?? languageConfig.first!.identifier
         }
         set(value) {
             userDefaults.set(value, forKey: #function)
@@ -183,12 +158,18 @@ class LipikaConfig: Config {
                     resetLanguageConfig()
                 }
             }
-            let scripts = try! LiteratorFactory(config: self).availableScripts()
-            return scripts.compactMap() { script in LanguageConfig(identifier: script, language: script, isEnabled: true) }
+            return factoryLanguageConfig
         }
         set(value) {
             let encodedData: Data = try! JSONEncoder().encode(value)
             userDefaults.set(encodedData, forKey: #function)
+        }
+    }
+    
+    var factoryLanguageConfig: [LanguageConfig] {
+        get {
+            let scripts = try! LiteratorFactory(config: self).availableScripts()
+            return scripts.compactMap() { script in LanguageConfig(identifier: script, language: script, isEnabled: true) }
         }
     }
 }

@@ -54,10 +54,9 @@ class ShortcutModel: NSObject {
     }
     
     @objc func shortcut() -> Shortcut? {
-        if let modifier = controller.mappings[row].keyModifier, let key = controller.mappings[row].shortcutKey {
-            let flags = NSEvent.ModifierFlags(rawValue: modifier)
-            let key = KeyCode(rawValue: key)
-            return Shortcut(code: key!, modifierFlags: flags, characters: nil, charactersIgnoringModifiers: nil)
+        if let key = controller.mappings[row].shortcutKey, let modifiers = controller.mappings[row].shortcutModifiers {
+            let keyCode = ASCIILiteralKeyCodeTransformer.shared.reverseTransformedValue(key) as! UInt16
+            return Shortcut(code: KeyCode(rawValue: keyCode)!, modifierFlags: NSEvent.ModifierFlags(rawValue: modifiers), characters: nil, charactersIgnoringModifiers: nil)
         }
         return nil
     }
@@ -68,12 +67,12 @@ class ShortcutModel: NSObject {
             return
         }
         if let shortcut = shortcut {
-            controller.mappings[row].keyModifier = shortcut.modifierFlags.rawValue
-            controller.mappings[row].shortcutKey = UInt16(shortcut.carbonKeyCode)
+            controller.mappings[row].shortcutKey = ASCIILiteralKeyCodeTransformer.shared.transformedValue(shortcut.keyCode.rawValue as NSNumber)
+            controller.mappings[row].shortcutModifiers = shortcut.modifierFlags.rawValue
         }
         else {
-            controller.mappings[row].keyModifier = nil
             controller.mappings[row].shortcutKey = nil
+            controller.mappings[row].shortcutModifiers = nil
         }
         controller.updateWrapper()
     }
@@ -99,7 +98,8 @@ class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableVie
         view.autoresizesSubviews = true
         
         let columns = [
-            (title: "Language", width: 380.0, tooltip: "Custom name for language"),
+            (title: "Identifier", width: 120.0, tooltip: "Factory name for language"),
+            (title: "Display Name", width: 240.0, tooltip: "Custom name for language"),
             (title: "Shortcut", width: 145.0, tooltip: "Shortcut to select language"),
             (title: "Enabled", width: 60.0, tooltip: "Show language in IME menu"),
         ]
@@ -118,7 +118,8 @@ class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableVie
         table.allowsColumnReordering = false
         table.allowsEmptySelection = true
         table.allowsTypeSelect = false
-        table.intercellSpacing = NSSize(width: 15, height: 8)
+        table.usesAlternatingRowBackgroundColors = true
+        table.intercellSpacing = NSSize(width: 15, height: 7)
 
         let scroll = NSScrollView()
         scroll.documentView = table
@@ -137,23 +138,30 @@ class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableVie
     // NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         switch tableColumn?.title {
-            case "Language":
-                let language = NSTextField()
-                language.identifier = tableColumn!.identifier
-                language.delegate = self
-                return language
-            case "Shortcut":
-                let shortcut = RecorderControl()
-                shortcut.bind(.value, to: ShortcutModel(forRow: row, ofController: self), withKeyPath: "shortcut", options: nil)
-                shortcut.identifier = tableColumn!.identifier
-                return shortcut
-            case "Enabled":
-                let isEnabled = NSButton(checkboxWithTitle: "", target: self, action: #selector(self.onChange(receiver:)))
-                isEnabled.identifier = tableColumn!.identifier
-                return isEnabled
-            default:
-                Logger.log.fatal("Unknown column title \(tableColumn!.title)")
-                fatalError()
+        case "Identifier":
+            let id = NSTextField()
+            id.identifier = tableColumn!.identifier
+            id.isEditable = false
+            id.drawsBackground = false
+            id.isBordered = false
+            return id
+        case "Display Name":
+            let language = NSTextField()
+            language.identifier = tableColumn!.identifier
+            language.delegate = self
+            return language
+        case "Shortcut":
+            let shortcut = RecorderControl()
+            shortcut.bind(.value, to: ShortcutModel(forRow: row, ofController: self), withKeyPath: "shortcut", options: nil)
+            shortcut.identifier = tableColumn!.identifier
+            return shortcut
+        case "Enabled":
+            let isEnabled = NSButton(checkboxWithTitle: "", target: self, action: #selector(self.onChange(receiver:)))
+            isEnabled.identifier = tableColumn!.identifier
+            return isEnabled
+        default:
+            Logger.log.fatal("Unknown column title \(tableColumn!.title)")
+            fatalError()
         }
     }
     
@@ -168,10 +176,12 @@ class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableVie
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         switch tableColumn!.title {
-        case "Language":
+        case "Identifier":
+            return mappings[row].identifier
+        case "Display Name":
             return mappings[row].language
         case "Shortcut":
-            return mappings[row].shortcutKey
+            return nil  // Set using key-value binding
         case "Enabled":
             return mappings[row].isEnabled
         default:
@@ -200,9 +210,9 @@ class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableVie
         }
         let column = table.column(for: receiver as! NSView)
         switch column {
-        case 0:
-            mappings[row].language = (receiver as! NSTextField).stringValue
         case 1:
+            mappings[row].language = (receiver as! NSTextField).stringValue
+        case 3:
             mappings[row].isEnabled = (receiver as! NSButton).state == .on
         default:
             // shortcut uses key-value coding and should never come here
