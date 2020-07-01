@@ -14,7 +14,32 @@ import LipikaEngine_OSX
 class AppDelegate: NSObject, NSApplicationDelegate {
     private (set) var server: IMKServer!
     private (set) var candidatesWindow: IMKCandidates!
-    private (set) var systemTrayMenu: NSMenu!
+    
+    private var _languageConfig: [LanguageConfig]?
+    private var _systemTrayMenu: NSMenu?
+    var systemTrayMenu: NSMenu! { get {
+        let config = LipikaConfig()
+        if config.languageConfig == _languageConfig, let menu = _systemTrayMenu {
+            return menu
+        }
+        _languageConfig = config.languageConfig
+        let systemTrayMenu = NSMenu(title: "LipikaIME")
+        Logger.log.debug("Adding Installed Scripts to Menu")
+        for entry in _languageConfig!.filter({ $0.isEnabled }) {
+            let item = NSMenuItem(title: entry.language, action: #selector(LipikaController.menuItemSelected), keyEquivalent: "")
+            if let flags = entry.shortcutModifiers, let key = entry.shortcutKey {
+                item.keyEquivalentModifierMask = NSEvent.ModifierFlags(rawValue: flags)
+                item.keyEquivalent = item.keyEquivalentModifierMask.contains(.shift) ? key : key.lowercased()
+            }
+            if entry.identifier == config.scriptName {
+                item.state = .on
+            }
+            item.representedObject = entry.identifier
+            systemTrayMenu.addItem(item)
+        }
+        _systemTrayMenu = autoreleasepool { systemTrayMenu }
+        return _systemTrayMenu
+    }}
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         guard let connectionName = Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String else {
@@ -28,7 +53,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         Logger.log.debug("Initialized IMK Server: \(server.bundle().bundleIdentifier ?? "nil")")
         self.server = server
-        systemTrayMenu = autoreleasepool { return createSystemTrayMenu() }
         candidatesWindow = IMKCandidates(server: server, panelType: kIMKSingleRowSteppingCandidatePanel)
         candidatesWindow.setAttributes([IMKCandidatesSendServerKeyEventFirst: NSNumber(booleanLiteral: true)])
     }
@@ -36,24 +60,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         Logger.log.debug("Comitting all editing before terminating")
         server.commitComposition(self)
-    }
-    
-    private func createSystemTrayMenu() -> NSMenu {
-        let config = LipikaConfig()
-        let systemTrayMenu = NSMenu(title: "LipikaIME")
-        Logger.log.debug("Adding Installed Scripts to Menu")
-        for entry in config.languageConfig.filter({ $0.isEnabled }) {
-            let item = NSMenuItem(title: entry.language, action: #selector(LipikaController.menuItemSelected), keyEquivalent: "")
-            if let flags = entry.shortcutModifiers, let key = entry.shortcutKey {
-                item.keyEquivalent = key
-                item.keyEquivalentModifierMask = NSEvent.ModifierFlags(rawValue: flags)
-            }
-            if entry.identifier == config.scriptName {
-                item.state = .on
-            }
-            item.representedObject = entry.identifier
-            systemTrayMenu.addItem(item)
-        }
-        return systemTrayMenu
     }
 }

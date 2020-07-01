@@ -94,13 +94,13 @@ struct SettingsView: View {
                         }
                         Toggle(isOn: $model.activeSessionOnDelete) {
                             Text("When you backspace, start a new session with the word being edited")
-                        }
+                        }.disabled(model.outputInClient)
                         Toggle(isOn: $model.activeSessionOnInsert) {
                             Text("When you type inbetween a word, start a new session with the word being edited")
-                        }
+                        }.disabled(model.outputInClient)
                         Toggle(isOn: $model.activeSessionOnCursorMove) {
                             Text("When you move the caret over a word, start a new session with that word")
-                        }
+                        }.disabled(model.outputInClient)
                     }
                 }
             }

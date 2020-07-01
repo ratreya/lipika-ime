@@ -60,7 +60,7 @@ class SettingsModel: Config, ObservableObject, PersistenceModel {
         activeSessionOnDelete = config.activeSessionOnDelete
         activeSessionOnInsert = config.activeSessionOnInsert
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reload), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reeval), name: UserDefaults.didChangeNotification, object: nil)
         reeval()
     }
     
@@ -69,7 +69,7 @@ class SettingsModel: Config, ObservableObject, PersistenceModel {
         self.reload()
     }
     
-    @objc func reload() {
+    func reload() {
         schemeName = config.schemeName
         scriptName = config.scriptName
         stopString = String(config.stopCharacter)
@@ -99,7 +99,7 @@ class SettingsModel: Config, ObservableObject, PersistenceModel {
         reeval()
     }
     
-    func reeval() {
+    @objc func reeval() {
         isDirty =
             config.schemeName != schemeName ||
             config.scriptName != scriptName ||
@@ -108,10 +108,13 @@ class SettingsModel: Config, ObservableObject, PersistenceModel {
             config.logLevel != logLevel ||
             config.showCandidates != showCandidates ||
             config.outputInClient != outputInClient ||
-            config.globalScriptSelection != globalScriptSelection ||
-            config.activeSessionOnCursorMove != activeSessionOnCursorMove ||
-            config.activeSessionOnDelete != activeSessionOnDelete ||
-            config.activeSessionOnInsert != activeSessionOnInsert
+            config.globalScriptSelection != globalScriptSelection
+        if !outputInClient {
+            isDirty = isDirty ||
+                config.activeSessionOnCursorMove != activeSessionOnCursorMove ||
+                config.activeSessionOnDelete != activeSessionOnDelete ||
+                config.activeSessionOnInsert != activeSessionOnInsert
+        }
         isFactory = config.isFactorySettings()
         stopCharacterInvalid = self.stopString.unicodeScalars.count != 1
         escapeCharacterInvalid = self.escapeString.unicodeScalars.count != 1

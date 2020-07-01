@@ -8,6 +8,7 @@
  */
 
 import InputMethodKit
+import Carbon.HIToolbox
 import LipikaEngine_OSX
 
 @objc(LipikaController)
@@ -173,7 +174,7 @@ public class LipikaController: IMKInputController {
         // Move the cursor back to the oldLocation because commit() will move it to the end of the committed string
         let oldLocation = client().selectedRange().location
         Logger.log.debug("Switching \(event) at location: \(oldLocation)")
-        if event.modifierFlags.isEmpty && event.keyCode == 51 { // backspace
+        if event.modifierFlags.isEmpty && event.keyCode == kVK_Delete { // backspace
             if let result = transliterator.delete(position: clientManager.markedCursorLocation) {
                 Logger.log.debug("Resulted in an actual delete")
                 if clientManager.markedCursorLocation != nil {
@@ -191,21 +192,21 @@ public class LipikaController: IMKInputController {
             }
             return false
         }
-        if event.modifierFlags.isEmpty && event.keyCode == 53 { // escape
+        if event.modifierFlags.isEmpty && event.keyCode == kVK_Escape { // escape
             let result = transliterator.reset()
             clientManager.clear()
             Logger.log.debug("Handled the cancel: \(result != nil)")
             return result != nil
         }
-        if event.modifierFlags.isEmpty && event.keyCode == 36 { // return
+        if event.modifierFlags.isEmpty && event.keyCode == kVK_Return { // return
             return commit()    // Don't dispatchConversion
         }
-        if event.modifierFlags == [.numericPad, .function] && (event.keyCode == 123 || event.keyCode == 124) { // left or right arrow
-            if moveCursorWithinMarkedText(delta: event.keyCode == 123 ? -1 : 1) {
+        if event.modifierFlags == [.numericPad, .function] && (event.keyCode == kVK_LeftArrow || event.keyCode == kVK_RightArrow) { // left or right arrow
+            if moveCursorWithinMarkedText(delta: event.keyCode == kVK_LeftArrow ? -1 : 1) {
                 return true
             }
             commit()
-            if event.keyCode == 123 {
+            if event.keyCode == kVK_LeftArrow {
                 clientManager.setGlobalCursorLocation(oldLocation)
             }
         }

@@ -9,6 +9,7 @@
 
 import SwiftUI
 import AppKit
+import Carbon.HIToolbox
 import LipikaEngine_OSX
 
 extension String {
@@ -19,17 +20,32 @@ extension String {
 }
 
 class UnicodeTextField: NSTextField {
-    override func becomeFirstResponder() -> Bool {
+    private func toHex() {
         if !self.stringValue.isHex() {
             self.stringValue = self.stringValue.unicodeScalars.map({$0.value}).map({String($0, radix: 16, uppercase: true)}).joined(separator: ", ")
         }
+    }
+    
+    private func toGlyph() {
+        if !self.stringValue.isEmpty && self.stringValue.isHex() {
+            self.stringValue = self.stringValue.components(separatedBy: ",").map({$0.trimmingCharacters(in: CharacterSet.whitespaces)}).map({String(UnicodeScalar(Int($0, radix: 16)!)!)}).joined()
+        }
+    }
+    
+    override func doCommand(by selector: Selector) {
+        if selector == #selector(NSResponder.cancelOperation) {
+            toGlyph()
+        }
+        super.doCommand(by: selector)
+    }
+
+    override func becomeFirstResponder() -> Bool {
+        toHex()
         return super.becomeFirstResponder()
     }
     
     override func textDidEndEditing(_ notification: Notification) {
-        if !self.stringValue.isEmpty && self.stringValue.isHex() {
-            self.stringValue = self.stringValue.components(separatedBy: ",").map({$0.trimmingCharacters(in: CharacterSet.whitespaces)}).map({String(UnicodeScalar(Int($0, radix: 16)!)!)}).joined()
-        }
+        toGlyph()
         super.textDidEndEditing(notification)
     }
 }
