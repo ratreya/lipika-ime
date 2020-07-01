@@ -241,7 +241,7 @@ public class LipikaController: IMKInputController {
         // Set the system trey menu selection to reflect our literators; converge (c) -> (a)
         let systemTrayMenu = (NSApp.delegate as! AppDelegate).systemTrayMenu!
         systemTrayMenu.items.forEach() { $0.state = .off }
-        systemTrayMenu.items.first(where: { ($0.representedObject as! String) == currentScriptName } )!.state = .on
+        systemTrayMenu.items.first(where: { ($0.representedObject as! String) == currentScriptName } )?.state = .on
         return systemTrayMenu
     }
     

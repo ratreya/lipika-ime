@@ -30,10 +30,15 @@ class LanguageModel: ObservableObject, PersistenceModel {
     private func reeval() {
         isDirty = mappings != config.languageConfig
         isFactory = config.languageConfig == config.factoryLanguageConfig
+        isValid = !mappings.filter({ $0.isEnabled }).isEmpty
     }
     
     func save() {
         config.languageConfig = mappings
+        let validScripts = config.languageConfig.filter({ $0.isEnabled }).map({ $0.identifier })
+        if !validScripts.contains(config.scriptName) {
+            config.scriptName = validScripts.first!
+        }
         reeval()
     }
     

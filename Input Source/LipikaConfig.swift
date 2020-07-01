@@ -22,6 +22,14 @@ class LipikaConfig: Config {
     private static let kGroupDomainName = "group.daivajnanam.Lipika"
     private var userDefaults: UserDefaults
     
+    override init() {
+        guard let groupDefaults = UserDefaults(suiteName: LipikaConfig.kGroupDomainName) else {
+            fatalError("Unable to open UserDefaults for suite: \(LipikaConfig.kGroupDomainName)!")
+        }
+        self.userDefaults = groupDefaults
+        super.init()
+    }
+    
     func resetSettings() {
         guard var domain = UserDefaults.standard.persistentDomain(forName: LipikaConfig.kGroupDomainName) else { return }
         domain.keys.forEach() { key in
@@ -41,23 +49,7 @@ class LipikaConfig: Config {
     func resetLanguageConfig() {
         userDefaults.removeObject(forKey: "languageConfig")
     }
-    
-    @objc func sync() {
-        guard let groupDefaults = UserDefaults(suiteName: LipikaConfig.kGroupDomainName) else {
-            fatalError("Unable to open UserDefaults for suite: \(LipikaConfig.kGroupDomainName)!")
-        }
-        self.userDefaults = groupDefaults
-    }
-    
-    override init() {
-        guard let groupDefaults = UserDefaults(suiteName: LipikaConfig.kGroupDomainName) else {
-            fatalError("Unable to open UserDefaults for suite: \(LipikaConfig.kGroupDomainName)!")
-        }
-        self.userDefaults = groupDefaults
-        super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.sync), name: UserDefaults.didChangeNotification, object: nil)
-    }
-    
+
     override var stopCharacter: UnicodeScalar {
         get {
             return userDefaults.string(forKey: #function)?.unicodeScalars.first ?? super.stopCharacter

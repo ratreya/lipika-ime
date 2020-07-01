@@ -60,6 +60,7 @@ class SettingsModel: Config, ObservableObject, PersistenceModel {
         activeSessionOnDelete = config.activeSessionOnDelete
         activeSessionOnInsert = config.activeSessionOnInsert
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reload), name: UserDefaults.didChangeNotification, object: nil)
         reeval()
     }
     
@@ -68,7 +69,7 @@ class SettingsModel: Config, ObservableObject, PersistenceModel {
         self.reload()
     }
     
-    func reload() {
+    @objc func reload() {
         schemeName = config.schemeName
         scriptName = config.scriptName
         stopString = String(config.stopCharacter)
