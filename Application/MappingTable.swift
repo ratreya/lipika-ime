@@ -51,6 +51,7 @@ struct MappingTable: NSViewControllerRepresentable {
 }
 
 class MappingTableController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
+    private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
     private let types = ["CONSONANT", "DEPENDENT", "DIGIT", "SIGN", "VOWEL"]
     private var wrapper: MappingTable
     var table = NSTableView()
@@ -110,6 +111,7 @@ class MappingTableController: NSViewController, NSTableViewDelegate, NSTableView
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
+        table.registerForDraggedTypes([dragDropType])
     }
 
     // NSTableViewDelegate
@@ -177,6 +179,39 @@ class MappingTableController: NSViewController, NSTableViewDelegate, NSTableView
         }
     }
     
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        let item = NSPasteboardItem()
+        item.setString(String(row), forType: dragDropType)
+        return item
+    }
+
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        if dropOperation == .above {
+            return .move
+        }
+        return []
+    }
+    
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        var oldIndexes = IndexSet()
+        info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
+            if let str = (dragItem.item as! NSPasteboardItem).string(forType: self.dragDropType), let index = Int(str) {
+                oldIndexes.insert(index)
+            }
+        }
+        mappings.move(fromOffsets: oldIndexes, toOffset: row)
+        updateWrapper()
+        table.reloadData()
+        return true
+    }
+
+    // Native API
+    func updateWrapper() {
+        if wrapper.mappings != self.mappings {
+            wrapper.mappings = self.mappings
+        }
+    }
+
     @objc func onChange(receiver: Any) {
         let row = table.row(for: receiver as! NSView)
         if row == -1 {
@@ -197,9 +232,7 @@ class MappingTableController: NSViewController, NSTableViewDelegate, NSTableView
             Logger.log.fatal("Unknown column: \(column)")
             fatalError()
         }
-        if wrapper.mappings != self.mappings {
-            wrapper.mappings = self.mappings
-        }
+        updateWrapper()
     }
 
     func controlTextDidEndEditing(_ obj: Notification) {

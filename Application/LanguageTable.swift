@@ -80,6 +80,7 @@ class ShortcutModel: NSObject {
 
 class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
     private var wrapper: LanguageTable
+    private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
     var table = NSTableView()
     var mappings: [LanguageConfig]
     
@@ -133,6 +134,7 @@ class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableVie
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
+        table.registerForDraggedTypes([dragDropType])
     }
 
     // NSTableViewDelegate
@@ -188,6 +190,32 @@ class LanguageTableController: NSViewController, NSTableViewDelegate, NSTableVie
             Logger.log.fatal("Unknown column title \(tableColumn!.title)")
             fatalError()
         }
+    }
+    
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        let item = NSPasteboardItem()
+        item.setString(String(row), forType: dragDropType)
+        return item
+    }
+
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        if dropOperation == .above {
+            return .move
+        }
+        return []
+    }
+    
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        var oldIndexes = IndexSet()
+        info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
+            if let str = (dragItem.item as! NSPasteboardItem).string(forType: self.dragDropType), let index = Int(str) {
+                oldIndexes.insert(index)
+            }
+        }
+        mappings.move(fromOffsets: oldIndexes, toOffset: row)
+        updateWrapper()
+        table.reloadData()
+        return true
     }
 
     // NSTextFieldDelegate
