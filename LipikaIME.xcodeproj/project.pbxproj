@@ -33,6 +33,7 @@
 		A55381F621D706E500A3CD8A /* MappingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55381F421D703EA00A3CD8A /* MappingStore.swift */; };
 		A5698AE9247EFA8E00443158 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52905DC234EC67900A8D95E /* MainView.swift */; };
 		A5698AEA247EFA8E00443158 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58C00A32353705C00B53051 /* SettingsView.swift */; };
+		A585A17D24AC28FC00816D1E /* PersistenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585A17C24AC28FC00816D1E /* PersistenceView.swift */; };
 		A59281E120D45653003013B8 /* TrayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A59281E020D45634003013B8 /* TrayIcon.icns */; };
 		A59364ED2481D12100674FBD /* MappingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59364EC2481D12100674FBD /* MappingsView.swift */; };
 		A59E32562495A93300736334 /* LanguageTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E32552495A93300736334 /* LanguageTable.swift */; };
@@ -111,6 +112,7 @@
 		A546182A20CC6BF3003A73EB /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
 		A54B15D624900FC000E013A1 /* LiteratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteratorView.swift; sourceTree = "<group>"; };
 		A55381F421D703EA00A3CD8A /* MappingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingStore.swift; sourceTree = "<group>"; };
+		A585A17C24AC28FC00816D1E /* PersistenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceView.swift; sourceTree = "<group>"; };
 		A58C00A32353705C00B53051 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A59281E020D45634003013B8 /* TrayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = TrayIcon.icns; sourceTree = "<group>"; };
 		A59364EC2481D12100674FBD /* MappingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingsView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				A58C00A32353705C00B53051 /* SettingsView.swift */,
 				A59E32552495A93300736334 /* LanguageTable.swift */,
 				A5E20D8324944B6E00EF7B1C /* LanguageView.swift */,
+				A585A17C24AC28FC00816D1E /* PersistenceView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				A5E20D8424944B6E00EF7B1C /* LanguageView.swift in Sources */,
 				A5698AEA247EFA8E00443158 /* SettingsView.swift in Sources */,
 				A55381F621D706E500A3CD8A /* MappingStore.swift in Sources */,
+				A585A17D24AC28FC00816D1E /* PersistenceView.swift in Sources */,
 				A54397E020D4D6840011C7B7 /* LipikaConfig.swift in Sources */,
 				A54397CC20D4D2F20011C7B7 /* AppDelegate.swift in Sources */,
 				A5E982802480658900D7B9A9 /* SettingsModel.swift in Sources */,

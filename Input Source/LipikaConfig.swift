@@ -10,7 +10,7 @@
 import Foundation
 import LipikaEngine_OSX
 
-struct LanguageConfig: Codable, Equatable {
+struct LanguageConfig: Codable, Equatable, Hashable {
     var identifier: String  // Factory default name of the language
     var language: String
     var isEnabled: Bool
@@ -20,15 +20,33 @@ struct LanguageConfig: Codable, Equatable {
 
 class LipikaConfig: Config {
     private static let kGroupDomainName = "group.daivajnanam.Lipika"
-    private let userDefaults: UserDefaults
+    private var userDefaults: UserDefaults
     
-    func reset() {
-        UserDefaults.standard.removePersistentDomain(forName: LipikaConfig.kGroupDomainName)
+    func resetSettings() {
+        guard var domain = UserDefaults.standard.persistentDomain(forName: LipikaConfig.kGroupDomainName) else { return }
+        domain.keys.forEach() { key in
+            if key != "languageConfig" {
+                domain.removeValue(forKey: key)
+            }
+        }
+        UserDefaults.standard.setPersistentDomain(domain, forName: LipikaConfig.kGroupDomainName)
         UserDefaults.standard.synchronize()
+    }
+    
+    func isFactorySettings() -> Bool {
+        guard let domain = UserDefaults.standard.persistentDomain(forName: LipikaConfig.kGroupDomainName) else { return true }
+        return domain.keys.isEmpty || (domain.keys.count == 1 && domain.keys.first! == "languageConfig")
     }
     
     func resetLanguageConfig() {
         userDefaults.removeObject(forKey: "languageConfig")
+    }
+    
+    @objc func sync() {
+        guard let groupDefaults = UserDefaults(suiteName: LipikaConfig.kGroupDomainName) else {
+            fatalError("Unable to open UserDefaults for suite: \(LipikaConfig.kGroupDomainName)!")
+        }
+        self.userDefaults = groupDefaults
     }
     
     override init() {
@@ -37,6 +55,7 @@ class LipikaConfig: Config {
         }
         self.userDefaults = groupDefaults
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.sync), name: UserDefaults.didChangeNotification, object: nil)
     }
     
     override var stopCharacter: UnicodeScalar {

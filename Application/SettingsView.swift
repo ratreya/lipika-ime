@@ -11,8 +11,8 @@ import SwiftUI
 import LipikaEngine_OSX
 
 struct SettingsView: View {
-    @ObservedObject var model = SettingsModel()
     private var factory = try! LiteratorFactory(config: LipikaConfig())
+    @ObservedObject var model = SettingsModel()
 
     var body: some View {
         VStack {
@@ -30,8 +30,8 @@ struct SettingsView: View {
                         .fixedSize()
                         Text("to transliterate into")
                         MenuButton(model.scriptName) {
-                            ForEach(try! factory.availableScripts(), id: \.self) { script in
-                                Button(script) { self.model.scriptName = script }
+                            ForEach(model.languages, id: \.self) { script in
+                                Button(script.language) { self.model.scriptName = script.identifier }
                             }
                         }
                         .padding(0)
@@ -105,23 +105,7 @@ struct SettingsView: View {
                 }
             }
             Spacer(minLength: 38)
-            HStack {
-                Button("Save Changes") {
-                    self.model.save()
-                }
-                .disabled(!model.isDirty || model.stopCharacterInvalid || model.escapeCharacterInvalid)
-                .padding([.leading, .trailing], 10)
-                Button("Discard Changes") {
-                    self.model.reset()
-                }
-                .padding([.leading, .trailing], 10)
-                .disabled(!model.isDirty)
-                Button("Factory Defaults") {
-                    self.model.defaults()
-                }
-                .padding([.leading, .trailing], 10)
-                .disabled(model.isFactory)
-            }
+            PersistenceView(model: model, context: "settings")
             Spacer(minLength: 25)
         }.padding(20)
     }

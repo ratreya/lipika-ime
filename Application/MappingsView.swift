@@ -10,7 +10,7 @@
 import SwiftUI
 import LipikaEngine_OSX
 
-class MappingModel: ObservableObject {
+class MappingModel: ObservableObject, PersistenceModel {
     var factory: LiteratorFactory
     var scheme: String {
         didSet { self.reload() }
@@ -20,6 +20,7 @@ class MappingModel: ObservableObject {
     }
     @Published var isDirty = false
     @Published var isFactory = false
+    @Published var isValid = true
     @Published var mappings: [[String]] {
         didSet {
             self.reeval()
@@ -165,29 +166,7 @@ struct MappingsView: View {
             .padding(.trailing, 16).padding(.top, -20)
             MappingTable(mappings: $model.mappings).padding([.leading, .bottom, .trailing], 16)
             Spacer(minLength: 10)
-            HStack {
-                Button("Save Changes") {
-                    self.model.save()
-                }
-                .padding([.leading, .trailing], 10)
-                .disabled(!model.isDirty)
-                Button("Discard Changes") {
-                    self.confirmDiscard = true
-                }
-                .alert(isPresented: $confirmDiscard) {
-                    Alert(title: Text("Discard current changes?"), message: Text("Do you wish to discard all changes you just made to \(model.scheme) mappings for \(model.script)?"), primaryButton: .destructive(Text("Discard"), action: { self.model.reload() }), secondaryButton: .cancel(Text("Cancel")))
-                }
-                .padding([.leading, .trailing], 10)
-                .disabled(!model.isDirty)
-                Button("Factory Defaults") {
-                    self.confirmReset = true
-                }
-                .alert(isPresented: $confirmReset) {
-                    Alert(title: Text("Reset to Factory Defaults?"), message: Text("Do you wish to discard all changes ever made to \(model.scheme) mappings for \(model.script) and reset to factory defaults? This does not affect other mappings for different schemes and languages."), primaryButton: .destructive(Text("Reset"), action: { self.model.reset() }), secondaryButton: .cancel(Text("Cancel")))
-                }
-                .padding([.leading, .trailing], 10)
-                .disabled(model.isFactory)
-            }
+            PersistenceView(model: model, context: "\(model.scheme) mappings for \(model.script)")
             Spacer(minLength: 25)
         }
     }

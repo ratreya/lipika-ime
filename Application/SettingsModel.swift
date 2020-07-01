@@ -10,7 +10,7 @@
 import LipikaEngine_OSX
 import SwiftUI
 
-class SettingsModel: Config, ObservableObject {
+class SettingsModel: Config, ObservableObject, PersistenceModel {
     @Published var schemeName: String { didSet { self.reeval() } }
     @Published var scriptName: String { didSet { self.reeval() } }
     @Published var stopString: String { didSet { self.reeval() } }
@@ -28,10 +28,15 @@ class SettingsModel: Config, ObservableObject {
     @Published var escapeCharacterInvalid = false
     @Published var isDirty = false
     @Published var isFactory = false
+    @Published var isValid = true
 
     override var stopCharacter: UnicodeScalar { get { stopString.unicodeScalars.first ?? super.stopCharacter } }
     override var escapeCharacter: UnicodeScalar { get { escapeString.unicodeScalars.first ?? super.escapeCharacter } }
     override var logLevel: Logger.Level { get { Logger.Level(rawValue: logLevelString)! } }
+    
+    var languages: [LanguageConfig] { get {
+        config.languageConfig.filter({ $0.isEnabled })
+    }}
     
     func transliterate(_ input: String) -> String {
         let factory = try! LiteratorFactory(config: self)
@@ -58,12 +63,12 @@ class SettingsModel: Config, ObservableObject {
         reeval()
     }
     
-    func defaults() {
-        config.reset()
-        self.reset()
+    func reset() {
+        config.resetSettings()
+        self.reload()
     }
     
-    func reset() {
+    func reload() {
         schemeName = config.schemeName
         scriptName = config.scriptName
         stopString = String(config.stopCharacter)
@@ -106,9 +111,10 @@ class SettingsModel: Config, ObservableObject {
             config.activeSessionOnCursorMove != activeSessionOnCursorMove ||
             config.activeSessionOnDelete != activeSessionOnDelete ||
             config.activeSessionOnInsert != activeSessionOnInsert
-        isFactory = UserDefaults.standard.persistentDomain(forName: "group.daivajnanam.Lipika") == nil
+        isFactory = config.isFactorySettings()
         stopCharacterInvalid = self.stopString.unicodeScalars.count != 1
         escapeCharacterInvalid = self.escapeString.unicodeScalars.count != 1
+        isValid = !stopCharacterInvalid && !escapeCharacterInvalid
         stopCharacterExample = transliterate("a\(stopCharacter)i")
     }
 }
