@@ -10,3 +10,4 @@ profile
 /build
 installer
 LipikaEngine_OSX.framework
+ShortcutRecorder.framework
